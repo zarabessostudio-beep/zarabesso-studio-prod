@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Titre 1",
+    "artist": "Artiste 1",
+    "audio": "assets/audio/song1.mp3",
+    "cover": "assets/images/cover1.jpg"
+  },
+  {
+    "title": "Titre 2",
+    "artist": "Artiste 2",
+    "audio": "assets/audio/song2.mp3",
+    "cover": "assets/images/cover2.jpg"
+  }
+]

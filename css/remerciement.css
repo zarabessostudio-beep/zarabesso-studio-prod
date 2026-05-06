@@ -1,0 +1,309 @@
+/* RESET */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI', sans-serif;
+}
+
+/* BACKGROUND IMAGE */
+body{
+  background: url("../assets/images/background3.png") center/cover no-repeat fixed;
+  min-height:200vh;
+  position:relative;
+}
+
+/* OLED OVERLAY (IMPORTANT) */
+body::before{
+  content:"";
+  position:fixed;
+  width:100%;
+  height:100%;
+
+  background: radial-gradient(circle at center,
+    rgba(0,0,0,0.25),
+    rgba(0,0,0,0.85)
+  );
+
+  backdrop-filter: blur(2px);
+  z-index:-1;
+}
+
+/* NAVBAR */
+.navbar{
+  position:fixed;
+  width:100%;
+  top:0;
+  z-index:1000;
+
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(12px);
+}
+
+.nav-container{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 30px;
+}
+
+.logo img{
+  width:120px;
+}
+
+/* MENU */
+.nav-links{
+  display:flex;
+  gap:25px;
+}
+
+.nav-links a{
+  color:white;
+  text-decoration:none;
+  transition:0.3s;
+}
+
+.nav-links a:hover{
+  color:gold;
+}
+
+/* BURGER */
+.burger{
+  display:none;
+  flex-direction:column;
+  cursor:pointer;
+}
+
+.burger span{
+  width:25px;
+  height:3px;
+  background:white;
+  margin:4px;
+}
+
+/* SECTION */
+.thanks-section{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding-top:150px;
+}
+
+/* 🔥 ULTRA GLASS (presque invisible) */
+.glass-card{
+  width:600px;
+  padding:60px;
+
+  background: rgba(255,255,255,0.02); /* 👈 TRÈS TRANSPARENT */
+  backdrop-filter: blur(20px) saturate(180%);
+
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:25px;
+
+  box-shadow:
+    0 20px 80px rgba(0,0,0,0.6);
+
+  text-align:center;
+}
+
+/* TITRE */
+.main-title{
+  font-size:55px;
+  background: linear-gradient(90deg, gold, red, violet);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  animation: glow 3s infinite alternate;
+}
+
+.gold{
+  color:gold;
+  margin:20px 0;
+}
+
+/* TEXT */
+p{
+  color:#eee;
+  margin:15px 0;
+  line-height:1.7;
+}
+
+.italic{
+  font-style:italic;
+}
+
+.highlight{
+  color:#ff2a6d;
+  font-weight:bold;
+}
+
+/* SOCIAL (COULEURS OFFICIELLES) */
+.socials{
+  margin-top:25px;
+}
+
+.socials a{
+  font-size:30px;
+  margin:12px;
+  transition:0.3s;
+}
+
+/* 🔴 YouTube */
+.socials a:nth-child(1){
+  color:#FF0000;
+}
+
+/* 🔵 Facebook */
+.socials a:nth-child(2){
+  color:#1877F2;
+}
+
+/* 🟢 WhatsApp */
+.socials a:nth-child(3){
+  color:#25D366;
+}
+
+.socials a:hover{
+  transform:scale(1.2);
+  filter:brightness(1.2);
+}
+
+/* BUTTON */
+.btn{
+  display:inline-block;
+  margin-top:25px;
+  padding:12px 25px;
+
+  background: linear-gradient(90deg, red, violet);
+  color:white;
+  border-radius:30px;
+  text-decoration:none;
+
+  transition:0.3s;
+}
+
+.btn:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 20px red;
+}
+
+/* ANIMATION */
+@keyframes glow{
+  from{ text-shadow:0 0 10px red; }
+  to{ text-shadow:0 0 25px violet; }
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+
+  .nav-links{
+    position:absolute;
+    right:-100%;
+    top:70px;
+    flex-direction:column;
+    background:black;
+    width:100%;
+    text-align:center;
+    transition:0.3s;
+  }
+
+  .nav-links.active{
+    right:0;
+  }
+
+  .burger{
+    display:flex;
+  }
+}
+.logo img{
+  width:95px;
+  height:auto;
+}
+
+@media(max-width:768px){
+  .logo img{
+    width:90px; /* plus petit sur mobile */
+  }
+}
+.logo img{
+  width:95px;
+  height:auto;
+
+  filter: drop-shadow(0 0 10px rgba(255,0,100,0.5));
+  transition:0.3s;
+}
+
+.logo img:hover{
+  transform:scale(1.05);
+}
+/* FOOTER GLOBAL */
+.footer{
+  margin-top:120px;
+  padding:40px 20px;
+  text-align:center;
+  position:relative;
+}
+
+/* LIGNE LUMINEUSE */
+.footer-line{
+  width:60%;
+  height:1px;
+  margin:0 auto 30px;
+
+  background: linear-gradient(to right,
+    transparent,
+    rgba(255,255,255,0.3),
+    transparent
+  );
+
+  animation: lineGlow 4s infinite;
+}
+
+/* CONTENT */
+.footer-content p{
+  margin:10px 0;
+  color:#aaa;
+  font-size:14px;
+}
+
+/* COPYRIGHT */
+.copyright{
+  font-style:italic;
+  letter-spacing:1px;
+}
+
+/* DESIGN BY */
+.design{
+  font-style:italic;
+  font-size:15px;
+  color:#ddd;
+}
+
+/* GRALWEBS STYLE PREMIUM */
+.design span{
+  font-weight:600;
+
+  background: linear-gradient(90deg, gold, red, violet);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  letter-spacing:1px;
+
+  animation: glowText 3s infinite alternate;
+}
+
+/* ANIMATIONS */
+@keyframes glowText{
+  from{
+    text-shadow:0 0 5px rgba(255,0,100,0.4);
+  }
+  to{
+    text-shadow:0 0 15px rgba(150,0,255,0.8);
+  }
+}
+
+@keyframes lineGlow{
+  0%{ opacity:0.3; }
+  50%{ opacity:1; }
+  100%{ opacity:0.3; }
+}

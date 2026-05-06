@@ -1,0 +1,30 @@
+[
+  {
+    "album": "Album 1",
+    "cover": "assets/images/album1.jpg",
+    "tracks": [
+      {
+        "title": "Song 1",
+        "artist": "Artist A",
+        "audio": "assets/audio/song1.mp3"
+      },
+      {
+        "title": "Song 2",
+        "artist": "Artist A",
+        "audio": "assets/audio/song2.mp3"
+      }
+    ]
+  },
+
+  {
+    "album": "Album 2",
+    "cover": "assets/images/album2.jpg",
+    "tracks": [
+      {
+        "title": "Track X",
+        "artist": "Artist B",
+        "audio": "assets/audio/song3.mp3"
+      }
+    ]
+  }
+]
