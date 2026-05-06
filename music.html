@@ -105,11 +105,20 @@
     </div>
 
     <div class="footer-socials">
-      <h3>Réseaux</h3>
-      <a href="#"><i class="ri-youtube-fill youtube"></i></a>
-      <a href="#"><i class="ri-facebook-fill facebook"></i></a>
-      <a href="#"><i class="ri-whatsapp-fill whatsapp"></i></a>
-    </div>
+  <h3>Réseaux</h3>
+
+  <a href="https://www.youtube.com/@Zarabesso" target="_blank" rel="noopener">
+    <i class="ri-youtube-fill youtube"></i>
+  </a>
+
+  <a href="https://facebook.com/zarabesso.zaramina.16" target="_blank" rel="noopener">
+    <i class="ri-facebook-fill facebook"></i>
+  </a>
+
+  <a href="https://wa.me/261342110356" target="_blank" rel="noopener">
+    <i class="ri-whatsapp-fill whatsapp"></i>
+  </a>
+</div>
 
   </div>
 
@@ -123,6 +132,29 @@
 <script src="js/script.js"></script>
 
 <script src="js/music.js"></script>
+<script>
+let lastScroll = 0;
+const navbar = document.querySelector('.navbar');
+
+window.addEventListener('scroll', () => {
+  let currentScroll = window.pageYOffset;
+
+  if (currentScroll <= 0) {
+    navbar.classList.remove('hide');
+    return;
+  }
+
+  if (currentScroll > lastScroll) {
+    // Scroll vers le bas → cache navbar
+    navbar.classList.add('hide');
+  } else {
+    // Scroll vers le haut → montre navbar
+    navbar.classList.remove('hide');
+  }
+
+  lastScroll = currentScroll;
+});
+</script>
 
 </body>
 </html>

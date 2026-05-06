@@ -36,7 +36,7 @@ body::before{
   top:0;
   z-index:1000;
 
-  background: rgba(0,0,0,0.25);
+  background: rgba(0,0,0,0.2);
   backdrop-filter: blur(12px);
 }
 
@@ -94,8 +94,8 @@ body::before{
   width:600px;
   padding:60px;
 
-  background: rgba(255,255,255,0.02); /* 👈 TRÈS TRANSPARENT */
-  backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(255,255,255,0.01); /* 👈 TRÈS TRANSPARENT */
+  backdrop-filter: blur(10px) saturate(180%);
 
   border:1px solid rgba(255,255,255,0.1);
   border-radius:25px;
@@ -222,7 +222,7 @@ p{
 
 @media(max-width:768px){
   .logo img{
-    width:90px; /* plus petit sur mobile */
+    width:80px; /* plus petit sur mobile */
   }
 }
 .logo img{
@@ -252,7 +252,7 @@ p{
 
   background: linear-gradient(to right,
     transparent,
-    rgba(255,255,255,0.3),
+    rgba(255,255,255,0.1),
     transparent
   );
 
@@ -306,4 +306,16 @@ p{
   0%{ opacity:0.3; }
   50%{ opacity:1; }
   100%{ opacity:0.3; }
+}
+/* NAVBAR AUTO HIDE */
+.navbar {
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.navbar.hide {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+.navbar {
+  will-change: transform;
 }

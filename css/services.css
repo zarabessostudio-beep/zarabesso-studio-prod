@@ -197,7 +197,7 @@ body{
 
 @media(max-width:768px){
   .logo img{
-    width:90px; /* plus petit sur mobile */
+    width:80px; /* plus petit sur mobile */
   }
 }
 .logo img{
@@ -210,4 +210,16 @@ body{
 
 .logo img:hover{
   transform:scale(1.05);
+}
+/* NAVBAR AUTO HIDE */
+.navbar {
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.navbar.hide {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+.navbar {
+  will-change: transform;
 }

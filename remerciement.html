@@ -77,11 +77,19 @@ Nous sommes disponibles pour transformer votre vision en réalité sonore.
       🎧 Production • 🎚️ Mixage • 🎤 Enregistrement • 🎶 Mastering
     </p>
 
-    <div class="socials">
-      <a href="#"><i class="ri-youtube-fill"></i></a>
-      <a href="#"><i class="ri-facebook-fill"></i></a>
-      <a href="#"><i class="ri-whatsapp-fill"></i></a>
-    </div>
+   <div class="socials">
+  <a href="https://www.youtube.com/@Zarabesso" target="_blank" rel="noopener" aria-label="YouTube">
+    <i class="ri-youtube-fill"></i>
+  </a>
+
+  <a href="https://facebook.com/zarabesso.zaramina.16" target="_blank" rel="noopener">
+    <i class="ri-facebook-fill"></i>
+  </a>
+
+  <a href="https://wa.me/261342110356" target="_blank" rel="noopener">
+    <i class="ri-whatsapp-fill"></i>
+  </a>
+</div>
 
     <a href="index.html" class="btn">Retour accueil</a>
 
@@ -108,6 +116,29 @@ Nous sommes disponibles pour transformer votre vision en réalité sonore.
   </div>
 
 </footer>
+<script>
+let lastScroll = 0;
+const navbar = document.querySelector('.navbar');
+
+window.addEventListener('scroll', () => {
+  let currentScroll = window.pageYOffset;
+
+  if (currentScroll <= 0) {
+    navbar.classList.remove('hide');
+    return;
+  }
+
+  if (currentScroll > lastScroll) {
+    // Scroll vers le bas → cache navbar
+    navbar.classList.add('hide');
+  } else {
+    // Scroll vers le haut → montre navbar
+    navbar.classList.remove('hide');
+  }
+
+  lastScroll = currentScroll;
+});
+</script>
 
 </body>
 </html>
