@@ -1,12 +1,12 @@
 [
   {
     "album": "Album 1",
-    "cover": "assets/images/album1.jpg",
+    "cover": "assets/images/logo1.png",
     "tracks": [
       {
         "title": "Song 1",
         "artist": "Artist A",
-        "audio": "assets/audio/song1.mp3"
+        "audio": "assets/audio/tsodrano.mp4"
       },
       {
         "title": "Song 2",

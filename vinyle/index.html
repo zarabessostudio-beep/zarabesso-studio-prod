@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>VYNILE | Zarabesso Studio Cloud Music</title>
+
+<meta name="description" content="VYNILE by Zarabesso Studio - Streaming musical premium et expérience vinyle immersive.">
+
+<link rel="stylesheet" href="css/vinyle.css">
+<link rel="stylesheet" href="css/player.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/responsive.css">
+
+<link rel="preload" as="image" href="assets/covers/cover1.jpg">
+<link rel="preconnect" href="https://res.cloudinary.com">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- ================= BACKGROUND ================= -->
+
+<div class="bg-overlay"></div>
+
+<div class="blur blur1"></div>
+<div class="blur blur2"></div>
+
+<!-- ================= NAVBAR PREMIUM ================= -->
+
+<header class="navbar">
+
+  <!-- LEFT / LOGO -->
+  <div class="logo">
+
+    <img src="assets/logo/logo1.png" alt="Zarabesso">
+
+    <span>VYNILE</span>
+
+  </div>
+
+  <!-- NAV LINKS -->
+  <nav class="nav-links">
+
+    <a href="/">Accueil</a>
+
+    <a href="#discover">Découvrir</a>
+
+    <a href="#albums">Albums</a>
+
+    <a href="#artists">Artistes</a>
+
+  </nav>
+
+  <!-- BURGER MENU (MOBILE) -->
+  <div class="burger" id="burger">
+
+    <span></span>
+    <span></span>
+    <span></span>
+
+  </div>
+
+</header>
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+  <div class="hero-left">
+
+    <span class="premium-badge">
+      ZARABESSO CLOUD MUSIC
+    </span>
+
+    <h1>
+      Streaming <span>Premium</span><br>
+      Nouvelle Génération
+    </h1>
+
+    <p>
+      Une plateforme immersive conçue pour écouter,
+      découvrir et vivre la musique dans une expérience
+      vinyle moderne ultra haut de gamme.
+    </p>
+
+    <div class="hero-buttons">
+
+      <button class="gold-btn">
+        Explorer
+      </button>
+
+      <button class="glass-btn">
+        Albums
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- RIGHT -->
+
+  <div class="hero-right">
+
+    <div class="vinyl-wrapper">
+
+      <div class="vinyl-glow"></div>
+
+      <div class="vinyl" id="vinyl">
+
+        <div class="vinyl-reflection"></div>
+
+        <div class="vinyl-center">
+
+          <img src="assets/images/logo1.png" alt="logo">
+
+        </div>
+
+      </div>
+
+      <!-- ARM -->
+
+      <div class="arm"></div>
+
+    </div>
+
+  </div>
+
+</section>
+<video id="videoPlayer" controls style="display:none; width:100%; border-radius:20px;"></video>
+
+<!-- ================= PLAYER ================= -->
+
+<section class="player-section">
+
+  <div class="player-card">
+
+    <div class="player-top">
+
+      <img
+      src="assets/images/logo1.png"
+      id="cover"
+      class="cover">
+
+      <div class="track-details">
+
+        <h2 id="title">
+          Zarabesso Experience
+        </h2>
+
+        <p id="artist">
+          Zarabesso Studio
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- AUDIO -->
+
+    <audio id="audio"></audio>
+
+    <!-- CONTROLS -->
+
+    <div class="controls">
+
+      <button id="prev">
+        <i class="ri-skip-back-fill"></i>
+      </button>
+
+      <button id="play">
+        <i class="ri-play-fill"></i>
+      </button>
+
+      <button id="next">
+        <i class="ri-skip-forward-fill"></i>
+      </button>
+
+    </div>
+
+    <!-- PROGRESS -->
+
+    <div class="progress-container">
+
+      <div class="progress" id="progress"></div>
+
+    </div>
+
+  </div>
+
+</section>
+<!-- ================= Zarabesso PLAYLIST UI ================= -->
+
+<section class="spotify-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="spotify-sidebar">
+
+    <h3>Playlists</h3>
+
+    <div class="playlist-menu">
+
+      <button class="playlist-btn active">
+        <i class="ri-disc-line"></i>
+        Zarabesso Hits
+      </button>
+
+      <button class="playlist-btn">
+        <i class="ri-music-2-line"></i>
+        Premium Lounge
+      </button>
+
+      <button class="playlist-btn">
+        <i class="ri-vip-crown-line"></i>
+        Luxury Vinyl
+      </button>
+
+    </div>
+
+  </aside>
+
+  <!-- TRACKS -->
+  <div class="spotify-content">
+
+    <div class="spotify-header">
+
+      <h2>Lecture Premium</h2>
+
+      <p>Streaming Cloud Ultra Rapide</p>
+
+    </div>
+
+    <div class="spotify-tracks" id="spotifyTracks"></div>
+
+  </div>
+
+</section>
+
+<!-- ================= TRACKS ================= -->
+
+<section class="tracks-section" id="discover">
+
+  <div class="section-header">
+
+    <h2>Dernières Sorties</h2>
+
+    <p>
+      Découvrez les derniers morceaux disponibles
+      sur la plateforme VYNILE.
+    </p>
+
+  </div>
+
+  <div class="tracks-grid" id="tracksContainer"></div>
+
+</section>
+
+<!-- ================= ALBUMS ================= -->
+
+<section class="albums-section" id="albums">
+
+  <div class="section-header">
+
+    <h2>Albums Premium</h2>
+
+  </div>
+
+  <div class="albums-grid">
+
+    <div class="album-card">
+
+      <img src="assets/covers/cover1.jpg">
+
+      <div class="album-info">
+
+        <h3>Golden Atmosphere</h3>
+
+        <p>Zarabesso Studio</p>
+
+      </div>
+
+    </div>
+
+    <div class="album-card">
+
+      <img src="assets/covers/cover2.jpg">
+
+      <div class="album-info">
+
+        <h3>Neon Luxury</h3>
+
+        <p>Zarabesso Studio</p>
+
+      </div>
+
+    </div>
+
+    <div class="album-card">
+
+      <img src="assets/covers/cover3.jpg">
+
+      <div class="album-info">
+
+        <h3>Night Frequencies</h3>
+
+        <p>Zarabesso Studio</p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ================= PREMIUM FOOTER ================= -->
+
+<footer class="premium-footer">
+
+  <!-- GLOW -->
+  <div class="footer-glow"></div>
+
+  <div class="footer-container">
+
+    <!-- LEFT -->
+
+    <div class="footer-brand">
+
+      <div class="footer-logo">
+
+        <img src="assets/logo/logo1.png" alt="Zarabesso">
+
+        <h2>VYNILE</h2>
+
+      </div>
+
+      <p>
+        Expérience musicale immersive premium développée
+        par Zarabesso Studio.
+      </p>
+
+    </div>
+
+    <!-- CENTER -->
+
+    <div class="footer-links">
+
+      <h3>Navigation</h3>
+
+      <a href="../index.html">
+        <i class="ri-home-5-line"></i>
+        Accueil Principal
+      </a>
+
+      <a href="../remerciement.html">
+        <i class="ri-heart-line"></i>
+        Remerciements
+      </a>
+
+      <a href="../services.html">
+        <i class="ri-services-2-line"></i>
+        Services
+      </a>
+
+      <a href="../about.html">
+        <i class="ri-information-line"></i>
+        About
+      </a>
+
+    </div>
+
+<!-- RIGHT -->
+<div class="footer-socials">
+
+  <h3>Réseaux</h3>
+
+  <div class="social-icons">
+
+  <a href="https://www.youtube.com/@Zarabesso" target="_blank" class="youtube">
+    <i class="fab fa-youtube"></i>
+  </a>
+
+  <a href="https://facebook.com/zarabesso.zaramina.16" target="_blank" class="facebook">
+    <i class="fab fa-facebook-f"></i>
+  </a>
+
+  <a href="https://wa.me/261342110356" target="_blank" class="whatsapp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+</div>
+</div>
+
+  <!-- BOTTOM -->
+
+  <div class="footer-bottom">
+
+    <p>
+      © 2026 VYNILE — Zarabesso Studio
+    </p>
+
+    <span></span>
+
+    <p>
+      Design by Gralwebs Solution
+    </p>
+
+  </div>
+
+</footer>
+
+<script src="js/vinyle.js"></script>
+<script src="js/playlist.js"></script>
+
+</body>
+</html>

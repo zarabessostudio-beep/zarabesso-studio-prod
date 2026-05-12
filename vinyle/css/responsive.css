@@ -1,0 +1,23 @@
+@media(max-width:1000px){
+
+.hero{
+  flex-direction:column;
+  text-align:center;
+  gap:80px;
+}
+
+.hero-left,
+.hero-right{
+  width:100%;
+}
+
+.hero-left h1{
+  font-size:3rem;
+}
+
+.vinyl-container{
+  width:350px;
+  height:350px;
+}
+
+}

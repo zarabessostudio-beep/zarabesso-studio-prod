@@ -1,0 +1,69 @@
+@keyframes spin{
+  from{
+    transform:rotate(0deg);
+  }
+  to{
+    transform:rotate(360deg);
+  }
+}
+/* ================= REVEAL EFFECT ================= */
+
+.album-card,
+.track-card,
+.spotify-track{
+
+opacity:0;
+transform:translateY(40px);
+transition:1s ease;
+
+}
+
+.reveal-visible{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+/* ================= NAVBAR EFFECT ================= */
+
+.navbar{
+
+transition:
+transform .5s ease,
+background .5s ease,
+box-shadow .5s ease;
+
+}
+
+.navbar.hide{
+
+transform:translateY(-120%);
+
+}
+
+.navbar.show-glow{
+
+background:rgba(0,0,0,0.75);
+
+backdrop-filter:blur(20px);
+
+box-shadow:
+0 0 30px rgba(212,175,55,.15);
+
+}
+
+/* ================= FOOTER GLOW ================= */
+
+.premium-footer{
+
+transition:.8s ease;
+
+}
+
+.premium-footer.active-glow{
+
+box-shadow:
+0 0 80px rgba(212,175,55,.12);
+
+}

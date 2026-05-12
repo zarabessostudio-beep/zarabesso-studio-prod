@@ -44,17 +44,26 @@
 
     <!-- LOGO -->
     <div class="logo">
-      <!-- 🔴 METTRE TON LOGO -->
       <img src="assets/images/logo1.png" alt="Zarabesso Logo">
     </div>
 
     <!-- MENU -->
     <nav class="nav-links" id="navLinks">
+
       <a href="#">Accueil</a>
+
       <a href="services.html">Services</a>
-      <a href="music.html">Music</a>
-      <a href="about.html">about</a>
+
+
+      <!-- 🔥 NOUVEAU VINYLE -->
+      <a href="./vinyle/index.html" class="vinyle-link">
+        Vynile
+      </a>
+
+      <a href="about.html">About</a>
+
       <a href="remerciement.html">Remerciements</a>
+
     </nav>
 
     <!-- BURGER -->
@@ -65,6 +74,8 @@
     </div>
 
   </div>
+
+
 
 </header>
 
@@ -213,32 +224,161 @@
 
   <h2 class="section-title">Nos Réalisations</h2>
 
-  <div class="portfolio-grid">
+  
 
-    <!-- 🔴 REMPLACER PAR DES VIDEOS / IMAGES -->
-    <div class="portfolio-item">
-      <img src="assets/images/work1.jpg">
+   <!-- ================= PREMIUM VIDEO PLAYER ================= -->
+
+<section class="premium-video-section">
+
+  <div class="premium-video-header">
+    <h2 class="music-title">Studio Visual Experience</h2>
+    <p class="italic">
+      Découvrez les productions vidéo premium de Zarabesso Studio.
+    </p>
+  </div>
+
+  <div class="video-player-wrapper">
+
+    <!-- MAIN VIDEO -->
+    <div class="main-video-box">
+
+      <!-- WRAPPER LOGO + VIDEO -->
+      <div class="video-screen">
+
+        <!-- LOGO OVERLAY (avant lecture) -->
+        <div class="video-placeholder" id="videoPlaceholder">
+          <img src="assets/images/logo.jpg" alt="Zarabesso Studio">
+          <span>Click to Play</span>
+        </div>
+
+        <video
+          id="mainVideo"
+          class="main-video"
+          playsinline
+          preload="none"
+          poster="assets/images/logo.jpg"
+        ></video>
+
+      </div>
+
+      <!-- CONTROLS -->
+      <div class="video-controls">
+
+        <button id="prevVideo">
+          <i class="ri-skip-back-fill"></i>
+        </button>
+
+        <button id="playPause">
+          <i class="ri-play-fill"></i>
+        </button>
+
+        <button id="nextVideo">
+          <i class="ri-skip-forward-fill"></i>
+        </button>
+
+        <div class="video-progress">
+          <div class="video-progress-bar"></div>
+        </div>
+
+        <div class="volume-box">
+          <i class="ri-volume-up-fill"></i>
+          <input
+            type="range"
+            id="volumeControl"
+            min="0"
+            max="1"
+            step="0.1"
+            value="1"
+          >
+        </div>
+
+      </div>
+
     </div>
 
-    <div class="portfolio-item">
-      <video autoplay muted loop>
-        <source src="assets/videos/work1.mp4" type="video/mp4">
-      </video>
-    </div>
+    <!-- SIDE VIDEOS (LAZY + PREMIUM) -->
+    <div class="side-videos">
 
-    <div class="portfolio-item">
-      <img src="assets/images/work2.jpg">
+      <!-- VIDEO 1 -->
+      <div class="side-video active-video">
+        <div class="video-thumb">
+          <img src="assets/images/logo1.png">
+          <div class="play-icon"><i class="ri-play-fill"></i></div>
+        </div>
+
+        <video muted loop playsinline preload="none">
+          <source data-src="assets/videos/diarynofy.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <!-- VIDEO 2 -->
+      <div class="side-video">
+        <div class="video-thumb">
+          <img src="assets/images/logo1.png">
+          <div class="play-icon"><i class="ri-play-fill"></i></div>
+        </div>
+
+        <video muted loop playsinline preload="none">
+          <source data-src="assets/videos/tsodrano.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <!-- VIDEO 3 -->
+      <div class="side-video">
+        <div class="video-thumb">
+          <img src="assets/images/logo1.png">
+          <div class="play-icon"><i class="ri-play-fill"></i></div>
+        </div>
+
+        <video muted loop playsinline preload="none">
+          <source data-src="assets/videos/tompondaka.mp4" type="video/mp4">
+        </video>
+      </div>
+
     </div>
 
   </div>
 
 </section>
+<!-- ================= VYNILE PREMIUM ================= -->
 
-<!-- 🎤 ARTISTES -->
-<section class="artists">
+<section class="vinyle-preview">
 
-  <!-- 🔴 AJOUT AUTO PLUS TARD -->
-  <div class="artist-card">Artiste</div>
+  <div class="vinyle-preview-content">
+
+    <div class="vinyle-left">
+
+      <div class="mini-vinyl">
+
+        <img src="vinyle/assets/logo/logo1.png" alt="vinyle">
+
+      </div>
+
+    </div>
+
+    <div class="vinyle-right">
+
+      <span class="vinyle-badge">
+        NEW EXPERIENCE
+      </span>
+
+      <h2 class="music-title">
+        VYNILE Cloud Music
+      </h2>
+
+      <p class="italic">
+        Découvrez une expérience musicale immersive premium développée
+        par Zarabesso Studio : streaming audio et vidéo haut de gamme,
+        artistes, albums et interface vinyle animée.
+      </p>
+
+      <a href="./vinyle/index.html" class="vinyle-btn">
+        Entrer dans VYNILE
+      </a>
+
+    </div>
+
+  </div>
 
 </section>
 

@@ -19,30 +19,53 @@
 
 <body>
 
-<!-- ================= NAVBAR ================= -->
+<!-- ================= NAVBAR PREMIUM ================= -->
+
 <header class="navbar">
 
   <div class="nav-container">
 
-    <div class="logo">
-      <img src="assets/images/logo1.png">
-    </div>
+    <!-- LOGO -->
+    <a href="index.html" class="logo">
+      <img
+        src="assets/images/logo1.png"
+        alt="Logo">
+    </a>
 
+    <!-- MENU -->
     <nav class="nav-links" id="navLinks">
+
       <a href="index.html">Accueil</a>
+
       <a href="services.html">Services</a>
-      <a href="music.html">Music</a>
+
+      
+         <!-- 🔥 NOUVEAU VINYLE -->
+      <a href="./vinyle/index.html" class="vinyle-link">
+        Vynile
+      </a>
+
       <a href="about.html">About</a>
+
       <a href="remerciement.html">Remerciements</a>
+
     </nav>
 
-    <div class="burger" id="burger">
+    <!-- BURGER -->
+    <button
+      class="burger"
+      id="burger"
+      aria-label="Menu mobile"
+      aria-expanded="false">
+
       <span></span>
       <span></span>
       <span></span>
-    </div>
+
+    </button>
 
   </div>
+
 
 </header>
 
@@ -77,29 +100,42 @@ Nous sommes disponibles pour transformer votre vision en réalité sonore.
       🎧 Production • 🎚️ Mixage • 🎤 Enregistrement • 🎶 Mastering
     </p>
 
-   <div class="socials">
-  <a href="https://www.youtube.com/@Zarabesso" target="_blank" rel="noopener" aria-label="YouTube">
+  <div class="socials">
+
+  <a href="https://www.youtube.com/@Zarabesso"
+     target="_blank"
+     rel="noopener"
+     aria-label="YouTube">
+
     <i class="ri-youtube-fill"></i>
+
   </a>
 
-  <a href="https://facebook.com/zarabesso.zaramina.16" target="_blank" rel="noopener">
+  <a href="https://facebook.com/zarabesso.zaramina.16"
+     target="_blank"
+     rel="noopener">
+
     <i class="ri-facebook-fill"></i>
+
   </a>
 
-  <a href="https://wa.me/261342110356" target="_blank" rel="noopener">
+  <a href="https://wa.me/261342110356"
+     target="_blank"
+     rel="noopener">
+
     <i class="ri-whatsapp-fill"></i>
+
   </a>
+
 </div>
 
-    <a href="index.html" class="btn">Retour accueil</a>
+<a href="index.html" class="btn">
+  Retour accueil
+</a>
 
-  </div>
+<!-- ================= FOOTER INSIDE CARD ================= -->
 
-</section>
-
-<script src="js/remerciement.js"></script>
-
-<footer class="footer">
+<div class="card-footer">
 
   <div class="footer-line"></div>
 
@@ -114,6 +150,9 @@ Nous sommes disponibles pour transformer votre vision en réalité sonore.
     </p>
 
   </div>
+
+</div>
+
 
 </footer>
 <script>
