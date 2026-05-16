@@ -149,20 +149,6 @@ body{
   width: 100%;
 }
 
-/* BURGER */
-.burger {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-}
-
-.burger span {
-  height: 3px;
-  width: 25px;
-  background: gold;
-  margin: 4px;
-  transition: 0.3s;
-}
 
 /* ================= MOBILE ================= */
 
@@ -222,4 +208,554 @@ body{
 }
 .navbar {
   will-change: transform;
+}
+/* =========================================
+   ULTRA FLUO NAVBAR EFFECT
+   AJOUTER TOUT EN BAS
+========================================= */
+
+/* NAVBAR GLOW */
+
+.navbar{
+
+  overflow:hidden;
+
+  position:fixed;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(20,0,30,.45),
+      rgba(0,0,0,.25)
+    ) !important;
+
+  backdrop-filter:
+    blur(35px)
+    saturate(180%);
+
+  border-bottom:
+    1px solid rgba(255,255,255,.08);
+
+  box-shadow:
+    0 0 40px rgba(255,0,120,.15),
+    0 0 60px rgba(140,0,255,.08);
+}
+
+/* LIGHT MOVING EFFECT */
+
+.navbar::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:300px;
+  height:300px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,0,120,.25),
+      transparent 70%
+    );
+
+  top:-120px;
+  left:-100px;
+
+  filter:blur(40px);
+
+  animation:
+    flyRed 10s ease-in-out infinite;
+
+  pointer-events:none;
+}
+
+/* SECOND LIGHT */
+
+.navbar::after{
+
+  content:"";
+
+  position:absolute;
+
+  width:280px;
+  height:280px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(140,0,255,.22),
+      transparent 70%
+    );
+
+  top:-100px;
+  right:-120px;
+
+  filter:blur(45px);
+
+  animation:
+    flyPurple 12s ease-in-out infinite;
+
+  pointer-events:none;
+}
+
+/* LINKS */
+
+.nav-links a{
+
+  position:relative;
+
+  color:white;
+
+  transition:
+    .4s ease;
+
+  z-index:2;
+}
+
+/* HOVER FLUO */
+
+.nav-links a:hover{
+
+  color:#fff;
+
+  transform:
+    translateY(-3px)
+    scale(1.05);
+
+  text-shadow:
+    0 0 10px #ff0080,
+    0 0 20px #ff0080,
+    0 0 40px #8c00ff;
+}
+
+/* LINE FLUO */
+
+.nav-links a::after{
+
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  bottom:-6px;
+
+  width:0%;
+  height:2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ff0080,
+      #8c00ff
+    );
+
+  border-radius:20px;
+
+  box-shadow:
+    0 0 12px #ff0080,
+    0 0 20px #8c00ff;
+
+  transition:.4s ease;
+}
+
+.nav-links a:hover::after{
+  width:100%;
+}
+
+/* LOGO GLOW */
+
+.logo img{
+
+  filter:
+    drop-shadow(0 0 10px rgba(255,0,120,.4))
+    drop-shadow(0 0 25px rgba(140,0,255,.25));
+
+  transition:.5s ease;
+}
+
+.logo img:hover{
+
+  transform:
+    scale(1.05)
+    rotate(-2deg);
+
+  filter:
+    drop-shadow(0 0 20px #ff0080)
+    drop-shadow(0 0 35px #8c00ff);
+}
+
+/* ANIMATIONS */
+
+@keyframes flyRed{
+
+  0%,100%{
+    transform:
+      translate(0,0)
+      scale(1);
+  }
+
+  50%{
+    transform:
+      translate(120px,40px)
+      scale(1.2);
+  }
+
+}
+
+@keyframes flyPurple{
+
+  0%,100%{
+    transform:
+      translate(0,0)
+      scale(1);
+  }
+
+  50%{
+    transform:
+      translate(-100px,30px)
+      scale(1.15);
+  }
+
+}
+
+/* DESKTOP PREMIUM */
+
+@media(min-width:901px){
+
+  .nav-links{
+
+    gap:45px;
+
+  }
+
+}
+/* =========================================================
+   MOBILE BURGER MENU — PREMIUM STABLE VERSION
+   GARDE LE DESKTOP INTACT
+   AJOUTER TOUT EN BAS DU CSS
+========================================================= */
+
+@media(max-width:768px){
+
+  /* =========================
+     NAVBAR MOBILE
+  ========================= */
+
+  .navbar{
+
+    height:85px;
+
+    display:flex;
+    align-items:center;
+
+    overflow:visible !important;
+
+    z-index:100000 !important;
+  }
+
+  .nav-container{
+
+    width:100%;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:15px 22px;
+  }
+
+  /* =========================
+     LOGO
+  ========================= */
+
+  .logo{
+    position:relative;
+    z-index:100002;
+  }
+
+  .logo img{
+
+    width:82px;
+
+    transition:.3s ease;
+  }
+
+  /* =========================
+     BURGER BUTTON
+  ========================= */
+
+  .burger{
+
+    display:flex !important;
+
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+
+    gap:6px;
+
+    width:46px;
+    height:46px;
+
+    background:none;
+    border:none;
+
+    cursor:pointer;
+
+    position:relative;
+
+    z-index:100003;
+
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  /* =========================
+     BURGER LINES
+  ========================= */
+
+  .burger span{
+
+    position:relative !important;
+
+    top:auto !important;
+    left:auto !important;
+
+    width:28px;
+    height:3px;
+
+    border-radius:20px;
+
+    background:white;
+
+    transition:
+    transform .35s ease,
+    opacity .35s ease,
+    background .35s ease,
+    box-shadow .35s ease;
+
+    box-shadow:
+    0 0 10px rgba(255,255,255,.25);
+  }
+
+  /* =========================
+     ACTIVE X
+  ========================= */
+
+  .burger.active span{
+
+    background:
+    linear-gradient(
+      90deg,
+      #ff0080,
+      #8c00ff
+    );
+
+    box-shadow:
+      0 0 12px rgba(255,0,120,.6),
+      0 0 20px rgba(140,0,255,.45);
+  }
+
+  .burger.active span:nth-child(1){
+
+    transform:
+    translateY(9px)
+    rotate(45deg);
+  }
+
+  .burger.active span:nth-child(2){
+
+    opacity:0;
+
+    transform:scale(.3);
+  }
+
+  .burger.active span:nth-child(3){
+
+    transform:
+    translateY(-9px)
+    rotate(-45deg);
+  }
+
+  /* =========================
+     MOBILE MENU
+  ========================= */
+
+  .nav-links{
+
+    position:fixed !important;
+
+    top:0;
+    right:-100%;
+
+    width:320px;
+    max-width:85%;
+
+    height:100vh;
+
+    display:flex !important;
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:flex-start;
+
+    gap:32px;
+
+    padding:
+    120px 35px 60px;
+
+    background:
+    linear-gradient(
+      145deg,
+      rgba(15,0,25,.96),
+      rgba(0,0,0,.98)
+    );
+
+    backdrop-filter:
+    blur(28px)
+    saturate(180%);
+
+    -webkit-backdrop-filter:
+    blur(28px)
+    saturate(180%);
+
+    border-left:
+    1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+    -10px 0 40px rgba(0,0,0,.55);
+
+    transition:
+    right .45s cubic-bezier(.77,0,.18,1);
+
+    overflow-y:auto;
+
+    z-index:100001 !important;
+  }
+
+  /* =========================
+     MENU OPEN
+  ========================= */
+
+  .nav-links.active{
+
+    right:0 !important;
+  }
+
+  /* =========================
+     LINKS
+  ========================= */
+
+  .nav-links a{
+
+    width:100%;
+
+    padding-bottom:14px;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:1.08rem;
+    font-weight:500;
+
+    letter-spacing:.5px;
+
+    border-bottom:
+    1px solid rgba(255,255,255,.08);
+
+    transition:
+    .35s ease;
+  }
+
+  /* HOVER */
+
+  .nav-links a:hover{
+
+    color:#fff;
+
+    transform:
+    translateX(6px);
+
+    text-shadow:
+      0 0 12px #ff0080,
+      0 0 20px #8c00ff;
+  }
+
+  /* =========================
+     FLUO LINE
+  ========================= */
+
+  .nav-links a::after{
+
+    content:"";
+
+    display:block;
+
+    width:0%;
+
+    height:2px;
+
+    margin-top:8px;
+
+    border-radius:20px;
+
+    background:
+    linear-gradient(
+      90deg,
+      #ff0080,
+      #8c00ff
+    );
+
+    transition:.35s ease;
+  }
+
+  .nav-links a:hover::after{
+
+    width:100%;
+  }
+
+  /* =========================
+     OVERLAY
+  ========================= */
+
+  #navOverlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+    rgba(0,0,0,.72);
+
+    backdrop-filter:blur(5px);
+
+    opacity:0;
+    visibility:hidden;
+
+    pointer-events:none;
+
+    transition:.35s ease;
+
+    z-index:100000;
+  }
+
+  #navOverlay.active{
+
+    opacity:1;
+    visibility:visible;
+
+    pointer-events:auto;
+  }
+
+  /* =========================
+     BODY LOCK
+  ========================= */
+
+  body.menu-open{
+
+    overflow:hidden;
+    touch-action:none;
+  }
+
 }

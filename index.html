@@ -47,24 +47,25 @@
       <img src="assets/images/logo1.png" alt="Zarabesso Logo">
     </div>
 
-    <!-- MENU -->
-    <nav class="nav-links" id="navLinks">
+    <!-- OVERLAY -->
+<div class="nav-overlay" id="navOverlay"></div>
 
-      <a href="#">Accueil</a>
+<!-- MENU -->
+<nav class="nav-links" id="navLinks">
 
-      <a href="services.html">Services</a>
+  <a href="#">Accueil</a>
 
+  <a href="services.html">Services</a>
 
-      <!-- 🔥 NOUVEAU VINYLE -->
-      <a href="./vinyle/index.html" class="vinyle-link">
-        Vynile
-      </a>
+  <a href="./vinyle/index.html" class="vinyle-link">
+    Vynile
+  </a>
 
-      <a href="about.html">About</a>
+  <a href="about.html">About</a>
 
-      <a href="remerciement.html">Remerciements</a>
+  <a href="remerciement.html">Remerciements</a>
 
-    </nav>
+</nav>
 
     <!-- BURGER -->
     <div class="burger" id="burger">
@@ -84,8 +85,8 @@
 
   <div class="hero-left">
     <!-- 🔴 IMAGES AUTO -->
-    <img src="assets/images/2.png" class="active">
-    <img src="assets/images/1.jpg">
+    <img src="https://res.cloudinary.com/TON_CLOUD_NAME/image/upload/zarabesso/images/2.png" class="active">
+    <img src="https://res.cloudinary.com/TON_CLOUD_NAME/image/upload/zarabesso/images/1.png" class="active">
   </div>
 
   <div class="hero-right">
@@ -219,13 +220,257 @@
     <img id="vinyl-cover" src="assets/images/cover1.jpg">
   </div>
 </section>
-<!-- ================= PORTFOLIO ================= -->
+
+<!-- =====================================================
+     PORTFOLIO ULTRA PREMIUM + VYNILE INTRO
+===================================================== -->
+
 <section class="portfolio">
 
-  <h2 class="section-title">Nos Réalisations</h2>
+  <!-- BACKGROUND -->
+  <div class="portfolio-bg"></div>
 
-  
+  <!-- OVERLAY -->
+  <div class="portfolio-overlay"></div>
 
+  <!-- CONTENT -->
+  <div class="portfolio-content">
+
+    <!-- =====================================================
+         HEADER
+    ===================================================== -->
+
+    <div class="portfolio-header">
+
+      <span class="portfolio-badge">
+        ZARABESSO GOLD EXPERIENCE
+      </span>
+
+      <h2 class="section-title music-title">
+        Nos Réalisations Artistiques
+      </h2>
+
+      <!-- INTRO PLUME ITALIQUE -->
+      <p class="portfolio-description italic">
+        Dans chaque fréquence se cache une émotion.
+        Zarabesso Studio façonne une expérience sonore
+        et visuelle immersive destinée aux artistes
+        recherchant une signature musicale unique,
+        élégante.
+      </p>
+
+    </div>
+
+    <!-- =====================================================
+         VYNILE INTRO BLOCK
+    ===================================================== -->
+
+    <div class="vynile-intro">
+
+      <div class="vynile-intro-left">
+
+        
+        <h3 class="music-title">
+          VYNILE Cloud Music Experience
+        </h3>
+
+        <p class="italic">
+          Une plateforme immersive développée par
+          Zarabesso Studio pour réunir streaming,
+          vidéos musicales, univers artistiques,
+          ambiance premium et expériences audio
+          nouvelle génération.
+        </p>
+
+      </div>
+
+      
+
+    </div>
+
+    <!-- =====================================================
+         VIDEO PREVIEW TITLE
+    ===================================================== -->
+
+    <div class="portfolio-video-header">
+
+      <h3 class="music-title">
+        Échantillons Visuels & Sessions Studio
+      </h3>
+
+      <p class="italic">
+        Découvrez un aperçu des univers créatifs,
+        productions et collaborations artistiques
+        du studio.
+      </p>
+
+    </div>
+
+    <!-- =====================================================
+         GRID
+    ===================================================== -->
+
+    <div class="portfolio-grid">
+
+      <!-- CARD 1 -->
+      <div class="portfolio-card portfolio-item" data-index="0">
+
+        <img
+          src="assets/images/background3.png"
+          alt="Production Studio"
+        >
+
+        <div class="portfolio-card-content">
+
+          <h3>
+            Production Studio
+          </h3>
+
+          <p>
+            Mixage & Mastering premium
+          </p>
+
+        </div>
+
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="portfolio-card portfolio-item" data-index="1">
+
+        <img
+          src="assets/images/logo.jpg"
+          alt="Collaboration Artistique"
+        >
+
+        <div class="portfolio-card-content">
+
+          <h3>
+  Collaboration Artistique
+</h3>
+
+<p>
+Identité sonore unique & professionnelle.
+</p>
+
+        </div>
+
+      </div>
+
+      <!-- CARD 3 -->
+      
+
+       <div class="portfolio-card portfolio-item" data-index="2">
+
+  <img src="assets/images/background.jpg" alt="Ingénierie Audio">
+
+  <div class="portfolio-card-content">
+
+    <h3>Ingénierie Audio</h3>
+
+    <p>Traitement sonore avancé</p>
+
+  </div>
+
+</div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =====================================================
+     POPUP SYSTEM
+===================================================== -->
+
+<div
+  class="popup-overlay"
+  id="popupOverlay"
+>
+
+  <div class="popup-box">
+
+    <!-- CLOSE -->
+    <button
+      type="button"
+      class="popup-close"
+      id="closePopup"
+      aria-label="Fermer popup"
+    >
+      <i class="ri-close-line"></i>
+    </button>
+
+    <!-- TOP -->
+    <div class="popup-top">
+
+      <img
+        id="popupImage"
+        src="assets/images/background4.png"
+        alt="Popup"
+      >
+
+      <div class="popup-gradient"></div>
+
+    </div>
+
+    <!-- BODY -->
+    <div class="popup-body">
+
+      <span class="popup-tag">
+        ZARABESSO STUDIO
+      </span>
+
+      <h2 id="popupTitle">
+        Premium Experience
+      </h2>
+
+   <div id="popupText">
+
+  <p class="italic">
+    Immersion sonore et artistique premium.
+  </p>
+
+  <br>
+
+  <p>
+    Zarabesso Studio développe des expériences
+    musicales immersives destinées aux artistes,
+    producteurs et univers créatifs premium.
+  </p>
+
+  <br>
+
+  <p>
+    Grâce à VYNILE Cloud Music Experience,
+    les contenus audio et vidéo peuvent être
+    diffusés dans un environnement moderne,
+    élégant et optimisé pour tous les écrans.
+  </p>
+
+  <br>
+
+  <p>
+    Chaque production bénéficie d’un traitement
+    sonore avancé, d’une direction artistique
+    immersive et d’une identité visuelle unique.
+  </p>
+
+  <br>
+
+  <p>
+    L’objectif est de transformer chaque musique
+    en véritable expérience émotionnelle.
+  </p>
+
+</div>
+
+    </div>
+
+  </div>
+
+</div>
    <!-- ================= PREMIUM VIDEO PLAYER ================= -->
 
 <section class="premium-video-section">
@@ -242,24 +487,47 @@
     <!-- MAIN VIDEO -->
     <div class="main-video-box">
 
-      <!-- WRAPPER LOGO + VIDEO -->
-      <div class="video-screen">
+    <!-- WRAPPER LOGO + VIDEO -->
+<div class="video-screen">
 
-        <!-- LOGO OVERLAY (avant lecture) -->
-        <div class="video-placeholder" id="videoPlaceholder">
-          <img src="assets/images/logo.jpg" alt="Zarabesso Studio">
-          <span>Click to Play</span>
-        </div>
+  <!-- PREMIUM OVERLAY -->
+  <div class="video-overlay-center" id="videoOverlayCenter">
 
-        <video
-          id="mainVideo"
-          class="main-video"
-          playsinline
-          preload="none"
-          poster="assets/images/logo.jpg"
-        ></video>
+    <div class="overlay-logo-box">
+
+      <img
+        src="assets/images/logo1.png"
+        alt="Zarabesso Studio"
+        class="overlay-logo"
+      >
+
+      <div class="overlay-play-circle">
+
+        <i
+          class="ri-play-fill"
+          id="overlayIcon"
+        ></i>
 
       </div>
+
+      <span class="overlay-text">
+        Click To Play
+      </span>
+
+    </div>
+
+  </div>
+
+  <!-- VIDEO -->
+  <video
+    id="mainVideo"
+    class="main-video"
+    playsinline
+    preload="metadata"
+    poster="assets/images/logo.jpg"
+  ></video>
+
+</div>
 
       <!-- CONTROLS -->
       <div class="video-controls">
@@ -296,50 +564,65 @@
 
     </div>
 
-    <!-- SIDE VIDEOS (LAZY + PREMIUM) -->
-    <div class="side-videos">
+   <!-- SIDE VIDEOS -->
 
-      <!-- VIDEO 1 -->
-      <div class="side-video active-video">
-        <div class="video-thumb">
-          <img src="assets/images/logo1.png">
-          <div class="play-icon"><i class="ri-play-fill"></i></div>
-        </div>
+<div class="side-videos">
 
-        <video muted loop playsinline preload="none">
-          <source data-src="assets/videos/diarynofy.mp4" type="video/mp4">
-        </video>
-      </div>
+  <!-- VIDEO 1 -->
+  <div
+    class="side-video active-video"
+    data-video="https://res.cloudinary.com/drywjcs1w/video/upload/diarynofy_zwdera.mp4"
+  >
 
-      <!-- VIDEO 2 -->
-      <div class="side-video">
-        <div class="video-thumb">
-          <img src="assets/images/logo1.png">
-          <div class="play-icon"><i class="ri-play-fill"></i></div>
-        </div>
+    <div class="video-thumb">
 
-        <video muted loop playsinline preload="none">
-          <source data-src="assets/videos/tsodrano.mp4" type="video/mp4">
-        </video>
-      </div>
+      <img src="assets/images/logo1.png">
 
-      <!-- VIDEO 3 -->
-      <div class="side-video">
-        <div class="video-thumb">
-          <img src="assets/images/logo1.png">
-          <div class="play-icon"><i class="ri-play-fill"></i></div>
-        </div>
-
-        <video muted loop playsinline preload="none">
-          <source data-src="assets/videos/tompondaka.mp4" type="video/mp4">
-        </video>
+      <div class="play-icon">
+        <i class="ri-play-fill"></i>
       </div>
 
     </div>
 
   </div>
 
-</section>
+  <!-- VIDEO 2 -->
+  <div
+    class="side-video"
+    data-video="https://res.cloudinary.com/drywjcs1w/video/upload/tsodrano_u6f1r0.mp4"
+  >
+
+    <div class="video-thumb">
+
+      <img src="assets/images/logo1.png">
+
+      <div class="play-icon">
+        <i class="ri-play-fill"></i>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- VIDEO 3 -->
+  <div
+    class="side-video"
+    data-video="https://res.cloudinary.com/drywjcs1w/video/upload/tompondaka_t18xdz.mp4"
+  >
+
+    <div class="video-thumb">
+
+      <img src="assets/images/logo1.png">
+
+      <div class="play-icon">
+        <i class="ri-play-fill"></i>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
 <!-- ================= VYNILE PREMIUM ================= -->
 
 <section class="vinyle-preview">
@@ -426,7 +709,6 @@
 
 </footer>
 
-<script src="js/script.js"></script>
 <script>
 let lastScroll = 0;
 const navbar = document.querySelector('.navbar');
@@ -448,6 +730,528 @@ window.addEventListener('scroll', () => {
   }
 
   lastScroll = currentScroll;
+});
+</script>
+<script src="js/cloud-config.js"></script>
+<script src="js/media-loader.js"></script>
+<script src="js/script.js"></script>
+<script>
+/* ======================================================
+   POPUP FORCE OPEN FIX
+====================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  // SELECT
+  const cards = document.querySelectorAll(".portfolio-card");
+  const popup = document.querySelector(".popup-overlay");
+  const closeBtn = document.querySelector(".popup-close");
+
+  // FORCE CSS
+  popup.style.zIndex = "999999999";
+  popup.style.pointerEvents = "none";
+
+  // OPEN POPUP
+  cards.forEach(card => {
+
+    card.style.cursor = "pointer";
+
+    card.addEventListener("click", () => {
+
+      popup.classList.add("active");
+
+      // FORCE DISPLAY
+      popup.style.opacity = "1";
+      popup.style.visibility = "visible";
+      popup.style.pointerEvents = "auto";
+
+      // BLOQUE LE SCROLL
+      document.body.style.overflow = "hidden";
+
+    });
+
+  });
+
+  // CLOSE BUTTON
+  if(closeBtn){
+
+    closeBtn.addEventListener("click", closePopup);
+
+  }
+
+  // CLOSE OUTSIDE
+  popup.addEventListener("click", (e) => {
+
+    if(e.target === popup){
+      closePopup();
+    }
+
+  });
+
+  // ESCAPE KEY
+  document.addEventListener("keydown", (e) => {
+
+    if(e.key === "Escape"){
+      closePopup();
+    }
+
+  });
+
+  // FUNCTION CLOSE
+  function closePopup(){
+
+    popup.classList.remove("active");
+
+    popup.style.opacity = "0";
+    popup.style.visibility = "hidden";
+    popup.style.pointerEvents = "none";
+
+    document.body.style.overflow = "auto";
+
+  }
+
+});
+</script>
+<script>
+/* ======================================================
+   ULTRA PREMIUM POPUP SYSTEM
+====================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  // ELEMENTS
+  const cards = document.querySelectorAll(".portfolio-card");
+
+  const popupOverlay = document.getElementById("popupOverlay");
+  const popupImage = document.getElementById("popupImage");
+  const popupTitle = document.getElementById("popupTitle");
+  const popupText = document.getElementById("popupText");
+
+  const closePopup =
+  document.getElementById("closePopup");
+
+  /* ======================================================
+     POPUP CONTENT
+  ====================================================== */
+
+  const popupData = [
+
+    {
+      image: "assets/images/background3.png",
+
+      title: "Production Studio",
+
+      text: `
+      <p class="italic">
+        Sessions de mixage et mastering premium
+        réalisées dans un environnement immersif
+        destiné aux artistes recherchant une
+        signature sonore professionnelle.
+      </p>
+      `
+    },
+
+    {
+      image: "assets/images/logo.jpg",
+
+      title: "Collaboration Artistique",
+
+      text: `
+      <p class="italic">
+        Création collaborative entre artistes,
+        direction artistique, univers visuels
+        et accompagnement musical nouvelle
+        génération.
+      </p>
+      `
+    },
+
+    {
+      image: "assets/images/background.jpg",
+
+      title: "Ingénierie Audio",
+
+      text: `
+      <p class="italic">
+        Traitement sonore avancé, spatialisation,
+        optimisation audio premium et design
+        immersif pour expériences musicales
+        modernes.
+      </p>
+      `
+    }
+
+  ];
+
+  /* ======================================================
+     OPEN POPUP
+  ====================================================== */
+
+  cards.forEach((card, index) => {
+
+    card.addEventListener("click", () => {
+
+      // INSERT CONTENT
+      popupImage.src = popupData[index].image;
+
+      popupTitle.innerHTML =
+      popupData[index].title;
+
+      popupText.innerHTML =
+      popupData[index].text;
+
+      // OPEN
+      popupOverlay.classList.add("active");
+
+      // FORCE DISPLAY
+      popupOverlay.style.opacity = "1";
+      popupOverlay.style.visibility = "visible";
+      popupOverlay.style.pointerEvents = "auto";
+
+      // BODY LOCK
+      document.body.style.overflow = "hidden";
+
+    });
+
+  });
+
+  /* ======================================================
+     CLOSE FUNCTION
+  ====================================================== */
+
+  function closePopupSystem(){
+
+    popupOverlay.classList.remove("active");
+
+    popupOverlay.style.opacity = "0";
+    popupOverlay.style.visibility = "hidden";
+    popupOverlay.style.pointerEvents = "none";
+
+    document.body.style.overflow = "auto";
+
+  }
+
+  /* ======================================================
+     BUTTON CLOSE
+  ====================================================== */
+
+  closePopup.addEventListener("click", () => {
+
+    closePopupSystem();
+
+  });
+
+  /* ======================================================
+     CLICK OUTSIDE
+  ====================================================== */
+
+  popupOverlay.addEventListener("click", (e) => {
+
+    if(e.target === popupOverlay){
+
+      closePopupSystem();
+
+    }
+
+  });
+
+  /* ======================================================
+     ESCAPE CLOSE
+  ====================================================== */
+
+  document.addEventListener("keydown", (e) => {
+
+    if(e.key === "Escape"){
+
+      closePopupSystem();
+
+    }
+
+  });
+
+});
+</script>
+<script>
+/* =========================================
+   PREMIUM BURGER MENU FIX FINAL
+========================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const burger = document.getElementById("burger");
+  const navLinks = document.getElementById("navLinks");
+  const navOverlay = document.getElementById("navOverlay");
+
+  // OPEN / CLOSE
+  burger.addEventListener("click", () => {
+
+    burger.classList.toggle("active");
+
+    navLinks.classList.toggle("active");
+
+    navOverlay.classList.toggle("active");
+
+    document.body.classList.toggle("menu-open");
+
+  });
+
+  // CLOSE WHEN CLICK LINK
+  document.querySelectorAll(".nav-links a").forEach(link => {
+
+    link.addEventListener("click", () => {
+
+      closeMenu();
+
+    });
+
+  });
+
+  // CLOSE OVERLAY
+  navOverlay.addEventListener("click", () => {
+
+    closeMenu();
+
+  });
+
+  // ESC CLOSE
+  document.addEventListener("keydown", (e) => {
+
+    if(e.key === "Escape"){
+
+      closeMenu();
+
+    }
+
+  });
+
+  function closeMenu(){
+
+    burger.classList.remove("active");
+
+    navLinks.classList.remove("active");
+
+    navOverlay.classList.remove("active");
+
+    document.body.classList.remove("menu-open");
+
+  }
+
+});
+</script>
+<script>
+/* =========================================
+   ULTRA PREMIUM VIDEO PLAYER
+========================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const mainVideo =
+  document.getElementById("mainVideo");
+
+  const playPause =
+  document.getElementById("playPause");
+
+  const prevBtn =
+  document.getElementById("prevVideo");
+
+  const nextBtn =
+  document.getElementById("nextVideo");
+
+  const sideVideos =
+  document.querySelectorAll(".side-video");
+
+  // OVERLAY
+  const overlay =
+  document.getElementById("videoOverlayCenter");
+
+  const overlayIcon =
+  document.getElementById("overlayIcon");
+
+  let currentIndex = 0;
+
+  /* =========================================
+     VIDEO LIST
+  ========================================= */
+
+  const videoList = [
+
+    "https://res.cloudinary.com/drywjcs1w/video/upload/diarynofy_zwdera.mp4",
+
+    "https://res.cloudinary.com/drywjcs1w/video/upload/tsodrano_u6f1r0.mp4",
+
+    "https://res.cloudinary.com/drywjcs1w/video/upload/tompondaka_t18xdz.mp4"
+
+  ];
+
+  /* =========================================
+     LOAD VIDEO
+  ========================================= */
+
+  function loadVideo(index){
+
+    currentIndex = index;
+
+    mainVideo.src = videoList[index];
+
+    mainVideo.load();
+
+    sideVideos.forEach(video => {
+
+      video.classList.remove("active-video");
+
+    });
+
+    sideVideos[index].classList.add("active-video");
+
+  }
+
+  /* =========================================
+     FIRST VIDEO
+  ========================================= */
+
+  loadVideo(0);
+
+  /* =========================================
+     PLAY FUNCTION
+  ========================================= */
+
+  function playVideo(){
+
+    mainVideo.play();
+
+    overlay.classList.add("hide");
+
+    playPause.innerHTML =
+    '<i class="ri-pause-fill"></i>';
+
+    overlayIcon.className =
+    'ri-pause-fill';
+
+  }
+
+  /* =========================================
+     PAUSE FUNCTION
+  ========================================= */
+
+  function pauseVideo(){
+
+    mainVideo.pause();
+
+    overlay.classList.remove("hide");
+
+    playPause.innerHTML =
+    '<i class="ri-play-fill"></i>';
+
+    overlayIcon.className =
+    'ri-play-fill';
+
+  }
+
+  /* =========================================
+     OVERLAY CLICK
+  ========================================= */
+
+  overlay.addEventListener("click", () => {
+
+    if(mainVideo.paused){
+
+      playVideo();
+
+    }else{
+
+      pauseVideo();
+
+    }
+
+  });
+
+  /* =========================================
+     PLAY BUTTON
+  ========================================= */
+
+  playPause.addEventListener("click", () => {
+
+    if(mainVideo.paused){
+
+      playVideo();
+
+    }else{
+
+      pauseVideo();
+
+    }
+
+  });
+
+  /* =========================================
+     SIDE VIDEOS
+  ========================================= */
+
+  sideVideos.forEach((video, index) => {
+
+    video.addEventListener("click", () => {
+
+      loadVideo(index);
+
+      playVideo();
+
+    });
+
+  });
+
+  /* =========================================
+     NEXT
+  ========================================= */
+
+  nextBtn.addEventListener("click", () => {
+
+    currentIndex++;
+
+    if(currentIndex >= videoList.length){
+
+      currentIndex = 0;
+
+    }
+
+    loadVideo(currentIndex);
+
+    playVideo();
+
+  });
+
+  /* =========================================
+     PREV
+  ========================================= */
+
+  prevBtn.addEventListener("click", () => {
+
+    currentIndex--;
+
+    if(currentIndex < 0){
+
+      currentIndex = videoList.length - 1;
+
+    }
+
+    loadVideo(currentIndex);
+
+    playVideo();
+
+  });
+
+  /* =========================================
+     VIDEO END
+  ========================================= */
+
+  mainVideo.addEventListener("ended", () => {
+
+    overlay.classList.remove("hide");
+
+    playPause.innerHTML =
+    '<i class="ri-play-fill"></i>';
+
+  });
+
 });
 </script>
 

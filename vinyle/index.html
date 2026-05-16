@@ -52,6 +52,7 @@
 
   <!-- NAV LINKS -->
   <nav class="nav-links">
+    
 
     <a href="/">Accueil</a>
 
@@ -137,8 +138,13 @@
   </div>
 
 </section>
-<video id="videoPlayer" controls style="display:none; width:100%; border-radius:20px;"></video>
-
+<video
+  id="videoPlayer"
+  controls
+  playsinline
+  preload="metadata"
+  poster="assets/images/logo1.png"
+></video>
 <!-- ================= PLAYER ================= -->
 
 <section class="player-section">
@@ -419,8 +425,10 @@
 
 </footer>
 
+<script src="js/cloud-config.js"></script>
+<script src="js/cloud-media.js"></script>
+
 <script src="js/vinyle.js"></script>
 <script src="js/playlist.js"></script>
-
 </body>
 </html>

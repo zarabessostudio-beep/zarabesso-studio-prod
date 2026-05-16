@@ -1,14 +1,23 @@
 [
   {
-    "title": "Titre 1",
-    "artist": "Henintsoa",
-    "audio": "assets/audio/tsodrano.mp4",
-    "cover": "assets/images/logo.jpg"
+    "title": "Midnight Gold",
+    "artist": "Zarabesso",
+
+    "audio":
+    "https://res.cloudinary.com/TON_CLOUD_NAME/video/upload/zarabesso/audio/track1.mp3",
+
+    "cover":
+    "https://res.cloudinary.com/TON_CLOUD_NAME/image/upload/zarabesso/images/cover1.jpg"
   },
+
   {
-    "title": "Titre 2",
-    "artist": "Artiste 2",
-    "audio": "assets/audio/song2.mp3",
-    "cover": "assets/images/cover2.jpg"
+    "title": "Luxury Waves",
+    "artist": "Zarabesso",
+
+    "audio":
+    "https://res.cloudinary.com/TON_CLOUD_NAME/video/upload/zarabesso/audio/track2.mp3",
+
+    "cover":
+    "https://res.cloudinary.com/TON_CLOUD_NAME/image/upload/zarabesso/images/cover2.jpg"
   }
 ]

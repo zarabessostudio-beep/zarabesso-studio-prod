@@ -1,6 +1,10 @@
-/* ================= CLOUDINARY CONFIG ================= */
+/* =========================================
+   ☁️ VYNILE CLOUD PREMIUM PLAYER
+========================================= */
 
-const CLOUD_NAME = "TON_CLOUD_NAME";
+/* ================= CLOUDINARY ================= */
+
+const CLOUD_NAME = "drywjcs1w";
 
 /* ================= ELEMENTS ================= */
 
@@ -39,254 +43,282 @@ document.getElementById("vinyl");
 
 /* ================= TRACKS ================= */
 
-let tracks = [];
+const tracks = [
+
+  {
+    title: "Diarynofy",
+    artist: "Zarabesso Studio",
+
+    cover:
+    "assets/covers/cover1.jpg",
+
+    audio:
+    "https://res.cloudinary.com/drywjcs1w/video/upload/zarabesso-music/track1.mp3",
+
+    video:
+    "https://res.cloudinary.com/drywjcs1w/video/upload/diarynofy_zwdera.mp4"
+  },
+
+  {
+    title: "Tsodrano",
+    artist: "Zarabesso Studio",
+
+    cover:
+    "assets/covers/cover2.jpg",
+
+    audio:
+    "https://res.cloudinary.com/drywjcs1w/video/upload/zarabesso-music/track2.mp3",
+
+    video:
+    "https://res.cloudinary.com/drywjcs1w/video/upload/tsodrano_u6f1r0.mp4"
+  },
+
+  {
+    title: "Tompondaka",
+    artist: "Zarabesso Studio",
+
+    cover:
+    "assets/covers/cover3.jpg",
+
+    audio:
+    "https://res.cloudinary.com/drywjcs1w/video/upload/zarabesso-music/track3.mp3",
+
+    video:
+    "https://res.cloudinary.com/drywjcs1w/video/upload/tompondaka_t18xdz.mp4"
+  }
+
+];
+
+/* ================= VARIABLES ================= */
 
 let currentIndex = 0;
 
 let playing = false;
 
-/* ================= LOAD CLOUDINARY ================= */
-
-async function loadCloudinaryTracks(){
-
-try{
-
-const response = await fetch(
-
-`https://res.cloudinary.com/${CLOUD_NAME}/image/list/zarabesso-cover.json`
-
-);
-
-const data = await response.json();
-
-tracks = data.resources.map(item=>{
-
-const filename =
-item.public_id.split("/").pop();
-
-return{
-
-title: formatTitle(filename),
-
-artist: "Zarabesso Studio",
-
-cover:
-`https://res.cloudinary.com/${CLOUD_NAME}/image/upload/${item.public_id}.jpg`,
-
-audio:
-`https://res.cloudinary.com/${CLOUD_NAME}/video/upload/zarabesso-music/${filename}.mp3`,
-
-video:
-`https://res.cloudinary.com/${CLOUD_NAME}/video/upload/zarabesso-video/${filename}.mp4`
-
-};
-
-});
-
-renderTracks();
-
-if(tracks.length > 0){
-
-loadTrack(0);
-
-}
-
-}catch(error){
-
-console.log("Cloudinary Error :", error);
-
-}
-
-}
-
-/* ================= FORMAT TITLE ================= */
-
-function formatTitle(text){
-
-return text
-.replace(/-/g," ")
-.replace(/\b\w/g,l=>l.toUpperCase());
-
-}
-
-/* ================= RENDER TRACKS ================= */
+/* =========================================
+   RENDER TRACKS
+========================================= */
 
 function renderTracks(){
 
-tracksContainer.innerHTML = "";
+  tracksContainer.innerHTML = "";
 
-tracks.forEach((track,index)=>{
+  tracks.forEach((track,index)=>{
 
-tracksContainer.innerHTML += `
+    tracksContainer.innerHTML += `
 
-<div class="spotify-track"
-onclick="loadTrack(${index}); playMusic();">
+    <div
+      class="spotify-track"
+      onclick="selectTrack(${index})"
+    >
 
-<div class="track-left">
+      <div class="track-left">
 
-<img
-loading="lazy"
-src="${track.cover}">
+        <img
+          loading="lazy"
+          src="${track.cover}"
+        >
 
-<div class="track-info">
+        <div class="track-info">
 
-<h4>${track.title}</h4>
+          <h4>${track.title}</h4>
 
-<p>${track.artist}</p>
+          <p>${track.artist}</p>
 
-</div>
+        </div>
 
-</div>
+      </div>
 
-<div class="play-icon">
+      <div class="play-icon">
 
-<i class="ri-play-fill"></i>
+        <i class="ri-play-fill"></i>
 
-</div>
+      </div>
 
-</div>
+    </div>
 
-`;
+    `;
 
-});
+  });
 
 }
 
-/* ================= LOAD TRACK ================= */
+/* =========================================
+   LOAD TRACK
+========================================= */
 
 function loadTrack(index){
 
-currentIndex = index;
+  currentIndex = index;
 
-const track = tracks[index];
+  const track = tracks[index];
 
-audio.src = track.audio;
+  /* AUDIO */
 
-title.textContent = track.title;
+  audio.src = track.audio;
 
-artist.textContent = track.artist;
+  /* VIDEO */
 
-cover.src = track.cover;
+  videoPlayer.src = track.video;
 
-/* VIDEO */
+  /* TEXT */
 
-videoPlayer.src = track.video;
+  title.textContent = track.title;
 
-videoPlayer.style.display = "block";
+  artist.textContent = track.artist;
+
+  /* COVER */
+
+  cover.src = track.cover;
 
 }
 
-/* ================= PLAY ================= */
+/* =========================================
+   SELECT TRACK
+========================================= */
+
+function selectTrack(index){
+
+  loadTrack(index);
+
+  playMusic();
+
+}
+
+/* =========================================
+   PLAY
+========================================= */
 
 function playMusic(){
 
-audio.play();
+  audio.play();
 
-playing = true;
+  videoPlayer.play();
 
-playBtn.innerHTML =
-'<i class="ri-pause-fill"></i>';
+  playing = true;
 
-vinyl.classList.add("playing");
+  playBtn.innerHTML =
+  '<i class="ri-pause-fill"></i>';
+
+  vinyl.classList.add("playing");
 
 }
 
-/* ================= PAUSE ================= */
+/* =========================================
+   PAUSE
+========================================= */
 
 function pauseMusic(){
 
-audio.pause();
+  audio.pause();
 
-playing = false;
+  videoPlayer.pause();
 
-playBtn.innerHTML =
-'<i class="ri-play-fill"></i>';
+  playing = false;
 
-vinyl.classList.remove("playing");
+  playBtn.innerHTML =
+  '<i class="ri-play-fill"></i>';
+
+  vinyl.classList.remove("playing");
 
 }
 
-/* ================= PLAY BUTTON ================= */
+/* =========================================
+   PLAY BUTTON
+========================================= */
 
 playBtn.addEventListener("click",()=>{
 
-if(!playing){
+  if(!playing){
 
-playMusic();
+    playMusic();
 
-}else{
+  }else{
 
-pauseMusic();
+    pauseMusic();
 
-}
+  }
 
 });
 
-/* ================= NEXT ================= */
+/* =========================================
+   NEXT
+========================================= */
 
 nextBtn.addEventListener("click",()=>{
 
-currentIndex++;
+  currentIndex++;
 
-if(currentIndex >= tracks.length){
+  if(currentIndex >= tracks.length){
 
-currentIndex = 0;
+    currentIndex = 0;
 
-}
+  }
 
-loadTrack(currentIndex);
+  loadTrack(currentIndex);
 
-playMusic();
+  playMusic();
 
 });
 
-/* ================= PREV ================= */
+/* =========================================
+   PREV
+========================================= */
 
 prevBtn.addEventListener("click",()=>{
 
-currentIndex--;
+  currentIndex--;
 
-if(currentIndex < 0){
+  if(currentIndex < 0){
 
-currentIndex = tracks.length - 1;
+    currentIndex = tracks.length - 1;
 
-}
+  }
 
-loadTrack(currentIndex);
+  loadTrack(currentIndex);
 
-playMusic();
+  playMusic();
 
 });
 
-/* ================= AUTO NEXT ================= */
+/* =========================================
+   AUTO NEXT
+========================================= */
 
 audio.addEventListener("ended",()=>{
 
-currentIndex++;
+  currentIndex++;
 
-if(currentIndex >= tracks.length){
+  if(currentIndex >= tracks.length){
 
-currentIndex = 0;
+    currentIndex = 0;
 
-}
+  }
 
-loadTrack(currentIndex);
+  loadTrack(currentIndex);
 
-playMusic();
+  playMusic();
 
 });
 
-/* ================= PROGRESS ================= */
+/* =========================================
+   PROGRESS
+========================================= */
 
 audio.addEventListener("timeupdate",()=>{
 
-const percent =
-(audio.currentTime / audio.duration) * 100;
+  const percent =
+  (audio.currentTime / audio.duration) * 100;
 
-progress.style.width = percent + "%";
+  progress.style.width =
+  percent + "%";
 
 });
 
-/* ================= START ================= */
+/* =========================================
+   START
+========================================= */
 
-loadCloudinaryTracks();
+renderTracks();
+
+loadTrack(0);

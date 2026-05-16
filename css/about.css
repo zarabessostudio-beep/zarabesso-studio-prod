@@ -164,3 +164,52 @@ body{
 .navbar {
   will-change: transform;
 }
+/* =========================================
+   BURGER CLOSE (X) PREMIUM CLEAN
+========================================= */
+
+/* Quand actif → bouton transformé en X visible */
+.burger.active span{
+
+  background: linear-gradient(90deg, #ff0080, #8c00ff);
+
+  box-shadow:
+    0 0 10px rgba(255,0,120,0.6),
+    0 0 20px rgba(140,0,255,0.4);
+
+  transition: .3s ease;
+}
+
+/* Ligne 1 */
+.burger.active span:nth-child(1){
+  transform: rotate(45deg);
+  top: 21px;
+}
+
+/* Ligne 2 */
+.burger.active span:nth-child(2){
+  opacity: 0;
+}
+
+/* Ligne 3 */
+.burger.active span:nth-child(3){
+  transform: rotate(-45deg);
+  top: 21px;
+}
+
+/* BONUS : effet hover premium */
+.burger:hover span{
+  background: linear-gradient(90deg, #ff0080, #8c00ff);
+  box-shadow:
+    0 0 12px rgba(255,0,120,0.6),
+    0 0 25px rgba(140,0,255,0.4);
+}
+
+/* petit zoom interactif */
+.burger{
+  transition: transform .2s ease;
+}
+
+.burger:active{
+  transform: scale(0.92);
+}

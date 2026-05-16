@@ -34,6 +34,7 @@
 
     <!-- MENU -->
     <nav class="nav-links" id="navLinks">
+      
 
       <a href="index.html">Accueil</a>
 
@@ -153,31 +154,7 @@ Nous sommes disponibles pour transformer votre vision en réalité sonore.
 
 </div>
 
-
-</footer>
-<script>
-let lastScroll = 0;
-const navbar = document.querySelector('.navbar');
-
-window.addEventListener('scroll', () => {
-  let currentScroll = window.pageYOffset;
-
-  if (currentScroll <= 0) {
-    navbar.classList.remove('hide');
-    return;
-  }
-
-  if (currentScroll > lastScroll) {
-    // Scroll vers le bas → cache navbar
-    navbar.classList.add('hide');
-  } else {
-    // Scroll vers le haut → montre navbar
-    navbar.classList.remove('hide');
-  }
-
-  lastScroll = currentScroll;
-});
-</script>
+<script src="js/remerciement.js"></script>
 
 </body>
 </html>

@@ -1,0 +1,93 @@
+# =========================
+# 🔥 DEPENDANCES
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =========================
+# 🔥 BUILD / DIST
+# =========================
+dist/
+build/
+out/
+.vercel/
+
+# =========================
+# 🔥 ENVIRONNEMENT
+# =========================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# =========================
+# 🔥 SYSTEM FILES
+# =========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =========================
+# 🔥 LOGS
+# =========================
+logs/
+*.log
+
+# =========================
+# 🔥 MEDIA (IMPORTANT POUR TON PROJET)
+# =========================
+# 🚨 Empêche les fichiers lourds de casser Git / Vercel
+*.mp3
+*.mp4
+*.mov
+*.avi
+*.wav
+*.flac
+*.mkv
+
+# Images lourdes (optionnel selon ton choix cloud)
+*.psd
+*.ai
+*.zip
+*.rar
+
+# =========================
+# 🔥 CACHE / EDITORS
+# =========================
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# =========================
+# 🔥 TEST / TEMP FILES
+# =========================
+tmp/
+temp/
+.cache/
+
+# =========================
+# 🔥 OPTIONAL (si React / frameworks)
+# =========================
+.next/
+.nuxt/
+.svelte-kit/
+
+# =========================
+# 🔥 VERCEL SAFE
+# =========================
+.vercel
+
+# =========================
+# 🔥 CUSTOM (ZARABESSO CLOUD RULE)
+# =========================
+# Tout média doit aller dans cloud externe (Cloudinary / API)
+media/
+videos/
+audio/
+assets/videos/
+assets/audio/
