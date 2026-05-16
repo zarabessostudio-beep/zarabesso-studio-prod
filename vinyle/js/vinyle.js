@@ -165,10 +165,14 @@ function initSmoothReveal(){
     threshold:0.1
   });
 
-  items.forEach(item=>{
+ items.forEach(item=>{
 
-    observer.observe(item);
+  observer.observe(item);
 
-  });
+});
 
 }
+
+/* =======================================================
+   END
+======================================================= */
