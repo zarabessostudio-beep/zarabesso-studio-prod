@@ -2,7 +2,6 @@
   "version": 2,
 
   "cleanUrls": true,
-
   "trailingSlash": false,
 
   "github": {
@@ -19,19 +18,7 @@
   "headers": [
 
     {
-      "source": "/assets/(.*)",
-
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-
-    {
       "source": "/vinyle/assets/(.*)",
-
       "headers": [
         {
           "key": "Cache-Control",
@@ -41,8 +28,7 @@
     },
 
     {
-      "source": "/js/(.*)",
-
+      "source": "/vinyle/css/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -52,8 +38,7 @@
     },
 
     {
-      "source": "/css/(.*)",
-
+      "source": "/vinyle/js/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -63,8 +48,7 @@
     },
 
     {
-      "source": "/data/(.*)",
-
+      "source": "/vinyle/data/(.*)",
       "headers": [
         {
           "key": "Content-Type",
@@ -79,7 +63,6 @@
 
     {
       "source": "/api/(.*)",
-
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
@@ -92,17 +75,6 @@
         {
           "key": "Access-Control-Allow-Headers",
           "value": "Content-Type"
-        }
-      ]
-    },
-
-    {
-      "source": "/(.*).(mp3|mp4|jpg|jpeg|png|webp|gif|svg|ico|woff|woff2)",
-
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
         }
       ]
     }
