@@ -2605,3 +2605,219 @@ section{
   }
 
 }
+/* =========================================================
+   MOBILE LOW GPU / IPHONE SAFE MODE
+   AJOUTER TOUT EN BAS
+========================================================= */
+
+@media (max-width:900px){
+
+  /* =========================
+     PERFORMANCE MODE
+  ========================= */
+
+  html{
+    -webkit-text-size-adjust:100%;
+  }
+
+  body{
+
+    overflow-x:hidden;
+
+    /* améliore rendu mobile */
+    text-rendering:optimizeSpeed;
+
+    /* évite lag safari */
+    -webkit-font-smoothing:antialiased;
+
+    /* évite repaint excessif */
+    transform:translateZ(0);
+  }
+
+  /* =========================
+     FIX 100VH IOS
+  ========================= */
+
+  .nav-links,
+  .popup-overlay,
+  .video-screen,
+  .hero{
+
+    min-height:100svh;
+    height:auto;
+  }
+
+  /* =========================
+     REDUCE BLUR
+  ========================= */
+
+  .navbar,
+  .nav-links,
+  .popup-overlay,
+  .player-box,
+  .artist-card,
+  .portfolio-card,
+  .vinyle-preview-content{
+
+    backdrop-filter:blur(8px) !important;
+    -webkit-backdrop-filter:blur(8px) !important;
+  }
+
+  /* =========================
+     REDUCE SHADOW GPU
+  ========================= */
+
+  .portfolio-card,
+  .artist-card,
+  .popup-box,
+  .main-video-box,
+  .vinyle-preview-content{
+
+    box-shadow:
+    0 0 20px rgba(0,0,0,.25) !important;
+  }
+
+  /* =========================
+     SAFE ANIMATIONS
+  ========================= */
+
+  .vinyl,
+  .mini-vinyl{
+
+    animation:
+    spin 25s linear infinite !important;
+  }
+
+  .music-title,
+  .title,
+  .overlay-logo{
+
+    animation-duration:6s !important;
+  }
+
+  /* =========================
+     DISABLE HEAVY EFFECTS
+  ========================= */
+
+  .portfolio-header .section-title::after,
+  .vinyle-preview-content::before,
+  .video-overlay-center{
+
+    filter:none !important;
+  }
+
+  /* =========================
+     GPU SAFE
+  ========================= */
+
+  .navbar,
+  .burger,
+  .popup-box,
+  .nav-links{
+
+    will-change:auto !important;
+
+    transform:none !important;
+
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+  }
+
+  /* =========================
+     VIDEO OPTIMIZATION
+  ========================= */
+
+  video{
+
+    object-fit:cover;
+
+    /* évite écran noir safari */
+    transform:translateZ(0);
+
+    /* évite flicker */
+    backface-visibility:hidden;
+  }
+
+  /* =========================
+     IMAGE OPTIMIZATION
+  ========================= */
+
+  img{
+
+    image-rendering:auto;
+
+    transform:translateZ(0);
+  }
+
+  /* =========================
+     TOUCH FIX
+  ========================= */
+
+  a,
+  button,
+  .burger{
+
+    touch-action:manipulation;
+
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  /* =========================
+     FIX FIXED LAG IOS
+  ========================= */
+
+  .bg-video{
+
+    position:absolute !important;
+  }
+
+  /* =========================
+     SCROLL FIX IOS
+  ========================= */
+
+  .popup-body,
+  .nav-links{
+
+    -webkit-overflow-scrolling:touch;
+
+    overscroll-behavior:contain;
+  }
+
+}
+
+/* =========================================================
+   VERY LOW GPU DEVICES
+========================================================= */
+
+@media (max-width:500px){
+
+  /* retire gros blur */
+
+  .navbar,
+  .nav-links,
+  .popup-overlay{
+
+    backdrop-filter:none !important;
+    -webkit-backdrop-filter:none !important;
+
+    background:
+    rgba(0,0,0,.92) !important;
+  }
+
+  /* retire animations lourdes */
+
+  .vinyl,
+  .mini-vinyl,
+  .music-title,
+  .title{
+
+    animation:none !important;
+  }
+
+  /* retire glow lourd */
+
+  *{
+    text-shadow:none !important;
+  }
+
+}

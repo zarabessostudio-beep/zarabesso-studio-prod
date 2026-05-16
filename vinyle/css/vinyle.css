@@ -19,8 +19,7 @@ body{
   radial-gradient(circle at bottom right,#ff000033,transparent 30%);
   z-index:-3;
 }
-
-.glow{
+.blur{
   position:fixed;
   width:500px;
   height:500px;
@@ -29,13 +28,13 @@ body{
   z-index:-2;
 }
 
-.glow1{
+.blur1{
   background:#7b00ff;
   top:-100px;
   left:-100px;
 }
 
-.glow2{
+.blur2{
   background:#ff0000;
   bottom:-100px;
   right:-100px;
@@ -60,11 +59,6 @@ body{
   letter-spacing:4px;
 }
 
-.navbar ul{
-  display:flex;
-  gap:30px;
-  list-style:none;
-}
 
 .navbar a{
   color:white;
@@ -146,7 +140,7 @@ body{
   justify-content:center;
 }
 
-.vinyl-container{
+.vinyl-wrapper{
   position:relative;
   width:500px;
   height:500px;
@@ -577,24 +571,6 @@ body{
 
 /* ===== OUTER AUDIO PULSE BORDER ===== */
 
-.premium-footer::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-
-  border-radius:0;
-
-  background:
-  radial-gradient(circle at 10% 50%, rgba(128,0,255,.25), transparent 40%),
-  radial-gradient(circle at 50% 50%, rgba(255,0,0,.18), transparent 45%),
-  radial-gradient(circle at 90% 50%, rgba(0,255,120,.18), transparent 40%);
-
-  animation:audioPulse 2.8s ease-in-out infinite;
-  filter:blur(25px);
-
-  opacity:.7;
-}
 
 /* ================= PREMIUM GLASS SPECTRUM BORDER ================= */
 
@@ -1213,4 +1189,13 @@ body{
 .premium-footer{
   position:relative;
   z-index:2;
+}
+@keyframes spin{
+  from{
+    transform:rotate(0deg);
+  }
+
+  to{
+    transform:rotate(360deg);
+  }
 }
