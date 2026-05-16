@@ -1199,3 +1199,522 @@ body{
     transform:rotate(360deg);
   }
 }
+/* =========================================================
+   VYNILE PRODUCTION STABLE FINAL FIX
+   GARDE LE MEME DESIGN
+========================================================= */
+
+/* ===== ROOT ===== */
+
+:root{
+  --gold:#d4af37;
+  --bg:#050505;
+}
+
+/* ===== SAFE RENDER ===== */
+
+html{
+  scroll-behavior:smooth;
+  overflow-x:hidden;
+}
+
+body{
+  overflow-x:hidden;
+  background:#050505;
+  min-height:100vh;
+
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+
+  text-rendering:optimizeLegibility;
+}
+
+/* ===== SAFE MEDIA ===== */
+
+img,
+video,
+canvas{
+  max-width:100%;
+  display:block;
+}
+
+/* ===== SAFE VIDEO ===== */
+
+#videoPlayer{
+  width:100%;
+  height:auto;
+  display:block;
+
+  background:#000;
+
+  border-radius:24px;
+
+  object-fit:cover;
+
+  overflow:hidden;
+}
+
+/* ===== SAFE LAYERS ===== */
+
+.bg-overlay{
+  position:fixed;
+  inset:0;
+  z-index:-10;
+  pointer-events:none;
+}
+
+.blur{
+  pointer-events:none;
+  will-change:transform;
+}
+
+/* ===== NAVBAR STABLE ===== */
+
+.navbar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+
+  z-index:9999;
+
+  background:rgba(0,0,0,.45);
+
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+
+  border-bottom:
+  1px solid rgba(255,255,255,.04);
+
+  transition:
+  transform .4s ease,
+  background .4s ease,
+  box-shadow .4s ease;
+}
+
+/* ===== NAVBAR GPU FIX ===== */
+
+.navbar,
+.player-card,
+.track-card,
+.album-card,
+.spotify-content,
+.spotify-sidebar,
+.premium-footer{
+  transform:translateZ(0);
+  backface-visibility:hidden;
+}
+
+/* ===== LOGO FIX ===== */
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  flex-shrink:0;
+}
+
+.logo img{
+  width:42px;
+  height:42px;
+  object-fit:cover;
+
+  border-radius:12px;
+
+  box-shadow:
+  0 0 12px rgba(212,175,55,.25);
+}
+
+/* ===== NAV LINKS ===== */
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:45px;
+}
+
+.nav-links a{
+  position:relative;
+  white-space:nowrap;
+}
+
+/* ===== PREMIUM UNDERLINE ===== */
+
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+
+  width:0%;
+  height:1px;
+
+  background:var(--gold);
+
+  transition:width .3s ease;
+}
+
+.nav-links a:hover::after{
+  width:100%;
+}
+
+/* ===== BURGER FIX ===== */
+
+.burger{
+  position:relative;
+  z-index:10001;
+
+  user-select:none;
+  -webkit-tap-highlight-color:transparent;
+}
+
+/* ===== HERO FIX ===== */
+
+.hero{
+  position:relative;
+  z-index:2;
+
+  min-height:100vh;
+
+  gap:60px;
+}
+
+.hero-left,
+.hero-right{
+  position:relative;
+  z-index:2;
+}
+
+/* ===== TEXT OVERFLOW FIX ===== */
+
+.hero-left h1{
+  overflow-wrap:break-word;
+}
+
+/* ===== BUTTON FIX ===== */
+
+.gold-btn,
+.glass-btn,
+.controls button{
+  cursor:pointer;
+  border:none;
+
+  -webkit-tap-highlight-color:transparent;
+
+  transition:
+  transform .3s ease,
+  box-shadow .3s ease,
+  background .3s ease;
+}
+
+.gold-btn:hover,
+.glass-btn:hover,
+.controls button:hover{
+  transform:translateY(-2px);
+}
+
+/* ===== VINYL FIX ===== */
+
+.vinyl-wrapper{
+  position:relative;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  isolation:isolate;
+}
+
+.vinyl{
+  overflow:hidden;
+
+  will-change:transform;
+
+  transform:translateZ(0);
+
+  animation:spin 8s linear infinite;
+  animation-play-state:paused;
+}
+
+.vinyl.playing{
+  animation-play-state:running;
+}
+
+@keyframes spin{
+  from{
+    transform:rotate(0deg);
+  }
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+/* ===== TRACK CARD FIX ===== */
+
+.track-card,
+.album-card{
+  position:relative;
+
+  overflow:hidden;
+
+  isolation:isolate;
+}
+
+.track-card:hover,
+.album-card:hover{
+  transform:
+  translateY(-10px)
+  scale(1.02);
+}
+
+/* ===== PLAYER FIX ===== */
+
+.player-card{
+  overflow:hidden;
+}
+
+/* =========================================================
+   PREMIUM FOOTER BORDER
+   MULTICOLOR SUBTLE LUXURY
+========================================================= */
+
+.premium-footer{
+  position:relative;
+
+  overflow:hidden;
+
+  isolation:isolate;
+
+  background:
+  linear-gradient(
+    to top,
+    #050505,
+    #0b0b0b
+  );
+
+  border-top:
+  1px solid rgba(255,255,255,.06);
+}
+
+/* ===== GLASS LAYER ===== */
+
+.premium-footer::before{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  pointer-events:none;
+
+  background:
+  rgba(255,255,255,.015);
+
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+
+  z-index:0;
+}
+
+/* ===== PREMIUM ANIMATED BORDER ===== */
+
+.premium-footer::after{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  padding:1.5px;
+
+  border-radius:0;
+
+  pointer-events:none;
+
+  background:
+  linear-gradient(
+    130deg,
+    rgba(255,0,0,.7),
+    rgba(0,255,140,.7),
+    rgba(0,140,255,.7),
+    rgba(255,140,0,.7),
+    rgba(180,0,255,.7),
+    rgba(255,255,255,.8),
+    rgba(255,0,0,.7)
+  );
+
+  background-size:400% 400%;
+
+  animation:footerSpectrum 10s linear infinite;
+
+  opacity:.65;
+
+  filter:blur(.5px);
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+
+  z-index:1;
+}
+
+/* ===== SUBTLE EDGE GLOW ===== */
+
+.premium-footer{
+  box-shadow:
+  inset 0 0 80px rgba(255,255,255,.015),
+  0 0 40px rgba(255,0,0,.03),
+  0 0 40px rgba(0,140,255,.03),
+  0 0 40px rgba(0,255,120,.03),
+  0 0 40px rgba(180,0,255,.03);
+}
+
+/* ===== BORDER ANIMATION ===== */
+
+@keyframes footerSpectrum{
+
+  0%{
+    background-position:0% 50%;
+  }
+
+  50%{
+    background-position:100% 50%;
+  }
+
+  100%{
+    background-position:0% 50%;
+  }
+
+}
+
+/* ===== FOOTER CONTENT SAFE ===== */
+
+.footer-container,
+.footer-bottom{
+  position:relative;
+  z-index:3;
+}
+
+/* ===== SOCIAL FIX ===== */
+
+.social-icons a{
+  position:relative;
+  overflow:hidden;
+
+  transform:translateZ(0);
+}
+
+/* ===== MOBILE FIX ===== */
+
+@media(max-width:900px){
+
+  .navbar{
+    padding:20px 6%;
+  }
+
+  .nav-links{
+    position:fixed;
+
+    top:0;
+    right:-100%;
+
+    width:75%;
+    height:100vh;
+
+    background:rgba(0,0,0,.92);
+
+    backdrop-filter:blur(24px);
+    -webkit-backdrop-filter:blur(24px);
+
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    gap:35px;
+
+    transition:right .4s ease;
+
+    z-index:9998;
+  }
+
+  .nav-links.active{
+    right:0;
+  }
+
+  .burger{
+    display:flex !important;
+  }
+
+  .hero{
+    flex-direction:column;
+    text-align:center;
+
+    padding-top:170px;
+  }
+
+  .hero-left,
+  .hero-right{
+    width:100%;
+  }
+
+  .hero-left h1{
+    font-size:3rem;
+    line-height:1.15;
+  }
+
+  .hero-buttons{
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+
+  .vinyl-wrapper{
+    width:320px;
+    height:320px;
+  }
+
+  .arm{
+    width:120px;
+    top:75px;
+    right:-8px;
+  }
+
+  .tracks-grid,
+  .albums-grid{
+    grid-template-columns:1fr;
+  }
+
+  .footer-container{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .footer-logo{
+    justify-content:center;
+  }
+
+  .footer-links a{
+    justify-content:center;
+  }
+
+  .social-icons{
+    justify-content:center;
+  }
+
+}
+
+/* ===== SAFARI FIX ===== */
+
+@supports not ((backdrop-filter:blur(1px))) {
+
+  .navbar,
+  .player-card,
+  .spotify-content,
+  .spotify-sidebar,
+  .premium-footer::before{
+
+    background:rgba(10,10,10,.92);
+  }
+
+}
