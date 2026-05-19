@@ -1,74 +1,34 @@
-// ==========================================
-// ☁️ ZARABESSO CLOUD MEDIA LOADER
-// ==========================================
+// ======================================
+// ☁️ AUTO CLOUD MEDIA SYSTEM
+// ======================================
 
-const CLOUD = window.CLOUDINARY;
+async function loadCloudMedia() {
 
-// ==========================================
-// 🎥 VIDEOS
-// ==========================================
+  try {
 
-const videos = {
+    const response =
+    await fetch("/api/media");
 
-  diarynofy:
-  `https://res.cloudinary.com/${CLOUD.cloudName}/video/upload/diarynofy_zwdera.mp4`,
+    const data =
+    await response.json();
 
-  tsodrano:
-  `https://res.cloudinary.com/${CLOUD.cloudName}/video/upload/tsodrano_u6f1r0.mp4`,
+    window.ZarabessoCloud = data;
 
-  tompondaka:
-  `https://res.cloudinary.com/${CLOUD.cloudName}/video/upload/tompondaka_t18xdz.mp4`
+    console.log("☁️ Cloud media loaded", data);
 
-};
+    renderTracks(data);
 
-// ==========================================
-// 🎵 AUDIOS
-// ==========================================
+  }
 
-const audios = {
+  catch(err) {
 
-  track1:
-  `https://res.cloudinary.com/${CLOUD.cloudName}/video/upload/${CLOUD.folders.audio}/track1.mp3`,
+    console.error(
+      "Cloud loading error",
+      err
+    );
 
-  track2:
-  `https://res.cloudinary.com/${CLOUD.cloudName}/video/upload/${CLOUD.folders.audio}/track2.mp3`
+  }
 
-};
+}
 
-// ==========================================
-// 🖼️ COVERS
-// ==========================================
-
-const covers = {
-
-  cover1:
-  `https://res.cloudinary.com/${CLOUD.cloudName}/image/upload/${CLOUD.folders.covers}/cover1.jpg`
-
-};
-
-// ==========================================
-// 🌌 IMAGES
-// ==========================================
-
-const images = {
-
-  background:
-  `https://res.cloudinary.com/${CLOUD.cloudName}/image/upload/${CLOUD.folders.images}/background3.png`,
-
-  logo:
-  `https://res.cloudinary.com/${CLOUD.cloudName}/image/upload/${CLOUD.folders.images}/logo.jpg`
-
-};
-
-// ==========================================
-// 🌍 EXPORT GLOBAL
-// ==========================================
-
-window.ZarabessoCloud = {
-
-  videos,
-  audios,
-  covers,
-  images
-
-};
+loadCloudMedia();

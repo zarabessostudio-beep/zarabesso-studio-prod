@@ -1,10 +1,6 @@
 /* =========================================
-   ☁️ VYNILE CLOUD PREMIUM PLAYER
+   ☁️ VYNILE AUTO CLOUD PLAYER
 ========================================= */
-
-/* ================= CLOUDINARY ================= */
-
-const CLOUD_NAME = "drywjcs1w";
 
 /* ================= ELEMENTS ================= */
 
@@ -43,57 +39,106 @@ document.getElementById("vinyl");
 
 /* ================= TRACKS ================= */
 
-const tracks = [
-
-  {
-    title: "Diarynofy",
-    artist: "Zarabesso Studio",
-
-    cover:
-    "assets/covers/cover1.jpg",
-
-    audio:
-    "https://res.cloudinary.com/drywjcs1w/video/upload/zarabesso-music/track1.mp3",
-
-    video:
-    "https://res.cloudinary.com/drywjcs1w/video/upload/diarynofy_zwdera.mp4"
-  },
-
-  {
-    title: "Tsodrano",
-    artist: "Zarabesso Studio",
-
-    cover:
-    "assets/covers/cover2.jpg",
-
-    audio:
-    "https://res.cloudinary.com/drywjcs1w/video/upload/zarabesso-music/track2.mp3",
-
-    video:
-    "https://res.cloudinary.com/drywjcs1w/video/upload/tsodrano_u6f1r0.mp4"
-  },
-
-  {
-    title: "Tompondaka",
-    artist: "Zarabesso Studio",
-
-    cover:
-    "assets/covers/cover3.jpg",
-
-    audio:
-    "https://res.cloudinary.com/drywjcs1w/video/upload/zarabesso-music/track3.mp3",
-
-    video:
-    "https://res.cloudinary.com/drywjcs1w/video/upload/tompondaka_t18xdz.mp4"
-  }
-
-];
-
-/* ================= VARIABLES ================= */
+let tracks = [];
 
 let currentIndex = 0;
 
 let playing = false;
+
+/* =========================================
+   LOAD CLOUD MEDIA
+========================================= */
+
+async function loadCloudTracks(){
+
+  try{
+
+    const response =
+    await fetch("/api/media");
+
+    const data =
+    await response.json();
+
+    console.log(
+      "☁️ CLOUD MEDIA:",
+      data
+    );
+
+    const music =
+    data.music || [];
+
+    const videos =
+    data.videos || [];
+
+    const covers =
+    data.covers || [];
+
+    tracks = music.map((track,index)=>{
+
+      const video =
+      videos[index]
+      ? videos[index].secure_url
+      : "";
+
+      const coverImage =
+      covers[index]
+      ? covers[index].secure_url
+      : "/vinyle/assets/logo/logo1.png";
+
+      return {
+
+        title:
+        cleanTitle(track.public_id),
+
+        artist:
+        "Zarabesso Studio",
+
+        audio:
+        track.secure_url,
+
+        video:
+        video,
+
+        cover:
+        coverImage
+
+      };
+
+    });
+
+    renderTracks();
+
+    if(tracks.length > 0){
+
+      loadTrack(0);
+
+    }
+
+  }
+
+  catch(err){
+
+    console.error(
+      "❌ Cloud loading error:",
+      err
+    );
+
+  }
+
+}
+
+/* =========================================
+   CLEAN TITLE
+========================================= */
+
+function cleanTitle(name){
+
+  return name
+  .replace(/_/g," ")
+  .replace(/-/g," ")
+  .replace(/\.[^/.]+$/,"");
+
+}
 
 /* =========================================
    RENDER TRACKS
@@ -117,6 +162,7 @@ function renderTracks(){
         <img
           loading="lazy"
           src="${track.cover}"
+          alt="${track.title}"
         >
 
         <div class="track-info">
@@ -153,23 +199,38 @@ function loadTrack(index){
 
   const track = tracks[index];
 
+  if(!track) return;
+
   /* AUDIO */
 
   audio.src = track.audio;
 
   /* VIDEO */
 
-  videoPlayer.src = track.video;
+  if(track.video){
+
+    videoPlayer.style.display = "block";
+
+    videoPlayer.src = track.video;
+
+  }else{
+
+    videoPlayer.style.display = "none";
+
+  }
 
   /* TEXT */
 
-  title.textContent = track.title;
+  title.textContent =
+  track.title;
 
-  artist.textContent = track.artist;
+  artist.textContent =
+  track.artist;
 
   /* COVER */
 
-  cover.src = track.cover;
+  cover.src =
+  track.cover;
 
 }
 
@@ -186,26 +247,45 @@ function selectTrack(index){
 }
 
 /* =========================================
-   PLAY
+   PLAY MUSIC
 ========================================= */
 
-function playMusic(){
+async function playMusic(){
 
-  audio.play();
+  try{
 
-  videoPlayer.play();
+    await audio.play();
 
-  playing = true;
+    if(videoPlayer.src){
 
-  playBtn.innerHTML =
-  '<i class="ri-pause-fill"></i>';
+      videoPlayer.play();
 
-  vinyl.classList.add("playing");
+    }
+
+    playing = true;
+
+    playBtn.innerHTML =
+    '<i class="ri-pause-fill"></i>';
+
+    vinyl.classList.add(
+      "playing"
+    );
+
+  }
+
+  catch(err){
+
+    console.log(
+      "Playback blocked:",
+      err
+    );
+
+  }
 
 }
 
 /* =========================================
-   PAUSE
+   PAUSE MUSIC
 ========================================= */
 
 function pauseMusic(){
@@ -219,7 +299,9 @@ function pauseMusic(){
   playBtn.innerHTML =
   '<i class="ri-play-fill"></i>';
 
-  vinyl.classList.remove("playing");
+  vinyl.classList.remove(
+    "playing"
+  );
 
 }
 
@@ -227,98 +309,143 @@ function pauseMusic(){
    PLAY BUTTON
 ========================================= */
 
-playBtn.addEventListener("click",()=>{
+playBtn.addEventListener(
+  "click",
+  ()=>{
 
-  if(!playing){
+    if(!playing){
 
-    playMusic();
+      playMusic();
 
-  }else{
+    }else{
 
-    pauseMusic();
+      pauseMusic();
+
+    }
 
   }
-
-});
+);
 
 /* =========================================
    NEXT
 ========================================= */
 
-nextBtn.addEventListener("click",()=>{
+nextBtn.addEventListener(
+  "click",
+  ()=>{
 
-  currentIndex++;
+    currentIndex++;
 
-  if(currentIndex >= tracks.length){
+    if(currentIndex >= tracks.length){
 
-    currentIndex = 0;
+      currentIndex = 0;
+
+    }
+
+    loadTrack(currentIndex);
+
+    playMusic();
 
   }
-
-  loadTrack(currentIndex);
-
-  playMusic();
-
-});
+);
 
 /* =========================================
    PREV
 ========================================= */
 
-prevBtn.addEventListener("click",()=>{
+prevBtn.addEventListener(
+  "click",
+  ()=>{
 
-  currentIndex--;
+    currentIndex--;
 
-  if(currentIndex < 0){
+    if(currentIndex < 0){
 
-    currentIndex = tracks.length - 1;
+      currentIndex =
+      tracks.length - 1;
+
+    }
+
+    loadTrack(currentIndex);
+
+    playMusic();
 
   }
-
-  loadTrack(currentIndex);
-
-  playMusic();
-
-});
+);
 
 /* =========================================
    AUTO NEXT
 ========================================= */
 
-audio.addEventListener("ended",()=>{
+audio.addEventListener(
+  "ended",
+  ()=>{
 
-  currentIndex++;
+    currentIndex++;
 
-  if(currentIndex >= tracks.length){
+    if(currentIndex >= tracks.length){
 
-    currentIndex = 0;
+      currentIndex = 0;
+
+    }
+
+    loadTrack(currentIndex);
+
+    playMusic();
 
   }
-
-  loadTrack(currentIndex);
-
-  playMusic();
-
-});
+);
 
 /* =========================================
    PROGRESS
 ========================================= */
 
-audio.addEventListener("timeupdate",()=>{
+audio.addEventListener(
+  "timeupdate",
+  ()=>{
 
-  const percent =
-  (audio.currentTime / audio.duration) * 100;
+    if(!audio.duration) return;
 
-  progress.style.width =
-  percent + "%";
+    const percent =
+    (audio.currentTime /
+    audio.duration) * 100;
 
-});
+    progress.style.width =
+    percent + "%";
+
+  }
+);
+
+/* =========================================
+   CLICK PROGRESS
+========================================= */
+
+document
+.querySelector(
+  ".progress-container"
+)
+.addEventListener(
+  "click",
+  (e)=>{
+
+    const width =
+    e.currentTarget.clientWidth;
+
+    const clickX =
+    e.offsetX;
+
+    const duration =
+    audio.duration;
+
+    audio.currentTime =
+    (clickX / width)
+    * duration;
+
+  }
+);
 
 /* =========================================
    START
 ========================================= */
 
-renderTracks();
-
-loadTrack(0);
+loadCloudTracks();
