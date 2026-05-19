@@ -76,16 +76,28 @@
 </video>
 
 <!-- HERO -->
-<section class="hero">
+<div class="hero-right">
 
-  <div class="hero-content">
-    <h1 class="title music-title">Zarabesso Studio Prod</h1>
-    
+  <h1 class="title music-title">
+    Zarabesso Studio
+  </h1>
 
-    <p class="italic">
-      Merci de faire partie de l’univers Zarabesso Studio Prod.
-    </p>
-  </div>
+ <p class="premium-subtitle">
+  Merci de faire partie de notre aventure musicale.
+  <span>GOLD MUSIC</span>
+</p>
+
+</div>
+  <!-- 💿 VINYL REAL -->
+<div class="vinyl">
+
+  <div class="center-ring"></div>
+
+  <img src="assets/images/logo1.png" alt="logo">
+
+  <div class="vinyl-hole"></div>
+
+</div>
 
 </section>
 
@@ -122,17 +134,65 @@
 
   <h2>Technologies & Expertise</h2>
 
-  <p>
-    Nous utilisons des outils avancés d’ingénierie audio :
-    traitement numérique du signal (DSP), analyse spectrale,
-    compression multibande et spatialisation stéréo avancée.
-  </p>
+<p>
+  Chez Zarabesso Studio, chaque production est conçue avec une approche
+  technique et artistique de haut niveau afin d’obtenir un rendu sonore
+  puissant, moderne et émotionnellement immersif.
 
-  <p class="italic">
-    Cependant, la technologie seule ne suffit pas.
-    Le véritable élément distinctif reste le talent,
-    l’oreille artistique et la sensibilité humaine.
-  </p>
+  Nous utilisons des technologies avancées d’ingénierie audio professionnelle :
+  traitement numérique du signal (DSP), analyse fréquentielle en temps réel,
+  correction dynamique, spatialisation stéréo avancée et optimisation
+  acoustique de chaque piste sonore.
+</p>
+
+<p>
+  Durant l’enregistrement, nous accordons une attention particulière à la
+  capture vocale et instrumentale. Chaque voix est travaillée avec précision :
+  réduction des bruits parasites, équilibrage des fréquences, contrôle des
+  résonances et amélioration de la clarté afin de préserver l’émotion naturelle
+  de l’artiste tout en offrant une qualité studio professionnelle.
+</p>
+
+<p>
+  Nos sessions de mixage incluent l’égalisation paramétrique avancée,
+  la compression multibande, le traitement harmonique, le contrôle de la
+  dynamique, la saturation analogique virtuelle et la gestion précise de
+  l’espace stéréo. Chaque élément du morceau est positionné avec soin afin
+  d’obtenir une séparation sonore propre, une profondeur réaliste et une
+  écoute équilibrée sur tous les systèmes audio.
+</p>
+
+<p>
+  Nous travaillons également sur la spatialisation immersive des instruments,
+  la création d’ambiances sonores cinématographiques, l’élargissement stéréo,
+  les effets de réverbération premium et le design sonore moderne pour donner
+  davantage de puissance, de relief et d’identité à chaque production musicale.
+</p>
+
+<p>
+  L’étape de mastering permet ensuite d’optimiser le volume global,
+  la cohérence fréquentielle et la compatibilité multi-plateforme
+  (Spotify, YouTube, Apple Music, radio, streaming et diffusion professionnelle).
+  Chaque projet est finalisé avec des standards audio modernes afin d’obtenir
+  un son propre, profond, dynamique et compétitif à l’international.
+</p>
+
+<p>
+  Cependant, la technologie seule ne suffit pas.
+  Derrière chaque traitement audio, chaque fréquence ajustée et chaque détail
+  sonore travaillé, il existe une dimension humaine essentielle :
+  l’oreille artistique, la sensibilité musicale, l’émotion et la vision créative.
+
+  C’est cette combinaison entre expertise technique et identité artistique
+  qui permet à Zarabesso Studio de transformer une simple production
+  en véritable expérience sonore.
+</p>
+
+<p class="italic">
+  Nous ne créons pas seulement du son.
+  Nous sculptons des émotions, des atmosphères et des identités musicales
+  capables de marquer durablement les auditeurs.
+</p>
 
 </section>
 
@@ -146,13 +206,6 @@
       <p class="italic">
         Studio international dédié à l’excellence musicale.
       </p>
-    </div>
-
-    <div>
-      <h3>Navigation</h3>
-      <p>Accueil</p>
-      <p>Services</p>
-      <p>À propos</p>
     </div>
 
    <div class="footer-socials">
@@ -202,6 +255,84 @@ window.addEventListener('scroll', () => {
   }
 
   lastScroll = currentScroll;
+});
+</script>
+<script>
+/* =========================================
+   PREMIUM BURGER MENU STABLE ALL DEVICES
+   iOS / Android / iPad / Desktop SAFE
+========================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const burger = document.getElementById("burger");
+  const navLinks = document.getElementById("navLinks");
+  const navOverlay = document.getElementById("navOverlay");
+
+  if (!burger || !navLinks || !navOverlay) {
+    console.warn("Burger elements missing");
+    return;
+  }
+
+  let isOpen = false;
+
+  // OPEN / CLOSE TOGGLE
+  function toggleMenu() {
+
+    isOpen = !isOpen;
+
+    burger.classList.toggle("active", isOpen);
+    navLinks.classList.toggle("active", isOpen);
+    navOverlay.classList.toggle("active", isOpen);
+
+    // LOCK SCROLL (iOS SAFE)
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    document.body.style.touchAction = isOpen ? "none" : "";
+
+  }
+
+  // CLOSE MENU
+  function closeMenu() {
+
+    isOpen = false;
+
+    burger.classList.remove("active");
+    navLinks.classList.remove("active");
+    navOverlay.classList.remove("active");
+
+    document.body.style.overflow = "";
+    document.body.style.touchAction = "";
+
+  }
+
+  // CLICK BURGER
+  burger.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleMenu();
+  });
+
+  // CLICK OVERLAY
+  navOverlay.addEventListener("click", closeMenu);
+
+  // CLICK LINKS (AUTO CLOSE)
+  navLinks.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", closeMenu);
+  });
+
+  // ESC (DESKTOP ONLY)
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && isOpen) {
+      closeMenu();
+    }
+  });
+
+  // SAFETY: CLICK OUTSIDE (desktop fallback)
+  document.addEventListener("click", (e) => {
+    if (isOpen && !navLinks.contains(e.target) && !burger.contains(e.target)) {
+      closeMenu();
+    }
+  });
+
 });
 </script>
 </body>

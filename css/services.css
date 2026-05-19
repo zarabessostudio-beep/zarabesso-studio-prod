@@ -759,3 +759,223 @@ body{
   }
 
 }
+/* =========================================
+   FOOTER PREMIUM FINAL
+   améliore seulement le style demandé
+========================================= */
+
+.footer{
+
+  position:relative;
+
+  overflow:hidden;
+
+  padding:80px 50px 50px;
+
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+
+/* ESPACEMENT */
+
+.footer-container{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:flex-start;
+
+  flex-wrap:wrap;
+
+  gap:60px;
+
+  margin-bottom:50px;
+}
+
+/* FOOTER BOTTOM */
+
+.footer-bottom{
+
+  position:relative;
+
+  text-align:center;
+
+  padding-top:35px;
+
+  margin-top:30px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:15px;
+
+  overflow:hidden;
+}
+
+/* LIGNE LUMINEUSE MULTICOLOR */
+
+.footer-bottom::before{
+
+  content:"";
+
+  position:absolute;
+
+  top:0;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  width:85%;
+  height:3px;
+
+  border-radius:20px;
+
+  background:
+  linear-gradient(
+    90deg,
+    #ffffff,
+    #ff0000,
+    #00aaff,
+    #00ff66,
+    #ff004c,
+    #8a2be2,
+    #ff4dff,
+    #39ff14,
+    #ffd700,
+    #ffffff
+  );
+
+  background-size:400% 100%;
+
+  box-shadow:
+    0 0 10px #fff,
+    0 0 20px #ff0000,
+    0 0 25px #00aaff,
+    0 0 30px #39ff14,
+    0 0 35px #ffd700;
+
+  animation:footerRainbow 8s linear infinite;
+}
+
+/* TEXTE BAS */
+
+.footer-bottom p{
+
+  font-size:1rem;
+
+  font-weight:700;
+
+  letter-spacing:2px;
+
+  text-transform:uppercase;
+
+  margin:0;
+}
+
+/* @2026 PREMIUM */
+
+.footer-bottom p:first-child{
+
+  background:
+  linear-gradient(
+    90deg,
+    #ff004c,
+    #ff7b00,
+    #ffd700,
+    #00ff95,
+    #00c3ff,
+    #8a2be2,
+    #ff4dff
+  );
+
+  background-size:300% 100%;
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  text-shadow:
+    0 0 12px rgba(255,255,255,0.2);
+
+  animation:footerTextFlow 6s linear infinite;
+}
+
+/* BY GRALWEBS */
+
+.footer-bottom p:last-child{
+
+  background:
+  linear-gradient(
+    90deg,
+    #ffffff,
+    #00aaff,
+    #00ff66,
+    #ffd700,
+    #ff004c,
+    #8a2be2,
+    #ffffff
+  );
+
+  background-size:350% 100%;
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  text-shadow:
+    0 0 15px rgba(255,255,255,0.25);
+
+  animation:footerTextFlow 7s linear infinite;
+}
+
+/* ANIMATION BORDURE */
+
+@keyframes footerRainbow{
+
+  0%{
+    background-position:0% 50%;
+  }
+
+  100%{
+    background-position:400% 50%;
+  }
+}
+
+/* ANIMATION TEXTE */
+
+@keyframes footerTextFlow{
+
+  0%{
+    background-position:0% 50%;
+  }
+
+  100%{
+    background-position:300% 50%;
+  }
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .footer-container{
+
+    flex-direction:column;
+
+    text-align:center;
+
+    gap:40px;
+  }
+
+  .footer-bottom{
+
+    gap:12px;
+  }
+
+  .footer-bottom p{
+
+    font-size:.85rem;
+
+    letter-spacing:1px;
+  }
+
+}

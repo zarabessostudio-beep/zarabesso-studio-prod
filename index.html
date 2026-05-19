@@ -89,10 +89,28 @@
     <img src="https://res.cloudinary.com/TON_CLOUD_NAME/image/upload/zarabesso/images/1.png" class="active">
   </div>
 
-  <div class="hero-right">
-    <h1 class="title music-title">Zarabesso Studio Prod</h1>
-    <p class="subtitle">High-End Audio Production</p>
-  </div>
+ <div class="hero-right">
+
+  <h1 class="title music-title">
+    Zarabesso Studio
+  </h1>
+
+  <p class="subtitle premium-subtitle">
+    GOLD MUSIC
+  </p>
+
+</div>
+
+<!-- 💿 VINYL REAL -->
+<div class="vinyl">
+
+  <div class="center-ring"></div>
+
+  <img src="assets/images/logo1.png" alt="logo">
+
+  <div class="vinyl-hole"></div>
+
+</div>
 
 </section>
 <!-- ================= ABOUT ================= -->
@@ -125,6 +143,7 @@
     </div>
 
   </div>
+  
 
 </section>
 <!-- ================= PORTFOLIO MUSICIENS ================= -->
@@ -188,38 +207,7 @@
 
 </section>
 
-<!-- 🎧 PLAYER V3 -->
-<section class="player">
 
-  <div class="player-box">
-
-    <img id="cover" src="assets/images/cover1.jpg">
-
-    <h3 id="title"></h3>
-    <p id="artist"></p>
-
-    <audio id="audio"></audio>
-
-    <div class="controls">
-      <button id="prev"><i class="ri-skip-back-fill"></i></button>
-      <button id="play"><i class="ri-play-fill"></i></button>
-      <button id="next"><i class="ri-skip-forward-fill"></i></button>
-    </div>
-
-    <div class="progress-container">
-      <div class="progress"></div>
-    </div>
-
-  </div>
-
-</section>
-
-<!-- 💿 VINYL REAL -->
-<section class="vinyl-section">
-  <div class="vinyl">
-    <img id="vinyl-cover" src="assets/images/cover1.jpg">
-  </div>
-</section>
 
 <!-- =====================================================
      PORTFOLIO ULTRA PREMIUM + VYNILE INTRO
@@ -973,7 +961,8 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 <script>
 /* =========================================
-   PREMIUM BURGER MENU FIX FINAL
+   PREMIUM BURGER MENU STABLE ALL DEVICES
+   iOS / Android / iPad / Desktop SAFE
 ========================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -982,59 +971,69 @@ document.addEventListener("DOMContentLoaded", () => {
   const navLinks = document.getElementById("navLinks");
   const navOverlay = document.getElementById("navOverlay");
 
-  // OPEN / CLOSE
-  burger.addEventListener("click", () => {
+  if (!burger || !navLinks || !navOverlay) {
+    console.warn("Burger elements missing");
+    return;
+  }
 
-    burger.classList.toggle("active");
+  let isOpen = false;
 
-    navLinks.classList.toggle("active");
+  // OPEN / CLOSE TOGGLE
+  function toggleMenu() {
 
-    navOverlay.classList.toggle("active");
+    isOpen = !isOpen;
 
-    document.body.classList.toggle("menu-open");
+    burger.classList.toggle("active", isOpen);
+    navLinks.classList.toggle("active", isOpen);
+    navOverlay.classList.toggle("active", isOpen);
 
-  });
-
-  // CLOSE WHEN CLICK LINK
-  document.querySelectorAll(".nav-links a").forEach(link => {
-
-    link.addEventListener("click", () => {
-
-      closeMenu();
-
-    });
-
-  });
-
-  // CLOSE OVERLAY
-  navOverlay.addEventListener("click", () => {
-
-    closeMenu();
-
-  });
-
-  // ESC CLOSE
-  document.addEventListener("keydown", (e) => {
-
-    if(e.key === "Escape"){
-
-      closeMenu();
-
-    }
-
-  });
-
-  function closeMenu(){
-
-    burger.classList.remove("active");
-
-    navLinks.classList.remove("active");
-
-    navOverlay.classList.remove("active");
-
-    document.body.classList.remove("menu-open");
+    // LOCK SCROLL (iOS SAFE)
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    document.body.style.touchAction = isOpen ? "none" : "";
 
   }
+
+  // CLOSE MENU
+  function closeMenu() {
+
+    isOpen = false;
+
+    burger.classList.remove("active");
+    navLinks.classList.remove("active");
+    navOverlay.classList.remove("active");
+
+    document.body.style.overflow = "";
+    document.body.style.touchAction = "";
+
+  }
+
+  // CLICK BURGER
+  burger.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleMenu();
+  });
+
+  // CLICK OVERLAY
+  navOverlay.addEventListener("click", closeMenu);
+
+  // CLICK LINKS (AUTO CLOSE)
+  navLinks.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", closeMenu);
+  });
+
+  // ESC (DESKTOP ONLY)
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && isOpen) {
+      closeMenu();
+    }
+  });
+
+  // SAFETY: CLICK OUTSIDE (desktop fallback)
+  document.addEventListener("click", (e) => {
+    if (isOpen && !navLinks.contains(e.target) && !burger.contains(e.target)) {
+      closeMenu();
+    }
+  });
 
 });
 </script>
@@ -1254,6 +1253,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 </script>
+
 
 </body>
 </html>
