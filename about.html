@@ -23,56 +23,98 @@
 
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/about.css">
-
+<link rel="preload" as="image" href="assets/images/poster.webp">
 <!-- ICONS -->
 <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
 
 </head>
 
 <body>
 
-<!-- ================= NAVBAR ================= -->
+<!-- =========================================================
+     ULTRA PREMIUM NAVBAR
+========================================================= -->
 
 <header class="navbar">
 
   <div class="nav-container">
 
-    <!-- LOGO -->
-    <div class="logo">
-      <img src="assets/images/logo1.png" alt="Zarabesso Music">
+    <!-- LOGO + MENU BUTTON MOBILE -->
+    <div class="logo-menu" id="burger">
+
+      <div class="logo">
+        <img src="assets/images/logo1.png" alt="Zarabesso Logo">
+      </div>
+
+      <!-- INDICATION MENU -->
+      <div class="menu-indicator">
+        <span class="menu-text">MENU</span>
+
+        <div class="menu-lines">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
     </div>
 
-    <!-- MENU -->
+    <!-- NAVIGATION -->
     <nav class="nav-links" id="navLinks">
-      <div class="nav-overlay" id="navOverlay"></div>
+
       <a href="index.html">Accueil</a>
+
       <a href="services.html">Services</a>
-      
-      <!-- 🔥 NOUVEAU VINYLE -->
+
       <a href="./vinyle/index.html" class="vinyle-link">
         Vynile
       </a>
 
-      <a href="about.html">À propos</a>
-       <a href="remerciement.html">Remerciements</a>
-    
+      <a href="about.html">About</a>
+
+      <a href="remerciement.html">Remerciements</a>
+
     </nav>
 
-    <!-- BURGER -->
-    <div class="burger" id="burger">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
+    <!-- OVERLAY -->
+    <div class="nav-overlay" id="navOverlay"></div>
 
   </div>
 
 </header>
 
-<!-- 🎬 VIDEO BACKGROUND -->
-<video class="bg-video" autoplay muted loop>
-  <!-- 🔴 METTRE VIDEO -->
-  <source src="assets/videos/video1.mp4" type="video/mp4">
+<!-- 🎬 VIDEO BACKGROUND OPTIMISÉ -->
+<video
+  class="bg-video"
+  autoplay
+  muted
+  loop
+  playsinline
+  preload="metadata"
+  poster="assets/images/poster.webp"
+>
+  
+  <!-- MOBILE FIRST -->
+  <source
+    src="assets/videos/video-mobile.mp4"
+    type="video/mp4"
+    media="(max-width: 768px)"
+  >
+
+  <!-- TABLET -->
+  <source
+    src="assets/videos/video-tablet.mp4"
+    type="video/mp4"
+    media="(max-width: 1200px)"
+  >
+
+  <!-- DESKTOP -->
+  <source
+    src="assets/videos/video1.mp4"
+    type="video/mp4"
+  >
+
 </video>
 
 <!-- HERO -->
@@ -258,82 +300,29 @@ window.addEventListener('scroll', () => {
 });
 </script>
 <script>
-/* =========================================
-   PREMIUM BURGER MENU STABLE ALL DEVICES
-   iOS / Android / iPad / Desktop SAFE
-========================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
+const burger = document.getElementById("burger");
+const navLinks = document.getElementById("navLinks");
+const navOverlay = document.getElementById("navOverlay");
 
-  const burger = document.getElementById("burger");
-  const navLinks = document.getElementById("navLinks");
-  const navOverlay = document.getElementById("navOverlay");
+burger.addEventListener("click", () => {
 
-  if (!burger || !navLinks || !navOverlay) {
-    console.warn("Burger elements missing");
-    return;
-  }
-
-  let isOpen = false;
-
-  // OPEN / CLOSE TOGGLE
-  function toggleMenu() {
-
-    isOpen = !isOpen;
-
-    burger.classList.toggle("active", isOpen);
-    navLinks.classList.toggle("active", isOpen);
-    navOverlay.classList.toggle("active", isOpen);
-
-    // LOCK SCROLL (iOS SAFE)
-    document.body.style.overflow = isOpen ? "hidden" : "";
-    document.body.style.touchAction = isOpen ? "none" : "";
-
-  }
-
-  // CLOSE MENU
-  function closeMenu() {
-
-    isOpen = false;
-
-    burger.classList.remove("active");
-    navLinks.classList.remove("active");
-    navOverlay.classList.remove("active");
-
-    document.body.style.overflow = "";
-    document.body.style.touchAction = "";
-
-  }
-
-  // CLICK BURGER
-  burger.addEventListener("click", (e) => {
-    e.stopPropagation();
-    toggleMenu();
-  });
-
-  // CLICK OVERLAY
-  navOverlay.addEventListener("click", closeMenu);
-
-  // CLICK LINKS (AUTO CLOSE)
-  navLinks.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", closeMenu);
-  });
-
-  // ESC (DESKTOP ONLY)
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && isOpen) {
-      closeMenu();
-    }
-  });
-
-  // SAFETY: CLICK OUTSIDE (desktop fallback)
-  document.addEventListener("click", (e) => {
-    if (isOpen && !navLinks.contains(e.target) && !burger.contains(e.target)) {
-      closeMenu();
-    }
-  });
+  burger.classList.toggle("active");
+  navLinks.classList.toggle("active");
+  navOverlay.classList.toggle("active");
+  document.body.classList.toggle("menu-open");
 
 });
+
+navOverlay.addEventListener("click", () => {
+
+  burger.classList.remove("active");
+  navLinks.classList.remove("active");
+  navOverlay.classList.remove("active");
+  document.body.classList.remove("menu-open");
+
+});
+
 </script>
 </body>
 </html>

@@ -204,6 +204,22 @@ body {
     transform:rotate(360deg);
   }
 }
+
+/* =========================================
+   VINYL GPU BOOST
+========================================= */
+
+.vinyl{
+
+  will-change:transform;
+
+  transform:translateZ(0);
+
+  backface-visibility:hidden;
+
+  contain:layout paint;
+
+}
 /* SOCIAL COLORS */
 .youtube { color:#FF0000; }
 .facebook { color:#1877F2; }
@@ -351,58 +367,6 @@ button {
   }
 }
 
-/* =========================
-   NAVBAR HEIGHT FIX
-========================= */
-
-:root{
-  --navbar-height:90px;
-}
-
-.navbar{
-  height:var(--navbar-height);
-
-  display:flex;
-  align-items:center;
-
-  transition:
-  transform .4s ease,
-  opacity .4s ease,
-  background .4s ease;
-}
-
-/* ÉVITE QUE LE CONTENU PASSE DERRIÈRE */
-
-.hero,
-.about,
-.portfolio,
-.portfolio-artists,
-.vinyle-preview,
-.premium-video-section{
-
-  padding-top:
-  calc(var(--navbar-height) + 40px);
-}
-/* LOGO */
-.logo img {
-  height: 40px;
-}
-
-/* =========================================
-   MOBILE TOUCH FIX
-========================================= */
-
-.burger,
-.nav-links a{
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-}
-
-button,
-a,
-.burger{
-  min-height:44px;
-}
 
 /* ================= MUSIC TITLE EFFECT ================= */
 
@@ -526,21 +490,7 @@ a,
 .logo img:hover{
   transform:scale(1.05);
 }
-/* NAVBAR AUTO HIDE */
-.navbar {
-  transition: transform 0.4s ease, opacity 0.4s ease;
-}
 
-.navbar.hide{
-
-  transform:
-  translateY(-110%);
-
-  opacity:0.05;
-}
-.navbar {
-  will-change: transform;
-}
 /* =========================
    ANIMATION FIX
 ========================= */
@@ -1888,82 +1838,8 @@ video::-webkit-media-controls{
 
 }
 
-/* =========================================
-   FINAL DESKTOP NAVBAR FIX
-========================================= */
 
-/* HEIGHT */
 
-:root{
-  --navbar-height:90px;
-}
-
-/* NAVBAR */
-
-.navbar{
-
-  height:var(--navbar-height);
-
-  display:flex;
-  align-items:center;
-
-  z-index:1000 !important;
-
-  background:
-  linear-gradient(
-    to bottom,
-    rgba(0,0,0,.45),
-    rgba(0,0,0,.18)
-  );
-
-  backdrop-filter:
-  blur(18px)
-  saturate(180%);
-
-  border-bottom:
-  1px solid rgba(255,255,255,.05);
-
-  box-shadow:
-  0 10px 40px rgba(0,0,0,.25);
-
-  transition:
-  transform .4s ease,
-  opacity .4s ease,
-  background .4s ease;
-
-  will-change:
-  transform,
-  opacity;
-}
-
-/* HIDE */
-
-.navbar.hide{
-
-  transform:
-  translateY(-110%);
-
-  opacity:.05;
-}
-
-/* NAV CONTAINER */
-
-.nav-container{
-
-  min-height:90px;
-}
-
-/* NAV LINKS */
-
-.nav-links{
-  z-index:1001 !important;
-}
-
-/* BURGER */
-
-.burger{
-  z-index:1002 !important;
-}
 
 /* TITLES FIX */
 
@@ -2029,149 +1905,6 @@ html{
 
 section{
   scroll-margin-top:120px;
-}
-/* =========================================
-   PREMIUM GLASS NAVBAR FIX
-   AJOUTER TOUT EN BAS DU CSS
-========================================= */
-
-/* NAVBAR GLASS */
-.navbar{
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,0.08),
-      rgba(255,255,255,0.02)
-    ) !important;
-
-  backdrop-filter: blur(30px) saturate(180%);
-  -webkit-backdrop-filter: blur(30px) saturate(180%);
-
-  border-bottom:
-    1px solid rgba(255,255,255,0.12);
-
-  box-shadow:
-    0 8px 40px rgba(0,0,0,0.25),
-    inset 0 1px 0 rgba(255,255,255,0.08);
-}
-
-/* CONTAINER */
-.nav-container{
-
-  width:100%;
-
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
-  gap:40px;
-
-  padding:18px 60px;
-}
-
-/* LOGO */
-.logo{
-  flex:0 0 auto;
-}
-
-/* MENU À L'OPPOSÉ */
-.nav-links{
-
-  margin-left:auto;
-
-  display:flex;
-  align-items:center;
-  justify-content:flex-end;
-
-  gap:40px;
-}
-
-/* LINKS */
-.nav-links a{
-
-  color:rgba(255,255,255,0.92);
-
-  font-weight:500;
-
-  letter-spacing:.5px;
-
-  transition:
-    color .3s ease,
-    transform .3s ease,
-    text-shadow .3s ease;
-}
-
-/* HOVER */
-.nav-links a:hover{
-
-  color:#fff;
-
-  transform:translateY(-2px);
-
-  text-shadow:
-    0 0 15px rgba(255,215,0,0.45);
-}
-
-/* UNDERLINE */
-.nav-links a::after{
-
-  height:1.5px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      gold,
-      transparent
-    );
-
-  box-shadow:
-    0 0 10px gold;
-}
-
-/* LOGO EFFECT */
-.logo img{
-
-  filter:
-    drop-shadow(0 0 18px rgba(255,215,0,0.25));
-
-  transition:.4s ease;
-}
-
-.logo img:hover{
-
-  transform:scale(1.04);
-
-  filter:
-    drop-shadow(0 0 25px rgba(255,215,0,0.4));
-}
-
-/* DESKTOP ONLY */
-@media(min-width:901px){
-
-  .nav-links{
-    position:relative;
-    right:10px;
-  }
-
-}
-/* GLASS REFLECTION */
-
-.navbar::before{
-  content:"";
-
-  position:absolute;
-  inset:0;
-
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(255,255,255,0.12),
-      transparent 40%
-    );
-
-  pointer-events:none;
 }
 
 /* =========================================
@@ -2310,413 +2043,7 @@ section{
   }
 
 }
-/* =========================================================
-   MOBILE LOW GPU / IPHONE SAFE MODE
-   AJOUT
-========================================================= */
 
-@media (max-width:900px){
-
-  /* =========================
-     PERFORMANCE MODE
-  ========================= */
-
-  html{
-    -webkit-text-size-adjust:100%;
-  }
-
-  body{
-
-    overflow-x:hidden;
-
-    /* améliore rendu mobile */
-    text-rendering:optimizeSpeed;
-
-    /* évite lag safari */
-    -webkit-font-smoothing:antialiased;
-
-    /* évite repaint excessif */
-    transform:translateZ(0);
-  }
-
-  /* =========================
-     FIX 100VH IOS
-  ========================= */
-
-  .nav-links,
-  .popup-overlay,
-  .video-screen,
-  .hero{
-
-    min-height:100svh;
-    height:auto;
-  }
-
-  /* =========================
-     REDUCE BLUR
-  ========================= */
-
-  .navbar,
-  .nav-links,
-  .popup-overlay,
-  .player-box,
-  .artist-card,
-  .portfolio-card,
-  .vinyle-preview-content{
-
-    backdrop-filter:blur(8px) !important;
-    -webkit-backdrop-filter:blur(8px) !important;
-  }
-
-  /* =========================
-     REDUCE SHADOW GPU
-  ========================= */
-
-  .portfolio-card,
-  .artist-card,
-  .popup-box,
-  .main-video-box,
-  .vinyle-preview-content{
-
-    box-shadow:
-    0 0 20px rgba(0,0,0,.25) !important;
-  }
-
-  /* =========================
-     SAFE ANIMATIONS
-  ========================= */
-
-  .vinyl,
-  .mini-vinyl{
-
-    animation:
-    spin 25s linear infinite !important;
-  }
-
-  .music-title,
-  .title,
-  .overlay-logo{
-
-    animation-duration:6s !important;
-  }
-
-  /* =========================
-     DISABLE HEAVY EFFECTS
-  ========================= */
-
-  .portfolio-header .section-title::after,
-  .vinyle-preview-content::before,
-  .video-overlay-center{
-
-    filter:none !important;
-  }
-
-  /* =========================
-     GPU SAFE
-  ========================= */
-
-  .navbar,
-  .burger,
-  .popup-box,
-  .nav-links{
-
-    will-change:auto !important;
-
-    transform:none !important;
-
-    backface-visibility:hidden;
-    -webkit-backface-visibility:hidden;
-  }
-
-  /* =========================
-     VIDEO OPTIMIZATION
-  ========================= */
-
-  video{
-
-    object-fit:cover;
-
-    /* évite écran noir safari */
-    transform:translateZ(0);
-
-    /* évite flicker */
-    backface-visibility:hidden;
-  }
-
-  /* =========================
-     IMAGE OPTIMIZATION
-  ========================= */
-
-  img{
-
-    image-rendering:auto;
-
-    transform:translateZ(0);
-  }
-
-  /* =========================
-     TOUCH FIX
-  ========================= */
-
-  a,
-  button,
-  .burger{
-
-    touch-action:manipulation;
-
-    -webkit-tap-highlight-color:transparent;
-  }
-
-  /* =========================
-     FIX FIXED LAG IOS
-  ========================= */
-
-  .bg-video{
-
-    position:absolute !important;
-  }
-
-  /* =========================
-     SCROLL FIX IOS
-  ========================= */
-
-  .popup-body,
-  .nav-links{
-
-    -webkit-overflow-scrolling:touch;
-
-    overscroll-behavior:contain;
-  }
-
-}
-
-/* =========================================================
-   VERY LOW GPU DEVICES
-========================================================= */
-
-@media (max-width:500px){
-
-  /* retire gros blur */
-
-  .navbar,
-  .nav-links,
-  .popup-overlay{
-
-    backdrop-filter:none !important;
-    -webkit-backdrop-filter:none !important;
-
-    background:
-    rgba(0,0,0,.92) !important;
-  }
-
-  /* retire animations lourdes */
-
-  .vinyl,
-  .mini-vinyl,
-  .music-title,
-  .title{
-
-    animation:none !important;
-  }
-
-  /* retire glow lourd */
-
-  *{
-    text-shadow:none !important;
-  }
-
-}
-/* =========================================================
-   PREMIUM NAVBAR + BURGER MENU CLEAN FIX
-========================================================= */
-
-:root{
-  --navbar-h: 90px;
-}
-
-/* ================= NAVBAR ================= */
-
-.navbar{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: var(--navbar-h);
-  z-index: 10000;
-
-  display:flex;
-  align-items:center;
-
-  background: rgba(0,0,0,0.35);
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
-
-  border-bottom: 1px solid rgba(212,175,55,0.15);
-
-  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
-}
-
-/* container */
-.nav-container{
-  width:100%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:0 25px;
-}
-
-/* ================= LINKS DESKTOP ================= */
-
-.nav-links{
-  display:flex;
-  gap:30px;
-  align-items:center;
-}
-
-.nav-links a{
-  color:rgba(255,255,255,0.9);
-  text-decoration:none;
-  font-size:16px;
-  letter-spacing:1px;
-  position:relative;
-  transition:0.3s;
-}
-
-.nav-links a:hover{
-  color:#d4af37;
-  transform:translateY(-2px);
-  text-shadow:0 0 15px rgba(212,175,55,0.4);
-}
-
-.nav-links a::after{
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:-6px;
-  width:0%;
-  height:2px;
-  background:linear-gradient(90deg,#d4af37,transparent);
-  transition:0.4s;
-}
-
-.nav-links a:hover::after{
-  width:100%;
-}
-
-/* ================= BURGER ================= */
-
-.burger{
-  display:none;
-  flex-direction:column;
-  gap:6px;
-  cursor:pointer;
-  z-index:10002;
-}
-
-.burger span{
-  width:28px;
-  height:2px;
-  background:linear-gradient(90deg,#d4af37,#fff3b0);
-  border-radius:10px;
-  box-shadow:0 0 10px rgba(212,175,55,0.4);
-  transition:0.4s ease;
-}
-
-/* ANIMATION X */
-.burger.active span:nth-child(1){
-  transform:rotate(45deg) translate(5px,5px);
-}
-
-.burger.active span:nth-child(2){
-  opacity:0;
-}
-
-.burger.active span:nth-child(3){
-  transform:rotate(-45deg) translate(5px,-5px);
-}
-
-/* ================= MOBILE MENU ================= */
-
-@media(max-width:900px){
-
-  .burger{
-    display:flex;
-  }
-
-  .nav-links{
-    position:fixed;
-    top:0;
-    right:-100%;
-    width:75%;
-    height:100vh;
-
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    gap:35px;
-
-    background: rgba(10,10,10,0.92);
-    backdrop-filter: blur(20px);
-
-    border-left: 1px solid rgba(212,175,55,0.2);
-
-    transition:0.5s ease;
-
-    z-index:9999;
-  }
-
-  .nav-links.active{
-    right:0;
-  }
-}
-
-/* ================= OVERLAY (FIX IMPORTANT) ================= */
-
-.nav-overlay{
-  position:fixed;
-  inset:0;
-
-  background: rgba(0,0,0,0.45); /* 🔥 pas trop noir */
-  backdrop-filter: blur(6px);
-
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-
-  transition:0.3s ease;
-
-  z-index:9998;
-}
-
-.nav-overlay.active{
-  opacity:1;
-  visibility:visible;
-  pointer-events:auto;
-}
-
-/* ================= Z-INDEX SAFE ZONE ================= */
-
-.navbar{ z-index:10000; }
-.nav-overlay{ z-index:9998; }
-.nav-links{ z-index:9999; }
-.burger{ z-index:10002; }
-
-/* ================= BODY SAFE ================= */
-
-body{
-  padding-top: var(--navbar-h);
-}
-
-/* ================= FIX ANTI BUG MOBILE ================= */
-
-.nav-links,
-.navbar,
-.burger{
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-}
-
-/* ================= END ================= */
 /* =========================================
    HERO RIGHT ONLY
    cible uniquement cette section
@@ -3113,4 +2440,406 @@ body{
     letter-spacing:1px;
   }
 
+}
+/* =========================================================
+   ULTRA PREMIUM SAFE NAVBAR
+   (NO CONFLICT / NO OVERFLOW BUG)
+========================================================= */
+
+:root{
+  --navbar-h:90px;
+
+  --gold:#d4af37;
+  --gold-light:#fff3b0;
+}
+
+/* =========================================================
+   GLOBAL FIX (IMPORTANT ANTI BUG)
+========================================================= */
+
+body{
+  margin:0;
+  padding-top:var(--navbar-h);
+  overflow-x:hidden;
+}
+
+/* évite que les sections passent au-dessus */
+section, div, main{
+  position:relative;
+  z-index:1;
+}
+
+/* =========================================================
+   NAVBAR ROOT
+========================================================= */
+
+.navbar{
+  position:fixed;
+  top:0;
+  left:0;
+
+  width:100%;
+  height:var(--navbar-h);
+
+  z-index:10000;
+
+  background:rgba(10,10,10,0.35);
+
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+
+  border-bottom:1px solid rgba(255,255,255,0.08);
+
+  box-shadow:0 10px 30px rgba(0,0,0,0.35);
+
+  overflow:visible; /* IMPORTANT: évite blocage menu */
+}
+
+/* GOLD LIGHT (SUBTLE) */
+.navbar::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-120%;
+  width:40%;
+  height:100%;
+
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,215,0,0.15),
+    rgba(255,255,255,0.08),
+    rgba(255,215,0,0.15),
+    transparent
+  );
+
+  transform:skewX(-20deg);
+
+  animation:shine 8s linear infinite;
+
+  pointer-events:none;
+}
+
+@keyframes shine{
+  100%{
+    left:180%;
+  }
+}
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.nav-container{
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:0 30px;
+  position:relative;
+  z-index:2;
+}
+
+/* =========================================================
+   LOGO + BURGER AREA
+========================================================= */
+
+.logo-menu{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  cursor:pointer;
+  z-index:10002;
+}
+
+/* LOGO */
+.logo img{
+  width:75px;
+  transition:0.3s ease;
+  filter:drop-shadow(0 0 12px rgba(255,215,0,0.25));
+}
+
+.logo-menu:hover .logo img{
+  transform:scale(1.05);
+}
+
+/* MENU TEXT */
+.menu-indicator{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.menu-text{
+  font-size:12px;
+  letter-spacing:2px;
+  color:white;
+}
+
+/* BURGER LINES */
+.menu-lines span{
+  display:block;
+  width:22px;
+  height:2px;
+  margin:4px 0;
+
+  background:linear-gradient(90deg,var(--gold),var(--gold-light));
+  border-radius:10px;
+
+  transition:0.3s ease;
+}
+
+/* ACTIVE BURGER */
+.logo-menu.active .menu-lines span:nth-child(1){
+  transform:translateY(6px) rotate(45deg);
+}
+
+.logo-menu.active .menu-lines span:nth-child(2){
+  opacity:0;
+}
+
+.logo-menu.active .menu-lines span:nth-child(3){
+  transform:translateY(-6px) rotate(-45deg);
+}
+
+/* =========================================================
+   DESKTOP MENU
+========================================================= */
+
+.nav-links{
+  display:flex;
+  gap:35px;
+  align-items:center;
+
+  margin-left:auto;
+}
+
+.nav-links a{
+  position:relative;
+  color:white;
+  text-decoration:none;
+
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:1px;
+  text-transform:uppercase;
+
+  transition:0.3s ease;
+}
+
+/* HOVER GOLD */
+.nav-links a:hover{
+  color:white;
+  transform:translateY(-2px);
+}
+
+/* GOLD UNDERLINE CLEAN */
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+
+  width:0%;
+  height:2px;
+
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+
+  transition:0.35s ease;
+}
+
+.nav-links a:hover::after{
+  width:100%;
+}
+
+/* =========================================================
+   OVERLAY (IMPORTANT FIX Z-INDEX)
+========================================================= */
+
+.nav-overlay{
+  position:fixed;
+  inset:0;
+
+  background:rgba(0,0,0,0.55);
+  backdrop-filter:blur(4px);
+
+  opacity:0;
+  visibility:hidden;
+
+  transition:0.3s ease;
+
+  z-index:9998;
+}
+
+.nav-overlay.active{
+  opacity:1;
+  visibility:visible;
+}
+
+/* =========================================================
+   MOBILE MENU SAFE
+========================================================= */
+
+@media(max-width:900px){
+
+  .menu-indicator{
+    display:flex;
+  }
+
+  .nav-links{
+
+    position:fixed;
+    top:0;
+    right:-100%;
+
+    width:85%;
+    max-width:340px;
+    height:100vh;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    gap:40px;
+
+    background:rgba(5,5,5,0.97);
+    backdrop-filter:blur(25px);
+
+    z-index:9999;
+
+    transition:right 0.45s ease;
+
+    /* IMPORTANT FIX */
+    overflow:hidden;
+  }
+
+  .nav-links.active{
+    right:0;
+  }
+
+  .nav-links a{
+    font-size:20px;
+    z-index:10001;
+  }
+}
+
+/* =========================================================
+   CRITICAL FIX (ANTI OVERLAY BUG)
+========================================================= */
+
+/* empêche tout élément de passer devant menu */
+.navbar,
+.nav-links,
+.nav-overlay,
+.logo-menu{
+  isolation:isolate;
+}
+/* =========================================
+   PLUME PREMIUM NAV STYLE
+========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500;1,700&display=swap');
+
+/* LINKS STYLE */
+.nav-links a{
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  letter-spacing: 2px;
+  font-weight: 500;
+
+  position: relative;
+
+  color: #fff;
+
+  transition: all .35s ease;
+}
+
+/* HOVER GOLD SOFT */
+.nav-links a:hover{
+  color: #d4af37;
+  transform: translateY(-2px);
+  text-shadow: 0 0 18px rgba(212,175,55,.5);
+}
+
+/* UNDERLINE PLUME ANIMATION */
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-8px;
+
+  width:0%;
+  height:2px;
+
+  transform: translateX(-50%);
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #d4af37,
+    #fff3b0,
+    #d4af37,
+    transparent
+  );
+
+  border-radius:50px;
+
+  box-shadow: 0 0 12px rgba(212,175,55,.6);
+
+  transition: width .4s ease;
+}
+
+.nav-links a:hover::after{
+  width:100%;
+}
+
+/* =========================================
+   BURGER STYLE PLUME
+========================================= */
+
+.menu-text{
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  letter-spacing: 3px;
+  color: #fff;
+}
+
+/* lignes burger */
+.menu-lines span{
+  transition: .35s ease;
+}
+
+/* animation croix douce */
+.logo-menu.active .menu-lines span:nth-child(1){
+  transform: rotate(45deg) translateY(7px);
+}
+
+.logo-menu.active .menu-lines span:nth-child(2){
+  opacity: 0;
+}
+
+.logo-menu.active .menu-lines span:nth-child(3){
+  transform: rotate(-45deg) translateY(-7px);
+}
+/* =========================================
+   AUTO HIDE NAVBAR FLUIDE
+========================================= */
+
+.navbar{
+  transition: transform 0.45s cubic-bezier(.77,0,.18,1), 
+              opacity 0.3s ease;
+  will-change: transform;
+}
+
+/* état caché */
+.navbar.nav-hidden{
+  transform: translateY(-110%);
+  opacity: 0.95;
+}
+
+/* option glow léger quand visible */
+.navbar.nav-visible{
+  transform: translateY(0);
 }

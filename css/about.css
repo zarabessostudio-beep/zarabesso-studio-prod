@@ -13,14 +13,53 @@ body{
   font-style:italic;
 }
 
-/* VIDEO */
+/* =========================================
+   VIDEO BACKGROUND ULTRA OPTIMISÉ
+========================================= */
+
 .bg-video{
+
   position:fixed;
+
+  inset:0;
+
   width:100%;
   height:100%;
+
   object-fit:cover;
-  opacity:0.2;
+
   z-index:-1;
+
+  opacity:.18;
+
+  pointer-events:none;
+
+  /* GPU ACCELERATION */
+  transform:translateZ(0);
+
+  backface-visibility:hidden;
+
+  will-change:transform;
+
+  contain:layout paint size style;
+}1;
+}
+/* =========================================
+   MOBILE VIDEO PERFORMANCE
+========================================= */
+
+@media(max-width:768px){
+
+  .bg-video{
+
+    opacity:.14;
+
+    /* évite certains lags Android */
+    transform:translate3d(0,0,0);
+
+    filter:none;
+  }
+
 }
 
 /* NAVBAR */

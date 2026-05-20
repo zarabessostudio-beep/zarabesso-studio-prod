@@ -37,49 +37,57 @@
 </head>
 
 <body>
-    <!-- ================= NAVBAR ================= -->
+   <!-- =========================================================
+     ULTRA PREMIUM NAVBAR
+========================================================= -->
+
 <header class="navbar">
 
   <div class="nav-container">
 
-    <!-- LOGO -->
-    <div class="logo">
-      <img src="assets/images/logo1.png" alt="Zarabesso Logo">
+    <!-- LOGO + MENU BUTTON MOBILE -->
+    <div class="logo-menu" id="burger">
+
+      <div class="logo">
+        <img src="assets/images/logo1.png" alt="Zarabesso Logo">
+      </div>
+
+      <!-- INDICATION MENU -->
+      <div class="menu-indicator">
+        <span class="menu-text">MENU</span>
+
+        <div class="menu-lines">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
     </div>
+
+    <!-- NAVIGATION -->
+    <nav class="nav-links" id="navLinks">
+
+      <a href="#">Accueil</a>
+
+      <a href="services.html">Services</a>
+
+      <a href="./vinyle/index.html" class="vinyle-link">
+        Vynile
+      </a>
+
+      <a href="about.html">About</a>
+
+      <a href="remerciement.html">Remerciements</a>
+
+    </nav>
 
     <!-- OVERLAY -->
-<div class="nav-overlay" id="navOverlay"></div>
-
-<!-- MENU -->
-<nav class="nav-links" id="navLinks">
-
-  <a href="#">Accueil</a>
-
-  <a href="services.html">Services</a>
-
-  <a href="./vinyle/index.html" class="vinyle-link">
-    Vynile
-  </a>
-
-  <a href="about.html">About</a>
-
-  <a href="remerciement.html">Remerciements</a>
-
-</nav>
-
-    <!-- BURGER -->
-    <div class="burger" id="burger">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
+    <div class="nav-overlay" id="navOverlay"></div>
 
   </div>
 
-
-
 </header>
-
 <!-- HERO -->
 <section class="hero">
 
@@ -959,84 +967,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 </script>
-<script>
-/* =========================================
-   PREMIUM BURGER MENU STABLE ALL DEVICES
-   iOS / Android / iPad / Desktop SAFE
-========================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
-
-  const burger = document.getElementById("burger");
-  const navLinks = document.getElementById("navLinks");
-  const navOverlay = document.getElementById("navOverlay");
-
-  if (!burger || !navLinks || !navOverlay) {
-    console.warn("Burger elements missing");
-    return;
-  }
-
-  let isOpen = false;
-
-  // OPEN / CLOSE TOGGLE
-  function toggleMenu() {
-
-    isOpen = !isOpen;
-
-    burger.classList.toggle("active", isOpen);
-    navLinks.classList.toggle("active", isOpen);
-    navOverlay.classList.toggle("active", isOpen);
-
-    // LOCK SCROLL (iOS SAFE)
-    document.body.style.overflow = isOpen ? "hidden" : "";
-    document.body.style.touchAction = isOpen ? "none" : "";
-
-  }
-
-  // CLOSE MENU
-  function closeMenu() {
-
-    isOpen = false;
-
-    burger.classList.remove("active");
-    navLinks.classList.remove("active");
-    navOverlay.classList.remove("active");
-
-    document.body.style.overflow = "";
-    document.body.style.touchAction = "";
-
-  }
-
-  // CLICK BURGER
-  burger.addEventListener("click", (e) => {
-    e.stopPropagation();
-    toggleMenu();
-  });
-
-  // CLICK OVERLAY
-  navOverlay.addEventListener("click", closeMenu);
-
-  // CLICK LINKS (AUTO CLOSE)
-  navLinks.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", closeMenu);
-  });
-
-  // ESC (DESKTOP ONLY)
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && isOpen) {
-      closeMenu();
-    }
-  });
-
-  // SAFETY: CLICK OUTSIDE (desktop fallback)
-  document.addEventListener("click", (e) => {
-    if (isOpen && !navLinks.contains(e.target) && !burger.contains(e.target)) {
-      closeMenu();
-    }
-  });
-
-});
-</script>
 <script>
 /* =========================================
    ULTRA PREMIUM VIDEO PLAYER
@@ -1253,7 +1184,68 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 </script>
+<script>
 
+const burger = document.getElementById("burger");
+const navLinks = document.getElementById("navLinks");
+const navOverlay = document.getElementById("navOverlay");
+
+burger.addEventListener("click", () => {
+
+  burger.classList.toggle("active");
+  navLinks.classList.toggle("active");
+  navOverlay.classList.toggle("active");
+  document.body.classList.toggle("menu-open");
+
+});
+
+navOverlay.addEventListener("click", () => {
+
+  burger.classList.remove("active");
+  navLinks.classList.remove("active");
+  navOverlay.classList.remove("active");
+  document.body.classList.remove("menu-open");
+
+});
+
+</script>
+<script>
+let lastScrollY = window.scrollY;
+let navbar = document.querySelector(".navbar");
+
+let mouseAtTop = false;
+
+// détection souris en haut (réapparition)
+document.addEventListener("mousemove", (e) => {
+  mouseAtTop = e.clientY < 80; // zone haute écran
+});
+
+window.addEventListener("scroll", () => {
+  const currentScroll = window.scrollY;
+
+  // SCROLL VERS LE BAS → cacher navbar
+  if (currentScroll > lastScrollY && currentScroll > 120) {
+    navbar.classList.add("nav-hidden");
+    navbar.classList.remove("nav-visible");
+  }
+
+  // SCROLL VERS LE HAUT → afficher navbar
+  if (currentScroll < lastScrollY) {
+    navbar.classList.remove("nav-hidden");
+    navbar.classList.add("nav-visible");
+  }
+
+  lastScrollY = currentScroll;
+});
+
+// quand souris en haut → toujours afficher navbar
+setInterval(() => {
+  if (mouseAtTop) {
+    navbar.classList.remove("nav-hidden");
+    navbar.classList.add("nav-visible");
+  }
+}, 100);
+</script>
 
 </body>
 </html>
