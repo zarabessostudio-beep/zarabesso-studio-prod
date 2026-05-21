@@ -6,92 +6,76 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-export default async function handler(req, res) {
+export default async function handler(req, res){
 
-  try {
+  try{
 
-    // =========================
-    // VIDEOS
-    // =========================
-
-    const videos = await cloudinary.search
-      .expression('resource_type:video AND folder="zarabesso-videos"')
-      .sort_by("created_at", "desc")
+    const result =
+    await cloudinary.search
+      .expression(
+        'resource_type:video AND folder="zarabesso-videos"'
+      )
+      .sort_by(
+        "created_at",
+        "desc"
+      )
       .max_results(100)
       .execute();
 
-    // =========================
-    // MUSIC
-    // =========================
-
-    const music = await cloudinary.search
-      .expression('resource_type:video AND folder="zarabesso-music"')
-      .sort_by("created_at", "desc")
-      .max_results(100)
-      .execute();
-
-    // =========================
-    // COVERS
-    // =========================
-
-    const covers = await cloudinary.search
-      .expression('folder="zarabesso-cover"')
-      .sort_by("created_at", "desc")
-      .max_results(100)
-      .execute();
-
-    // =========================
-    // FORMAT PREMIUM
-    // =========================
-
-    const tracks = music.resources.map((track, index) => {
-
-      const cover =
-        covers.resources[index]?.secure_url ||
-        "/vinyle/assets/images/logo1.png";
-
-      const video =
-        videos.resources[index]?.secure_url || "";
+    const tracks =
+    result.resources.map((video)=>{
 
       return {
 
-        id: track.asset_id,
+        id: video.asset_id,
 
         title:
-          track.filename
-          .replace(/-/g, " ")
-          .replace(/_/g, " "),
+        video.filename
+        .replace(/-/g," ")
+        .replace(/_/g," "),
 
-        artist: "Zarabesso Studio",
+        artist:
+        "Zarabesso Studio",
 
-        audio: track.secure_url,
+        audio:
+        video.secure_url,
 
-        cover,
+        video:
+        video.secure_url,
 
-        video,
+        cover:
+        video.secure_url.replace(
+          "/video/upload/",
+          "/video/upload/so_1/"
+        ),
 
-        duration: track.duration || 0,
-
-        created_at: track.created_at
+        duration:
+        video.duration || 0
 
       };
 
     });
 
     res.status(200).json({
-      success: true,
+
+      success:true,
+
       tracks
+
     });
 
   }
 
-  catch (err) {
+  catch(err){
 
     console.error(err);
 
     res.status(500).json({
-      success: false,
-      error: err.message
+
+      success:false,
+
+      error:err.message
+
     });
 
   }

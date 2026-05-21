@@ -1,36 +1,53 @@
-// ======================================
-// ☁️ ZARABESSO CLOUD MEDIA SYSTEM
-// ======================================
-
-const audio = document.getElementById("audio");
-const video = document.getElementById("videoPlayer");
-
-const cover = document.getElementById("cover");
-
-const title = document.getElementById("title");
-const artist = document.getElementById("artist");
-
-const playBtn = document.getElementById("play");
-const nextBtn = document.getElementById("next");
-const prevBtn = document.getElementById("prev");
+/* =========================================
+   ☁️ VYNILE AUTO CLOUD PLAYER
+========================================= */
 
 const tracksContainer =
-document.getElementById("tracksContainer");
-
-const spotifyTracks =
 document.getElementById("spotifyTracks");
+
+const audio =
+document.getElementById("audio");
+
+const videoPlayer =
+document.getElementById("videoPlayer");
+
+const title =
+document.getElementById("title");
+
+const artist =
+document.getElementById("artist");
+
+const cover =
+document.getElementById("cover");
+
+const playBtn =
+document.getElementById("play");
+
+const nextBtn =
+document.getElementById("next");
+
+const prevBtn =
+document.getElementById("prev");
+
+const progress =
+document.getElementById("progress");
+
+const vinyl =
+document.getElementById("vinyl");
 
 let tracks = [];
 
-let currentTrack = 0;
+let currentIndex = 0;
 
-// ======================================
-// LOAD CLOUD MEDIA
-// ======================================
+let playing = false;
 
-async function loadCloudMedia() {
+/* =========================================
+   LOAD CLOUD MEDIA
+========================================= */
 
-  try {
+async function loadCloudTracks(){
+
+  try{
 
     const response =
     await fetch("/api/media");
@@ -38,24 +55,49 @@ async function loadCloudMedia() {
     const data =
     await response.json();
 
-    tracks = data.tracks;
+    console.log("☁️ API DATA:", data);
 
-    console.log("☁️ CLOUD READY", tracks);
+    // =========================
+    // IMPORTANT FIX
+    // =========================
+
+    tracks = data.tracks || [];
+
+    console.log(
+      "🎵 TRACKS:",
+      tracks
+    );
+
+    if(tracks.length === 0){
+
+      tracksContainer.innerHTML = `
+
+      <div style="
+      padding:30px;
+      text-align:center;
+      color:#aaa;
+      ">
+
+      Aucun média trouvé dans Cloudinary
+
+      </div>
+
+      `;
+
+      return;
+
+    }
 
     renderTracks();
 
-    if(tracks.length > 0){
-
-      loadTrack(0);
-
-    }
+    loadTrack(0);
 
   }
 
   catch(err){
 
     console.error(
-      "Cloud Error",
+      "❌ CLOUD ERROR:",
       err
     );
 
@@ -63,202 +105,280 @@ async function loadCloudMedia() {
 
 }
 
-loadCloudMedia();
-
-// ======================================
-// LOAD TRACK
-// ======================================
-
-function loadTrack(index){
-
-  currentTrack = index;
-
-  const track = tracks[index];
-
-  audio.src = track.audio;
-
-  video.src = track.video;
-
-  cover.src = track.cover;
-
-  title.innerText = track.title;
-
-  artist.innerText = track.artist;
-
-}
-
-// ======================================
-// PLAY / PAUSE
-// ======================================
-
-playBtn.addEventListener("click", () => {
-
-  if(audio.paused){
-
-    audio.play();
-
-    if(video.src){
-
-      video.play();
-
-    }
-
-    playBtn.innerHTML =
-    '<i class="ri-pause-fill"></i>';
-
-  }
-
-  else {
-
-    audio.pause();
-    video.pause();
-
-    playBtn.innerHTML =
-    '<i class="ri-play-fill"></i>';
-
-  }
-
-});
-
-// ======================================
-// NEXT
-// ======================================
-
-nextBtn.addEventListener("click", () => {
-
-  currentTrack++;
-
-  if(currentTrack >= tracks.length){
-
-    currentTrack = 0;
-
-  }
-
-  loadTrack(currentTrack);
-
-  audio.play();
-
-});
-
-// ======================================
-// PREV
-// ======================================
-
-prevBtn.addEventListener("click", () => {
-
-  currentTrack--;
-
-  if(currentTrack < 0){
-
-    currentTrack = tracks.length - 1;
-
-  }
-
-  loadTrack(currentTrack);
-
-  audio.play();
-
-});
-
-// ======================================
-// RENDER TRACKS
-// ======================================
+/* =========================================
+   RENDER TRACKS
+========================================= */
 
 function renderTracks(){
 
   tracksContainer.innerHTML = "";
 
-  spotifyTracks.innerHTML = "";
+  tracks.forEach((track,index)=>{
 
-  tracks.forEach((track, index) => {
+    tracksContainer.innerHTML += `
 
-    const card = document.createElement("div");
+    <div
+      class="spotify-track"
+      onclick="selectTrack(${index})"
+    >
 
-    card.className = "track-card";
+      <div class="track-left">
 
-    card.innerHTML = `
+        <img
+          src="${track.cover}"
+          alt="${track.title}"
+        >
 
-      <img src="${track.cover}">
+        <div class="track-info">
 
-      <h3>${track.title}</h3>
+          <h4>${track.title}</h4>
 
-      <p>${track.artist}</p>
+          <p>${track.artist}</p>
 
-      <button onclick="playTrack(${index})">
-        Lecture
-      </button>
-
-      <a
-      href="${track.audio}"
-      download
-      class="download-btn">
-
-      Télécharger
-
-      </a>
-
-    `;
-
-    tracksContainer.appendChild(card);
-
-    // =====================
-    // SPOTIFY LIST
-    // =====================
-
-    const row = document.createElement("div");
-
-    row.className = "spotify-track";
-
-    row.innerHTML = `
-
-      <img src="${track.cover}">
-
-      <div>
-
-        <h4>${track.title}</h4>
-
-        <p>${track.artist}</p>
+        </div>
 
       </div>
 
-      <button onclick="playTrack(${index})">
+      <div class="play-icon">
 
         <i class="ri-play-fill"></i>
 
-      </button>
+      </div>
+
+    </div>
 
     `;
-
-    spotifyTracks.appendChild(row);
 
   });
 
 }
 
-// ======================================
-// PLAY TRACK
-// ======================================
+/* =========================================
+   LOAD TRACK
+========================================= */
 
-window.playTrack = function(index){
+function loadTrack(index){
+
+  currentIndex = index;
+
+  const track =
+  tracks[index];
+
+  if(!track) return;
+
+  // AUDIO
+
+  audio.src =
+  track.audio;
+
+  // VIDEO
+
+  if(track.video){
+
+    videoPlayer.style.display =
+    "block";
+
+    videoPlayer.src =
+    track.video;
+
+  }
+
+  else{
+
+    videoPlayer.style.display =
+    "none";
+  }
+
+  // TEXT
+
+  title.textContent =
+  track.title;
+
+  artist.textContent =
+  track.artist;
+
+  // COVER
+
+  cover.src =
+  track.cover;
+
+}
+
+/* =========================================
+   SELECT TRACK
+========================================= */
+
+window.selectTrack =
+function(index){
 
   loadTrack(index);
 
-  audio.play();
+  playMusic();
 
-  if(video.src){
+}
 
-    video.play();
+/* =========================================
+   PLAY
+========================================= */
+
+async function playMusic(){
+
+  try{
+
+    await audio.play();
+
+    if(videoPlayer.src){
+
+      videoPlayer.play();
+
+    }
+
+    playing = true;
+
+    playBtn.innerHTML =
+    '<i class="ri-pause-fill"></i>';
+
+    vinyl.classList.add(
+      "playing"
+    );
+
+  }
+
+  catch(err){
+
+    console.log(err);
 
   }
 
 }
-const volume =
-document.getElementById("volume");
 
-volume.addEventListener("input", () => {
+/* =========================================
+   PAUSE
+========================================= */
 
-  audio.volume = volume.value;
+function pauseMusic(){
 
-  video.volume = volume.value;
+  audio.pause();
 
-});
+  videoPlayer.pause();
+
+  playing = false;
+
+  playBtn.innerHTML =
+  '<i class="ri-play-fill"></i>';
+
+  vinyl.classList.remove(
+    "playing"
+  );
+
+}
+
+/* =========================================
+   PLAY BUTTON
+========================================= */
+
+playBtn.addEventListener(
+  "click",
+  ()=>{
+
+    if(!playing){
+
+      playMusic();
+
+    }
+
+    else{
+
+      pauseMusic();
+
+    }
+
+  }
+);
+
+/* =========================================
+   NEXT
+========================================= */
+
+nextBtn.addEventListener(
+  "click",
+  ()=>{
+
+    currentIndex++;
+
+    if(currentIndex >= tracks.length){
+
+      currentIndex = 0;
+
+    }
+
+    loadTrack(currentIndex);
+
+    playMusic();
+
+  }
+);
+
+/* =========================================
+   PREV
+========================================= */
+
+prevBtn.addEventListener(
+  "click",
+  ()=>{
+
+    currentIndex--;
+
+    if(currentIndex < 0){
+
+      currentIndex =
+      tracks.length - 1;
+
+    }
+
+    loadTrack(currentIndex);
+
+    playMusic();
+
+  }
+);
+
+/* =========================================
+   AUTO NEXT
+========================================= */
+
+audio.addEventListener(
+  "ended",
+  ()=>{
+
+    nextBtn.click();
+
+  }
+);
+
+/* =========================================
+   PROGRESS
+========================================= */
+
+audio.addEventListener(
+  "timeupdate",
+  ()=>{
+
+    if(!audio.duration) return;
+
+    const percent =
+    (audio.currentTime
+    / audio.duration)
+    * 100;
+
+    progress.style.width =
+    percent + "%";
+
+  }
+);
+
+/* =========================================
+   START
+========================================= */
+
+loadCloudTracks();
