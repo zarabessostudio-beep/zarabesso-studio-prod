@@ -543,6 +543,9 @@ Identité sonore unique & professionnelle.
   <i class="ri-fullscreen-fill"></i>
 </button>
 
+    <button id="downloadVideo">
+  <i class="ri-download-2-fill"></i>
+</button>
         <div class="video-progress">
           <div class="video-progress-bar"></div>
         </div>
@@ -971,6 +974,106 @@ document.addEventListener("DOMContentLoaded", () => {
   const sideVideos =
   document.querySelectorAll(".side-video");
 
+const volumeControl = document.getElementById("volumeControl");
+const volumeIcon = document.querySelector(".volume-box i");
+
+let lastVolume = 1;
+
+// initial
+mainVideo.volume = 1;
+
+volumeControl.addEventListener("input", () => {
+  const value = parseFloat(volumeControl.value);
+
+  mainVideo.volume = value;
+
+  // affichage %
+  volumeControl.title = Math.round(value * 100) + "%";
+
+  // icônes dynamiques
+  if (value == 0) {
+    volumeIcon.className = "ri-volume-mute-fill";
+  } else if (value < 0.5) {
+    volumeIcon.className = "ri-volume-down-fill";
+  } else {
+    volumeIcon.className = "ri-volume-up-fill";
+  }
+
+  if (value > 0) lastVolume = value;
+});
+
+// CLICK ICON = MUTE / UNMUTE
+volumeIcon.addEventListener("click", () => {
+  if (mainVideo.volume > 0) {
+    lastVolume = mainVideo.volume;
+    mainVideo.volume = 0;
+    volumeControl.value = 0;
+    volumeIcon.className = "ri-volume-mute-fill";
+  } else {
+    mainVideo.volume = lastVolume;
+    volumeControl.value = lastVolume;
+    volumeIcon.className = "ri-volume-up-fill";
+  }
+});
+
+const downloadBtn = document.getElementById("downloadVideo");
+
+downloadBtn.addEventListener("click", async () => {
+  const url = mainVideo.src;
+
+  try {
+    const response = await fetch(url);
+    const blob = await response.blob();
+
+    const blobUrl = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = blobUrl;
+    a.download = "zarabesso-video.mp4";
+
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    window.URL.revokeObjectURL(blobUrl);
+
+  } catch (err) {
+    console.log("Download error:", err);
+
+    // fallback (si CORS bloque)
+    const a = document.createElement("a");
+    a.href = url;
+    a.target = "_blank";
+    a.click();
+  }
+});
+
+const fullscreenBtn = document.getElementById("fullscreenBtn");
+const videoScreen = document.querySelector(".video-screen");
+
+fullscreenBtn.addEventListener("click", () => {
+
+  if (!document.fullscreenElement) {
+
+    videoScreen.requestFullscreen().then(() => {
+      fullscreenBtn.innerHTML = '<i class="ri-fullscreen-exit-fill"></i>';
+    });
+
+  } else {
+
+    document.exitFullscreen().then(() => {
+      fullscreenBtn.innerHTML = '<i class="ri-fullscreen-fill"></i>';
+    });
+
+  }
+
+});
+document.addEventListener("fullscreenchange", () => {
+  if (!document.fullscreenElement) {
+    fullscreenBtn.innerHTML = '<i class="ri-fullscreen-fill"></i>';
+  }
+});
+  
   // OVERLAY
   const overlay =
   document.getElementById("videoOverlayCenter");
