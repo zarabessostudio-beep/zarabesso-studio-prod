@@ -1,451 +1,348 @@
-/* =========================================
-   ☁️ VYNILE AUTO CLOUD PLAYER
-========================================= */
+const tracksContainer = document.getElementById("spotifyTracks");
+const audio = document.getElementById("audio");
+const videoPlayer = document.getElementById("videoPlayer");
+const title = document.getElementById("title");
+const artist = document.getElementById("artist");
+const cover = document.getElementById("cover");
+const playBtn = document.getElementById("play");
+const nextBtn = document.getElementById("next");
+const prevBtn = document.getElementById("prev");
+const progress = document.getElementById("progress");
+const vinyl = document.getElementById("vinyl");
 
-/* ================= ELEMENTS ================= */
-
-const tracksContainer =
-document.getElementById("spotifyTracks");
-
-const audio =
-document.getElementById("audio");
-
-const videoPlayer =
-document.getElementById("videoPlayer");
-
-const title =
-document.getElementById("title");
-
-const artist =
-document.getElementById("artist");
-
-const cover =
-document.getElementById("cover");
-
-const playBtn =
-document.getElementById("play");
-
-const nextBtn =
-document.getElementById("next");
-
-const prevBtn =
-document.getElementById("prev");
-
-const progress =
-document.getElementById("progress");
-
-const vinyl =
-document.getElementById("vinyl");
-
-/* ================= TRACKS ================= */
+/* =========================================================
+   STATE SAAS
+========================================================= */
 
 let tracks = [];
-
 let currentIndex = 0;
-
 let playing = false;
 
-/* =========================================
-   LOAD CLOUD MEDIA
-========================================= */
+/* =========================================================
+   CACHE SYSTEM (PERF BOOST)
+========================================================= */
 
-async function loadCloudTracks(){
+const CACHE_KEY = "vynile_cloud_cache_v2";
 
-  try{
+/* =========================================================
+   LOAD CLOUD MEDIA (ULTRA VERSION)
+========================================================= */
 
-    const response =
-    await fetch("/api/media");
+async function loadCloudTracks() {
+  try {
 
-    const data =
-    await response.json();
+    tracksContainer.innerHTML = `
+      <div class="cloud-loading">
+        <div class="loader"></div>
+        <p>Chargement VYNILE Cloud...</p>
+      </div>
+    `;
 
-    console.log(
-      "☁️ CLOUD MEDIA:",
-      data
-    );
+    // 🔥 CACHE FIRST
+    const cache = localStorage.getItem(CACHE_KEY);
+    if (cache) {
+      const parsed = JSON.parse(cache);
+      if (parsed?.tracks?.length) {
+        tracks = parsed.tracks;
+        renderTracks();
+        loadTrack(0);
+        return;
+      }
+    }
 
-    const music =
-    data.music || [];
+    const res = await fetch("/api/media");
 
-    const videos =
-    data.videos || [];
+    const data = await res.json();
 
-    const covers =
-    data.covers || [];
+    console.log("☁️ CLOUD FULL DATA:", data);
 
-    tracks = music.map((track,index)=>{
+    const music = data.music || [];
+    const videos = data.videos || [];
+    const covers = data.covers || [];
 
-      const video =
-      videos[index]
-      ? videos[index].secure_url
-      : "";
+    tracks = music.map((track, i) => {
 
-      const coverImage =
-      covers[index]
-      ? covers[index].secure_url
-      : "/vinyle/assets/logo/logo1.png";
+      const video = videos[i]?.secure_url || "";
+      const coverImg = covers[i]?.secure_url || "/vinyle/assets/logo/logo1.png";
 
       return {
 
-        title:
-        cleanTitle(track.public_id),
+        id: track.asset_id || `track-${i}`,
 
-        artist:
-        "Zarabesso Studio",
+        title: cleanTitle(track.public_id),
+        artist: "Zarabesso Studio",
 
-        audio:
-        track.secure_url,
+        audio: track.secure_url,
+        video: video,
+        cover: coverImg,
 
-        video:
-        video,
+        duration: track.duration || 0,
 
-        cover:
-        coverImage
+        // 🔥 SAAS METADATA
+        views: 0,
+        likes: 0,
+        comments: [],
 
+        createdAt: track.created_at || null
       };
-
     });
 
+    // 💾 CACHE SAVE
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ tracks }));
+
     renderTracks();
+    loadTrack(0);
 
-    if(tracks.length > 0){
+  } catch (err) {
+    console.error("Cloud error:", err);
 
-      loadTrack(0);
-
-    }
-
+    tracksContainer.innerHTML = `
+      <div class="empty-cloud">
+        <i class="ri-error-warning-line"></i>
+        <h3>Erreur Cloud</h3>
+        <p>Impossible de charger les médias</p>
+      </div>
+    `;
   }
-
-  catch(err){
-
-    console.error(
-      "❌ Cloud loading error:",
-      err
-    );
-
-  }
-
 }
 
-/* =========================================
+/* =========================================================
    CLEAN TITLE
-========================================= */
+========================================================= */
 
-function cleanTitle(name){
-
+function cleanTitle(name) {
   return name
-  .replace(/_/g," ")
-  .replace(/-/g," ")
-  .replace(/\.[^/.]+$/,"");
-
+    .replace(/_/g, " ")
+    .replace(/-/g, " ")
+    .replace(/\.[^/.]+$/, "");
 }
 
-/* =========================================
-   RENDER TRACKS
-========================================= */
+/* =========================================================
+   RENDER TRACKS (ULTRA UI)
+========================================================= */
 
-function renderTracks(){
-
+function renderTracks() {
   tracksContainer.innerHTML = "";
 
-  tracks.forEach((track,index)=>{
+  const fragment = document.createDocumentFragment();
 
-    tracksContainer.innerHTML += `
+  tracks.forEach((track, index) => {
 
-    <div
-      class="spotify-track"
-      onclick="selectTrack(${index})"
-    >
+    const el = document.createElement("div");
+    el.className = `spotify-track ${index === currentIndex ? "active-track" : ""}`;
 
+    el.innerHTML = `
       <div class="track-left">
 
-        <img
-          loading="lazy"
-          src="${track.cover}"
-          alt="${track.title}"
-        >
+        <img src="${track.cover}" loading="lazy">
 
         <div class="track-info">
-
           <h4>${track.title}</h4>
-
           <p>${track.artist}</p>
 
+          <small>
+            👁 ${track.views} • ❤️ ${track.likes}
+          </small>
         </div>
 
       </div>
 
-      <div class="play-icon">
-
-        <i class="ri-play-fill"></i>
-
+      <div class="track-right">
+        <button class="play-icon">
+          <i class="ri-play-fill"></i>
+        </button>
       </div>
-
-    </div>
-
     `;
 
+    el.addEventListener("click", () => selectTrack(index));
+
+    fragment.appendChild(el);
   });
 
+  tracksContainer.appendChild(fragment);
 }
 
-/* =========================================
+/* =========================================================
    LOAD TRACK
-========================================= */
+========================================================= */
 
-function loadTrack(index){
+function loadTrack(index) {
 
   currentIndex = index;
-
   const track = tracks[index];
-
-  if(!track) return;
-
-  /* AUDIO */
+  if (!track) return;
 
   audio.src = track.audio;
 
-  /* VIDEO */
-
-  if(track.video){
-
-    videoPlayer.style.display = "block";
-
+  if (track.video) {
     videoPlayer.src = track.video;
-
-  }else{
-
+    videoPlayer.style.display = "block";
+    videoPlayer.muted = true;
+  } else {
     videoPlayer.style.display = "none";
-
   }
 
-  /* TEXT */
+  title.textContent = track.title;
+  artist.textContent = track.artist;
+  cover.src = track.cover;
 
-  title.textContent =
-  track.title;
-
-  artist.textContent =
-  track.artist;
-
-  /* COVER */
-
-  cover.src =
-  track.cover;
-
+  renderTracks();
 }
 
-/* =========================================
+/* =========================================================
    SELECT TRACK
-========================================= */
+========================================================= */
 
-function selectTrack(index){
-
+function selectTrack(index) {
   loadTrack(index);
-
   playMusic();
 
+  // 🔥 VIEW SYSTEM
+  registerView(tracks[index].id);
 }
 
-/* =========================================
-   PLAY MUSIC
-========================================= */
+/* =========================================================
+   PLAY (ANTI BLOCK MOBILE)
+========================================================= */
 
-async function playMusic(){
+async function playMusic() {
+  try {
 
-  try{
+    const audioPlay = audio.play();
 
-    await audio.play();
-
-    if(videoPlayer.src){
-
-      videoPlayer.play();
-
+    if (videoPlayer.src) {
+      videoPlayer.muted = true;
+      await Promise.all([audioPlay, videoPlayer.play()]);
+    } else {
+      await audioPlay;
     }
 
     playing = true;
+    playBtn.innerHTML = '<i class="ri-pause-fill"></i>';
+    vinyl.classList.add("playing");
 
-    playBtn.innerHTML =
-    '<i class="ri-pause-fill"></i>';
-
-    vinyl.classList.add(
-      "playing"
-    );
-
+  } catch (err) {
+    console.log("blocked autoplay", err);
   }
-
-  catch(err){
-
-    console.log(
-      "Playback blocked:",
-      err
-    );
-
-  }
-
 }
 
-/* =========================================
-   PAUSE MUSIC
-========================================= */
+/* =========================================================
+   PAUSE
+========================================================= */
 
-function pauseMusic(){
-
+function pauseMusic() {
   audio.pause();
-
   videoPlayer.pause();
 
   playing = false;
-
-  playBtn.innerHTML =
-  '<i class="ri-play-fill"></i>';
-
-  vinyl.classList.remove(
-    "playing"
-  );
-
+  playBtn.innerHTML = '<i class="ri-play-fill"></i>';
+  vinyl.classList.remove("playing");
 }
 
-/* =========================================
-   PLAY BUTTON
-========================================= */
+/* =========================================================
+   CONTROLS
+========================================================= */
 
-playBtn.addEventListener(
-  "click",
-  ()=>{
+playBtn.onclick = () => playing ? pauseMusic() : playMusic();
 
-    if(!playing){
+nextBtn.onclick = () => {
+  currentIndex = (currentIndex + 1) % tracks.length;
+  loadTrack(currentIndex);
+  playMusic();
+};
 
-      playMusic();
+prevBtn.onclick = () => {
+  currentIndex = (currentIndex - 1 + tracks.length) % tracks.length;
+  loadTrack(currentIndex);
+  playMusic();
+};
 
-    }else{
-
-      pauseMusic();
-
-    }
-
-  }
-);
-
-/* =========================================
-   NEXT
-========================================= */
-
-nextBtn.addEventListener(
-  "click",
-  ()=>{
-
-    currentIndex++;
-
-    if(currentIndex >= tracks.length){
-
-      currentIndex = 0;
-
-    }
-
-    loadTrack(currentIndex);
-
-    playMusic();
-
-  }
-);
-
-/* =========================================
-   PREV
-========================================= */
-
-prevBtn.addEventListener(
-  "click",
-  ()=>{
-
-    currentIndex--;
-
-    if(currentIndex < 0){
-
-      currentIndex =
-      tracks.length - 1;
-
-    }
-
-    loadTrack(currentIndex);
-
-    playMusic();
-
-  }
-);
-
-/* =========================================
-   AUTO NEXT
-========================================= */
-
-audio.addEventListener(
-  "ended",
-  ()=>{
-
-    currentIndex++;
-
-    if(currentIndex >= tracks.length){
-
-      currentIndex = 0;
-
-    }
-
-    loadTrack(currentIndex);
-
-    playMusic();
-
-  }
-);
-
-/* =========================================
+/* =========================================================
    PROGRESS
-========================================= */
+========================================================= */
 
-audio.addEventListener(
-  "timeupdate",
-  ()=>{
+audio.addEventListener("timeupdate", () => {
+  if (!audio.duration) return;
 
-    if(!audio.duration) return;
+  progress.style.width =
+    (audio.currentTime / audio.duration) * 100 + "%";
+});
 
-    const percent =
-    (audio.currentTime /
-    audio.duration) * 100;
+document.querySelector(".progress-container")
+.addEventListener("click", (e) => {
+  audio.currentTime =
+    (e.offsetX / e.currentTarget.clientWidth) * audio.duration;
+});
 
-    progress.style.width =
-    percent + "%";
+/* =========================================================
+   VIEWS SYSTEM (BACKEND READY)
+========================================================= */
 
-  }
-);
+async function registerView(id) {
+  try {
+    await fetch("/api/view", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id })
+    });
+  } catch (e) {}
+}
 
-/* =========================================
-   CLICK PROGRESS
-========================================= */
+/* =========================================================
+   COMMENTS SYSTEM (ULTRA SAAS)
+========================================================= */
 
-document
-.querySelector(
-  ".progress-container"
-)
-.addEventListener(
-  "click",
-  (e)=>{
+/**
+ * ADD COMMENT
+ */
+async function addComment(trackId, text, user = "Anonyme") {
+  const comment = {
+    id: Date.now(),
+    user,
+    text,
+    createdAt: new Date().toISOString(),
+    likes: 0
+  };
 
-    const width =
-    e.currentTarget.clientWidth;
+  const track = tracks.find(t => t.id === trackId);
+  if (!track) return;
 
-    const clickX =
-    e.offsetX;
+  track.comments.push(comment);
 
-    const duration =
-    audio.duration;
+  await syncComments(trackId, track.comments);
+}
 
-    audio.currentTime =
-    (clickX / width)
-    * duration;
+/**
+ * LOAD COMMENTS UI
+ */
+function renderComments(trackId) {
+  const track = tracks.find(t => t.id === trackId);
+  if (!track) return;
 
-  }
-);
+  return track.comments.map(c => `
+    <div class="comment">
+      <strong>${c.user}</strong>
+      <p>${c.text}</p>
+      <small>${new Date(c.createdAt).toLocaleString()}</small>
+    </div>
+  `).join("");
+}
 
-/* =========================================
-   START
-========================================= */
+/**
+ * SYNC COMMENTS (BACKEND READY)
+ */
+async function syncComments(id, comments) {
+  try {
+    await fetch("/api/comments", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, comments })
+    });
+  } catch (e) {}
+}
+
+/* =========================================================
+   INIT
+========================================================= */
 
 loadCloudTracks();

@@ -1,238 +1,66 @@
 import { v2 as cloudinary } from "cloudinary";
 
-/* =========================================================
-   CLOUDINARY CONFIG
-========================================================= */
-
 cloudinary.config({
-
-  cloud_name:
-  process.env.CLOUDINARY_CLOUD_NAME,
-
-  api_key:
-  process.env.CLOUDINARY_API_KEY,
-
-  api_secret:
-  process.env.CLOUDINARY_API_SECRET
-
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-/* =========================================================
-   API HANDLER
-========================================================= */
+export default async function handler(req, res) {
+  try {
 
-export default async function handler(req, res){
-
-  /* =====================================================
-     SECURITY HEADERS
-  ===================================================== */
-
-  res.setHeader(
-    "Cache-Control",
-    "s-maxage=120, stale-while-revalidate"
-  );
-
-  try{
-
-    /* ===================================================
-       VALIDATE ENV
-    =================================================== */
-
-    if(
-      !process.env.CLOUDINARY_CLOUD_NAME ||
-      !process.env.CLOUDINARY_API_KEY ||
-      !process.env.CLOUDINARY_API_SECRET
-    ){
-
+    if (!process.env.CLOUDINARY_CLOUD_NAME) {
       return res.status(500).json({
-
-        success:false,
-
-        error:
-        "Cloudinary ENV manquant"
-
+        success: false,
+        error: "ENV missing"
       });
-
     }
 
-    /* ===================================================
-       SEARCH CLOUDINARY
-    =================================================== */
-
-    const result =
-
-    await cloudinary.search
-
-      .expression(
-        'resource_type:video AND folder="zarabesso-videos"'
-      )
-
-      .sort_by(
-        "created_at",
-        "desc"
-      )
-
+    const result = await cloudinary.search
+      .expression('resource_type:video AND folder="zarabesso-videos"')
+      .sort_by("created_at", "desc")
       .max_results(100)
-
       .execute();
 
-    /* ===================================================
-       SAFE RESOURCES
-    =================================================== */
+    const tracks = result.resources.map((v, i) => {
 
-    const resources =
-    result.resources || [];
-
-    /* ===================================================
-       FORMAT TRACKS
-    =================================================== */
-
-    const tracks =
-
-    resources.map((video,index)=>{
-
-      const publicId =
-      video.public_id;
-
-      const filename =
-      video.filename || `track-${index}`;
-
-      /* ===============================================
-         PREMIUM VIDEO URL
-      =============================================== */
-
-      const optimizedVideo =
-
-      cloudinary.url(publicId,{
-
-        resource_type:"video",
-
-        secure:true,
-
-        quality:"auto",
-
-        fetch_format:"auto",
-
-        streaming_profile:"hd"
-
+      const url = cloudinary.url(v.public_id, {
+        resource_type: "video",
+        secure: true,
+        quality: "auto",
+        fetch_format: "auto"
       });
-
-      /* ===============================================
-         PREMIUM THUMBNAIL
-      =============================================== */
-
-      const thumbnail =
-
-      cloudinary.url(publicId,{
-
-        resource_type:"video",
-
-        format:"jpg",
-
-        secure:true,
-
-        transformation:[
-
-          {
-            width:600,
-            height:600,
-            crop:"fill",
-            gravity:"auto"
-          },
-
-          {
-            quality:"auto"
-          }
-
-        ]
-
-      });
-
-      /* ===============================================
-         RETURN TRACK
-      =============================================== */
 
       return {
+        id: v.asset_id || i,
+        title: (v.filename || "track")
+          .replace(/[-_]/g, " "),
+        audio: url,
+        video: url,
+        cover: cloudinary.url(v.public_id, {
+          resource_type: "video",
+          format: "jpg"
+        }),
 
-        id:
-        video.asset_id ||
+        duration: Math.floor(v.duration || 0),
 
-        `zarabesso-${index}`,
-
-        title:
-
-        filename
-        .replace(/-/g," ")
-        .replace(/_/g," ")
-        .trim(),
-
-        artist:
-        "Zarabesso Studio",
-
-        album:
-        "VYNILE Premium",
-
-        audio:
-        optimizedVideo,
-
-        video:
-        optimizedVideo,
-
-        cover:
-        thumbnail,
-
-        duration:
-        Math.floor(
-          video.duration || 0
-        ),
-
-        createdAt:
-        video.created_at || null
-
+        // 🔥 STATS INIT
+        views: 0,
+        likes: 0,
+        popularity: 0
       };
 
     });
 
-    /* ===================================================
-       SUCCESS RESPONSE
-    =================================================== */
-
-    return res.status(200).json({
-
-      success:true,
-
-      total:
-      tracks.length,
-
+    res.status(200).json({
+      success: true,
       tracks
-
     });
 
-  }
-
-  catch(err){
-
-    console.error(
-      "❌ CLOUDINARY API ERROR:",
-      err
-    );
-
-    /* ===================================================
-       ERROR RESPONSE
-    =================================================== */
-
-    return res.status(500).json({
-
-      success:false,
-
-      error:
-      "Impossible de charger les médias",
-
-      details:
-      err.message || "Erreur inconnue"
-
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      error: err.message
     });
-
   }
-
 }
