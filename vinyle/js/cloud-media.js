@@ -1,6 +1,11 @@
-/* =========================================
-   ☁️ VYNILE AUTO CLOUD PLAYER
-========================================= */
+/* =========================================================
+   ☁️ VYNILE CLOUD MEDIA ENGINE
+   ZARABESSO STUDIO PREMIUM VERSION
+========================================================= */
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
 
 const tracksContainer =
 document.getElementById("spotifyTracks");
@@ -35,50 +40,79 @@ document.getElementById("progress");
 const vinyl =
 document.getElementById("vinyl");
 
+const volumeSlider =
+document.getElementById("volume");
+
+/* =========================================================
+   PLAYER STATE
+========================================================= */
+
 let tracks = [];
 
 let currentIndex = 0;
 
-let playing = false;
+let isPlaying = false;
 
-/* =========================================
-   LOAD CLOUD MEDIA
-========================================= */
+/* =========================================================
+   CLOUD FETCH
+========================================================= */
 
 async function loadCloudTracks(){
 
   try{
 
+    tracksContainer.innerHTML = `
+
+    <div class="cloud-loading">
+
+      <div class="loader"></div>
+
+      <p>
+        Chargement Cloud Music...
+      </p>
+
+    </div>
+
+    `;
+
     const response =
-    await fetch("/api/media");
+    await fetch("/api/cloud-media");
+
+    if(!response.ok){
+
+      throw new Error(
+        "Erreur API Cloud"
+      );
+
+    }
 
     const data =
     await response.json();
 
-    console.log("☁️ API DATA:", data);
-
-    // =========================
-    // IMPORTANT FIX
-    // =========================
-
-    tracks = data.tracks || [];
-
     console.log(
-      "🎵 TRACKS:",
-      tracks
+      "☁️ CLOUD DATA:",
+      data
     );
 
-    if(tracks.length === 0){
+    tracks =
+    data.tracks || [];
+
+    if(!tracks.length){
 
       tracksContainer.innerHTML = `
 
-      <div style="
-      padding:30px;
-      text-align:center;
-      color:#aaa;
-      ">
+      <div class="empty-cloud">
 
-      Aucun média trouvé dans Cloudinary
+        <i class="ri-cloud-off-line"></i>
+
+        <h3>
+          Aucun média trouvé
+        </h3>
+
+        <p>
+          Vérifiez votre dossier
+          Cloudinary.
+        </p>
 
       </div>
 
@@ -101,13 +135,31 @@ async function loadCloudTracks(){
       err
     );
 
+    tracksContainer.innerHTML = `
+
+    <div class="empty-cloud">
+
+      <i class="ri-error-warning-line"></i>
+
+      <h3>
+        Impossible de charger
+      </h3>
+
+      <p>
+        API Cloudinary inaccessible
+      </p>
+
+    </div>
+
+    `;
+
   }
 
 }
 
-/* =========================================
+/* =========================================================
    RENDER TRACKS
-========================================= */
+========================================================= */
 
 function renderTracks(){
 
@@ -115,47 +167,79 @@ function renderTracks(){
 
   tracks.forEach((track,index)=>{
 
-    tracksContainer.innerHTML += `
+    const activeClass =
+    index === currentIndex
+    ? "active-track"
+    : "";
 
-    <div
-      class="spotify-track"
-      onclick="selectTrack(${index})"
-    >
+    const trackElement =
+    document.createElement("div");
+
+    trackElement.className =
+    `spotify-track ${activeClass}`;
+
+    trackElement.innerHTML = `
 
       <div class="track-left">
 
         <img
           src="${track.cover}"
           alt="${track.title}"
+          loading="lazy"
         >
 
         <div class="track-info">
 
-          <h4>${track.title}</h4>
+          <h4>
+            ${track.title}
+          </h4>
 
-          <p>${track.artist}</p>
+          <p>
+            ${track.artist}
+          </p>
 
         </div>
 
       </div>
 
-      <div class="play-icon">
+      <div class="track-right">
 
-        <i class="ri-play-fill"></i>
+        <span class="track-duration">
+
+          ${formatTime(track.duration)}
+
+        </span>
+
+        <button class="track-play-btn">
+
+          <i class="ri-play-fill"></i>
+
+        </button>
 
       </div>
 
-    </div>
-
     `;
+
+    trackElement.addEventListener(
+      "click",
+      ()=>{
+
+        selectTrack(index);
+
+      }
+    );
+
+    tracksContainer.appendChild(
+      trackElement
+    );
 
   });
 
 }
 
-/* =========================================
+/* =========================================================
    LOAD TRACK
-========================================= */
+========================================================= */
 
 function loadTrack(index){
 
@@ -166,12 +250,20 @@ function loadTrack(index){
 
   if(!track) return;
 
-  // AUDIO
+  console.log(
+    "🎵 LOADING:",
+    track.title
+  );
+
+  /* ===== AUDIO ===== */
 
   audio.src =
   track.audio;
 
-  // VIDEO
+  audio.preload =
+  "metadata";
+
+  /* ===== VIDEO ===== */
 
   if(track.video){
 
@@ -181,15 +273,22 @@ function loadTrack(index){
     videoPlayer.src =
     track.video;
 
+    videoPlayer.poster =
+    track.cover;
+
+    videoPlayer.preload =
+    "metadata";
+
   }
 
   else{
 
     videoPlayer.style.display =
     "none";
+
   }
 
-  // TEXT
+  /* ===== TEXT ===== */
 
   title.textContent =
   track.title;
@@ -197,19 +296,22 @@ function loadTrack(index){
   artist.textContent =
   track.artist;
 
-  // COVER
+  /* ===== COVER ===== */
 
   cover.src =
   track.cover;
 
+  /* ===== ACTIVE TRACK ===== */
+
+  renderTracks();
+
 }
 
-/* =========================================
+/* =========================================================
    SELECT TRACK
-========================================= */
+========================================================= */
 
-window.selectTrack =
-function(index){
+function selectTrack(index){
 
   loadTrack(index);
 
@@ -217,9 +319,9 @@ function(index){
 
 }
 
-/* =========================================
+/* =========================================================
    PLAY
-========================================= */
+========================================================= */
 
 async function playMusic(){
 
@@ -229,13 +331,14 @@ async function playMusic(){
 
     if(videoPlayer.src){
 
-      videoPlayer.play();
+      await videoPlayer.play();
 
     }
 
-    playing = true;
+    isPlaying = true;
 
     playBtn.innerHTML =
+
     '<i class="ri-pause-fill"></i>';
 
     vinyl.classList.add(
@@ -246,15 +349,18 @@ async function playMusic(){
 
   catch(err){
 
-    console.log(err);
+    console.error(
+      "❌ PLAY ERROR:",
+      err
+    );
 
   }
 
 }
 
-/* =========================================
+/* =========================================================
    PAUSE
-========================================= */
+========================================================= */
 
 function pauseMusic(){
 
@@ -262,9 +368,10 @@ function pauseMusic(){
 
   videoPlayer.pause();
 
-  playing = false;
+  isPlaying = false;
 
   playBtn.innerHTML =
+
   '<i class="ri-play-fill"></i>';
 
   vinyl.classList.remove(
@@ -273,92 +380,96 @@ function pauseMusic(){
 
 }
 
-/* =========================================
-   PLAY BUTTON
-========================================= */
+/* =========================================================
+   TOGGLE PLAY
+========================================================= */
 
 playBtn.addEventListener(
   "click",
   ()=>{
 
-    if(!playing){
-
-      playMusic();
-
-    }
-
-    else{
+    if(isPlaying){
 
       pauseMusic();
 
     }
 
+    else{
+
+      playMusic();
+
+    }
+
   }
 );
 
-/* =========================================
+/* =========================================================
    NEXT
-========================================= */
+========================================================= */
+
+function nextTrack(){
+
+  currentIndex++;
+
+  if(currentIndex >= tracks.length){
+
+    currentIndex = 0;
+
+  }
+
+  loadTrack(currentIndex);
+
+  playMusic();
+
+}
 
 nextBtn.addEventListener(
   "click",
-  ()=>{
-
-    currentIndex++;
-
-    if(currentIndex >= tracks.length){
-
-      currentIndex = 0;
-
-    }
-
-    loadTrack(currentIndex);
-
-    playMusic();
-
-  }
+  nextTrack
 );
 
-/* =========================================
-   PREV
-========================================= */
+/* =========================================================
+   PREVIOUS
+========================================================= */
+
+function previousTrack(){
+
+  currentIndex--;
+
+  if(currentIndex < 0){
+
+    currentIndex =
+    tracks.length - 1;
+
+  }
+
+  loadTrack(currentIndex);
+
+  playMusic();
+
+}
 
 prevBtn.addEventListener(
   "click",
-  ()=>{
-
-    currentIndex--;
-
-    if(currentIndex < 0){
-
-      currentIndex =
-      tracks.length - 1;
-
-    }
-
-    loadTrack(currentIndex);
-
-    playMusic();
-
-  }
+  previousTrack
 );
 
-/* =========================================
+/* =========================================================
    AUTO NEXT
-========================================= */
+========================================================= */
 
 audio.addEventListener(
   "ended",
   ()=>{
 
-    nextBtn.click();
+    nextTrack();
 
   }
 );
 
-/* =========================================
-   PROGRESS
-========================================= */
+/* =========================================================
+   PROGRESS BAR
+========================================================= */
 
 audio.addEventListener(
   "timeupdate",
@@ -367,18 +478,106 @@ audio.addEventListener(
     if(!audio.duration) return;
 
     const percent =
-    (audio.currentTime
-    / audio.duration)
-    * 100;
+
+    (
+      audio.currentTime
+      / audio.duration
+    ) * 100;
 
     progress.style.width =
+
     percent + "%";
 
   }
 );
 
-/* =========================================
-   START
-========================================= */
+/* =========================================================
+   CLICK SEEK
+========================================================= */
+
+document
+.querySelector(
+  ".progress-container"
+)
+.addEventListener(
+  "click",
+  (e)=>{
+
+    const width =
+    e.currentTarget.clientWidth;
+
+    const clickX =
+    e.offsetX;
+
+    const duration =
+    audio.duration;
+
+    audio.currentTime =
+    (clickX / width)
+    * duration;
+
+  }
+);
+
+/* =========================================================
+   VOLUME
+========================================================= */
+
+if(volumeSlider){
+
+  volumeSlider.addEventListener(
+    "input",
+    ()=>{
+
+      audio.volume =
+      volumeSlider.value;
+
+      videoPlayer.volume =
+      volumeSlider.value;
+
+    }
+  );
+
+}
+
+/* =========================================================
+   FORMAT TIME
+========================================================= */
+
+function formatTime(seconds){
+
+  if(!seconds) return "0:00";
+
+  const mins =
+  Math.floor(seconds / 60);
+
+  const secs =
+  Math.floor(seconds % 60)
+  .toString()
+  .padStart(2,"0");
+
+  return `${mins}:${secs}`;
+
+}
+
+/* =========================================================
+   MOBILE AUTOPLAY FIX
+========================================================= */
+
+document.body.addEventListener(
+  "click",
+  ()=>{
+
+    audio.load();
+
+    videoPlayer.load();
+
+  },
+  { once:true }
+);
+
+/* =========================================================
+   START APP
+========================================================= */
 
 loadCloudTracks();

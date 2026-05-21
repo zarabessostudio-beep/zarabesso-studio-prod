@@ -1502,3 +1502,81 @@ canvas{
   object-fit:cover;
   border-radius:14px;
 }
+/* =========================================================
+   CLOUD STATES
+========================================================= */
+
+.cloud-loading,
+.empty-cloud{
+  padding:40px;
+  text-align:center;
+  color:#aaa;
+}
+
+.cloud-loading p,
+.empty-cloud p{
+  margin-top:15px;
+}
+
+.empty-cloud i{
+  font-size:3rem;
+  color:#7b2cff;
+}
+
+.loader{
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  border:3px solid rgba(255,255,255,.1);
+  border-top:3px solid #7b2cff;
+  margin:auto;
+
+  animation:spinLoader 1s linear infinite;
+}
+
+@keyframes spinLoader{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+/* =========================================================
+   ACTIVE TRACK
+========================================================= */
+
+.active-track{
+  background:
+  rgba(123,44,255,.18) !important;
+
+  border:
+  1px solid rgba(123,44,255,.3);
+}
+
+.track-right{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.track-duration{
+  color:#aaa;
+  font-size:.9rem;
+}
+
+.track-play-btn{
+  width:42px;
+  height:42px;
+  border:none;
+  border-radius:50%;
+
+  background:#7b2cff;
+  color:white;
+
+  cursor:pointer;
+
+  transition:.3s;
+}
+
+.track-play-btn:hover{
+  transform:scale(1.08);
+}
