@@ -1444,3 +1444,61 @@ canvas{
   }
 
 }
+.volume-control{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:20px;
+}
+
+.volume-control input{
+  width:120px;
+  accent-color:#7b2cff;
+}
+
+.download-btn{
+  display:inline-block;
+  margin-top:10px;
+  padding:10px 18px;
+  border-radius:14px;
+  background:rgba(255,255,255,0.08);
+  color:white;
+  text-decoration:none;
+  backdrop-filter:blur(10px);
+  transition:0.3s;
+}
+
+.download-btn:hover{
+  transform:translateY(-3px);
+  background:#7b2cff;
+}
+
+.spotify-track{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+
+  padding:14px;
+  border-radius:20px;
+
+  background:rgba(255,255,255,0.05);
+
+  margin-bottom:14px;
+
+  backdrop-filter:blur(14px);
+
+  transition:0.3s;
+}
+
+.spotify-track:hover{
+  transform:translateX(6px);
+  background:rgba(123,44,255,0.18);
+}
+
+.spotify-track img{
+  width:70px;
+  height:70px;
+  object-fit:cover;
+  border-radius:14px;
+}

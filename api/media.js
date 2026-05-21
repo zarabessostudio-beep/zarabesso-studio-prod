@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     // =========================
 
     const videos = await cloudinary.search
-      .expression("folder:zarabesso-videos")
+      .expression('resource_type:video AND folder="zarabesso-videos"')
       .sort_by("created_at", "desc")
       .max_results(100)
       .execute();
@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     // =========================
 
     const music = await cloudinary.search
-      .expression("folder:zarabesso-music")
+      .expression('resource_type:video AND folder="zarabesso-music"')
       .sort_by("created_at", "desc")
       .max_results(100)
       .execute();
@@ -35,22 +35,62 @@ export default async function handler(req, res) {
     // =========================
 
     const covers = await cloudinary.search
-      .expression("folder:zarabesso-cover")
+      .expression('folder="zarabesso-cover"')
       .sort_by("created_at", "desc")
       .max_results(100)
       .execute();
 
-    res.status(200).json({
+    // =========================
+    // FORMAT PREMIUM
+    // =========================
 
-      videos: videos.resources,
-      music: music.resources,
-      covers: covers.resources
+    const tracks = music.resources.map((track, index) => {
+
+      const cover =
+        covers.resources[index]?.secure_url ||
+        "/vinyle/assets/images/logo1.png";
+
+      const video =
+        videos.resources[index]?.secure_url || "";
+
+      return {
+
+        id: track.asset_id,
+
+        title:
+          track.filename
+          .replace(/-/g, " ")
+          .replace(/_/g, " "),
+
+        artist: "Zarabesso Studio",
+
+        audio: track.secure_url,
+
+        cover,
+
+        video,
+
+        duration: track.duration || 0,
+
+        created_at: track.created_at
+
+      };
 
     });
 
-  } catch (err) {
+    res.status(200).json({
+      success: true,
+      tracks
+    });
+
+  }
+
+  catch (err) {
+
+    console.error(err);
 
     res.status(500).json({
+      success: false,
       error: err.message
     });
 

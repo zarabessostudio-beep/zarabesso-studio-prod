@@ -13,11 +13,8 @@ html{
   scroll-behavior:smooth;
 }
 
-body{
 
-  background:
-  url("../assets/images/background3.png")
-  center/cover no-repeat fixed;
+body{
 
   min-height:100vh;
 
@@ -26,21 +23,34 @@ body{
   color:white;
 
   position:relative;
-}
 
-/* MOBILE FIX */
-
-@media(max-width:768px){
-
-  body{
-    background-attachment:scroll;
-  }
+  background-color:#050505;
 
 }
 
-/* =========================
-   OLED OVERLAY
-========================= */
+/* BACKGROUND IMAGE */
+
+body::after{
+
+  content:"";
+
+  position:fixed;
+
+  inset:0;
+
+  background:
+url("/assets/images/background4.png")
+center center / cover no-repeat;
+
+  z-index:-3;
+
+  transform:translateZ(0);
+
+  will-change:transform;
+
+}
+
+/* OLED OVERLAY */
 
 body::before{
 
@@ -59,7 +69,7 @@ body::before{
 
   backdrop-filter:blur(2px);
 
-  z-index:-1;
+  z-index:-2;
 
   pointer-events:none;
 }
