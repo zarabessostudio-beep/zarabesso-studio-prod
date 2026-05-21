@@ -539,6 +539,9 @@ Identité sonore unique & professionnelle.
         <button id="nextVideo">
           <i class="ri-skip-forward-fill"></i>
         </button>
+        <button id="fullscreenBtn">
+  <i class="ri-fullscreen-fill"></i>
+</button>
 
         <div class="video-progress">
           <div class="video-progress-bar"></div>
@@ -705,29 +708,7 @@ Identité sonore unique & professionnelle.
 
 </footer>
 
-<script>
-let lastScroll = 0;
-const navbar = document.querySelector('.navbar');
 
-window.addEventListener('scroll', () => {
-  let currentScroll = window.pageYOffset;
-
-  if (currentScroll <= 0) {
-    navbar.classList.remove('hide');
-    return;
-  }
-
-  if (currentScroll > lastScroll) {
-    // Scroll vers le bas → cache navbar
-    navbar.classList.add('hide');
-  } else {
-    // Scroll vers le haut → montre navbar
-    navbar.classList.remove('hide');
-  }
-
-  lastScroll = currentScroll;
-});
-</script>
 <script src="js/cloud-config.js"></script>
 <script src="js/media-loader.js"></script>
 <script src="js/script.js"></script>
