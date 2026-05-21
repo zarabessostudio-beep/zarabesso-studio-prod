@@ -187,6 +187,14 @@ function loadTrack(index) {
   cover.src = track.cover;
 
   renderTracks();
+  renderComments(track);
+}
+function setVinylState() {
+  if (isPlaying) {
+    vinyl.classList.add("playing");
+  } else {
+    vinyl.classList.remove("playing");
+  }
 }
 
 /* =========================================================
@@ -225,6 +233,7 @@ async function playMusic() {
     console.log("blocked autoplay", err);
   }
 }
+setVinylState();
 
 /* =========================================================
    PAUSE
@@ -238,6 +247,7 @@ function pauseMusic() {
   playBtn.innerHTML = '<i class="ri-play-fill"></i>';
   vinyl.classList.remove("playing");
 }
+setVinylState();
 
 /* =========================================================
    CONTROLS
@@ -346,3 +356,56 @@ async function syncComments(id, comments) {
 ========================================================= */
 
 loadCloudTracks();
+/* =========================================================
+   💬 COMMENTS SYSTEM (ULTRA PRO)
+========================================================= */
+
+const commentsBox = document.createElement("div");
+commentsBox.className = "comments-box";
+
+document.querySelector(".player-card").appendChild(commentsBox);
+
+function renderComments(track) {
+
+  commentsBox.innerHTML = `
+    <h3>💬 Commentaires artistes</h3>
+
+    <div class="comment-input">
+      <input id="commentText" placeholder="Féliciter cet artiste..." />
+      <button onclick="addComment()">Envoyer</button>
+    </div>
+
+    <div id="commentList"></div>
+  `;
+
+  const list = document.getElementById("commentList");
+
+  (track.comments || []).forEach(c => {
+    list.innerHTML += `
+      <div class="comment">
+        <strong>${c.user}</strong>
+        <p>${c.text}</p>
+      </div>
+    `;
+  });
+
+}
+
+window.addComment = function() {
+
+  const input = document.getElementById("commentText");
+  if (!input.value) return;
+
+  const track = tracks[currentIndex];
+
+  if (!track.comments) track.comments = [];
+
+  track.comments.push({
+    user: "Fan",
+    text: input.value
+  });
+
+  input.value = "";
+
+  renderComments(track);
+}

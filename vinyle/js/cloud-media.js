@@ -54,7 +54,7 @@ async function loadCloudTracks() {
       }
     }
 
-    const res = await fetch("/api/cloud-media");
+    const res = await fetch("/api/media");
 
     if (!res.ok) throw new Error("Cloud API error");
 
