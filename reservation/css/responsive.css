@@ -1,0 +1,19 @@
+@media(max-width:900px){
+
+.hero h1{
+font-size:3rem;
+}
+
+.booking-card{
+grid-template-columns:1fr;
+}
+
+.time-slots{
+grid-template-columns:repeat(2,1fr);
+}
+
+nav{
+display:none;
+}
+
+}
