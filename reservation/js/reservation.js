@@ -1,73 +1,20 @@
-const form=document.getElementById("reservationForm");
+// ===============================
+// RESERVATION SYSTEM
+// ZARABESSO STUDIO
+// ===============================
 
-window.addEventListener("load",()=>{
+const form =
+document.getElementById("reservationForm");
 
-setTimeout(()=>{
+const burger =
+document.getElementById("burger");
 
-document.getElementById("loaderScreen")
-.style.opacity="0";
+const navLinks =
+document.getElementById("navLinks");
 
-setTimeout(()=>{
-
-document.getElementById("loaderScreen")
-.style.display="none";
-
-},1000);
-
-},2000);
-
-});
-
-form.addEventListener("submit",async(e)=>{
-
-  e.preventDefault();
-
-  const data={
-    name:document.getElementById("name").value,
-    phone:document.getElementById("phone").value,
-    service:document.getElementById("service").value,
-    date:document.getElementById("date").value,
-    time:selectedTime,
-    message:document.getElementById("message").value
-  };
-
-  // SAVE BACKEND
-  try{
-
-    await fetch("/api/reservation",{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify(data)
-    });
-
-  }catch(err){
-    console.log(err);
-  }
-
-  // WHATSAPP
-  const whatsappMessage=`
-🎵 ZARABESSO STUDIO RESERVATION
-
-👤 Nom: ${data.name}
-📞 Téléphone: ${data.phone}
-🎧 Service: ${data.service}
-📅 Date: ${data.date}
-⏰ Heure: ${data.time}
-📝 Projet: ${data.message}
-`;
-
-  window.open(
-`https://wa.me/261342110356?text=${encodeURIComponent(whatsappMessage)}`,
-"_blank"
-  );
-
-});
-const form = document.getElementById("reservationForm");
-
-const burger = document.getElementById("burger");
-const navLinks = document.getElementById("navLinks");
+// ===============================
+// BURGER
+// ===============================
 
 burger.addEventListener("click",()=>{
 
@@ -75,38 +22,59 @@ navLinks.classList.toggle("active");
 
 });
 
+// ===============================
+// LOADER
+// ===============================
+
 window.addEventListener("load",()=>{
 
 setTimeout(()=>{
 
-document.getElementById("loaderScreen")
-.style.opacity="0";
+const loader =
+document.getElementById("loaderScreen");
+
+loader.style.opacity = "0";
 
 setTimeout(()=>{
 
-document.getElementById("loaderScreen")
-.style.display="none";
+loader.style.display = "none";
 
-},1000);
+},1200);
 
-},1500);
+},1800);
 
 });
+
+// ===============================
+// FORM
+// ===============================
 
 form.addEventListener("submit",async(e)=>{
 
 e.preventDefault();
 
-const data={
+const data = {
 
-name:document.getElementById("name").value,
-phone:document.getElementById("phone").value,
-service:document.getElementById("service").value,
-date:document.getElementById("date").value,
+name:
+document.getElementById("name").value,
+
+phone:
+document.getElementById("phone").value,
+
+service:
+document.getElementById("service").value,
+
+date:
+document.getElementById("date").value,
+
 time:selectedTime,
-message:document.getElementById("message").value
+
+message:
+document.getElementById("message").value
 
 };
+
+// SAVE API
 
 try{
 
@@ -128,7 +96,10 @@ console.log(err);
 
 }
 
-const whatsappMessage=`
+// WHATSAPP
+
+const whatsappMessage = `
+
 🎵 ZARABESSO STUDIO
 
 👤 Nom: ${data.name}
@@ -137,11 +108,15 @@ const whatsappMessage=`
 📅 Date: ${data.date}
 ⏰ Heure: ${data.time}
 📝 Projet: ${data.message}
+
 `;
 
 window.open(
+
 `https://wa.me/261342110356?text=${encodeURIComponent(whatsappMessage)}`,
+
 "_blank"
+
 );
 
 });

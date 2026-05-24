@@ -2,12 +2,36 @@
 <html lang="fr">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Zarabesso Reservation</title>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+/>
 
-<link rel="stylesheet" href="/reservation/css/reservation.css">
+<title>Zarabesso Studio | Réservation</title>
+
+<!-- SEO -->
+
+<meta
+name="description"
+content="Réservez votre session premium chez Zarabesso Studio."
+/>
+
+<!-- CSS -->
+
+<link
+rel="stylesheet"
+href="/reservation/css/reservation.css"
+/>
+
+<link
+rel="stylesheet"
+href="/reservation/css/responsive.css"
+/>
+
+<!-- REMIX ICON -->
 
 <link
 href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
@@ -18,104 +42,292 @@ rel="stylesheet"
 
 <body>
 
-<!-- LOADER -->
+<!-- ===============================
+PREMIUM PARTICLES
+=============================== -->
+
+<div id="particles"></div>
+
+<!-- ===============================
+LOADER
+=============================== -->
 
 <div class="loader-screen" id="loaderScreen">
 
 <div class="loader-ring"></div>
-<h2>Zarabesso Studio</h2>
+
+<h2 class="loader-title">
+Zarabesso Studio
+</h2>
+
+<p class="loader-subtitle">
+Premium Reservation Experience
+</p>
 
 </div>
 
-<!-- NAVBAR -->
+<!-- ===============================
+NAVBAR
+=============================== -->
 
 <header class="reservation-navbar">
 
 <div class="reservation-nav-container">
 
+<!-- LOGO -->
+
 <a href="/" class="logo-box">
-<img src="/reservation/assets/images/logo1.png">
-<span>Zarabesso</span>
+
+<img
+src="/reservation/assets/images/logo1.png"
+alt="Zarabesso Logo"
+/>
+
+<div class="logo-text">
+
+<h2>Zarabesso</h2>
+
+<span>Studio Premium</span>
+
+</div>
+
 </a>
 
+<!-- NAVIGATION -->
+
 <nav class="nav-links" id="navLinks">
-<a href="/">Accueil</a>
-<a href="/#services">Services</a>
-<a href="/#studio">Studio</a>
-<a href="/reservation/">Réservation</a>
+
+<a href="/">
+<i class="ri-home-5-line"></i>
+Accueil
+</a>
+
+<a href="/#services">
+<i class="ri-customer-service-2-line"></i>
+Services
+</a>
+
+<a href="/#studio">
+<i class="ri-disc-line"></i>
+Studio
+</a>
+
+<a href="/reservation/" class="active-link">
+<i class="ri-calendar-line"></i>
+Réservation
+</a>
+
 </nav>
 
+<!-- BURGER -->
+
 <div class="burger" id="burger">
+
 <span></span>
 <span></span>
 <span></span>
+
 </div>
 
 </div>
 
 </header>
 
-<!-- HERO -->
+<!-- ===============================
+HERO SECTION
+=============================== -->
 
 <section class="reservation-hero">
 
+<!-- OLED OVERLAY -->
+
 <div class="overlay"></div>
+
+<!-- LIGHT EFFECTS -->
+
+<div class="hero-light light-1"></div>
+<div class="hero-light light-2"></div>
+<div class="hero-light light-3"></div>
 
 <div class="reservation-container">
 
-<!-- LEFT -->
+<!-- ===============================
+LEFT CONTENT
+=============================== -->
 
 <div class="booking-left">
 
+<div class="premium-badge">
+
+<i class="ri-vip-crown-2-line"></i>
+
+<span>
+Réservation Premium
+</span>
+
+</div>
+
 <h1>
-Réservez Votre Session Studio
+
+Réservez
+Votre Session
+Studio Premium
+
 </h1>
 
 <p>
-Production audio premium • Mixage • Mastering • Clip vidéo
+
+Production Audio • Mixage • Mastering • Clip Vidéo • Ambiance OLED Immersive
+
 </p>
+
+<!-- FORM -->
 
 <form id="reservationForm">
 
-<div class="input-group">
-<label>Nom</label>
-<input type="text" id="name" required>
-</div>
+<!-- NAME -->
 
 <div class="input-group">
-<label>Téléphone</label>
-<input type="text" id="phone" required>
+
+<label>
+
+<i class="ri-user-3-line"></i>
+Nom
+
+</label>
+
+<input
+type="text"
+id="name"
+placeholder="Votre nom"
+required
+/>
+
 </div>
 
+<!-- PHONE -->
+
 <div class="input-group">
-<label>Service</label>
+
+<label>
+
+<i class="ri-phone-line"></i>
+Téléphone
+
+</label>
+
+<input
+type="text"
+id="phone"
+placeholder="+261..."
+required
+/>
+
+</div>
+
+<!-- SERVICE -->
+
+<div class="input-group">
+
+<label>
+
+<i class="ri-music-2-line"></i>
+Service
+
+</label>
 
 <select id="service">
 
 <option>Enregistrement</option>
+
 <option>Mixage</option>
+
 <option>Mastering</option>
+
 <option>Clip Vidéo</option>
+
+<option>Production Premium</option>
 
 </select>
 
 </div>
 
-<div class="calendar-box">
-<input type="date" id="date" required>
+<!-- DATE -->
+
+<div class="input-group">
+
+<label>
+
+<i class="ri-calendar-line"></i>
+Date
+
+</label>
+
+<input
+type="date"
+id="date"
+required
+/>
+
 </div>
 
-<div class="time-slots" id="timeSlots"></div>
+<!-- CALENDAR -->
+
+<div class="calendar-premium">
+
+<div class="calendar-header">
+
+<h3>
+
+<i class="ri-time-line"></i>
+
+Choisissez une Heure
+
+</h3>
+
+</div>
+
+<div
+class="time-slots"
+id="timeSlots"
+></div>
+
+</div>
+
+<!-- MESSAGE -->
+
+<div class="input-group">
+
+<label>
+
+<i class="ri-edit-line"></i>
+Projet
+
+</label>
 
 <textarea
 id="message"
-placeholder="Votre projet..."
+placeholder="Décrivez votre projet..."
 ></textarea>
 
-<button type="submit" class="reserve-btn">
+</div>
+
+<!-- BUTTON -->
+
+<button
+type="submit"
+class="reserve-btn"
+>
+
+<div class="btn-glow"></div>
+
+<span>
 
 <i class="ri-whatsapp-line"></i>
+
 Réserver Maintenant
+
+</span>
 
 </button>
 
@@ -123,21 +335,55 @@ Réserver Maintenant
 
 </div>
 
-<!-- RIGHT -->
+<!-- ===============================
+RIGHT CONTENT
+=============================== -->
 
 <div class="booking-right">
 
-<img
-src="/reservation/assets/images/studio.png"
-class="studio-image"
->
+<!-- OLED AURA -->
 
-<div id="three-container"></div>
+<div class="oled-aura aura-1"></div>
+<div class="oled-aura aura-2"></div>
+<div class="oled-aura aura-3"></div>
+
+<!-- WEBGL -->
+
+<canvas id="webgl"></canvas>
+
+<!-- FLOATING CARD -->
 
 <div class="floating-card">
 
-<h3>Studio Premium</h3>
-<p>Audio • Video • Mastering</p>
+<div class="floating-icon">
+
+<i class="ri-disc-line"></i>
+
+</div>
+
+<div>
+
+<h3>Studio OLED Premium</h3>
+
+<p>
+
+Audio • Video • 3D Experience
+
+</p>
+
+</div>
+
+</div>
+
+<!-- STATUS -->
+
+<div class="status-card">
+
+<div class="status-dot"></div>
+
+<span>
+Studio Disponible
+</span>
 
 </div>
 
@@ -147,44 +393,132 @@ class="studio-image"
 
 </section>
 
-<!-- FOOTER -->
+<!-- ===============================
+FOOTER
+=============================== -->
 
 <footer class="premium-footer">
 
+<!-- BACKGROUND LIGHT -->
+
+<div class="footer-glow"></div>
+
 <div class="footer-content">
 
-<div>
-<h2>Zarabesso Studio</h2>
+<!-- LEFT -->
+
+<div class="footer-brand">
+
+<h2>
+
+Zarabesso Studio
+
+</h2>
+
 <p>
-Studio professionnel premium à Madagascar.
+
+Studio professionnel premium à Madagascar avec expérience immersive OLED et production haut de gamme.
+
 </p>
+
+<div class="socials">
+
+<a href="#">
+<i class="ri-facebook-fill"></i>
+</a>
+
+<a href="#">
+<i class="ri-instagram-line"></i>
+</a>
+
+<a href="#">
+<i class="ri-youtube-line"></i>
+</a>
+
+<a href="#">
+<i class="ri-tiktok-line"></i>
+</a>
+
 </div>
+
+</div>
+
+<!-- CENTER -->
 
 <div class="footer-links">
 
+<h3>Navigation</h3>
+
 <a href="/">Accueil</a>
+
+<a href="/#services">Services</a>
+
+<a href="/#studio">Studio</a>
+
 <a href="/reservation/">Réservation</a>
-<a href="#">Instagram</a>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="footer-contact">
+
+<h3>Contact</h3>
+
+<p>
++261 34 21 103 56
+</p>
+
+<p>
+Antananarivo • Madagascar
+</p>
+
+<p>
+zarabesso.studio@gmail.com
+</p>
 
 </div>
 
 </div>
+
+<!-- COPYRIGHT -->
 
 <div class="footer-bottom">
-© 2026 Zarabesso Studio — Tous droits réservés
+
+<div class="footer-line"></div>
+
+<p>
+
+© 2026 Zarabesso Studio
+
+<span class="footer-separator">•</span>
+
+By Gralwebs Solution
+
+</p>
+
 </div>
 
 </footer>
 
-<!-- THREE JS -->
+<!-- ===============================
+THREE JS
+=============================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/loaders/GLTFLoader.js"></script>
 
+<!-- ===============================
+JS FILES
+=============================== -->
+
 <script src="/reservation/js/calendar.js"></script>
+
 <script src="/reservation/js/particles.js"></script>
+
 <script src="/reservation/js/three-scene.js"></script>
+
 <script src="/reservation/js/reservation.js"></script>
 
 </body>
