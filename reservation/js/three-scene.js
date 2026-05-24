@@ -1,33 +1,40 @@
 /* ==================================================
 ZARABESSO STUDIO
-PREMIUM RESPONSIVE THREE.JS
-VISIBLE GUITAR FINAL VERSION
-COMPATIBLE WITH YOUR CURRENT CSS
+FLOATING GUITAR UI VERSION
+OPTIMIZED PREMIUM EDITION
 ================================================== */
 
 const canvas =
 document.getElementById("webgl");
 
-const container =
-document.querySelector(".booking-right");
+/* ==================================================
+USE HERO SECTION
+================================================== */
+
+const hero =
+document.querySelector(".reservation-hero");
 
 /* ==================================================
-CANVAS PRIORITY
+CANVAS STYLE
 ================================================== */
 
 canvas.style.position = "absolute";
 
-canvas.style.inset = "0";
+canvas.style.top = "0";
+
+canvas.style.left = "0";
 
 canvas.style.width = "100%";
 
 canvas.style.height = "100%";
 
-canvas.style.zIndex = "150";
+/* ABOVE ALL EFFECTS */
+
+canvas.style.zIndex = "80";
+
+/* BELOW NAVBAR */
 
 canvas.style.pointerEvents = "none";
-
-canvas.style.display = "block";
 
 /* ==================================================
 SCENE
@@ -42,20 +49,16 @@ CAMERA
 
 const camera =
 new THREE.PerspectiveCamera(
-45,
-container.clientWidth /
-container.clientHeight,
+40,
+window.innerWidth /
+window.innerHeight,
 0.1,
 1000
 );
 
-/* BETTER POSITION */
+/* POSITION */
 
-camera.position.set(
-0,
-0,
-7
-);
+camera.position.z = 8;
 
 /* ==================================================
 RENDERER
@@ -71,113 +74,31 @@ powerPreference:"high-performance"
 
 });
 
-/* SIZE */
-
 renderer.setSize(
-container.clientWidth,
-container.clientHeight
+window.innerWidth,
+window.innerHeight
 );
-
-/* PIXEL RATIO */
 
 renderer.setPixelRatio(
 Math.min(
 window.devicePixelRatio,
-2
+1.5
 )
 );
 
-/* COLORS */
-
 renderer.outputColorSpace =
 THREE.SRGBColorSpace;
-
-/* CLEAR */
 
 renderer.setClearColor(
 0x000000,
 0
 );
 
-/* SHADOW */
-
-renderer.shadowMap.enabled =
-false;
-
 /* ==================================================
 LIGHTS
 ================================================== */
 
-/* MAIN LIGHT */
-
-const mainLight =
-new THREE.DirectionalLight(
-0xffffff,
-5
-);
-
-mainLight.position.set(
-0,
-2,
-5
-);
-
-scene.add(mainLight);
-
-/* GOLD LIGHT */
-
-const goldLight =
-new THREE.PointLight(
-0xffb300,
-18,
-20
-);
-
-goldLight.position.set(
-2,
-2,
-4
-);
-
-scene.add(goldLight);
-
-/* PURPLE LIGHT */
-
-const purpleLight =
-new THREE.PointLight(
-0xbb00ff,
-12,
-18
-);
-
-purpleLight.position.set(
--3,
-2,
-3
-);
-
-scene.add(purpleLight);
-
-/* PINK LIGHT */
-
-const pinkLight =
-new THREE.PointLight(
-0xff0088,
-10,
-18
-);
-
-pinkLight.position.set(
-3,
--1,
-2
-);
-
-scene.add(pinkLight);
-
-/* ==================================================
-AMBIENT LIGHT
-================================================== */
+/* MAIN */
 
 const ambient =
 new THREE.AmbientLight(
@@ -187,68 +108,80 @@ new THREE.AmbientLight(
 
 scene.add(ambient);
 
-/* ==================================================
-FLOOR
-================================================== */
+/* PURPLE */
 
-const floorGeometry =
-new THREE.CircleGeometry(
-5,
-64
+const purpleLight =
+new THREE.PointLight(
+0xbb00ff,
+20,
+20
 );
 
-const floorMaterial =
-new THREE.MeshStandardMaterial({
-
-color:0x120018,
-
-metalness:0.3,
-
-roughness:0.6,
-
-transparent:true,
-
-opacity:0.9
-
-});
-
-const floor =
-new THREE.Mesh(
-floorGeometry,
-floorMaterial
+purpleLight.position.set(
+-2,
+2,
+4
 );
 
-floor.rotation.x =
--Math.PI / 2;
+scene.add(purpleLight);
 
-floor.position.y = -2;
+/* PINK */
 
-scene.add(floor);
+const pinkLight =
+new THREE.PointLight(
+0xff0088,
+20,
+20
+);
+
+pinkLight.position.set(
+3,
+-1,
+4
+);
+
+scene.add(pinkLight);
+
+/* FRONT */
+
+const frontLight =
+new THREE.DirectionalLight(
+0xffffff,
+3
+);
+
+frontLight.position.set(
+0,
+1,
+5
+);
+
+scene.add(frontLight);
 
 /* ==================================================
 RESPONSIVE SCALE
 ================================================== */
 
-function getResponsiveScale(){
+function getScale(){
 
-if(window.innerWidth < 500){
+if(window.innerWidth < 600){
 
-return 1;
-
-}
-
-if(window.innerWidth < 900){
-
-return 1.3;
+return 0.7;
 
 }
 
-return 1.7;
+if(window.innerWidth < 1000){
+
+return 0.9;
+
+}
+
+return 1.1;
 
 }
 
 /* ==================================================
-GUITAR MODEL
+MODEL
 ================================================== */
 
 const loader =
@@ -256,7 +189,9 @@ new THREE.GLTFLoader();
 
 let guitar;
 
-/* LOAD MODEL */
+/* ==================================================
+LOAD GUITAR
+================================================== */
 
 loader.load(
 
@@ -267,11 +202,11 @@ loader.load(
 guitar = gltf.scene;
 
 /* ==================================================
-AUTO RESPONSIVE SIZE
+SIZE
 ================================================== */
 
 const scale =
-getResponsiveScale();
+getScale();
 
 guitar.scale.set(
 scale,
@@ -283,9 +218,15 @@ scale
 POSITION
 ================================================== */
 
+/*
+RIGHT SIDE
+TOP SIDE
+OPPOSITE H1
+*/
+
 guitar.position.set(
-0,
--1,
+3.2,
+1.2,
 0
 );
 
@@ -293,7 +234,8 @@ guitar.position.set(
 ROTATION
 ================================================== */
 
-guitar.rotation.y = 0.4;
+guitar.rotation.y =
+-0.5;
 
 /* ==================================================
 MATERIAL FIX
@@ -303,10 +245,6 @@ guitar.traverse((child)=>{
 
 if(child.isMesh){
 
-child.castShadow = false;
-
-child.receiveShadow = false;
-
 child.visible = true;
 
 if(child.material){
@@ -314,19 +252,14 @@ if(child.material){
 child.material.side =
 THREE.DoubleSide;
 
-child.material.transparent =
-false;
-
-child.material.opacity = 1;
-
 child.material.metalness =
 0.25;
 
 child.material.roughness =
-0.55;
+0.5;
 
 child.material.envMapIntensity =
-1.5;
+1.2;
 
 child.material.needsUpdate =
 true;
@@ -338,13 +271,13 @@ true;
 });
 
 /* ==================================================
-ADD TO SCENE
+ADD
 ================================================== */
 
 scene.add(guitar);
 
 console.log(
-"GUITAR SUCCESSFULLY VISIBLE"
+"GUITAR LOADED"
 );
 
 },
@@ -369,7 +302,7 @@ xhr.total *
 (error)=>{
 
 console.error(
-"GUITAR LOAD ERROR:",
+"GLB ERROR:",
 error
 );
 
@@ -378,10 +311,12 @@ error
 );
 
 /* ==================================================
-MOUSE INTERACTION
+MOUSE
 ================================================== */
 
 let mouseX = 0;
+
+let mouseY = 0;
 
 window.addEventListener(
 "mousemove",
@@ -391,6 +326,13 @@ mouseX =
 (
 e.clientX /
 window.innerWidth
+- 0.5
+);
+
+mouseY =
+(
+e.clientY /
+window.innerHeight
 - 0.5
 );
 
@@ -418,52 +360,54 @@ const elapsed =
 clock.getElapsedTime();
 
 /* ==================================================
-GUITAR ANIMATION
+GUITAR
 ================================================== */
 
 if(guitar){
 
-/* ROTATION */
+/* FLOAT */
+
+guitar.position.y =
+1.2 +
+Math.sin(
+elapsed * 1.5
+) * 0.12;
+
+/* AUTO ROTATION */
 
 guitar.rotation.y +=
 0.002;
 
-/* MOUSE */
+/* MOUSE INTERACTION */
 
 guitar.rotation.y +=
-mouseX * 0.008;
+mouseX * 0.01;
 
-/* FLOAT */
-
-guitar.position.y =
--1 +
-Math.sin(
-elapsed * 1.4
-) * 0.08;
+guitar.rotation.x =
+mouseY * 0.08;
 
 /* SMALL TILT */
 
 guitar.rotation.z =
 Math.sin(
-elapsed * 0.8
-) * 0.02;
+elapsed
+) * 0.03;
 
 }
 
-/* FLOOR */
-
-floor.rotation.z +=
-0.001;
-
-/* CAMERA */
+/* ==================================================
+CAMERA
+================================================== */
 
 camera.lookAt(
 0,
--0.4,
+0,
 0
 );
 
-/* RENDER */
+/* ==================================================
+RENDER
+================================================== */
 
 renderer.render(
 scene,
@@ -475,7 +419,7 @@ camera
 animate();
 
 /* ==================================================
-RESPONSIVE RESIZE
+RESIZE
 ================================================== */
 
 window.addEventListener(
@@ -483,22 +427,22 @@ window.addEventListener(
 ()=>{
 
 camera.aspect =
-container.clientWidth /
-container.clientHeight;
+window.innerWidth /
+window.innerHeight;
 
 camera.updateProjectionMatrix();
 
 renderer.setSize(
-container.clientWidth,
-container.clientHeight
+window.innerWidth,
+window.innerHeight
 );
 
-/* RESPONSIVE SCALE UPDATE */
+/* RESPONSIVE SCALE */
 
 if(guitar){
 
 const scale =
-getResponsiveScale();
+getScale();
 
 guitar.scale.set(
 scale,
