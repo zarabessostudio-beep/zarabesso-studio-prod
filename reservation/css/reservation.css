@@ -1714,3 +1714,135 @@ filter:blur(0px);
 }
 
 }
+/* =========================================================
+ZARABESSO — OUTSIDE GLASS GUITAR ADDON
+SAFE PREMIUM VERSION
+========================================================= */
+
+/* IMPORTANT :
+PERMET A LA GUITARE DE SORTIR DU GLASS */
+.booking-right{
+
+overflow:visible !important;
+
+background:transparent !important;
+
+border:none !important;
+
+box-shadow:none !important;
+
+backdrop-filter:none !important;
+
+}
+
+/* WEBGL OUTSIDE POSITION */
+
+#webgl{
+
+position:absolute !important;
+
+/* OPPOSÉ DU H1 */
+
+top:-90px !important;
+
+right:-120px !important;
+
+/* TAILLE NORMALE */
+
+width:650px !important;
+
+height:650px !important;
+
+/* ABOVE GLASS */
+
+z-index:500 !important;
+
+/* INTERACTION SOURIS */
+
+pointer-events:auto !important;
+
+touch-action:auto !important;
+
+background:transparent !important;
+
+/* PREMIUM */
+
+filter:
+drop-shadow(0 0 50px rgba(255,0,170,.18))
+drop-shadow(0 0 80px rgba(140,0,255,.18));
+
+transform:
+translateZ(0);
+
+will-change:
+transform;
+
+}
+
+/* GARDE LE TEXTE AU DESSUS */
+
+.booking-left{
+
+position:relative;
+
+z-index:600;
+
+}
+
+/* SAFE GLASS */
+
+.booking-right::before,
+.booking-right::after{
+
+opacity:.55;
+
+pointer-events:none;
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1200px){
+
+#webgl{
+
+width:520px !important;
+height:520px !important;
+
+right:-80px !important;
+top:-40px !important;
+
+}
+
+}
+
+@media(max-width:900px){
+
+#webgl{
+
+width:420px !important;
+height:420px !important;
+
+right:50% !important;
+
+transform:
+translateX(50%) !important;
+
+top:-20px !important;
+
+}
+
+}
+
+@media(max-width:600px){
+
+#webgl{
+
+width:320px !important;
+height:320px !important;
+
+top:40px !important;
+
+}
+
+}
