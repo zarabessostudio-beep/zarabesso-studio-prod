@@ -1,8 +1,34 @@
+/* ==================================================
+ZARABESSO STUDIO
+ULTRA PREMIUM CINEMATIC THREE.JS
+FINAL OLED VERSION
+================================================== */
+
 const canvas =
 document.getElementById("webgl");
 
 const container =
 document.querySelector(".booking-right");
+
+/* ==================================================
+CANVAS PRIORITY
+================================================== */
+
+/* ABOVE ALL ANIMATIONS */
+
+canvas.style.position = "absolute";
+canvas.style.inset = "0";
+canvas.style.zIndex = "900";
+
+/* BELOW NAVBAR + BURGER */
+
+document.querySelector(
+".reservation-navbar"
+).style.zIndex = "99999";
+
+/* IMPORTANT */
+
+canvas.style.pointerEvents = "none";
 
 /* ==================================================
 SCENE
@@ -16,7 +42,7 @@ scene.background = null;
 scene.fog =
 new THREE.FogExp2(
 0x050505,
-0.006
+0.045
 );
 
 /* ==================================================
@@ -25,7 +51,7 @@ CAMERA
 
 const camera =
 new THREE.PerspectiveCamera(
-35,
+30,
 container.clientWidth /
 container.clientHeight,
 0.1,
@@ -34,8 +60,8 @@ container.clientHeight,
 
 camera.position.set(
 0,
-0.2,
-10
+0,
+12
 );
 
 /* ==================================================
@@ -52,10 +78,14 @@ powerPreference:"high-performance"
 
 });
 
+/* SIZE */
+
 renderer.setSize(
 container.clientWidth,
 container.clientHeight
 );
+
+/* PIXEL RATIO */
 
 renderer.setPixelRatio(
 Math.min(
@@ -64,14 +94,20 @@ window.devicePixelRatio,
 )
 );
 
+/* COLORS */
+
 renderer.outputColorSpace =
 THREE.SRGBColorSpace;
+
+/* TONE */
 
 renderer.toneMapping =
 THREE.ACESFilmicToneMapping;
 
 renderer.toneMappingExposure =
-1.3;
+1.8;
+
+/* SHADOW */
 
 renderer.shadowMap.enabled =
 true;
@@ -79,8 +115,12 @@ true;
 renderer.shadowMap.type =
 THREE.PCFSoftShadowMap;
 
+/* LIGHT */
+
 renderer.physicallyCorrectLights =
 true;
+
+/* TRANSPARENT */
 
 renderer.setClearColor(
 0x000000,
@@ -91,83 +131,99 @@ renderer.setClearColor(
 LIGHTS
 ================================================== */
 
-/* AMBIENT */
+/* GLOBAL */
 
 const ambient =
 new THREE.AmbientLight(
 0xffffff,
-1.8
+2.6
 );
 
 scene.add(ambient);
 
-/* MAIN GOLD */
+/* GOLD CINEMA */
 
-const mainLight =
+const goldLight =
 new THREE.SpotLight(
 0xffd700,
-220
+350
 );
 
-mainLight.position.set(
+goldLight.position.set(
 0,
 8,
-6
+8
 );
 
-mainLight.angle = 0.28;
+goldLight.angle = 0.32;
 
-mainLight.penumbra = 1;
+goldLight.penumbra = 1;
 
-mainLight.decay = 2;
+goldLight.decay = 2;
 
-mainLight.distance = 60;
+goldLight.distance = 80;
 
-mainLight.castShadow = true;
+goldLight.castShadow = true;
 
-mainLight.shadow.mapSize.width =
-2048;
+goldLight.shadow.mapSize.width =
+4096;
 
-mainLight.shadow.mapSize.height =
-2048;
+goldLight.shadow.mapSize.height =
+4096;
 
-scene.add(mainLight);
+scene.add(goldLight);
 
-/* BLUE SIDE */
+/* BLUE OLED */
 
 const blueLight =
 new THREE.PointLight(
-0x3b82f6,
-40,
-30
+0x00bbff,
+55,
+40
 );
 
 blueLight.position.set(
--4,
+-5,
 2,
-4
+5
 );
 
 scene.add(blueLight);
 
-/* RED SIDE */
+/* RED CINEMA */
 
 const redLight =
 new THREE.PointLight(
-0xff3300,
-25,
-25
+0xff2200,
+40,
+35
 );
 
 redLight.position.set(
-4,
+5,
 1,
-3
+4
 );
 
 scene.add(redLight);
 
-/* BACK RIM */
+/* FRONT LIGHT */
+
+const frontLight =
+new THREE.DirectionalLight(
+0xffffff,
+8
+);
+
+frontLight.position.set(
+0,
+2,
+10
+);
+
+scene.add(frontLight);
+
+/* RIM LIGHT */
 
 const rimLight =
 new THREE.DirectionalLight(
@@ -178,7 +234,7 @@ new THREE.DirectionalLight(
 rimLight.position.set(
 0,
 2,
--6
+-8
 );
 
 scene.add(rimLight);
@@ -189,7 +245,7 @@ FLOOR
 
 const floorGeometry =
 new THREE.CircleGeometry(
-8,
+10,
 128
 );
 
@@ -200,7 +256,7 @@ color:0x050505,
 
 metalness:1,
 
-roughness:0.12,
+roughness:0.08,
 
 clearcoat:1,
 
@@ -208,7 +264,7 @@ reflectivity:1,
 
 transparent:true,
 
-opacity:0.92
+opacity:0.96
 
 });
 
@@ -221,7 +277,7 @@ floorMaterial
 floor.rotation.x =
 -Math.PI / 2;
 
-floor.position.y = -2.2;
+floor.position.y = -2.5;
 
 floor.receiveShadow = true;
 
@@ -233,7 +289,7 @@ ENERGY PLATFORM
 
 const platformGeometry =
 new THREE.TorusGeometry(
-3,
+3.5,
 0.08,
 32,
 200
@@ -246,7 +302,7 @@ color:0xffd700,
 
 transparent:true,
 
-opacity:0.7
+opacity:0.9
 
 });
 
@@ -259,7 +315,7 @@ platformMaterial
 platform.rotation.x =
 Math.PI / 2;
 
-platform.position.y = -1.9;
+platform.position.y = -2.15;
 
 scene.add(platform);
 
@@ -270,7 +326,7 @@ PREMIUM PARTICLES
 const particlesGeometry =
 new THREE.BufferGeometry();
 
-const particlesCount = 1200;
+const particlesCount = 1800;
 
 const positions =
 new Float32Array(
@@ -283,7 +339,7 @@ i++){
 
 positions[i] =
 (Math.random() - 0.5)
-* 14;
+* 18;
 
 }
 
@@ -298,13 +354,13 @@ positions,
 const particlesMaterial =
 new THREE.PointsMaterial({
 
-size:0.025,
+size:0.03,
 
 color:0xffd700,
 
 transparent:true,
 
-opacity:0.4,
+opacity:0.55,
 
 depthWrite:false
 
@@ -332,6 +388,8 @@ let guitar;
 let targetX = 0;
 let targetY = 0;
 
+/* LOAD */
+
 loader.load(
 
 "/reservation/assets/models/guitar.glb",
@@ -343,22 +401,25 @@ guitar = gltf.scene;
 /* SCALE */
 
 guitar.scale.set(
-7,
-7,
-7
+3.8,
+3.8,
+3.8
 );
 
 /* POSITION */
 
 guitar.position.set(
 0,
--1,
+-2,
 0
 );
 
 /* ROTATION */
 
-guitar.rotation.y = 0.3;
+guitar.rotation.y =
+0.35;
+
+/* MATERIALS */
 
 guitar.traverse((child)=>{
 
@@ -371,18 +432,22 @@ child.receiveShadow = true;
 child.material.side =
 THREE.DoubleSide;
 
-/* PREMIUM MATERIAL */
-
 if(child.material){
 
 child.material.metalness =
-0.9;
+0.45;
 
 child.material.roughness =
-0.18;
+0.28;
 
 child.material.envMapIntensity =
-4;
+2.5;
+
+child.material.emissive =
+new THREE.Color(0x221100);
+
+child.material.emissiveIntensity =
+0.08;
 
 child.material.needsUpdate =
 true;
@@ -396,7 +461,7 @@ true;
 scene.add(guitar);
 
 console.log(
-"Guitar loaded successfully"
+"ULTRA PREMIUM GUITAR LOADED"
 );
 
 },
@@ -415,7 +480,7 @@ error
 );
 
 /* ==================================================
-MOUSE + TOUCH
+MOUSE
 ================================================== */
 
 window.addEventListener(
@@ -428,21 +493,6 @@ window.innerWidth - 0.5);
 
 targetY =
 (e.clientY /
-window.innerHeight - 0.5);
-
-}
-);
-
-window.addEventListener(
-"touchmove",
-(e)=>{
-
-targetX =
-(e.touches[0].clientX /
-window.innerWidth - 0.5);
-
-targetY =
-(e.touches[0].clientY /
 window.innerHeight - 0.5);
 
 }
@@ -474,62 +524,72 @@ if(guitar){
 
 /* AUTO ROTATION */
 
-guitar.rotation.y += 0.003;
+guitar.rotation.y +=
+0.0025;
 
-/* INTERACTION */
+/* MOUSE */
 
 guitar.rotation.y +=
-(targetX * 0.02);
+(targetX * 0.012);
 
 guitar.rotation.x =
-targetY * 0.15;
+targetY * 0.08;
 
 /* FLOAT */
 
 guitar.position.y =
--1 +
-Math.sin(elapsed * 1.8)
-* 0.15;
+-2 +
+Math.sin(elapsed * 1.5)
+* 0.18;
 
 /* TILT */
 
 guitar.rotation.z =
-Math.sin(elapsed)
-* 0.03;
+Math.sin(elapsed * 0.8)
+* 0.025;
 
 }
 
 /* LIGHTS */
 
-mainLight.intensity =
-210 +
+goldLight.intensity =
+320 +
 Math.sin(elapsed * 2)
-* 20;
+* 30;
 
 blueLight.intensity =
-35 +
+48 +
 Math.sin(elapsed)
+* 8;
+
+redLight.intensity =
+35 +
+Math.sin(elapsed * 1.5)
 * 5;
 
 /* PLATFORM */
 
 platform.rotation.z +=
-0.003;
+0.002;
 
 /* PARTICLES */
 
 particles.rotation.y +=
-0.0005;
+0.0007;
 
 /* CAMERA */
 
 camera.position.x =
 Math.sin(elapsed * 0.3)
-* 0.2;
+* 0.15;
+
+camera.position.y =
+Math.sin(elapsed * 0.5)
+* 0.08;
 
 camera.lookAt(
 0,
-0,
+-1,
 0
 );
 
