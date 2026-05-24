@@ -1,35 +1,43 @@
-const canvas =
-document.getElementById("webgl");
+const canvas = document.getElementById("webgl");
 
 const container =
 document.querySelector(".booking-right");
 
+/* ===================================================
+SCENE
+=================================================== */
+
 const scene = new THREE.Scene();
 
 scene.fog =
-new THREE.FogExp2(0x050505,0.018);
+new THREE.FogExp2(0x050505,0.009);
 
-// CAMERA
+/* ===================================================
+CAMERA
+=================================================== */
 
 const camera =
 new THREE.PerspectiveCamera(
-40,
+42,
 container.clientWidth /
 container.clientHeight,
 0.1,
 1000
 );
 
-camera.position.set(0,1.2,8);
+camera.position.set(0,0.6,8);
 
-// RENDERER
+/* ===================================================
+RENDERER
+=================================================== */
 
 const renderer =
 new THREE.WebGLRenderer({
 
 canvas,
 alpha:true,
-antialias:true
+antialias:true,
+powerPreference:"high-performance"
 
 });
 
@@ -48,100 +56,115 @@ THREE.SRGBColorSpace;
 renderer.toneMapping =
 THREE.ACESFilmicToneMapping;
 
-renderer.toneMappingExposure = 1.15;
+renderer.toneMappingExposure = 1.45;
 
 renderer.shadowMap.enabled = true;
 
 renderer.shadowMap.type =
 THREE.PCFSoftShadowMap;
 
-// BACKGROUND
+renderer.physicallyCorrectLights = true;
 
-scene.background =
-new THREE.Color(0x020202);
-
-// LIGHTS
-
-const goldLight =
-new THREE.PointLight(
-0xffd700,
-22,
-40
-);
-
-goldLight.position.set(3,4,4);
-
-goldLight.castShadow = true;
-
-scene.add(goldLight);
-
-const whiteLight =
-new THREE.PointLight(
-0xffffff,
-10,
-30
-);
-
-whiteLight.position.set(-4,2,5);
-
-scene.add(whiteLight);
-
-const blueLight =
-new THREE.PointLight(
-0x3b82f6,
-8,
-25
-);
-
-blueLight.position.set(0,-2,4);
-
-scene.add(blueLight);
+/* ===================================================
+LIGHTS
+=================================================== */
 
 const ambient =
 new THREE.AmbientLight(
 0xffffff,
-0.8
+2.2
 );
 
 scene.add(ambient);
 
+/* GOLD MAIN LIGHT */
+
+const goldLight =
+new THREE.PointLight(
+0xffd700,
+120
+);
+
+goldLight.position.set(2,4,4);
+
+goldLight.castShadow = true;
+
+goldLight.shadow.mapSize.width = 2048;
+goldLight.shadow.mapSize.height = 2048;
+
+scene.add(goldLight);
+
+/* BLUE CINEMATIC LIGHT */
+
+const blueLight =
+new THREE.PointLight(
+0x3b82f6,
+50
+);
+
+blueLight.position.set(-4,1,5);
+
+scene.add(blueLight);
+
+/* BACK RIM LIGHT */
+
+const rimLight =
+new THREE.DirectionalLight(
+0xffffff,
+5
+);
+
+rimLight.position.set(0,3,-5);
+
+scene.add(rimLight);
+
+/* SPOTLIGHT */
+
 const spotLight =
 new THREE.SpotLight(
 0xfff4d6,
-18
+150
 );
 
-spotLight.position.set(0,10,6);
+spotLight.position.set(0,8,5);
 
-spotLight.angle = 0.28;
+spotLight.angle = 0.22;
 
 spotLight.penumbra = 1;
 
-spotLight.decay = 1.5;
+spotLight.decay = 2;
 
-spotLight.distance = 60;
+spotLight.distance = 40;
 
 spotLight.castShadow = true;
 
 scene.add(spotLight);
 
-// FLOOR
+/* ===================================================
+FLOOR
+=================================================== */
 
 const floorGeometry =
-new THREE.CircleGeometry(5,64);
+new THREE.CircleGeometry(7,128);
 
 const floorMaterial =
-new THREE.MeshStandardMaterial({
+new THREE.MeshPhysicalMaterial({
 
-color:0x090909,
+color:0x080808,
 
 metalness:1,
 
-roughness:0.15,
+roughness:0.18,
 
-emissive:0x332200,
+clearcoat:1,
 
-emissiveIntensity:0.2
+clearcoatRoughness:0.1,
+
+reflectivity:1,
+
+emissive:0x221100,
+
+emissiveIntensity:0.4
 
 });
 
@@ -154,54 +177,58 @@ floorMaterial
 floor.rotation.x =
 -Math.PI / 2;
 
-floor.position.y = -2.3;
+floor.position.y = -2.2;
 
 floor.receiveShadow = true;
 
 scene.add(floor);
 
-// HALO
+/* ===================================================
+ENERGY RING
+=================================================== */
 
-const haloGeometry =
+const ringGeometry =
 new THREE.TorusGeometry(
-2.8,
-0.06,
-16,
-100
+2.9,
+0.08,
+32,
+200
 );
 
-const haloMaterial =
+const ringMaterial =
 new THREE.MeshBasicMaterial({
 
 color:0xffd700,
 
 transparent:true,
 
-opacity:0.7
+opacity:0.9
 
 });
 
-const halo =
+const energyRing =
 new THREE.Mesh(
-haloGeometry,
-haloMaterial
+ringGeometry,
+ringMaterial
 );
 
-halo.rotation.x =
+energyRing.rotation.x =
 Math.PI / 2;
 
-halo.position.y = -0.5;
+energyRing.position.y = -1.9;
 
-scene.add(halo);
+scene.add(energyRing);
 
-// PARTICLES
+/* ===================================================
+GOLD PARTICLES
+=================================================== */
 
 const particlesGeometry =
 new THREE.BufferGeometry();
 
-const particlesCount = 1800;
+const particlesCount = 3500;
 
-const posArray =
+const positions =
 new Float32Array(
 particlesCount * 3
 );
@@ -209,15 +236,15 @@ particlesCount * 3
 for(let i=0;i<
 particlesCount*3;i++){
 
-posArray[i] =
-(Math.random()-0.5)*20;
+positions[i] =
+(Math.random()-0.5)*18;
 
 }
 
 particlesGeometry.setAttribute(
 "position",
 new THREE.BufferAttribute(
-posArray,
+positions,
 3
 )
 );
@@ -225,30 +252,119 @@ posArray,
 const particlesMaterial =
 new THREE.PointsMaterial({
 
-size:0.02,
+size:0.03,
 
 color:0xffd700,
 
 transparent:true,
 
-opacity:0.5
+opacity:0.7,
+
+depthWrite:false
 
 });
 
-const particlesMesh =
+const particles =
 new THREE.Points(
 particlesGeometry,
 particlesMaterial
 );
 
-scene.add(particlesMesh);
+scene.add(particles);
 
-// MODEL
+/* ===================================================
+SMOKE AURA
+=================================================== */
+
+const smokeGeometry =
+new THREE.SphereGeometry(
+2.8,
+64,
+64
+);
+
+const smokeMaterial =
+new THREE.MeshBasicMaterial({
+
+color:0xffd700,
+
+transparent:true,
+
+opacity:0.04,
+
+wireframe:true
+
+});
+
+const smokeAura =
+new THREE.Mesh(
+smokeGeometry,
+smokeMaterial
+);
+
+smokeAura.position.y = -0.2;
+
+scene.add(smokeAura);
+
+/* ===================================================
+FLOATING MUSIC NOTES
+=================================================== */
+
+const notes = [];
+
+for(let i=0;i<14;i++){
+
+const noteGeometry =
+new THREE.SphereGeometry(
+0.04,
+12,
+12
+);
+
+const noteMaterial =
+new THREE.MeshBasicMaterial({
+
+color:i % 2 === 0
+? 0xffd700
+: 0xffffff
+
+});
+
+const note =
+new THREE.Mesh(
+noteGeometry,
+noteMaterial
+);
+
+note.position.set(
+
+(Math.random()-0.5)*5,
+
+Math.random()*4 - 1,
+
+(Math.random()-0.5)*5
+
+);
+
+scene.add(note);
+
+notes.push(note);
+
+}
+
+/* ===================================================
+MODEL
+=================================================== */
 
 const loader =
 new THREE.GLTFLoader();
 
 let guitar;
+
+/* INTERACTION */
+
+let targetRotation = 0;
+let currentRotation = 0;
 
 loader.load(
 
@@ -258,19 +374,23 @@ loader.load(
 
 guitar = gltf.scene;
 
+/* PREMIUM SCALE */
+
 guitar.scale.set(
-4.2,
-4.2,
-4.2
+5.8,
+5.8,
+5.8
 );
+
+/* CENTER POSITION */
 
 guitar.position.set(
 0,
--2,
+-1.4,
 0
 );
 
-guitar.rotation.y = 0.5;
+guitar.rotation.y = 0;
 
 guitar.traverse((child)=>{
 
@@ -280,11 +400,24 @@ child.castShadow = true;
 
 child.receiveShadow = true;
 
+child.material.side =
+THREE.DoubleSide;
+
+child.material.needsUpdate = true;
+
+/* PREMIUM MATERIAL */
+
 if(child.material){
 
-child.material.metalness = 1;
+child.material.metalness = 0.85;
 
-child.material.roughness = 0.28;
+child.material.roughness = 0.2;
+
+child.material.envMapIntensity = 3;
+
+child.material.clearcoat = 1;
+
+child.material.clearcoatRoughness = 0.05;
 
 }
 
@@ -294,14 +427,25 @@ child.material.roughness = 0.28;
 
 scene.add(guitar);
 
+console.log(
+"Guitare Premium chargée"
+);
+
 },
 
-undefined,
+(xhr)=>{
+
+console.log(
+(xhr.loaded / xhr.total * 100)
++ "% chargé"
+);
+
+},
 
 (error)=>{
 
 console.log(
-"Erreur modèle GLB :",
+"Erreur GLB :",
 error
 );
 
@@ -309,12 +453,34 @@ error
 
 );
 
-// CLOCK
+/* ===================================================
+MOUSE INTERACTION
+=================================================== */
+
+window.addEventListener(
+"mousemove",
+(e)=>{
+
+const mouseX =
+(e.clientX / window.innerWidth)
+- 0.5;
+
+targetRotation =
+mouseX * Math.PI * 0.9;
+
+}
+);
+
+/* ===================================================
+CLOCK
+=================================================== */
 
 const clock =
 new THREE.Clock();
 
-// ANIMATION
+/* ===================================================
+ANIMATION
+=================================================== */
 
 function animate(){
 
@@ -323,59 +489,109 @@ requestAnimationFrame(animate);
 const elapsed =
 clock.getElapsedTime();
 
-// GUITAR
+/* GUITAR */
 
 if(guitar){
 
-guitar.rotation.y += 0.003;
+/* SMOOTH ROTATION */
+
+currentRotation +=
+(targetRotation - currentRotation)
+* 0.04;
+
+guitar.rotation.y =
+currentRotation;
+
+/* FLOATING */
 
 guitar.position.y =
--2 +
+-1.4 +
 Math.sin(elapsed*1.5)
-*0.12;
+*0.16;
+
+/* TILT */
 
 guitar.rotation.z =
-Math.sin(elapsed*0.8)
-*0.03;
+Math.sin(elapsed)
+*0.04;
+
+/* ENERGY */
+
+guitar.rotation.x =
+Math.sin(elapsed*0.5)
+*0.02;
 
 }
 
-// LIGHTS
+/* LIGHTS ANIMATION */
 
 goldLight.intensity =
-20 +
-Math.sin(elapsed*1.2)
-*2;
-
-whiteLight.intensity =
-10 +
-Math.sin(elapsed*0.8);
+115 +
+Math.sin(elapsed*2)
+*15;
 
 blueLight.intensity =
-7 +
-Math.sin(elapsed*1.5);
+45 +
+Math.sin(elapsed*1.5)
+*8;
 
-// HALO
+/* RING */
 
-halo.rotation.z += 0.004;
+energyRing.rotation.z +=
+0.004;
 
-halo.material.opacity =
-0.45 +
-Math.sin(elapsed*2)
-*0.12;
+energyRing.material.opacity =
+0.65 +
+Math.sin(elapsed*3)
+*0.15;
 
-// PARTICLES
+/* PARTICLES */
 
-particlesMesh.rotation.y +=
-0.0005;
+particles.rotation.y +=
+0.0007;
 
-// CAMERA
+/* SMOKE */
+
+smokeAura.rotation.y +=
+0.002;
+
+smokeAura.scale.set(
+
+1 + Math.sin(elapsed*1.5)*0.04,
+
+1 + Math.sin(elapsed*1.5)*0.04,
+
+1 + Math.sin(elapsed*1.5)*0.04
+
+);
+
+/* NOTES FLOAT */
+
+notes.forEach((note,index)=>{
+
+note.position.y +=
+Math.sin(
+elapsed + index
+)*0.002;
+
+note.rotation.y += 0.02;
+
+});
+
+/* CAMERA CINEMATIC */
 
 camera.position.x =
-Math.sin(elapsed*0.3)
+Math.sin(elapsed*0.25)
 *0.25;
 
+camera.position.y =
+0.6 +
+Math.sin(elapsed*0.4)
+*0.08;
+
 camera.lookAt(0,0,0);
+
+/* RENDER */
 
 renderer.render(scene,camera);
 
@@ -383,7 +599,9 @@ renderer.render(scene,camera);
 
 animate();
 
-// RESIZE
+/* ===================================================
+RESIZE
+=================================================== */
 
 window.addEventListener(
 "resize",
