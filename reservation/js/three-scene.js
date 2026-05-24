@@ -1,8 +1,8 @@
 /* ==================================================
 ZARABESSO STUDIO
-TITAN CINEMATIC GUITAR
-ULTRA PREMIUM MASSIVE VERSION
-+65% BIGGER • TOUCH + MOUSE INTERACTIVE
+MEGA CINEMATIC GUITAR
+50% SCREEN RATIO • ULTRA DETAIL VERSION
+PREMIUM REALISTIC INTERACTIVE EDITION
 ================================================== */
 
 /* ==================================================
@@ -17,21 +17,17 @@ CANVAS STYLE
 ================================================== */
 
 canvas.style.position = "absolute";
-
 canvas.style.inset = "0";
-
 canvas.style.width = "100%";
-
 canvas.style.height = "100%";
 
-/* VERY TOP */
+/* TOP LAYER */
 
-canvas.style.zIndex = "900";
+canvas.style.zIndex = "950";
 
-/* FULL INTERACTION */
+/* INTERACTION */
 
 canvas.style.pointerEvents = "auto";
-
 canvas.style.touchAction = "none";
 
 /* ==================================================
@@ -47,19 +43,19 @@ CAMERA
 
 const camera =
 new THREE.PerspectiveCamera(
-34,
+30,
 window.innerWidth /
 window.innerHeight,
 0.1,
 1000
 );
 
-/* CINEMATIC DEPTH */
+/* MORE CINEMATIC */
 
 camera.position.set(
 0,
 0,
-11
+13
 );
 
 /* ==================================================
@@ -76,28 +72,26 @@ powerPreference:"high-performance"
 
 });
 
-/* SIZE */
-
 renderer.setSize(
 window.innerWidth,
 window.innerHeight
 );
 
-/* GPU SAFE */
-
 renderer.setPixelRatio(
 Math.min(
 window.devicePixelRatio,
-1.5
+2
 )
 );
-
-/* COLORS */
 
 renderer.outputColorSpace =
 THREE.SRGBColorSpace;
 
-/* CLEAR */
+renderer.toneMapping =
+THREE.ACESFilmicToneMapping;
+
+renderer.toneMappingExposure =
+1.35;
 
 renderer.setClearColor(
 0x000000,
@@ -108,46 +102,46 @@ renderer.setClearColor(
 LIGHTS
 ================================================== */
 
-/* AMBIENT */
+/* MAIN AMBIENT */
 
 const ambient =
 new THREE.AmbientLight(
 0xffffff,
-3.5
+4.2
 );
 
 scene.add(ambient);
 
-/* GOLD */
+/* GOLD CINEMATIC */
 
 const goldLight =
 new THREE.PointLight(
-0xffd166,
-30,
-40
+0xffcc66,
+40,
+60
 );
 
 goldLight.position.set(
-3,
 5,
-8
+8,
+10
 );
 
 scene.add(goldLight);
 
-/* PURPLE */
+/* PURPLE EDGE */
 
 const purpleLight =
 new THREE.PointLight(
-0xbb00ff,
-35,
-45
+0x9d00ff,
+45,
+70
 );
 
 purpleLight.position.set(
--5,
-4,
-6
+-7,
+5,
+8
 );
 
 scene.add(purpleLight);
@@ -157,54 +151,71 @@ scene.add(purpleLight);
 const pinkLight =
 new THREE.PointLight(
 0xff0088,
-28,
-40
+35,
+60
 );
 
 pinkLight.position.set(
-6,
+8,
 -2,
-6
+7
 );
 
 scene.add(pinkLight);
 
-/* FRONT */
+/* BLUE REFLECTION */
+
+const blueLight =
+new THREE.PointLight(
+0x00ccff,
+25,
+60
+);
+
+blueLight.position.set(
+-5,
+-4,
+6
+);
+
+scene.add(blueLight);
+
+/* FRONT LIGHT */
 
 const frontLight =
 new THREE.DirectionalLight(
 0xffffff,
-4
+5
 );
 
 frontLight.position.set(
 0,
-3,
-10
+4,
+12
 );
 
 scene.add(frontLight);
 
 /* ==================================================
 RESPONSIVE SCALE
-+65% BIGGER
+50% SCREEN RATIO
 ================================================== */
 
 function getScale(){
 
 if(window.innerWidth < 600){
 
-return 2.1;
+return 3.2;
 
 }
 
 if(window.innerWidth < 1000){
 
-return 2.8;
+return 4.2;
 
 }
 
-return 3.9;
+return 5.6;
 
 }
 
@@ -228,7 +239,7 @@ let mouseX = 0;
 let mouseY = 0;
 
 /* ==================================================
-MOUSE
+MOUSE INTERACTION
 ================================================== */
 
 window.addEventListener(
@@ -249,19 +260,19 @@ window.innerHeight
 - 0.5
 );
 
-/* STRONGER INTERACTION */
+/* STRONG REAL INTERACTION */
 
 targetRotationY =
-mouseX * 1.4;
+mouseX * 2.2;
 
 targetRotationX =
-mouseY * 0.7;
+mouseY * 1.2;
 
 }
 );
 
 /* ==================================================
-TOUCH MOBILE
+TOUCH INTERACTION
 ================================================== */
 
 window.addEventListener(
@@ -286,10 +297,10 @@ window.innerHeight
 );
 
 targetRotationY =
-mouseX * 1.4;
+mouseX * 2.2;
 
 targetRotationX =
-mouseY * 0.7;
+mouseY * 1.2;
 
 },
 { passive:true }
@@ -308,7 +319,7 @@ loader.load(
 guitar = gltf.scene;
 
 /* ==================================================
-MEGA SCALE
+GIANT SCALE
 ================================================== */
 
 const scale =
@@ -322,12 +333,13 @@ scale
 
 /* ==================================================
 POSITION
-70% SCREEN AREA
+70% SCREEN POSITION
+HIGHER + CENTERED
 ================================================== */
 
 guitar.position.set(
-1.2,
-2.6,
+1.8,
+3.6,
 0
 );
 
@@ -336,10 +348,10 @@ ROTATION
 ================================================== */
 
 guitar.rotation.y =
--0.35;
+-0.15;
 
 /* ==================================================
-MATERIAL BOOST
+REALISTIC MATERIAL BOOST
 ================================================== */
 
 guitar.traverse((child)=>{
@@ -349,7 +361,6 @@ if(child.isMesh){
 child.visible = true;
 
 child.castShadow = false;
-
 child.receiveShadow = false;
 
 if(child.material){
@@ -357,19 +368,16 @@ if(child.material){
 child.material.side =
 THREE.DoubleSide;
 
-child.material.transparent =
-false;
-
-child.material.opacity = 1;
+/* REALISTIC */
 
 child.material.metalness =
-0.35;
+0.45;
 
 child.material.roughness =
-0.38;
+0.22;
 
 child.material.envMapIntensity =
-2;
+3.5;
 
 child.material.needsUpdate =
 true;
@@ -387,7 +395,7 @@ ADD
 scene.add(guitar);
 
 console.log(
-"TITAN GUITAR READY"
+"MEGA GUITAR READY"
 );
 
 },
@@ -449,18 +457,18 @@ if(guitar){
 /* FLOAT */
 
 guitar.position.y =
-2.6 +
+3.6 +
 Math.sin(
 elapsed * 1.2
-) * 0.28;
+) * 0.22;
 
-/* SMOOTH INTERACTION */
+/* ULTRA SMOOTH ROTATION */
 
 guitar.rotation.y +=
 (
 targetRotationY -
 guitar.rotation.y
-) * 0.03;
+) * 0.045;
 
 /* X AXIS */
 
@@ -468,19 +476,19 @@ guitar.rotation.x +=
 (
 targetRotationX -
 guitar.rotation.x
-) * 0.03;
+) * 0.045;
 
-/* AUTO MOTION */
+/* AUTO ROTATION */
 
 guitar.rotation.y +=
-0.003;
+0.0025;
 
-/* PREMIUM TILT */
+/* CINEMATIC TILT */
 
 guitar.rotation.z =
 Math.sin(
 elapsed * 1.1
-) * 0.05;
+) * 0.04;
 
 }
 
@@ -490,7 +498,7 @@ CAMERA
 
 camera.lookAt(
 0,
-0,
+1,
 0
 );
 
@@ -525,8 +533,6 @@ renderer.setSize(
 window.innerWidth,
 window.innerHeight
 );
-
-/* RESPONSIVE SCALE */
 
 if(guitar){
 
