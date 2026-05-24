@@ -1,8 +1,8 @@
 /* ==================================================
 ZARABESSO STUDIO
-ULTRA PREMIUM FLOATING GUITAR
-FINAL CINEMATIC VERSION
-OPTIMIZED FOR VERCEL + THREE.JS
+ULTRA CINEMATIC FLOATING GUITAR
+MEGA PREMIUM CENTER VERSION
++40% BIGGER EDITION
 ================================================== */
 
 /* ==================================================
@@ -13,7 +13,7 @@ const canvas =
 document.getElementById("webgl");
 
 /* ==================================================
-HERO SECTION
+HERO
 ================================================== */
 
 const hero =
@@ -33,11 +33,11 @@ canvas.style.width = "100%";
 
 canvas.style.height = "100%";
 
-/* ABOVE GLASSMORPHISM */
+/* ABOVE ALL */
 
-canvas.style.zIndex = "500";
+canvas.style.zIndex = "600";
 
-/* INTERACTION */
+/* INTERACTIVE */
 
 canvas.style.pointerEvents = "auto";
 
@@ -56,19 +56,19 @@ CAMERA
 
 const camera =
 new THREE.PerspectiveCamera(
-38,
+36,
 window.innerWidth /
 window.innerHeight,
 0.1,
 1000
 );
 
-/* MORE CINEMATIC */
+/* MORE DEPTH */
 
 camera.position.set(
 0,
 0,
-9
+10
 );
 
 /* ==================================================
@@ -92,7 +92,7 @@ window.innerWidth,
 window.innerHeight
 );
 
-/* OPTIMIZATION */
+/* GPU SAFE */
 
 renderer.setPixelRatio(
 Math.min(
@@ -101,7 +101,7 @@ window.devicePixelRatio,
 )
 );
 
-/* COLOR */
+/* COLORS */
 
 renderer.outputColorSpace =
 THREE.SRGBColorSpace;
@@ -113,11 +113,6 @@ renderer.setClearColor(
 0
 );
 
-/* SHADOW */
-
-renderer.shadowMap.enabled =
-false;
-
 /* ==================================================
 LIGHTS
 ================================================== */
@@ -127,7 +122,7 @@ LIGHTS
 const ambient =
 new THREE.AmbientLight(
 0xffffff,
-2.8
+3
 );
 
 scene.add(ambient);
@@ -137,14 +132,14 @@ scene.add(ambient);
 const goldLight =
 new THREE.PointLight(
 0xffcc66,
-18,
-25
+24,
+30
 );
 
 goldLight.position.set(
 2,
-3,
-5
+4,
+6
 );
 
 scene.add(goldLight);
@@ -154,14 +149,14 @@ scene.add(goldLight);
 const purpleLight =
 new THREE.PointLight(
 0xbb00ff,
-22,
-25
+26,
+30
 );
 
 purpleLight.position.set(
--3,
-2,
-4
+-4,
+3,
+5
 );
 
 scene.add(purpleLight);
@@ -171,14 +166,14 @@ scene.add(purpleLight);
 const pinkLight =
 new THREE.PointLight(
 0xff0088,
-18,
-25
+22,
+30
 );
 
 pinkLight.position.set(
-4,
+5,
 -1,
-4
+5
 );
 
 scene.add(pinkLight);
@@ -188,36 +183,37 @@ scene.add(pinkLight);
 const frontLight =
 new THREE.DirectionalLight(
 0xffffff,
-3
+3.5
 );
 
 frontLight.position.set(
 0,
-1,
-6
+2,
+8
 );
 
 scene.add(frontLight);
 
 /* ==================================================
 RESPONSIVE SCALE
++40% BIGGER
 ================================================== */
 
 function getScale(){
 
 if(window.innerWidth < 600){
 
-return 1.05;
+return 1.45;
 
 }
 
 if(window.innerWidth < 1000){
 
-return 1.35;
+return 1.9;
 
 }
 
-return 1.7;
+return 2.4;
 
 }
 
@@ -243,7 +239,7 @@ loader.load(
 guitar = gltf.scene;
 
 /* ==================================================
-SIZE
+BIG SCALE
 ================================================== */
 
 const scale =
@@ -257,17 +253,12 @@ scale
 
 /* ==================================================
 POSITION
+CENTER RIGHT PREMIUM
 ================================================== */
 
-/*
-RIGHT SIDE
-TOP SIDE
-OUTSIDE GLASS
-*/
-
 guitar.position.set(
-4.2,
-2.8,
+2.2,
+1.9,
 0
 );
 
@@ -276,7 +267,7 @@ ROTATION
 ================================================== */
 
 guitar.rotation.y =
--0.55;
+-0.45;
 
 /* ==================================================
 MATERIAL BOOST
@@ -286,11 +277,11 @@ guitar.traverse((child)=>{
 
 if(child.isMesh){
 
+child.visible = true;
+
 child.castShadow = false;
 
 child.receiveShadow = false;
-
-child.visible = true;
 
 if(child.material){
 
@@ -303,13 +294,13 @@ false;
 child.material.opacity = 1;
 
 child.material.metalness =
-0.28;
+0.3;
 
 child.material.roughness =
-0.45;
+0.42;
 
 child.material.envMapIntensity =
-1.6;
+1.8;
 
 child.material.needsUpdate =
 true;
@@ -327,7 +318,7 @@ ADD
 scene.add(guitar);
 
 console.log(
-"GUITAR LOADED SUCCESSFULLY"
+"PREMIUM GUITAR READY"
 );
 
 },
@@ -410,7 +401,7 @@ const elapsed =
 clock.getElapsedTime();
 
 /* ==================================================
-GUITAR ANIMATION
+GUITAR
 ================================================== */
 
 if(guitar){
@@ -418,30 +409,30 @@ if(guitar){
 /* FLOAT */
 
 guitar.position.y =
-2.8 +
+1.9 +
 Math.sin(
-elapsed * 1.4
-) * 0.18;
+elapsed * 1.3
+) * 0.22;
 
-/* AUTO ROTATION */
-
-guitar.rotation.y +=
-0.0025;
-
-/* INTERACTION */
+/* ROTATION */
 
 guitar.rotation.y +=
-mouseX * 0.012;
+0.0028;
+
+/* MOUSE */
+
+guitar.rotation.y +=
+mouseX * 0.014;
 
 guitar.rotation.x =
-mouseY * 0.09;
+mouseY * 0.11;
 
-/* SMALL TILT */
+/* PREMIUM TILT */
 
 guitar.rotation.z =
 Math.sin(
-elapsed * 0.8
-) * 0.03;
+elapsed * 0.9
+) * 0.04;
 
 }
 
@@ -487,7 +478,7 @@ window.innerWidth,
 window.innerHeight
 );
 
-/* RESPONSIVE SCALE */
+/* RESPONSIVE */
 
 if(guitar){
 
