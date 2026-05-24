@@ -1,156 +1,158 @@
-// ===============================
-// PREMIUM OLED GUITAR SCENE
-// ZARABESSO STUDIO
-// three-scene.js
-// ===============================
+const canvas =
+document.getElementById("webgl");
+
+const container =
+document.querySelector(".booking-right");
 
 const scene = new THREE.Scene();
 
-scene.fog = new THREE.FogExp2(0x050505, 0.035);
+scene.fog =
+new THREE.FogExp2(0x050505,0.018);
 
 // CAMERA
 
-const camera = new THREE.PerspectiveCamera(
-45,
-window.innerWidth / window.innerHeight,
+const camera =
+new THREE.PerspectiveCamera(
+40,
+container.clientWidth /
+container.clientHeight,
 0.1,
 1000
 );
 
-camera.position.set(0, 1.2, 7);
+camera.position.set(0,1.2,8);
 
 // RENDERER
 
-const renderer = new THREE.WebGLRenderer({
-canvas: document.getElementById("webgl"),
-alpha: true,
-antialias: true
+const renderer =
+new THREE.WebGLRenderer({
+
+canvas,
+alpha:true,
+antialias:true
+
 });
 
-renderer.setSize(window.innerWidth, window.innerHeight);
-
-renderer.setPixelRatio(
-Math.min(window.devicePixelRatio, 2)
+renderer.setSize(
+container.clientWidth,
+container.clientHeight
 );
 
-renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.setPixelRatio(
+Math.min(window.devicePixelRatio,2)
+);
 
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.outputColorSpace =
+THREE.SRGBColorSpace;
 
-renderer.toneMappingExposure = 1.5;
+renderer.toneMapping =
+THREE.ACESFilmicToneMapping;
+
+renderer.toneMappingExposure = 1.15;
 
 renderer.shadowMap.enabled = true;
 
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.shadowMap.type =
+THREE.PCFSoftShadowMap;
 
-// ===============================
-// BACKGROUND OLED
-// ===============================
+// BACKGROUND
 
-scene.background = new THREE.Color(0x020202);
+scene.background =
+new THREE.Color(0x020202);
 
-// ===============================
 // LIGHTS
-// ===============================
 
-// RED LIGHT
+const goldLight =
+new THREE.PointLight(
+0xffd700,
+22,
+40
+);
 
-const redLight = new THREE.PointLight(
-0xff003c,
-18,
+goldLight.position.set(3,4,4);
+
+goldLight.castShadow = true;
+
+scene.add(goldLight);
+
+const whiteLight =
+new THREE.PointLight(
+0xffffff,
+10,
 30
 );
 
-redLight.position.set(-4, 2, 4);
+whiteLight.position.set(-4,2,5);
 
-redLight.castShadow = true;
+scene.add(whiteLight);
 
-scene.add(redLight);
-
-// PURPLE LIGHT
-
-const purpleLight = new THREE.PointLight(
-0x8f00ff,
-20,
-35
-);
-
-purpleLight.position.set(4, 3, 2);
-
-purpleLight.castShadow = true;
-
-scene.add(purpleLight);
-
-// GREEN LIGHT
-
-const greenLight = new THREE.PointLight(
-0x00ff99,
-16,
+const blueLight =
+new THREE.PointLight(
+0x3b82f6,
+8,
 25
 );
 
-greenLight.position.set(0, -2, 5);
+blueLight.position.set(0,-2,4);
 
-greenLight.castShadow = true;
+scene.add(blueLight);
 
-scene.add(greenLight);
-
-// AMBIENT
-
-const ambient = new THREE.AmbientLight(
+const ambient =
+new THREE.AmbientLight(
 0xffffff,
-0.35
+0.8
 );
 
 scene.add(ambient);
 
-// SPOTLIGHT PREMIUM
-
-const spotLight = new THREE.SpotLight(
-0xffffff,
-15
+const spotLight =
+new THREE.SpotLight(
+0xfff4d6,
+18
 );
 
-spotLight.position.set(0, 10, 8);
+spotLight.position.set(0,10,6);
 
-spotLight.angle = 0.35;
+spotLight.angle = 0.28;
 
 spotLight.penumbra = 1;
 
-spotLight.decay = 2;
+spotLight.decay = 1.5;
 
-spotLight.distance = 50;
+spotLight.distance = 60;
 
 spotLight.castShadow = true;
 
 scene.add(spotLight);
 
-// ===============================
-// FLOOR OLED
-// ===============================
+// FLOOR
 
-const floorGeometry = new THREE.CircleGeometry(5, 64);
+const floorGeometry =
+new THREE.CircleGeometry(5,64);
 
-const floorMaterial = new THREE.MeshStandardMaterial({
+const floorMaterial =
+new THREE.MeshStandardMaterial({
 
-color: 0x090909,
+color:0x090909,
 
-metalness: 1,
+metalness:1,
 
-roughness: 0.15,
+roughness:0.15,
 
-emissive: 0x120012,
+emissive:0x332200,
 
-emissiveIntensity: 0.35
+emissiveIntensity:0.2
 
 });
 
-const floor = new THREE.Mesh(
+const floor =
+new THREE.Mesh(
 floorGeometry,
 floorMaterial
 );
 
-floor.rotation.x = -Math.PI / 2;
+floor.rotation.x =
+-Math.PI / 2;
 
 floor.position.y = -2.3;
 
@@ -158,90 +160,93 @@ floor.receiveShadow = true;
 
 scene.add(floor);
 
-// ===============================
-// NEON RINGS
-// ===============================
+// HALO
 
-const ringGeometry = new THREE.TorusGeometry(
-3.5,
-0.04,
+const haloGeometry =
+new THREE.TorusGeometry(
+2.8,
+0.06,
 16,
 100
 );
 
-const ringMaterial = new THREE.MeshBasicMaterial({
-color: 0x8f00ff
+const haloMaterial =
+new THREE.MeshBasicMaterial({
+
+color:0xffd700,
+
+transparent:true,
+
+opacity:0.7
+
 });
 
-const ring = new THREE.Mesh(
-ringGeometry,
-ringMaterial
+const halo =
+new THREE.Mesh(
+haloGeometry,
+haloMaterial
 );
 
-ring.rotation.x = Math.PI / 2;
+halo.rotation.x =
+Math.PI / 2;
 
-ring.position.y = -1.2;
+halo.position.y = -0.5;
 
-scene.add(ring);
+scene.add(halo);
 
-const ring2 = ring.clone();
-
-ring2.scale.set(1.3,1.3,1.3);
-
-ring2.material = new THREE.MeshBasicMaterial({
-color:0xff004c
-});
-
-scene.add(ring2);
-
-// ===============================
 // PARTICLES
-// ===============================
 
-const particlesGeometry = new THREE.BufferGeometry();
+const particlesGeometry =
+new THREE.BufferGeometry();
 
-const particlesCount = 2500;
+const particlesCount = 1800;
 
-const posArray = new Float32Array(
+const posArray =
+new Float32Array(
 particlesCount * 3
 );
 
-for(let i = 0; i < particlesCount * 3; i++){
+for(let i=0;i<
+particlesCount*3;i++){
 
-posArray[i] = (Math.random() - 0.5) * 20;
+posArray[i] =
+(Math.random()-0.5)*20;
 
 }
 
 particlesGeometry.setAttribute(
 "position",
-new THREE.BufferAttribute(posArray, 3)
+new THREE.BufferAttribute(
+posArray,
+3
+)
 );
 
 const particlesMaterial =
 new THREE.PointsMaterial({
 
-size: 0.02,
+size:0.02,
 
-color: 0x8f00ff,
+color:0xffd700,
 
-transparent: true,
+transparent:true,
 
-opacity: 0.8
+opacity:0.5
 
 });
 
-const particlesMesh = new THREE.Points(
+const particlesMesh =
+new THREE.Points(
 particlesGeometry,
 particlesMaterial
 );
 
 scene.add(particlesMesh);
 
-// ===============================
-// LOADER
-// ===============================
+// MODEL
 
-const loader = new THREE.GLTFLoader();
+const loader =
+new THREE.GLTFLoader();
 
 let guitar;
 
@@ -253,9 +258,17 @@ loader.load(
 
 guitar = gltf.scene;
 
-guitar.scale.set(2.4,2.4,2.4);
+guitar.scale.set(
+4.2,
+4.2,
+4.2
+);
 
-guitar.position.set(0,-1.1,0);
+guitar.position.set(
+0,
+-2,
+0
+);
 
 guitar.rotation.y = 0.5;
 
@@ -271,7 +284,7 @@ if(child.material){
 
 child.material.metalness = 1;
 
-child.material.roughness = 0.25;
+child.material.roughness = 0.28;
 
 }
 
@@ -287,23 +300,28 @@ undefined,
 
 (error)=>{
 
-console.log("Erreur modèle :", error);
+console.log(
+"Erreur modèle GLB :",
+error
+);
 
 }
 
 );
 
-// ===============================
-// ANIMATION
-// ===============================
+// CLOCK
 
-const clock = new THREE.Clock();
+const clock =
+new THREE.Clock();
+
+// ANIMATION
 
 function animate(){
 
 requestAnimationFrame(animate);
 
-const elapsed = clock.getElapsedTime();
+const elapsed =
+clock.getElapsedTime();
 
 // GUITAR
 
@@ -312,61 +330,75 @@ if(guitar){
 guitar.rotation.y += 0.003;
 
 guitar.position.y =
--1.1 + Math.sin(elapsed * 1.5) * 0.15;
+-2 +
+Math.sin(elapsed*1.5)
+*0.12;
 
 guitar.rotation.z =
-Math.sin(elapsed * 0.8) * 0.03;
+Math.sin(elapsed*0.8)
+*0.03;
 
 }
 
-// PULSING LIGHTS
+// LIGHTS
 
-redLight.intensity =
-15 + Math.sin(elapsed * 2) * 6;
+goldLight.intensity =
+20 +
+Math.sin(elapsed*1.2)
+*2;
 
-purpleLight.intensity =
-18 + Math.sin(elapsed * 1.5) * 7;
+whiteLight.intensity =
+10 +
+Math.sin(elapsed*0.8);
 
-greenLight.intensity =
-12 + Math.sin(elapsed * 2.5) * 5;
+blueLight.intensity =
+7 +
+Math.sin(elapsed*1.5);
 
-// NEON RINGS
+// HALO
 
-ring.rotation.z += 0.003;
+halo.rotation.z += 0.004;
 
-ring2.rotation.z -= 0.002;
+halo.material.opacity =
+0.45 +
+Math.sin(elapsed*2)
+*0.12;
 
 // PARTICLES
 
-particlesMesh.rotation.y += 0.0007;
+particlesMesh.rotation.y +=
+0.0005;
 
-// CAMERA PARALLAX
+// CAMERA
 
 camera.position.x =
-Math.sin(elapsed * 0.3) * 0.3;
+Math.sin(elapsed*0.3)
+*0.25;
 
 camera.lookAt(0,0,0);
 
-renderer.render(scene, camera);
+renderer.render(scene,camera);
 
 }
 
 animate();
 
-// ===============================
 // RESIZE
-// ===============================
 
-window.addEventListener("resize",()=>{
+window.addEventListener(
+"resize",
+()=>{
 
 camera.aspect =
-window.innerWidth / window.innerHeight;
+container.clientWidth /
+container.clientHeight;
 
 camera.updateProjectionMatrix();
 
 renderer.setSize(
-window.innerWidth,
-window.innerHeight
+container.clientWidth,
+container.clientHeight
 );
 
-});
+}
+);
