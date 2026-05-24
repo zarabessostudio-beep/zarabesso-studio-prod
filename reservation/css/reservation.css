@@ -1546,3 +1546,171 @@ box-shadow:
 }
 
 }
+/* =========================================================
+FORCE 3D GUITAR VISIBILITY
+NO CONFLICT SAFE ADDON
+========================================================= */
+
+/* CONTAINER */
+
+.booking-right{
+
+position:relative !important;
+
+overflow:hidden !important;
+
+isolation:isolate;
+
+}
+
+/* PREMIUM PURPLE / PINK BACKGROUND */
+
+.booking-right::before{
+
+content:"";
+
+position:absolute;
+
+inset:0;
+
+z-index:4;
+
+pointer-events:none;
+
+background:
+
+radial-gradient(
+circle at 30% 30%,
+rgba(180,0,255,.28),
+transparent 45%
+),
+
+radial-gradient(
+circle at 70% 60%,
+rgba(255,0,140,.24),
+transparent 45%
+),
+
+radial-gradient(
+circle at center,
+rgba(120,0,255,.12),
+transparent 70%
+);
+
+mix-blend-mode:screen;
+
+animation:
+premiumAuraMove 8s ease-in-out infinite;
+
+}
+
+/* FORCE WEBGL ABOVE EFFECTS */
+
+#webgl{
+
+position:absolute !important;
+
+inset:0 !important;
+
+width:100% !important;
+height:100% !important;
+
+display:block !important;
+
+z-index:150 !important;
+
+background:transparent !important;
+
+pointer-events:none !important;
+
+opacity:1 !important;
+
+visibility:visible !important;
+
+}
+
+/* KEEP CARDS ABOVE 3D */
+
+.floating-card,
+.status-card,
+.motivation-card{
+
+z-index:300 !important;
+
+}
+
+/* NAVBAR ALWAYS TOP */
+
+.reservation-navbar,
+.burger{
+
+z-index:999999 !important;
+
+}
+
+/* REMOVE DARK OVERLAY EFFECT */
+
+.booking-right::after{
+
+opacity:.35;
+
+}
+
+/* GPU BOOST */
+
+.booking-right,
+#webgl{
+
+transform:translateZ(0);
+
+will-change:transform;
+
+}
+
+/* MOBILE SAFE */
+
+@media(max-width:900px){
+
+#webgl{
+
+z-index:120 !important;
+
+}
+
+}
+
+/* ANIMATION */
+
+@keyframes premiumAuraMove{
+
+0%{
+
+transform:
+scale(1)
+rotate(0deg);
+
+filter:blur(0px);
+
+}
+
+50%{
+
+transform:
+scale(1.08)
+rotate(2deg);
+
+filter:blur(4px);
+
+}
+
+100%{
+
+transform:
+scale(1)
+rotate(0deg);
+
+filter:blur(0px);
+
+}
+
+}
