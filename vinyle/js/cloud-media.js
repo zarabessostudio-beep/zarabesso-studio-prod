@@ -59,7 +59,14 @@ async function loadCloudTracks() {
     if (!res.ok) throw new Error("Cloud API error");
 
     const data = await res.json();
-    tracks = data.tracks || [];
+
+console.log("☁️ CLOUD:", data);
+
+if (!data.success) {
+  throw new Error(data.error || "API ERROR");
+}
+
+tracks = data.tracks || [];
 
     if (!tracks.length) {
       tracksContainer.innerHTML = `
