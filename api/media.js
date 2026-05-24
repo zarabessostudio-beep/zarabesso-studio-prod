@@ -11,32 +11,47 @@ export default async function handler(req, res) {
 
   try {
 
-    // =========================
-    // VIDEOS
-    // =========================
+    // =========================================
+    // TEST ENV
+    // =========================================
+
+    if (
+      !process.env.CLOUDINARY_CLOUD_NAME ||
+      !process.env.CLOUDINARY_API_KEY ||
+      !process.env.CLOUDINARY_API_SECRET
+    ) {
+      return res.status(500).json({
+        success: false,
+        error: "Variables Cloudinary manquantes"
+      });
+    }
+
+    // =========================================
+    // GET VIDEOS
+    // =========================================
 
     const videoResult = await cloudinary.search
-      .expression('folder="zarabesso-videos"')
+      .expression('resource_type:video AND folder="zarabesso-videos"')
       .sort_by("created_at", "desc")
       .max_results(100)
       .execute();
 
-    // =========================
-    // MUSIC
-    // =========================
+    // =========================================
+    // GET MUSIC
+    // =========================================
 
     const musicResult = await cloudinary.search
-      .expression('folder="zarabesso-music"')
+      .expression('resource_type:video AND folder="zarabesso-music"')
       .sort_by("created_at", "desc")
       .max_results(100)
       .execute();
 
-    // =========================
-    // COVERS
-    // =========================
+    // =========================================
+    // GET COVERS
+    // =========================================
 
     const coverResult = await cloudinary.search
-      .expression('folder="zarabesso-cover"')
+      .expression('resource_type:image AND folder="zarabesso-cover"')
       .sort_by("created_at", "desc")
       .max_results(100)
       .execute();
@@ -45,18 +60,16 @@ export default async function handler(req, res) {
     const music = musicResult.resources || [];
     const covers = coverResult.resources || [];
 
-    // =========================
+    // =========================================
     // BUILD TRACKS
-    // =========================
+    // =========================================
 
     const tracks = videos.map((video, index) => {
 
-      // AUDIO
       const musicFile = music[index];
-
-      // COVER
       const coverFile = covers[index];
 
+      // VIDEO URL
       const videoUrl = cloudinary.url(video.public_id, {
         resource_type: "video",
         secure: true,
@@ -64,6 +77,7 @@ export default async function handler(req, res) {
         fetch_format: "auto"
       });
 
+      // AUDIO URL
       const audioUrl = musicFile
         ? cloudinary.url(musicFile.public_id, {
             resource_type: "video",
@@ -72,16 +86,13 @@ export default async function handler(req, res) {
           })
         : videoUrl;
 
+      // COVER URL
       const coverUrl = coverFile
         ? cloudinary.url(coverFile.public_id, {
             resource_type: "image",
             secure: true
           })
-        : cloudinary.url(video.public_id, {
-            resource_type: "video",
-            format: "jpg",
-            secure: true
-          });
+        : `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/video/upload/so_1/${video.public_id}.jpg`;
 
       return {
 
@@ -105,10 +116,11 @@ export default async function handler(req, res) {
       };
 
     });
+
     res.setHeader(
-  "Cache-Control",
-  "no-store, max-age=0"
-);
+      "Cache-Control",
+      "no-store, max-age=0"
+    );
 
     return res.status(200).json({
       success: true,
@@ -118,12 +130,12 @@ export default async function handler(req, res) {
 
   } catch (err) {
 
-    console.error(err);
-
+    console.error("CLOUDINARY ERROR:", err);
 
     return res.status(500).json({
       success: false,
-      error: err.message
+      error: err.message,
+      stack: err.stack
     });
 
   }
