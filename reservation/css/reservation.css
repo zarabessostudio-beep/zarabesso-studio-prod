@@ -1,25 +1,166 @@
 *{
-width:100%;
-height:100%;
-object-fit:cover;
-border-radius:30px;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
-.floating-card{
-position:absolute;
-bottom:20px;
-left:20px;
-background:#ffffff15;
+body{
+font-family:Arial,sans-serif;
+background:#000;
+color:white;
+overflow-x:hidden;
+}
+
+/* NAVBAR */
+
+.reservation-navbar{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+z-index:9999;
+
 backdrop-filter:blur(20px);
-padding:20px;
+background:rgba(0,0,0,.45);
+
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.reservation-nav-container{
+height:80px;
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+padding:0 5%;
+}
+
+.logo-box{
+display:flex;
+align-items:center;
+gap:15px;
+
+text-decoration:none;
+color:white;
+font-size:20px;
+font-weight:bold;
+}
+
+.logo-box img{
+width:50px;
+height:50px;
+object-fit:contain;
+}
+
+.nav-links{
+display:flex;
+gap:40px;
+}
+
+.nav-links a{
+color:white;
+text-decoration:none;
+transition:.3s;
+}
+
+.nav-links a:hover{
+color:#8f00ff;
+}
+
+.burger{
+display:none;
+flex-direction:column;
+gap:5px;
+cursor:pointer;
+}
+
+.burger span{
+width:30px;
+height:3px;
+background:white;
 border-radius:20px;
+}
+
+/* HERO */
+
+.reservation-hero{
+position:relative;
+min-height:100vh;
+
+background:url("/reservation/assets/images/studio-bg.jpg");
+background-size:cover;
+background-position:center;
+
+display:flex;
+align-items:center;
+
+padding:140px 5% 100px;
+}
+
+.overlay{
+position:absolute;
+inset:0;
+background:rgba(0,0,0,.72);
+}
+
+.reservation-container{
+position:relative;
+z-index:2;
+
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:60px;
+width:100%;
+}
+
+.booking-left h1{
+font-size:60px;
+margin-bottom:20px;
+}
+
+.booking-left p{
+opacity:.8;
+margin-bottom:40px;
+}
+
+/* FORM */
+
+form{
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.input-group{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+input,
+select,
+textarea{
+padding:18px;
+border:none;
+outline:none;
+
+background:rgba(255,255,255,.08);
+
+border-radius:18px;
+
+color:white;
+}
+
+textarea{
+height:140px;
+resize:none;
 }
 
 .time-slots{
 display:grid;
 grid-template-columns:repeat(3,1fr);
 gap:15px;
-margin-top:20px;
 }
 
 .slot{
@@ -35,24 +176,120 @@ transition:.3s;
 background:linear-gradient(90deg,#8f00ff,#ff0055);
 }
 
+.reserve-btn{
+padding:20px;
+border:none;
+cursor:pointer;
+
+border-radius:18px;
+
+background:linear-gradient(90deg,#8f00ff,#ff0055);
+
+color:white;
+font-size:18px;
+font-weight:bold;
+
+transition:.3s;
+}
+
+.reserve-btn:hover{
+transform:translateY(-3px);
+}
+
+/* RIGHT */
+
+.booking-right{
+position:relative;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.studio-image{
+width:100%;
+max-width:550px;
+
+border-radius:30px;
+object-fit:cover;
+}
+
+#three-container{
+position:absolute;
+inset:0;
+pointer-events:none;
+}
+
+.floating-card{
+position:absolute;
+bottom:30px;
+left:30px;
+
+padding:25px;
+
+border-radius:25px;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(20px);
+}
+
+/* FOOTER */
+
+.premium-footer{
+background:#050505;
+padding:80px 5% 30px;
+border-top:1px solid rgba(255,255,255,.08);
+}
+
+.footer-content{
+display:flex;
+justify-content:space-between;
+gap:50px;
+flex-wrap:wrap;
+}
+
+.footer-links{
+display:flex;
+gap:25px;
+}
+
+.footer-links a{
+color:white;
+text-decoration:none;
+}
+
+.footer-bottom{
+margin-top:40px;
+opacity:.5;
+}
+
+/* LOADER */
+
 .loader-screen{
 position:fixed;
 inset:0;
+
 background:#000;
+
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-z-index:9999;
+
+z-index:99999;
+
 transition:1s;
 }
 
 .loader-ring{
 width:120px;
 height:120px;
-border:4px solid #ffffff10;
+
+border:4px solid rgba(255,255,255,.1);
 border-top:4px solid #8f00ff;
+
 border-radius:50%;
+
 animation:spin 1s linear infinite;
 }
 
@@ -61,50 +298,41 @@ animation:spin 1s linear infinite;
 transform:rotate(360deg);
 }
 }
-/* ================= NAVBAR ================= */
 
-.reservation-navbar{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 99999;
+/* MOBILE */
 
-  backdrop-filter: blur(20px);
-  background: rgba(0,0,0,0.35);
+@media(max-width:900px){
 
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+.reservation-container{
+grid-template-columns:1fr;
 }
 
-.reservation-nav-container{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  padding: 18px 40px;
+.booking-left h1{
+font-size:42px;
 }
 
-.back-home{
-  color: white;
-  text-decoration: none;
+.nav-links{
+position:fixed;
+top:80px;
+right:-100%;
 
-  display: flex;
-  align-items: center;
-  gap: 10px;
+width:260px;
+height:100vh;
 
-  font-size: 15px;
-  letter-spacing: 1px;
+background:#050505;
 
-  transition: 0.3s;
+flex-direction:column;
+padding:40px;
+
+transition:.4s;
 }
 
-.back-home:hover{
-  opacity: 0.7;
+.nav-links.active{
+right:0;
 }
 
-.reservation-logo img{
-  width: 55px;
+.burger{
+display:flex;
 }
-body{
-  padding-top: 90px;
+
 }

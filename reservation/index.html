@@ -1,82 +1,189 @@
 <!DOCTYPE html>
-<!-- ================= NAVBAR ================= -->
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Zarabesso Reservation</title>
+
+<link rel="stylesheet" href="/reservation/css/reservation.css">
+
+<link
+href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+rel="stylesheet"
+/>
+
+</head>
+
+<body>
+
+<!-- LOADER -->
+
+<div class="loader-screen" id="loaderScreen">
+
+<div class="loader-ring"></div>
+<h2>Zarabesso Studio</h2>
+
+</div>
+
+<!-- NAVBAR -->
 
 <header class="reservation-navbar">
 
-  <div class="reservation-nav-container">
+<div class="reservation-nav-container">
 
-    <a href="../index.html" class="back-home">
-      <i class="ri-arrow-left-line"></i>
-      Retour Accueil
-    </a>
+<a href="/" class="logo-box">
+<img src="/reservation/assets/images/logo1.png">
+<span>Zarabesso</span>
+</a>
 
-    <div class="reservation-logo">
-      <img src="/assets/images/logo1.png" alt="logo">
-    </div>
+<nav class="nav-links" id="navLinks">
+<a href="/">Accueil</a>
+<a href="/#services">Services</a>
+<a href="/#studio">Studio</a>
+<a href="/reservation/">Réservation</a>
+</nav>
 
-  </div>
+<div class="burger" id="burger">
+<span></span>
+<span></span>
+<span></span>
+</div>
+
+</div>
 
 </header>
 
-      <form id="reservationForm">
+<!-- HERO -->
 
-        <div class="input-group">
-          <label>Nom</label>
-          <input type="text" id="name" required>
-        </div>
+<section class="reservation-hero">
 
-        <div class="input-group">
-          <label>Téléphone</label>
-          <input type="text" id="phone" required>
-        </div>
+<div class="overlay"></div>
 
-        <div class="input-group">
-          <label>Service</label>
-          <select id="service">
-            <option>Enregistrement</option>
-            <option>Mixage</option>
-            <option>Mastering</option>
-            <option>Clip Vidéo</option>
-          </select>
-        </div>
+<div class="reservation-container">
 
-        <div class="calendar-box">
-          <input type="date" id="date" required>
-        </div>
+<!-- LEFT -->
 
-        <div class="time-slots" id="timeSlots"></div>
+<div class="booking-left">
 
-        <textarea id="message" placeholder="Votre projet..."></textarea>
+<h1>
+Réservez Votre Session Studio
+</h1>
 
-        <button type="submit" class="reserve-btn">
-          <i class="ri-whatsapp-line"></i>
-          Réserver Maintenant
-        </button>
+<p>
+Production audio premium • Mixage • Mastering • Clip vidéo
+</p>
 
-      </form>
+<form id="reservationForm">
 
-    </div>
+<div class="input-group">
+<label>Nom</label>
+<input type="text" id="name" required>
+</div>
 
-    <div class="booking-right">
+<div class="input-group">
+<label>Téléphone</label>
+<input type="text" id="phone" required>
+</div>
 
-      <img src="/reservation/assets/images/studio.png">
+<div class="input-group">
+<label>Service</label>
 
-      <div class="floating-card">
-        <h3>Studio Premium</h3>
-        <p>Audio • Video • Mastering</p>
-      </div>
+<select id="service">
 
-    </div>
+<option>Enregistrement</option>
+<option>Mixage</option>
+<option>Mastering</option>
+<option>Clip Vidéo</option>
 
-  </div>
+</select>
+
+</div>
+
+<div class="calendar-box">
+<input type="date" id="date" required>
+</div>
+
+<div class="time-slots" id="timeSlots"></div>
+
+<textarea
+id="message"
+placeholder="Votre projet..."
+></textarea>
+
+<button type="submit" class="reserve-btn">
+
+<i class="ri-whatsapp-line"></i>
+Réserver Maintenant
+
+</button>
+
+</form>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="booking-right">
+
+<img
+src="/reservation/assets/images/studio.png"
+class="studio-image"
+>
+
+<div id="three-container"></div>
+
+<div class="floating-card">
+
+<h3>Studio Premium</h3>
+<p>Audio • Video • Mastering</p>
+
+</div>
+
+</div>
+
+</div>
 
 </section>
 
+<!-- FOOTER -->
+
+<footer class="premium-footer">
+
+<div class="footer-content">
+
+<div>
+<h2>Zarabesso Studio</h2>
+<p>
+Studio professionnel premium à Madagascar.
+</p>
+</div>
+
+<div class="footer-links">
+
+<a href="/">Accueil</a>
+<a href="/reservation/">Réservation</a>
+<a href="#">Instagram</a>
+
+</div>
+
+</div>
+
+<div class="footer-bottom">
+© 2026 Zarabesso Studio — Tous droits réservés
+</div>
+
+</footer>
+
+<!-- THREE JS -->
+
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/loaders/GLTFLoader.js"></script>
 
-<script src="/reservation/js/particles.js"></script>
 <script src="/reservation/js/calendar.js"></script>
+<script src="/reservation/js/particles.js"></script>
 <script src="/reservation/js/three-scene.js"></script>
 <script src="/reservation/js/reservation.js"></script>
 
