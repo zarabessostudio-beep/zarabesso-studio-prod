@@ -1,25 +1,19 @@
-/* ===================================
-PREMIUM RESPONSIVE OLED MOBILE
-responsive.css
+/* =========================================
 ZARABESSO STUDIO
-=================================== */
+ULTRA RESPONSIVE LITE OLED
+SAFE VERSION
+========================================= */
 
-/* ===============================
+/* =========================================
 TABLET
-=============================== */
+========================================= */
 
 @media(max-width:1200px){
 
-.hero h1{
-
-font-size:4rem;
-line-height:1.1;
-
-}
-
-.booking-card{
+.reservation-container{
 
 grid-template-columns:1fr;
+
 gap:50px;
 
 }
@@ -28,19 +22,23 @@ gap:50px;
 
 order:-1;
 
-}
-
-.studio-image{
-
-max-width:500px;
+min-height:620px;
 
 }
 
+.booking-left h1{
+
+font-size:4rem;
+
+line-height:1.1;
+
 }
 
-/* ===============================
+}
+
+/* =========================================
 MOBILE
-=============================== */
+========================================= */
 
 @media(max-width:900px){
 
@@ -56,34 +54,21 @@ overflow-x:hidden;
 
 .reservation-navbar{
 
-height:80px;
+height:78px;
 
 background:
-rgba(0,0,0,.55);
+rgba(5,5,5,.72);
 
 backdrop-filter:
-blur(25px);
-
-border-bottom:
-1px solid rgba(255,255,255,.08);
+blur(16px);
 
 }
 
-/* NAV CONTAINER */
+/* NAV */
 
 .reservation-nav-container{
 
-padding:0 25px;
-
-}
-
-/* LOGO */
-
-.logo-box span{
-
-font-size:18px;
-
-letter-spacing:2px;
+padding:0 22px;
 
 }
 
@@ -93,187 +78,71 @@ letter-spacing:2px;
 
 display:flex;
 
-z-index:999999;
-
 }
 
 /* MOBILE MENU */
 
-nav{
+.nav-links{
 
 position:fixed;
 
-top:0;
+top:78px;
 right:-100%;
 
-width:320px;
+width:260px;
 height:100vh;
 
 display:flex;
 flex-direction:column;
 
-align-items:flex-start;
-justify-content:center;
+padding:40px 30px;
 
-gap:35px;
-
-padding:50px;
+gap:28px;
 
 background:
-rgba(5,5,5,.92);
+rgba(10,10,10,.95);
 
 backdrop-filter:
-blur(35px);
+blur(20px);
 
-border-left:
-1px solid rgba(255,255,255,.08);
+transition:.45s ease;
 
-transition:.6s cubic-bezier(.77,0,.175,1);
-
-overflow:hidden;
+z-index:9999;
 
 }
 
-/* ACTIVE MENU */
-
-nav.active{
+.nav-links.active{
 
 right:0;
 
 }
 
-/* ANIMATED BACKGROUND */
+/* LINKS */
 
-nav::before{
+.nav-links a{
 
-content:"";
+font-size:16px;
 
-position:absolute;
-
-width:400px;
-height:400px;
-
-background:
-radial-gradient(
-
-circle,
-
-rgba(143,0,255,.25) 0%,
-
-rgba(0,255,170,.18) 30%,
-
-transparent 70%
-
-);
-
-top:-100px;
-right:-100px;
-
-filter:blur(60px);
-
-animation:menuGlow 8s linear infinite;
-
-}
-
-/* NAV LINKS */
-
-nav a{
-
-position:relative;
-
-font-size:20px;
-
-font-weight:600;
-
-text-decoration:none;
-
-color:white;
-
-letter-spacing:2px;
-
-transition:.4s;
-
-}
-
-/* HOVER */
-
-nav a:hover{
-
-transform:translateX(10px);
-
-color:#00ffcc;
-
-text-shadow:
-
-0 0 10px #00ffcc,
-0 0 25px #8f00ff;
+letter-spacing:1px;
 
 }
 
 /* HERO */
 
-.hero{
+.reservation-hero{
 
-padding-top:130px;
-padding-left:25px;
-padding-right:25px;
-
-min-height:auto;
+padding:
+120px 20px 70px;
 
 }
 
-/* HERO TITLE */
+/* CONTAINER */
 
-.hero h1{
-
-font-size:3rem;
-
-line-height:1.05;
-
-margin-bottom:20px;
-
-background:
-linear-gradient(
-
-90deg,
-
-#ffffff,
-#b266ff,
-#00ffaa
-
-);
-
--webkit-background-clip:text;
-
--webkit-text-fill-color:transparent;
-
-animation:titleGlow 6s linear infinite;
-
-}
-
-/* HERO TEXT */
-
-.hero p{
-
-font-size:15px;
-
-line-height:1.7;
-
-opacity:.8;
-
-}
-
-/* BOOKING CARD */
-
-.booking-card{
-
-display:grid;
+.reservation-container{
 
 grid-template-columns:1fr;
 
-gap:40px;
-
-margin-top:40px;
+gap:45px;
 
 }
 
@@ -281,54 +150,68 @@ margin-top:40px;
 
 .booking-left{
 
-padding:30px;
+width:100%;
 
-border-radius:30px;
+}
 
-background:
-rgba(255,255,255,.05);
+/* TITLE */
 
-backdrop-filter:
-blur(25px);
+.booking-left h1{
 
-border:
-1px solid rgba(255,255,255,.08);
+font-size:3rem;
+
+line-height:1.05;
+
+margin-bottom:20px;
+
+}
+
+/* TEXT */
+
+.booking-left p{
+
+font-size:15px;
+
+line-height:1.7;
+
+margin-bottom:30px;
+
+}
+
+/* FORM */
+
+form{
+
+gap:18px;
+
+}
+
+/* INPUTS */
+
+input,
+textarea,
+select{
+
+padding:16px;
+
+font-size:15px;
+
+border-radius:16px;
+
+}
+
+/* BUTTON */
+
+.reserve-btn{
+
+height:58px;
+
+font-size:15px;
+
+border-radius:18px;
 
 box-shadow:
-
-0 0 40px rgba(143,0,255,.15),
-0 0 80px rgba(0,255,170,.08);
-
-}
-
-/* RIGHT */
-
-.booking-right{
-
-display:flex;
-justify-content:center;
-
-min-height:450px;
-
-}
-
-/* 3D */
-
-#webgl{
-
-width:100% !important;
-height:100% !important;
-
-}
-
-/* IMAGE */
-
-.studio-image{
-
-width:100%;
-max-width:100%;
-
-border-radius:28px;
+0 10px 25px rgba(255,215,0,.12);
 
 }
 
@@ -339,62 +222,68 @@ border-radius:28px;
 grid-template-columns:
 repeat(2,1fr);
 
-gap:16px;
+gap:12px;
 
 }
-
-/* SLOT */
 
 .slot{
 
-height:75px;
+height:65px;
 
-border-radius:22px;
-
-}
-
-/* INPUT */
-
-input,
-textarea,
-select{
-
-font-size:15px;
-
-padding:18px;
+font-size:14px;
 
 }
 
-/* BUTTON */
+/* 3D SECTION */
 
-.reserve-btn{
+.booking-right{
 
-height:60px;
+min-height:500px;
 
-font-size:16px;
+border-radius:28px;
 
-border-radius:22px;
+/* IMPORTANT */
 
-background:
+overflow:hidden;
 
-linear-gradient(
+}
 
-135deg,
+/* WEBGL */
 
-#8f00ff,
-#00ffaa,
-#ff0055
+#webgl{
 
-);
+width:100% !important;
+height:100% !important;
 
-background-size:300% 300%;
+/* IMPORTANT */
 
-animation:buttonGradient 6s ease infinite;
+touch-action:none;
 
-box-shadow:
+}
 
-0 0 25px rgba(143,0,255,.3),
-0 0 45px rgba(0,255,170,.15);
+/* FLOATING CARD */
+
+.floating-card{
+
+left:15px;
+bottom:15px;
+
+padding:16px;
+
+max-width:220px;
+
+border-radius:18px;
+
+}
+
+/* STATUS */
+
+.status-card{
+
+top:15px;
+right:15px;
+
+padding:12px 16px;
 
 }
 
@@ -404,45 +293,41 @@ box-shadow:
 
 flex-direction:column;
 
-gap:50px;
+gap:40px;
 
 }
 
 .footer-links{
 
-flex-direction:column;
-
-gap:18px;
-
-}
-
-/* PARTICLES */
-
-#particles{
-
-opacity:.7;
+gap:15px;
 
 }
 
 }
 
-/* ===============================
+/* =========================================
 SMALL MOBILE
-=============================== */
+========================================= */
 
 @media(max-width:600px){
 
-.hero h1{
+/* TITLE */
 
-font-size:2.4rem;
+.booking-left h1{
+
+font-size:2.3rem;
 
 }
 
-nav{
+/* MENU */
+
+.nav-links{
 
 width:100%;
 
 }
+
+/* TIME */
 
 .time-slots{
 
@@ -450,88 +335,125 @@ grid-template-columns:1fr;
 
 }
 
+/* SLOT */
+
 .slot{
 
-height:70px;
+height:60px;
 
 }
+
+/* LEFT */
 
 .booking-left{
 
-padding:22px;
+padding:0;
 
 }
+
+/* RIGHT */
+
+.booking-right{
+
+min-height:420px;
+
+}
+
+/* CARD */
+
+.floating-card{
+
+display:none;
+
+}
+
+/* STATUS */
+
+.status-card{
+
+transform:scale(.9);
+
+}
+
+/* BUTTON */
 
 .reserve-btn{
 
-font-size:15px;
+font-size:14px;
 
 }
 
 }
 
-/* ===============================
-ANIMATIONS
-=============================== */
+/* =========================================
+IOS SAFE
+========================================= */
 
-@keyframes menuGlow{
+@supports (-webkit-touch-callout: none){
+
+.booking-right{
+
+transform:translateZ(0);
+
+}
+
+#webgl{
+
+transform:translateZ(0);
+
+}
+
+}
+
+/* =========================================
+SAFE PARTICLES
+========================================= */
+
+.particle{
+
+position:absolute;
+
+border-radius:50%;
+
+pointer-events:none;
+
+/* IMPORTANT */
+
+z-index:-1;
+
+/* VERY LIGHT */
+
+filter:blur(1px);
+
+animation:
+floatParticle linear infinite;
+
+}
+
+/* =========================================
+PARTICLE ANIMATION
+========================================= */
+
+@keyframes floatParticle{
 
 0%{
 
-transform:rotate(0deg);
-
-}
-
-100%{
-
-transform:rotate(360deg);
-
-}
-
-}
-
-@keyframes titleGlow{
-
-0%{
-
-filter:
-drop-shadow(0 0 10px #8f00ff);
+transform:
+translate3d(0,0,0);
 
 }
 
 50%{
 
-filter:
-drop-shadow(0 0 20px #00ffaa);
+transform:
+translate3d(20px,-80px,0);
 
 }
 
 100%{
 
-filter:
-drop-shadow(0 0 10px #ff0055);
-
-}
-
-}
-
-@keyframes buttonGradient{
-
-0%{
-
-background-position:0% 50%;
-
-}
-
-50%{
-
-background-position:100% 50%;
-
-}
-
-100%{
-
-background-position:0% 50%;
+transform:
+translate3d(-10px,-160px,0);
 
 }
 

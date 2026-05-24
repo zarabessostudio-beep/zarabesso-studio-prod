@@ -1,31 +1,44 @@
-// ===============================
-// PREMIUM OLED PARTICLES SYSTEM
-// particles.js
+// ======================================
 // ZARABESSO STUDIO
-// ===============================
+// LIGHT PREMIUM PARTICLES
+// SAFE VERSION FOR THREE.JS
+// ======================================
 
 const particlesContainer =
 document.getElementById("particles");
 
-// PERFORMANCE SAFE
+/* ======================================
+SAFE RESET
+====================================== */
+
+particlesContainer.innerHTML = "";
+
+/* ======================================
+PERFORMANCE SAFE
+====================================== */
+
+const isMobile =
+window.innerWidth < 768;
 
 const PARTICLES_COUNT =
-window.innerWidth < 768 ? 45 : 120;
+isMobile ? 22 : 45;
 
-// COLORS OLED
+/* ======================================
+COLORS
+SOFT PREMIUM COLORS
+====================================== */
 
 const colors = [
 
-"#8f00ff", // violet
-"#ff004c", // rouge
-"#00ffb3", // vert neon
-"#ffffff"
+"rgba(255,215,0,.45)",
+"rgba(255,255,255,.35)",
+"rgba(120,120,120,.25)"
 
 ];
 
-// ===============================
-// CREATE PARTICLES
-// ===============================
+/* ======================================
+CREATE PARTICLES
+====================================== */
 
 for(let i = 0; i < PARTICLES_COUNT; i++){
 
@@ -34,16 +47,18 @@ document.createElement("div");
 
 particle.classList.add("particle");
 
-// RANDOM SIZE
+/* RANDOM SIZE */
 
 const size =
-Math.random() * 5 + 2;
+Math.random() * 4 + 2;
 
-// STYLE
+/* STYLE */
 
-particle.style.width = `${size}px`;
+particle.style.width =
+`${size}px`;
 
-particle.style.height = `${size}px`;
+particle.style.height =
+`${size}px`;
 
 particle.style.left =
 Math.random() * 100 + "vw";
@@ -51,97 +66,105 @@ Math.random() * 100 + "vw";
 particle.style.top =
 Math.random() * 100 + "vh";
 
-particle.style.opacity =
-Math.random() * 0.8 + 0.2;
-
 particle.style.background =
-colors[Math.floor(
-Math.random() * colors.length
-)];
-
-particle.style.animationDuration =
-`${8 + Math.random() * 12}s`;
-
-particle.style.animationDelay =
-`${Math.random() * 5}s`;
-
-// GLOW EFFECT
-
-particle.style.boxShadow = `
-0 0 10px currentColor,
-0 0 20px currentColor,
-0 0 40px currentColor
-`;
-
-particlesContainer.appendChild(particle);
-
-}
-
-// ===============================
-// MOUSE LIGHT EFFECT
-// ===============================
-
-document.addEventListener("mousemove",(e)=>{
-
-const glow =
-document.createElement("div");
-
-glow.classList.add("mouse-glow");
-
-glow.style.left = e.clientX + "px";
-
-glow.style.top = e.clientY + "px";
-
-particlesContainer.appendChild(glow);
-
-setTimeout(()=>{
-
-glow.remove();
-
-},500);
-
-});
-
-// ===============================
-// AMBIENT FLASH LIGHT
-// ===============================
-
-setInterval(()=>{
-
-const randomParticle =
-particlesContainer.children[
+colors[
 Math.floor(
-Math.random() *
-particlesContainer.children.length
+Math.random() * colors.length
 )
 ];
 
-if(randomParticle){
+/* LIGHT OPACITY */
 
-randomParticle.animate([
+particle.style.opacity =
+Math.random() * 0.35 + 0.08;
 
-{
-transform:"scale(1)",
-opacity:.5
-},
+/* SAFE ANIMATION */
 
-{
-transform:"scale(2.5)",
-opacity:1
-},
+particle.style.animationDuration =
+`${18 + Math.random() * 20}s`;
 
-{
-transform:"scale(1)",
-opacity:.5
+particle.style.animationDelay =
+`${Math.random() * 8}s`;
+
+/* VERY LIGHT GLOW */
+
+particle.style.boxShadow =
+`
+0 0 8px rgba(255,215,0,.15)
+`;
+
+particlesContainer.appendChild(
+particle
+);
+
 }
 
-],{
+/* ======================================
+SOFT AMBIENT MOVEMENT
+====================================== */
 
-duration:1500,
-iterations:1
+function animateParticles(){
+
+const particles =
+document.querySelectorAll(".particle");
+
+particles.forEach((particle,index)=>{
+
+const speed =
+0.08 + index * 0.0002;
+
+const currentTop =
+parseFloat(
+particle.dataset.y || particle.style.top
+);
+
+let next =
+currentTop - speed;
+
+if(next < -10){
+
+next = 110;
+
+}
+
+particle.dataset.y = next;
+
+particle.style.transform =
+`translateY(${next}px)`;
+
+});
+
+requestAnimationFrame(
+animateParticles
+);
+
+}
+
+animateParticles();
+
+/* ======================================
+RESIZE SAFE
+====================================== */
+
+window.addEventListener(
+"resize",
+()=>{
+
+if(window.innerWidth < 768){
+
+document
+.querySelectorAll(".particle")
+.forEach((particle,index)=>{
+
+if(index > 22){
+
+particle.remove();
+
+}
 
 });
 
 }
 
-},1200);
+}
+);
