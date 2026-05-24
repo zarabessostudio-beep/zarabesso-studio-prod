@@ -1,35 +1,46 @@
-const canvas = document.getElementById("webgl");
+const canvas =
+document.getElementById("webgl");
 
 const container =
 document.querySelector(".booking-right");
 
-/* ===================================================
+/* ==================================================
 SCENE
-=================================================== */
+================================================== */
 
-const scene = new THREE.Scene();
+const scene =
+new THREE.Scene();
+
+scene.background = null;
 
 scene.fog =
-new THREE.FogExp2(0x050505,0.009);
+new THREE.FogExp2(
+0x050505,
+0.006
+);
 
-/* ===================================================
+/* ==================================================
 CAMERA
-=================================================== */
+================================================== */
 
 const camera =
 new THREE.PerspectiveCamera(
-42,
+35,
 container.clientWidth /
 container.clientHeight,
 0.1,
 1000
 );
 
-camera.position.set(0,0.6,8);
+camera.position.set(
+0,
+0.2,
+10
+);
 
-/* ===================================================
+/* ==================================================
 RENDERER
-=================================================== */
+================================================== */
 
 const renderer =
 new THREE.WebGLRenderer({
@@ -47,7 +58,10 @@ container.clientHeight
 );
 
 renderer.setPixelRatio(
-Math.min(window.devicePixelRatio,2)
+Math.min(
+window.devicePixelRatio,
+2
+)
 );
 
 renderer.outputColorSpace =
@@ -56,115 +70,145 @@ THREE.SRGBColorSpace;
 renderer.toneMapping =
 THREE.ACESFilmicToneMapping;
 
-renderer.toneMappingExposure = 1.45;
+renderer.toneMappingExposure =
+1.3;
 
-renderer.shadowMap.enabled = true;
+renderer.shadowMap.enabled =
+true;
 
 renderer.shadowMap.type =
 THREE.PCFSoftShadowMap;
 
-renderer.physicallyCorrectLights = true;
+renderer.physicallyCorrectLights =
+true;
 
-/* ===================================================
+renderer.setClearColor(
+0x000000,
+0
+);
+
+/* ==================================================
 LIGHTS
-=================================================== */
+================================================== */
+
+/* AMBIENT */
 
 const ambient =
 new THREE.AmbientLight(
 0xffffff,
-2.2
+1.8
 );
 
 scene.add(ambient);
 
-/* GOLD MAIN LIGHT */
+/* MAIN GOLD */
 
-const goldLight =
-new THREE.PointLight(
+const mainLight =
+new THREE.SpotLight(
 0xffd700,
-120
+220
 );
 
-goldLight.position.set(2,4,4);
+mainLight.position.set(
+0,
+8,
+6
+);
 
-goldLight.castShadow = true;
+mainLight.angle = 0.28;
 
-goldLight.shadow.mapSize.width = 2048;
-goldLight.shadow.mapSize.height = 2048;
+mainLight.penumbra = 1;
 
-scene.add(goldLight);
+mainLight.decay = 2;
 
-/* BLUE CINEMATIC LIGHT */
+mainLight.distance = 60;
+
+mainLight.castShadow = true;
+
+mainLight.shadow.mapSize.width =
+2048;
+
+mainLight.shadow.mapSize.height =
+2048;
+
+scene.add(mainLight);
+
+/* BLUE SIDE */
 
 const blueLight =
 new THREE.PointLight(
 0x3b82f6,
-50
+40,
+30
 );
 
-blueLight.position.set(-4,1,5);
+blueLight.position.set(
+-4,
+2,
+4
+);
 
 scene.add(blueLight);
 
-/* BACK RIM LIGHT */
+/* RED SIDE */
+
+const redLight =
+new THREE.PointLight(
+0xff3300,
+25,
+25
+);
+
+redLight.position.set(
+4,
+1,
+3
+);
+
+scene.add(redLight);
+
+/* BACK RIM */
 
 const rimLight =
 new THREE.DirectionalLight(
 0xffffff,
-5
+6
 );
 
-rimLight.position.set(0,3,-5);
+rimLight.position.set(
+0,
+2,
+-6
+);
 
 scene.add(rimLight);
 
-/* SPOTLIGHT */
-
-const spotLight =
-new THREE.SpotLight(
-0xfff4d6,
-150
-);
-
-spotLight.position.set(0,8,5);
-
-spotLight.angle = 0.22;
-
-spotLight.penumbra = 1;
-
-spotLight.decay = 2;
-
-spotLight.distance = 40;
-
-spotLight.castShadow = true;
-
-scene.add(spotLight);
-
-/* ===================================================
+/* ==================================================
 FLOOR
-=================================================== */
+================================================== */
 
 const floorGeometry =
-new THREE.CircleGeometry(7,128);
+new THREE.CircleGeometry(
+8,
+128
+);
 
 const floorMaterial =
 new THREE.MeshPhysicalMaterial({
 
-color:0x080808,
+color:0x050505,
 
 metalness:1,
 
-roughness:0.18,
+roughness:0.12,
 
 clearcoat:1,
 
-clearcoatRoughness:0.1,
-
 reflectivity:1,
 
-emissive:0x221100,
+transparent:true,
 
-emissiveIntensity:0.4
+opacity:0.92
 
 });
 
@@ -183,61 +227,63 @@ floor.receiveShadow = true;
 
 scene.add(floor);
 
-/* ===================================================
-ENERGY RING
-=================================================== */
+/* ==================================================
+ENERGY PLATFORM
+================================================== */
 
-const ringGeometry =
+const platformGeometry =
 new THREE.TorusGeometry(
-2.9,
+3,
 0.08,
 32,
 200
 );
 
-const ringMaterial =
+const platformMaterial =
 new THREE.MeshBasicMaterial({
 
 color:0xffd700,
 
 transparent:true,
 
-opacity:0.9
+opacity:0.7
 
 });
 
-const energyRing =
+const platform =
 new THREE.Mesh(
-ringGeometry,
-ringMaterial
+platformGeometry,
+platformMaterial
 );
 
-energyRing.rotation.x =
+platform.rotation.x =
 Math.PI / 2;
 
-energyRing.position.y = -1.9;
+platform.position.y = -1.9;
 
-scene.add(energyRing);
+scene.add(platform);
 
-/* ===================================================
-GOLD PARTICLES
-=================================================== */
+/* ==================================================
+PREMIUM PARTICLES
+================================================== */
 
 const particlesGeometry =
 new THREE.BufferGeometry();
 
-const particlesCount = 3500;
+const particlesCount = 1200;
 
 const positions =
 new Float32Array(
 particlesCount * 3
 );
 
-for(let i=0;i<
-particlesCount*3;i++){
+for(let i = 0;
+i < particlesCount * 3;
+i++){
 
 positions[i] =
-(Math.random()-0.5)*18;
+(Math.random() - 0.5)
+* 14;
 
 }
 
@@ -252,13 +298,13 @@ positions,
 const particlesMaterial =
 new THREE.PointsMaterial({
 
-size:0.03,
+size:0.025,
 
 color:0xffd700,
 
 transparent:true,
 
-opacity:0.7,
+opacity:0.4,
 
 depthWrite:false
 
@@ -272,89 +318,9 @@ particlesMaterial
 
 scene.add(particles);
 
-/* ===================================================
-SMOKE AURA
-=================================================== */
-
-const smokeGeometry =
-new THREE.SphereGeometry(
-2.8,
-64,
-64
-);
-
-const smokeMaterial =
-new THREE.MeshBasicMaterial({
-
-color:0xffd700,
-
-transparent:true,
-
-opacity:0.04,
-
-wireframe:true
-
-});
-
-const smokeAura =
-new THREE.Mesh(
-smokeGeometry,
-smokeMaterial
-);
-
-smokeAura.position.y = -0.2;
-
-scene.add(smokeAura);
-
-/* ===================================================
-FLOATING MUSIC NOTES
-=================================================== */
-
-const notes = [];
-
-for(let i=0;i<14;i++){
-
-const noteGeometry =
-new THREE.SphereGeometry(
-0.04,
-12,
-12
-);
-
-const noteMaterial =
-new THREE.MeshBasicMaterial({
-
-color:i % 2 === 0
-? 0xffd700
-: 0xffffff
-
-});
-
-const note =
-new THREE.Mesh(
-noteGeometry,
-noteMaterial
-);
-
-note.position.set(
-
-(Math.random()-0.5)*5,
-
-Math.random()*4 - 1,
-
-(Math.random()-0.5)*5
-
-);
-
-scene.add(note);
-
-notes.push(note);
-
-}
-
-/* ===================================================
-MODEL
-=================================================== */
+/* ==================================================
+GUITAR MODEL
+================================================== */
 
 const loader =
 new THREE.GLTFLoader();
@@ -363,8 +329,8 @@ let guitar;
 
 /* INTERACTION */
 
-let targetRotation = 0;
-let currentRotation = 0;
+let targetX = 0;
+let targetY = 0;
 
 loader.load(
 
@@ -374,23 +340,25 @@ loader.load(
 
 guitar = gltf.scene;
 
-/* PREMIUM SCALE */
+/* SCALE */
 
 guitar.scale.set(
-5.8,
-5.8,
-5.8
+7,
+7,
+7
 );
 
-/* CENTER POSITION */
+/* POSITION */
 
 guitar.position.set(
 0,
--1.4,
+-1,
 0
 );
 
-guitar.rotation.y = 0;
+/* ROTATION */
+
+guitar.rotation.y = 0.3;
 
 guitar.traverse((child)=>{
 
@@ -403,21 +371,21 @@ child.receiveShadow = true;
 child.material.side =
 THREE.DoubleSide;
 
-child.material.needsUpdate = true;
-
 /* PREMIUM MATERIAL */
 
 if(child.material){
 
-child.material.metalness = 0.85;
+child.material.metalness =
+0.9;
 
-child.material.roughness = 0.2;
+child.material.roughness =
+0.18;
 
-child.material.envMapIntensity = 3;
+child.material.envMapIntensity =
+4;
 
-child.material.clearcoat = 1;
-
-child.material.clearcoatRoughness = 0.05;
+child.material.needsUpdate =
+true;
 
 }
 
@@ -428,24 +396,17 @@ child.material.clearcoatRoughness = 0.05;
 scene.add(guitar);
 
 console.log(
-"Guitare Premium chargée"
+"Guitar loaded successfully"
 );
 
 },
 
-(xhr)=>{
-
-console.log(
-(xhr.loaded / xhr.total * 100)
-+ "% chargé"
-);
-
-},
+undefined,
 
 (error)=>{
 
-console.log(
-"Erreur GLB :",
+console.error(
+"GLB ERROR :",
 error
 );
 
@@ -453,38 +414,56 @@ error
 
 );
 
-/* ===================================================
-MOUSE INTERACTION
-=================================================== */
+/* ==================================================
+MOUSE + TOUCH
+================================================== */
 
 window.addEventListener(
 "mousemove",
 (e)=>{
 
-const mouseX =
-(e.clientX / window.innerWidth)
-- 0.5;
+targetX =
+(e.clientX /
+window.innerWidth - 0.5);
 
-targetRotation =
-mouseX * Math.PI * 0.9;
+targetY =
+(e.clientY /
+window.innerHeight - 0.5);
 
 }
 );
 
-/* ===================================================
+window.addEventListener(
+"touchmove",
+(e)=>{
+
+targetX =
+(e.touches[0].clientX /
+window.innerWidth - 0.5);
+
+targetY =
+(e.touches[0].clientY /
+window.innerHeight - 0.5);
+
+}
+);
+
+/* ==================================================
 CLOCK
-=================================================== */
+================================================== */
 
 const clock =
 new THREE.Clock();
 
-/* ===================================================
+/* ==================================================
 ANIMATION
-=================================================== */
+================================================== */
 
 function animate(){
 
-requestAnimationFrame(animate);
+requestAnimationFrame(
+animate
+);
 
 const elapsed =
 clock.getElapsedTime();
@@ -493,115 +472,81 @@ clock.getElapsedTime();
 
 if(guitar){
 
-/* SMOOTH ROTATION */
+/* AUTO ROTATION */
 
-currentRotation +=
-(targetRotation - currentRotation)
-* 0.04;
+guitar.rotation.y += 0.003;
 
-guitar.rotation.y =
-currentRotation;
+/* INTERACTION */
 
-/* FLOATING */
+guitar.rotation.y +=
+(targetX * 0.02);
+
+guitar.rotation.x =
+targetY * 0.15;
+
+/* FLOAT */
 
 guitar.position.y =
--1.4 +
-Math.sin(elapsed*1.5)
-*0.16;
+-1 +
+Math.sin(elapsed * 1.8)
+* 0.15;
 
 /* TILT */
 
 guitar.rotation.z =
 Math.sin(elapsed)
-*0.04;
-
-/* ENERGY */
-
-guitar.rotation.x =
-Math.sin(elapsed*0.5)
-*0.02;
+* 0.03;
 
 }
 
-/* LIGHTS ANIMATION */
+/* LIGHTS */
 
-goldLight.intensity =
-115 +
-Math.sin(elapsed*2)
-*15;
+mainLight.intensity =
+210 +
+Math.sin(elapsed * 2)
+* 20;
 
 blueLight.intensity =
-45 +
-Math.sin(elapsed*1.5)
-*8;
+35 +
+Math.sin(elapsed)
+* 5;
 
-/* RING */
+/* PLATFORM */
 
-energyRing.rotation.z +=
-0.004;
-
-energyRing.material.opacity =
-0.65 +
-Math.sin(elapsed*3)
-*0.15;
+platform.rotation.z +=
+0.003;
 
 /* PARTICLES */
 
 particles.rotation.y +=
-0.0007;
+0.0005;
 
-/* SMOKE */
-
-smokeAura.rotation.y +=
-0.002;
-
-smokeAura.scale.set(
-
-1 + Math.sin(elapsed*1.5)*0.04,
-
-1 + Math.sin(elapsed*1.5)*0.04,
-
-1 + Math.sin(elapsed*1.5)*0.04
-
-);
-
-/* NOTES FLOAT */
-
-notes.forEach((note,index)=>{
-
-note.position.y +=
-Math.sin(
-elapsed + index
-)*0.002;
-
-note.rotation.y += 0.02;
-
-});
-
-/* CAMERA CINEMATIC */
+/* CAMERA */
 
 camera.position.x =
-Math.sin(elapsed*0.25)
-*0.25;
+Math.sin(elapsed * 0.3)
+* 0.2;
 
-camera.position.y =
-0.6 +
-Math.sin(elapsed*0.4)
-*0.08;
-
-camera.lookAt(0,0,0);
+camera.lookAt(
+0,
+0,
+0
+);
 
 /* RENDER */
 
-renderer.render(scene,camera);
+renderer.render(
+scene,
+camera
+);
 
 }
 
 animate();
 
-/* ===================================================
+/* ==================================================
 RESIZE
-=================================================== */
+================================================== */
 
 window.addEventListener(
 "resize",
