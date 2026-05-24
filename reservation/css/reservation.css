@@ -1546,3 +1546,241 @@ box-shadow:
 }
 
 }
+/* ==================================================
+BOOKING SECTION LAYOUT
+================================================== */
+
+.booking-section{
+position:relative;
+width:100%;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:space-between;
+overflow:hidden;
+
+background:
+radial-gradient(circle at top right,
+rgba(255,215,0,0.10),
+transparent 35%),
+
+radial-gradient(circle at bottom left,
+rgba(59,130,246,0.08),
+transparent 35%),
+
+#050505;
+}
+
+/* ==================================================
+LEFT CONTENT
+================================================== */
+
+.booking-left{
+position:relative;
+width:45%;
+min-height:100vh;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+padding:40px;
+z-index:5;
+}
+
+/* ==================================================
+RIGHT 3D SIDE
+================================================== */
+
+.booking-right{
+position:relative;
+width:55%;
+height:100vh;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+overflow:hidden;
+
+z-index:1;
+}
+
+/* ==================================================
+WEBGL CANVAS
+================================================== */
+
+#webgl{
+position:absolute;
+
+top:0;
+right:0;
+
+width:100%;
+height:100%;
+
+display:block;
+
+/* IMPORTANT */
+
+pointer-events:none;
+opacity:1;
+
+/* PREMIUM DEPTH */
+
+filter:
+drop-shadow(0 0 40px rgba(255,215,0,0.35))
+drop-shadow(0 0 90px rgba(255,120,0,0.18));
+
+/* BIG MODEL */
+
+transform:
+scale(1.2);
+
+}
+
+/* ==================================================
+PREMIUM LIGHT FX
+================================================== */
+
+.booking-right::before{
+content:"";
+
+position:absolute;
+
+width:800px;
+height:800px;
+
+background:
+radial-gradient(circle,
+rgba(255,215,0,0.14),
+transparent 70%);
+
+filter:blur(70px);
+
+animation:premiumGlow 6s ease-in-out infinite;
+
+z-index:0;
+}
+
+@keyframes premiumGlow{
+
+0%{
+transform:scale(1);
+opacity:0.5;
+}
+
+50%{
+transform:scale(1.12);
+opacity:1;
+}
+
+100%{
+transform:scale(1);
+opacity:0.5;
+}
+
+}
+
+/* ==================================================
+GLASS CARD
+================================================== */
+
+.booking-card{
+position:relative;
+
+width:100%;
+max-width:540px;
+
+padding:40px;
+
+border-radius:32px;
+
+background:
+rgba(255,255,255,0.05);
+
+border:
+1px solid rgba(255,255,255,0.08);
+
+backdrop-filter:blur(20px);
+
+box-shadow:
+0 0 50px rgba(0,0,0,0.5),
+0 0 20px rgba(255,215,0,0.08);
+
+z-index:10;
+}
+
+/* ==================================================
+TABLET RESPONSIVE
+================================================== */
+
+@media(max-width:1100px){
+
+.booking-section{
+flex-direction:column-reverse;
+}
+
+.booking-right{
+width:100%;
+height:55vh;
+}
+
+.booking-left{
+width:100%;
+min-height:auto;
+padding:20px;
+margin-top:-40px;
+}
+
+#webgl{
+transform:scale(1);
+}
+
+}
+
+/* ==================================================
+MOBILE RESPONSIVE
+================================================== */
+
+@media(max-width:768px){
+
+.booking-right{
+height:42vh;
+}
+
+.booking-left{
+padding:16px;
+}
+
+.booking-card{
+padding:24px;
+border-radius:24px;
+}
+
+#webgl{
+
+transform:scale(0.9);
+
+filter:
+drop-shadow(0 0 20px rgba(255,215,0,0.25));
+
+}
+
+}
+
+/* ==================================================
+SMALL MOBILE
+================================================== */
+
+@media(max-width:480px){
+
+.booking-right{
+height:35vh;
+}
+
+#webgl{
+transform:scale(0.78);
+}
+
+}
