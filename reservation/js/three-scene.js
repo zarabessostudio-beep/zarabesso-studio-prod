@@ -1,8 +1,8 @@
 /* ==================================================
 ZARABESSO STUDIO
-ULTRA CINEMATIC FLOATING GUITAR
-MEGA PREMIUM CENTER VERSION
-+40% BIGGER EDITION
+TITAN CINEMATIC GUITAR
+ULTRA PREMIUM MASSIVE VERSION
++65% BIGGER • TOUCH + MOUSE INTERACTIVE
 ================================================== */
 
 /* ==================================================
@@ -13,31 +13,22 @@ const canvas =
 document.getElementById("webgl");
 
 /* ==================================================
-HERO
-================================================== */
-
-const hero =
-document.querySelector(".reservation-hero");
-
-/* ==================================================
 CANVAS STYLE
 ================================================== */
 
 canvas.style.position = "absolute";
 
-canvas.style.top = "0";
-
-canvas.style.left = "0";
+canvas.style.inset = "0";
 
 canvas.style.width = "100%";
 
 canvas.style.height = "100%";
 
-/* ABOVE ALL */
+/* VERY TOP */
 
-canvas.style.zIndex = "600";
+canvas.style.zIndex = "900";
 
-/* INTERACTIVE */
+/* FULL INTERACTION */
 
 canvas.style.pointerEvents = "auto";
 
@@ -56,19 +47,19 @@ CAMERA
 
 const camera =
 new THREE.PerspectiveCamera(
-36,
+34,
 window.innerWidth /
 window.innerHeight,
 0.1,
 1000
 );
 
-/* MORE DEPTH */
+/* CINEMATIC DEPTH */
 
 camera.position.set(
 0,
 0,
-10
+11
 );
 
 /* ==================================================
@@ -122,7 +113,7 @@ LIGHTS
 const ambient =
 new THREE.AmbientLight(
 0xffffff,
-3
+3.5
 );
 
 scene.add(ambient);
@@ -131,15 +122,15 @@ scene.add(ambient);
 
 const goldLight =
 new THREE.PointLight(
-0xffcc66,
-24,
-30
+0xffd166,
+30,
+40
 );
 
 goldLight.position.set(
-2,
-4,
-6
+3,
+5,
+8
 );
 
 scene.add(goldLight);
@@ -149,14 +140,14 @@ scene.add(goldLight);
 const purpleLight =
 new THREE.PointLight(
 0xbb00ff,
-26,
-30
+35,
+45
 );
 
 purpleLight.position.set(
--4,
-3,
-5
+-5,
+4,
+6
 );
 
 scene.add(purpleLight);
@@ -166,14 +157,14 @@ scene.add(purpleLight);
 const pinkLight =
 new THREE.PointLight(
 0xff0088,
-22,
-30
+28,
+40
 );
 
 pinkLight.position.set(
-5,
--1,
-5
+6,
+-2,
+6
 );
 
 scene.add(pinkLight);
@@ -183,37 +174,37 @@ scene.add(pinkLight);
 const frontLight =
 new THREE.DirectionalLight(
 0xffffff,
-3.5
+4
 );
 
 frontLight.position.set(
 0,
-2,
-8
+3,
+10
 );
 
 scene.add(frontLight);
 
 /* ==================================================
 RESPONSIVE SCALE
-+40% BIGGER
++65% BIGGER
 ================================================== */
 
 function getScale(){
 
 if(window.innerWidth < 600){
 
-return 1.45;
+return 2.1;
 
 }
 
 if(window.innerWidth < 1000){
 
-return 1.9;
+return 2.8;
 
 }
 
-return 2.4;
+return 3.9;
 
 }
 
@@ -225,6 +216,84 @@ const loader =
 new THREE.GLTFLoader();
 
 let guitar;
+
+/* ==================================================
+INTERACTION
+================================================== */
+
+let targetRotationY = 0;
+let targetRotationX = 0;
+
+let mouseX = 0;
+let mouseY = 0;
+
+/* ==================================================
+MOUSE
+================================================== */
+
+window.addEventListener(
+"mousemove",
+(e)=>{
+
+mouseX =
+(
+e.clientX /
+window.innerWidth
+- 0.5
+);
+
+mouseY =
+(
+e.clientY /
+window.innerHeight
+- 0.5
+);
+
+/* STRONGER INTERACTION */
+
+targetRotationY =
+mouseX * 1.4;
+
+targetRotationX =
+mouseY * 0.7;
+
+}
+);
+
+/* ==================================================
+TOUCH MOBILE
+================================================== */
+
+window.addEventListener(
+"touchmove",
+(e)=>{
+
+const touch =
+e.touches[0];
+
+mouseX =
+(
+touch.clientX /
+window.innerWidth
+- 0.5
+);
+
+mouseY =
+(
+touch.clientY /
+window.innerHeight
+- 0.5
+);
+
+targetRotationY =
+mouseX * 1.4;
+
+targetRotationX =
+mouseY * 0.7;
+
+},
+{ passive:true }
+);
 
 /* ==================================================
 LOAD MODEL
@@ -239,7 +308,7 @@ loader.load(
 guitar = gltf.scene;
 
 /* ==================================================
-BIG SCALE
+MEGA SCALE
 ================================================== */
 
 const scale =
@@ -253,12 +322,12 @@ scale
 
 /* ==================================================
 POSITION
-CENTER RIGHT PREMIUM
+70% SCREEN AREA
 ================================================== */
 
 guitar.position.set(
-2.2,
-1.9,
+1.2,
+2.6,
 0
 );
 
@@ -267,7 +336,7 @@ ROTATION
 ================================================== */
 
 guitar.rotation.y =
--0.45;
+-0.35;
 
 /* ==================================================
 MATERIAL BOOST
@@ -294,13 +363,13 @@ false;
 child.material.opacity = 1;
 
 child.material.metalness =
-0.3;
+0.35;
 
 child.material.roughness =
-0.42;
+0.38;
 
 child.material.envMapIntensity =
-1.8;
+2;
 
 child.material.needsUpdate =
 true;
@@ -318,7 +387,7 @@ ADD
 scene.add(guitar);
 
 console.log(
-"PREMIUM GUITAR READY"
+"TITAN GUITAR READY"
 );
 
 },
@@ -352,35 +421,6 @@ error
 );
 
 /* ==================================================
-MOUSE INTERACTION
-================================================== */
-
-let mouseX = 0;
-
-let mouseY = 0;
-
-window.addEventListener(
-"mousemove",
-(e)=>{
-
-mouseX =
-(
-e.clientX /
-window.innerWidth
-- 0.5
-);
-
-mouseY =
-(
-e.clientY /
-window.innerHeight
-- 0.5
-);
-
-}
-);
-
-/* ==================================================
 CLOCK
 ================================================== */
 
@@ -409,30 +449,38 @@ if(guitar){
 /* FLOAT */
 
 guitar.position.y =
-1.9 +
+2.6 +
 Math.sin(
-elapsed * 1.3
-) * 0.22;
+elapsed * 1.2
+) * 0.28;
 
-/* ROTATION */
-
-guitar.rotation.y +=
-0.0028;
-
-/* MOUSE */
+/* SMOOTH INTERACTION */
 
 guitar.rotation.y +=
-mouseX * 0.014;
+(
+targetRotationY -
+guitar.rotation.y
+) * 0.03;
 
-guitar.rotation.x =
-mouseY * 0.11;
+/* X AXIS */
+
+guitar.rotation.x +=
+(
+targetRotationX -
+guitar.rotation.x
+) * 0.03;
+
+/* AUTO MOTION */
+
+guitar.rotation.y +=
+0.003;
 
 /* PREMIUM TILT */
 
 guitar.rotation.z =
 Math.sin(
-elapsed * 0.9
-) * 0.04;
+elapsed * 1.1
+) * 0.05;
 
 }
 
@@ -478,7 +526,7 @@ window.innerWidth,
 window.innerHeight
 );
 
-/* RESPONSIVE */
+/* RESPONSIVE SCALE */
 
 if(guitar){
 
