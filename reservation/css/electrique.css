@@ -1,27 +1,24 @@
 /* =========================================================
 ZARABESSO STUDIO
 FREE FLOATING ELECTRIC GUITAR
-ULTRA PREMIUM VERSION
-50% SMALLER THAN MAIN GUITAR
+ULTRA CINEMATIC PREMIUM
 ========================================================= */
 
 /* =========================================================
-SAFE HERO CONTAINER
-IMPORTANT:
-Permet à la guitare de sortir librement
-du layout sans être coupée
+IMPORTANT
+LAISSE LE MODEL SORTIR LIBREMENT
 ========================================================= */
 
-.reservation-container{
-
-position:relative;
+.reservation-container,
+.reservation-hero,
+.booking-left{
 
 overflow:visible;
 
 }
 
 /* =========================================================
-FREE FLOATING ELECTRIC GUITAR
+FREE ELECTRIC GUITAR CONTAINER
 ========================================================= */
 
 .hero-electric-guitar{
@@ -29,73 +26,59 @@ FREE FLOATING ELECTRIC GUITAR
 position:absolute;
 
 /* =========================================================
-POSITION
+POSITION LIBRE
 ========================================================= */
 
 /*
-PLACE LA GUITARE
-À DROITE DU H1
-SANS TOUCHER LE TITRE
+PLACEMENT :
+À DROITE DU TITRE
+SANS TOUCHER LE H1
 */
 
-top:-60px;
+top:-140px;
 
-right:2%;
+right:-4%;
 
 /* =========================================================
-SIZE
+ZONE DE RENDU
 ========================================================= */
 
 /*
-50% PLUS PETITE
-QUE LA GROSSE GUITARE PRINCIPALE
+ZONE PLUS GRANDE
+POUR LAISSER RESPIRER
+LE GLB
 */
 
-width:260px;
-height:260px;
-
-/* =========================================================
-SAFE LAYER
-========================================================= */
-
-z-index:120;
+width:680px;
+height:680px;
 
 /* =========================================================
 IMPORTANT
 ========================================================= */
 
-/*
-LAISSE LA GUITARE
-SORTIR LIBREMENT
-DU CADRE
-*/
+z-index:150;
 
 overflow:visible;
-
-/*
-PERMET LES INTERACTIONS 3D
-*/
 
 pointer-events:auto;
 
 /* =========================================================
-GPU PERFORMANCE
+GPU
 ========================================================= */
 
-transform:translate3d(0,0,0);
+transform-style:preserve-3d;
+
+transform:
+translate3d(0,0,0);
 
 will-change:
 transform,
 opacity;
 
-backface-visibility:hidden;
-
--webkit-backface-visibility:hidden;
-
 }
 
 /* =========================================================
-WEBGL CANVAS
+WEBGL
 ========================================================= */
 
 #webgl-electric{
@@ -107,42 +90,46 @@ inset:0;
 width:100% !important;
 height:100% !important;
 
-display:block;
-
 background:transparent;
 
+display:block;
+
 /* =========================================================
-PREMIUM OLED SHADOWS
+PREMIUM OLED SHADOW
 ========================================================= */
 
 filter:
 
 drop-shadow(
-0 0 35px rgba(255,180,0,.22)
+0 0 40px rgba(255,180,0,.18)
 )
 
 drop-shadow(
-0 0 80px rgba(255,0,120,.14)
+0 0 90px rgba(255,0,120,.14)
 )
 
 drop-shadow(
-0 0 120px rgba(59,130,246,.12)
+0 0 150px rgba(59,130,246,.12)
+)
+
+drop-shadow(
+0 0 220px rgba(255,180,0,.10)
 );
 
 /* =========================================================
 GPU
 ========================================================= */
 
-transform:translateZ(0);
+transform:
+translateZ(0);
 
 will-change:
-transform,
-opacity;
+transform;
 
 }
 
 /* =========================================================
-FREE CINEMATIC AURA
+MEGA CINEMATIC AURA
 ========================================================= */
 
 .hero-electric-guitar::before{
@@ -151,35 +138,34 @@ content:"";
 
 position:absolute;
 
-/*
-L'AURA DÉBORDE
-AUTOUR DE LA GUITARE
-*/
+/* =========================================================
+AURA QUI DÉBORDE
+========================================================= */
 
-top:-25%;
-left:-25%;
+top:-20%;
+left:-20%;
 
-width:150%;
-height:150%;
+width:140%;
+height:140%;
 
 border-radius:50%;
 
 /* =========================================================
-PREMIUM RGB LIGHT
+MULTI RGB LIGHT
 ========================================================= */
 
 background:
 
 radial-gradient(
 circle,
-rgba(255,180,0,.16),
-transparent 38%
+rgba(255,180,0,.18),
+transparent 35%
 ),
 
 radial-gradient(
 circle,
 rgba(255,0,120,.10),
-transparent 60%
+transparent 55%
 ),
 
 radial-gradient(
@@ -188,23 +174,23 @@ rgba(59,130,246,.12),
 transparent 75%
 );
 
-filter:blur(70px);
+filter:blur(100px);
 
 pointer-events:none;
 
-z-index:-1;
+z-index:-2;
 
 /* =========================================================
 ANIMATION
 ========================================================= */
 
 animation:
-electricAuraFloat 8s ease-in-out infinite;
+electricAuraFloat 9s ease-in-out infinite;
 
 }
 
 /* =========================================================
-SECOND LIGHT
+SECONDARY LIGHT
 ========================================================= */
 
 .hero-electric-guitar::after{
@@ -213,10 +199,10 @@ content:"";
 
 position:absolute;
 
-width:180px;
-height:180px;
+width:260px;
+height:260px;
 
-top:15%;
+top:20%;
 right:10%;
 
 border-radius:50%;
@@ -224,18 +210,18 @@ border-radius:50%;
 background:
 radial-gradient(
 circle,
-rgba(255,255,255,.10),
+rgba(255,255,255,.08),
 transparent 70%
 );
 
-filter:blur(50px);
+filter:blur(60px);
 
 pointer-events:none;
 
 z-index:-1;
 
 animation:
-electricLightMove 10s ease-in-out infinite;
+electricLightMove 11s ease-in-out infinite;
 
 }
 
@@ -258,8 +244,8 @@ opacity:.65;
 50%{
 
 transform:
-translateY(-12px)
-scale(1.06);
+translateY(-20px)
+scale(1.08);
 
 opacity:1;
 
@@ -272,16 +258,20 @@ opacity:1;
 0%,100%{
 
 transform:
+translateX(0px)
+translateY(0px)
 scale(1);
 
-opacity:.45;
+opacity:.4;
 
 }
 
 50%{
 
 transform:
-scale(1.12);
+translateX(-10px)
+translateY(-12px)
+scale(1.15);
 
 opacity:.8;
 
@@ -297,17 +287,12 @@ LAPTOP
 
 .hero-electric-guitar{
 
-/*
-RÉDUCTION AUTOMATIQUE
-SUR PETIT LAPTOP
-*/
+width:560px;
+height:560px;
 
-width:220px;
-height:220px;
+top:-90px;
 
-top:-20px;
-
-right:1%;
+right:-6%;
 
 }
 
@@ -321,16 +306,12 @@ TABLET
 
 .hero-electric-guitar{
 
-/*
-VERSION TABLETTE
-*/
+width:420px;
+height:420px;
 
-width:190px;
-height:190px;
+top:-30px;
 
-top:20px;
-
-right:2%;
+right:-8%;
 
 }
 
@@ -344,16 +325,10 @@ MOBILE
 
 .hero-electric-guitar{
 
-/*
-SUR MOBILE
-LA GUITARE PASSE
-AU CENTRE
-*/
+width:300px;
+height:300px;
 
-width:170px;
-height:170px;
-
-top:-10px;
+top:-40px;
 
 left:50%;
 right:auto;
@@ -375,14 +350,10 @@ SMALL MOBILE IOS
 
 .hero-electric-guitar{
 
-/*
-VERSION iPHONE
-*/
+width:240px;
+height:240px;
 
-width:140px;
-height:140px;
-
-top:10px;
+top:-10px;
 
 left:50%;
 
@@ -404,6 +375,10 @@ IOS SAFE
 
 transform:
 translate3d(0,0,0);
+
+backface-visibility:hidden;
+
+-webkit-backface-visibility:hidden;
 
 }
 

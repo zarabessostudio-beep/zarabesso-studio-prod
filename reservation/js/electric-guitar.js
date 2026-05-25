@@ -1,13 +1,17 @@
 /* =========================================================
 ZARABESSO STUDIO
-ELECTRIC GUITAR ENGINE
-FINAL STABLE VERSION
+FREE FLOATING ELECTRIC GUITAR
+ULTRA PREMIUM ENGINE
 ========================================================= */
 
 const electricCanvas =
-document.getElementById("webgl-electric");
+document.getElementById(
+"webgl-electric"
+);
 
-/* SAFETY */
+/* =========================================================
+SAFE START
+========================================================= */
 
 if(electricCanvas){
 
@@ -24,17 +28,21 @@ CAMERA
 
 const electricCamera =
 new THREE.PerspectiveCamera(
-30,
+28,
 electricCanvas.clientWidth /
 electricCanvas.clientHeight,
 0.1,
 1000
 );
 
+/* =========================================================
+CAMERA POSITION
+========================================================= */
+
 electricCamera.position.set(
 0,
 0,
-6
+7
 );
 
 /* =========================================================
@@ -63,6 +71,15 @@ electricCanvas.clientHeight
 electricRenderer.outputEncoding =
 THREE.sRGBEncoding;
 
+electricRenderer.physicallyCorrectLights =
+true;
+
+electricRenderer.toneMapping =
+THREE.ACESFilmicToneMapping;
+
+electricRenderer.toneMappingExposure =
+1.4;
+
 /* =========================================================
 LIGHTS
 ========================================================= */
@@ -75,35 +92,56 @@ new THREE.AmbientLight(
 
 electricScene.add(ambient);
 
+/* GOLD */
+
 const gold =
 new THREE.PointLight(
 0xffcc66,
 5,
-25
+30
 );
 
 gold.position.set(
-4,
-4,
-5
+5,
+5,
+6
 );
 
 electricScene.add(gold);
 
+/* BLUE */
+
 const blue =
 new THREE.PointLight(
 0x3b82f6,
+2.5,
+25
+);
+
+blue.position.set(
+-5,
+-2,
+5
+);
+
+electricScene.add(blue);
+
+/* PINK */
+
+const pink =
+new THREE.PointLight(
+0xff0088,
 2,
 20
 );
 
-blue.position.set(
--4,
--2,
-4
+pink.position.set(
+0,
+4,
+-2
 );
 
-electricScene.add(blue);
+electricScene.add(pink);
 
 /* =========================================================
 LOADER
@@ -115,7 +153,7 @@ new THREE.GLTFLoader();
 let electricGuitar = null;
 
 /* =========================================================
-LOAD MODEL
+LOAD GLB
 ========================================================= */
 
 loader.load(
@@ -127,20 +165,27 @@ loader.load(
 electricGuitar =
 gltf.scene;
 
-/* MATERIALS */
+/* =========================================================
+KEEP ORIGINAL GLB LOOK
+========================================================= */
 
 electricGuitar.traverse((child)=>{
 
 if(child.isMesh){
 
 child.castShadow = true;
+
 child.receiveShadow = true;
 
 if(child.material){
 
-child.material.metalness = 0.45;
-child.material.roughness = 0.38;
-child.material.envMapIntensity = 1.5;
+child.material.metalness = 0.42;
+
+child.material.roughness = 0.35;
+
+child.material.envMapIntensity = 1.8;
+
+child.material.needsUpdate = true;
 
 }
 
@@ -149,13 +194,19 @@ child.material.envMapIntensity = 1.5;
 });
 
 /* =========================================================
-SIZE
+ORIGINAL GLB SIZE
 ========================================================= */
 
+/*
+ICI :
+ON GARDE UNE TAILLE
+PROCHE DU GLB ORIGINAL
+*/
+
 electricGuitar.scale.set(
-1.8,
-1.8,
-1.8
+2.8,
+2.8,
+2.8
 );
 
 /* =========================================================
@@ -163,8 +214,8 @@ POSITION
 ========================================================= */
 
 electricGuitar.position.set(
-0.4,
--0.45,
+0.8,
+-0.2,
 0
 );
 
@@ -173,9 +224,9 @@ ROTATION
 ========================================================= */
 
 electricGuitar.rotation.set(
-0.15,
--0.8,
-0.05
+0.18,
+-0.9,
+0.06
 );
 
 electricScene.add(
@@ -220,11 +271,15 @@ window.innerHeight - 0.5);
 );
 
 /* =========================================================
-ANIMATION
+CLOCK
 ========================================================= */
 
 const clock =
 new THREE.Clock();
+
+/* =========================================================
+ANIMATION
+========================================================= */
 
 function animate(){
 
@@ -237,33 +292,62 @@ clock.getElapsedTime();
 
 if(electricGuitar){
 
-/* FLOAT */
+/* =========================================================
+FREE FLOAT
+========================================================= */
 
 electricGuitar.position.y =
--0.45 +
-Math.sin(time*1.8)*0.05;
+-0.2 +
+Math.sin(time * 1.4) * 0.16;
 
-/* AUTO ROTATION */
+/* =========================================================
+FREE SPACE MOVEMENT
+========================================================= */
+
+electricGuitar.position.x =
+0.8 +
+Math.sin(time * 0.7) * 0.18;
+
+/* =========================================================
+AUTO ROTATION
+========================================================= */
 
 electricGuitar.rotation.y +=
-0.0015;
+0.0018;
 
-/* PARALLAX */
+/* =========================================================
+PARALLAX
+========================================================= */
 
 electricGuitar.rotation.x =
-mouseY * 0.08;
+mouseY * 0.16;
 
 electricGuitar.rotation.z =
-mouseX * 0.05;
+mouseX * 0.08;
+
+/* =========================================================
+SMOOTH CAMERA
+========================================================= */
+
+electricCamera.position.x +=
+(mouseX * 0.5
+- electricCamera.position.x)
+* 0.02;
+
+electricCamera.position.y +=
+(-mouseY * 0.2
+- electricCamera.position.y)
+* 0.02;
+
+electricCamera.lookAt(
+electricGuitar.position
+);
 
 }
 
-/* CAMERA */
-
-electricCamera.position.x +=
-(mouseX * 0.25
-- electricCamera.position.x)
-* 0.02;
+/* =========================================================
+RENDER
+========================================================= */
 
 electricRenderer.render(
 electricScene,
