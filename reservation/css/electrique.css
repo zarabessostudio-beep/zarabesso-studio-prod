@@ -1,12 +1,15 @@
 /* =========================================================
 ZARABESSO STUDIO
-ULTRA PREMIUM ELECTRIC GUITAR
-FINAL SAFE RESPONSIVE VERSION
-IOS + MOBILE + TABLET SAFE
+FREE FLOATING ELECTRIC GUITAR
+ULTRA PREMIUM VERSION
+50% SMALLER THAN MAIN GUITAR
 ========================================================= */
 
 /* =========================================================
-SAFE CONTAINER
+SAFE HERO CONTAINER
+IMPORTANT:
+Permet à la guitare de sortir librement
+du layout sans être coupée
 ========================================================= */
 
 .reservation-container{
@@ -18,35 +21,66 @@ overflow:visible;
 }
 
 /* =========================================================
-SECOND ELECTRIC GUITAR
+FREE FLOATING ELECTRIC GUITAR
 ========================================================= */
 
 .hero-electric-guitar{
 
 position:absolute;
 
-/* POSITION */
+/* =========================================================
+POSITION
+========================================================= */
 
-top:-10px;
+/*
+PLACE LA GUITARE
+À DROITE DU H1
+SANS TOUCHER LE TITRE
+*/
 
-right:4%;
+top:-60px;
 
-/* PERFECT SIZE */
+right:2%;
 
-width:340px;
-height:340px;
+/* =========================================================
+SIZE
+========================================================= */
 
-/* LAYER */
+/*
+50% PLUS PETITE
+QUE LA GROSSE GUITARE PRINCIPALE
+*/
 
-z-index:80;
+width:260px;
+height:260px;
 
-/* SAFE */
+/* =========================================================
+SAFE LAYER
+========================================================= */
+
+z-index:120;
+
+/* =========================================================
+IMPORTANT
+========================================================= */
+
+/*
+LAISSE LA GUITARE
+SORTIR LIBREMENT
+DU CADRE
+*/
 
 overflow:visible;
 
-pointer-events:none;
+/*
+PERMET LES INTERACTIONS 3D
+*/
 
-/* GPU */
+pointer-events:auto;
+
+/* =========================================================
+GPU PERFORMANCE
+========================================================= */
 
 transform:translate3d(0,0,0);
 
@@ -61,12 +95,14 @@ backface-visibility:hidden;
 }
 
 /* =========================================================
-SECOND WEBGL
+WEBGL CANVAS
 ========================================================= */
 
 #webgl-electric{
 
-position:relative;
+position:absolute;
+
+inset:0;
 
 width:100% !important;
 height:100% !important;
@@ -75,53 +111,38 @@ display:block;
 
 background:transparent;
 
-/* SAFE */
+/* =========================================================
+PREMIUM OLED SHADOWS
+========================================================= */
 
-outline:none;
+filter:
 
-border:none;
+drop-shadow(
+0 0 35px rgba(255,180,0,.22)
+)
 
-/* GPU */
+drop-shadow(
+0 0 80px rgba(255,0,120,.14)
+)
 
-transform:translate3d(0,0,0);
+drop-shadow(
+0 0 120px rgba(59,130,246,.12)
+);
+
+/* =========================================================
+GPU
+========================================================= */
+
+transform:translateZ(0);
 
 will-change:
 transform,
 opacity;
 
-/* CINEMATIC SHADOW */
-
-filter:
-
-drop-shadow(
-0 0 35px rgba(255,180,0,.18)
-)
-
-drop-shadow(
-0 0 80px rgba(255,0,120,.12)
-)
-
-drop-shadow(
-0 0 120px rgba(59,130,246,.10)
-);
-
 }
 
 /* =========================================================
-CANVAS FIX
-========================================================= */
-
-.hero-electric-guitar canvas{
-
-width:100% !important;
-height:100% !important;
-
-display:block;
-
-}
-
-/* =========================================================
-CINEMATIC AURA
+FREE CINEMATIC AURA
 ========================================================= */
 
 .hero-electric-guitar::before{
@@ -130,38 +151,55 @@ content:"";
 
 position:absolute;
 
-inset:0;
+/*
+L'AURA DÉBORDE
+AUTOUR DE LA GUITARE
+*/
+
+top:-25%;
+left:-25%;
+
+width:150%;
+height:150%;
 
 border-radius:50%;
+
+/* =========================================================
+PREMIUM RGB LIGHT
+========================================================= */
 
 background:
 
 radial-gradient(
-circle at center,
-rgba(255,180,0,.14),
-transparent 42%
+circle,
+rgba(255,180,0,.16),
+transparent 38%
 ),
 
 radial-gradient(
-circle at top,
-rgba(255,0,120,.08),
-transparent 58%
+circle,
+rgba(255,0,120,.10),
+transparent 60%
 ),
 
 radial-gradient(
-circle at bottom,
-rgba(59,130,246,.10),
-transparent 68%
+circle,
+rgba(59,130,246,.12),
+transparent 75%
 );
 
-filter:blur(80px);
+filter:blur(70px);
 
 pointer-events:none;
 
 z-index:-1;
 
+/* =========================================================
+ANIMATION
+========================================================= */
+
 animation:
-electricAura 8s ease-in-out infinite;
+electricAuraFloat 8s ease-in-out infinite;
 
 }
 
@@ -175,10 +213,10 @@ content:"";
 
 position:absolute;
 
-width:220px;
-height:220px;
+width:180px;
+height:180px;
 
-top:18%;
+top:15%;
 right:10%;
 
 border-radius:50%;
@@ -186,171 +224,18 @@ border-radius:50%;
 background:
 radial-gradient(
 circle,
-rgba(255,255,255,.07),
-transparent 72%
+rgba(255,255,255,.10),
+transparent 70%
 );
 
-filter:blur(60px);
+filter:blur(50px);
 
 pointer-events:none;
 
 z-index:-1;
 
 animation:
-electricLight 10s ease-in-out infinite;
-
-}
-
-/* =========================================================
-FOOTER RGB PREMIUM
-========================================================= */
-
-.premium-footer{
-
-position:relative;
-
-overflow:hidden;
-
-border-top:
-2px solid transparent;
-
-animation:
-footerGlow 12s linear infinite;
-
-}
-
-/* =========================================================
-RGB BORDER
-========================================================= */
-
-.premium-footer::before{
-
-content:"";
-
-position:absolute;
-
-inset:0;
-
-padding:2px;
-
-background:
-linear-gradient(
-90deg,
-#ffd700,
-#ff3300,
-#00ff66,
-#0099ff,
-#ff00aa,
-#7a00ff,
-#8b4513,
-#39ff14,
-#ff1744,
-#ffd700
-);
-
-background-size:400% 400%;
-
-animation:
-rgbBorder 14s linear infinite;
-
--webkit-mask:
-linear-gradient(#fff 0 0) content-box,
-linear-gradient(#fff 0 0);
-
--webkit-mask-composite:xor;
-
-mask-composite:exclude;
-
-pointer-events:none;
-
-}
-
-/* =========================================================
-RGB TITLES
-========================================================= */
-
-.footer-brand h2,
-.footer-links h3,
-.footer-contact h3{
-
-background:
-linear-gradient(
-90deg,
-#ffd700,
-#ff3300,
-#00ff66,
-#0099ff,
-#ff00aa,
-#7a00ff,
-#8b4513,
-#39ff14,
-#ff1744
-);
-
-background-size:300% 300%;
-
--webkit-background-clip:text;
-
--webkit-text-fill-color:transparent;
-
-animation:
-rgbText 10s linear infinite;
-
-}
-
-/* =========================================================
-COPYRIGHT RGB
-========================================================= */
-
-.footer-bottom p{
-
-font-weight:700;
-
-background:
-linear-gradient(
-90deg,
-#ffd700,
-#ff3300,
-#00ff66,
-#0099ff,
-#ff00aa,
-#7a00ff,
-#8b4513,
-#39ff14,
-#ff1744
-);
-
-background-size:300% 300%;
-
--webkit-background-clip:text;
-
--webkit-text-fill-color:transparent;
-
-animation:
-rgbText 10s linear infinite;
-
-}
-
-/* =========================================================
-SOCIALS
-========================================================= */
-
-.socials a{
-
-transition:
-transform .45s ease,
-box-shadow .45s ease;
-
-}
-
-.socials a:hover{
-
-transform:
-translateY(-6px)
-scale(1.08);
-
-box-shadow:
-0 0 25px rgba(255,255,255,.18);
+electricLightMove 10s ease-in-out infinite;
 
 }
 
@@ -358,23 +243,23 @@ box-shadow:
 ANIMATIONS
 ========================================================= */
 
-@keyframes electricAura{
+@keyframes electricAuraFloat{
 
 0%,100%{
 
 transform:
-scale(1)
-translateY(0px);
+translateY(0px)
+scale(1);
 
-opacity:.68;
+opacity:.65;
 
 }
 
 50%{
 
 transform:
-scale(1.06)
-translateY(-10px);
+translateY(-12px)
+scale(1.06);
 
 opacity:1;
 
@@ -382,107 +267,47 @@ opacity:1;
 
 }
 
-@keyframes electricLight{
+@keyframes electricLightMove{
 
 0%,100%{
 
-transform:scale(1);
+transform:
+scale(1);
 
-opacity:.4;
+opacity:.45;
 
 }
 
 50%{
 
-transform:scale(1.12);
+transform:
+scale(1.12);
 
-opacity:.78;
+opacity:.8;
 
-}
-
-}
-
-@keyframes rgbBorder{
-
-0%{
-background-position:0% 50%;
-}
-
-50%{
-background-position:100% 50%;
-}
-
-100%{
-background-position:0% 50%;
-}
-
-}
-
-@keyframes rgbText{
-
-0%{
-background-position:0% 50%;
-}
-
-50%{
-background-position:100% 50%;
-}
-
-100%{
-background-position:0% 50%;
-}
-
-}
-
-@keyframes footerGlow{
-
-0%{
-box-shadow:0 0 25px rgba(255,215,0,.16);
-}
-
-15%{
-box-shadow:0 0 25px rgba(255,80,0,.16);
-}
-
-30%{
-box-shadow:0 0 25px rgba(0,255,120,.16);
-}
-
-45%{
-box-shadow:0 0 25px rgba(0,140,255,.16);
-}
-
-60%{
-box-shadow:0 0 25px rgba(255,0,170,.16);
-}
-
-75%{
-box-shadow:0 0 25px rgba(120,0,255,.16);
-}
-
-90%{
-box-shadow:0 0 25px rgba(57,255,20,.16);
-}
-
-100%{
-box-shadow:0 0 25px rgba(255,23,68,.16);
 }
 
 }
 
 /* =========================================================
-LARGE LAPTOP
+LAPTOP
 ========================================================= */
 
 @media(max-width:1400px){
 
 .hero-electric-guitar{
 
-width:300px;
-height:300px;
+/*
+RÉDUCTION AUTOMATIQUE
+SUR PETIT LAPTOP
+*/
 
-top:10px;
-right:3%;
+width:220px;
+height:220px;
+
+top:-20px;
+
+right:1%;
 
 }
 
@@ -496,10 +321,15 @@ TABLET
 
 .hero-electric-guitar{
 
-width:240px;
-height:240px;
+/*
+VERSION TABLETTE
+*/
+
+width:190px;
+height:190px;
 
 top:20px;
+
 right:2%;
 
 }
@@ -514,13 +344,19 @@ MOBILE
 
 .hero-electric-guitar{
 
-width:210px;
-height:210px;
+/*
+SUR MOBILE
+LA GUITARE PASSE
+AU CENTRE
+*/
+
+width:170px;
+height:170px;
+
+top:-10px;
 
 left:50%;
 right:auto;
-
-top:-10px;
 
 transform:
 translateX(-50%);
@@ -532,17 +368,21 @@ opacity:.96;
 }
 
 /* =========================================================
-SMALL MOBILE
+SMALL MOBILE IOS
 ========================================================= */
 
 @media(max-width:600px){
 
 .hero-electric-guitar{
 
-width:160px;
-height:160px;
+/*
+VERSION iPHONE
+*/
 
-top:15px;
+width:140px;
+height:140px;
+
+top:10px;
 
 left:50%;
 

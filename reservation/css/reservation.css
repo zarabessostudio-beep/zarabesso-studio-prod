@@ -1063,3 +1063,468 @@ min-height:580px;
 }
 
 }
+/* =========================================================
+ZARABESSO STUDIO
+RGB FOOTER PREMIUM
+ANIMATED OLED VERSION
+========================================================= */
+
+/* =========================================================
+PREMIUM FOOTER
+========================================================= */
+
+.premium-footer{
+
+position:relative;
+
+overflow:hidden;
+
+/* =========================================================
+RGB BORDER
+========================================================= */
+
+border-top:
+2px solid transparent;
+
+/* =========================================================
+PREMIUM BACKGROUND
+========================================================= */
+
+background:
+linear-gradient(
+180deg,
+rgba(8,8,10,.96),
+rgba(4,4,6,1)
+);
+
+/* =========================================================
+RGB GLOW ANIMATION
+========================================================= */
+
+animation:
+footerGlow 12s linear infinite;
+
+}
+
+/* =========================================================
+ANIMATED RGB BORDER
+========================================================= */
+
+.premium-footer::before{
+
+content:"";
+
+position:absolute;
+
+inset:0;
+
+padding:2px;
+
+/* =========================================================
+RGB COLORS
+========================================================= */
+
+background:
+linear-gradient(
+90deg,
+
+#ffd700,
+#ff3300,
+#ff0066,
+#00ff88,
+#0099ff,
+#7a00ff,
+#ff00aa,
+#8b4513,
+#39ff14,
+#ff1744,
+#ffd700
+
+);
+
+background-size:400% 400%;
+
+/* =========================================================
+RGB ANIMATION
+========================================================= */
+
+animation:
+rgbBorder 14s linear infinite;
+
+/* =========================================================
+BORDER MASK
+========================================================= */
+
+-webkit-mask:
+linear-gradient(#fff 0 0) content-box,
+linear-gradient(#fff 0 0);
+
+-webkit-mask-composite:xor;
+
+mask-composite:exclude;
+
+pointer-events:none;
+
+z-index:1;
+
+}
+
+/* =========================================================
+PREMIUM FOOTER LIGHT
+========================================================= */
+
+.premium-footer::after{
+
+content:"";
+
+position:absolute;
+
+top:-120px;
+left:50%;
+
+transform:translateX(-50%);
+
+width:600px;
+height:300px;
+
+border-radius:50%;
+
+/* =========================================================
+OLED LIGHT
+========================================================= */
+
+background:
+radial-gradient(
+circle,
+rgba(255,180,0,.10),
+transparent 70%
+);
+
+filter:blur(80px);
+
+pointer-events:none;
+
+animation:
+footerAura 8s ease-in-out infinite;
+
+}
+
+/* =========================================================
+FOOTER TITLES RGB
+========================================================= */
+
+.footer-brand h2,
+.footer-links h3,
+.footer-contact h3{
+
+/* =========================================================
+RGB TEXT
+========================================================= */
+
+background:
+linear-gradient(
+90deg,
+
+#ffd700,
+#ff3300,
+#00ff88,
+#0099ff,
+#ff00aa,
+#7a00ff,
+#39ff14,
+#ff1744
+
+);
+
+background-size:300% 300%;
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
+
+/* =========================================================
+TEXT ANIMATION
+========================================================= */
+
+animation:
+rgbText 8s linear infinite;
+
+/* =========================================================
+PREMIUM TYPO
+========================================================= */
+
+font-weight:700;
+
+letter-spacing:1px;
+
+}
+
+/* =========================================================
+COPYRIGHT RGB
+========================================================= */
+
+.footer-bottom p{
+
+font-weight:700;
+
+letter-spacing:1px;
+
+/* =========================================================
+RGB TEXT
+========================================================= */
+
+background:
+linear-gradient(
+90deg,
+
+#ffd700,
+#ff3300,
+#00ff88,
+#0099ff,
+#ff00aa,
+#7a00ff,
+#39ff14,
+#ff1744
+
+);
+
+background-size:300% 300%;
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
+
+/* =========================================================
+ANIMATION
+========================================================= */
+
+animation:
+rgbText 8s linear infinite;
+
+}
+
+/* =========================================================
+FOOTER LINKS
+========================================================= */
+
+.footer-links a{
+
+position:relative;
+
+transition:
+all .4s ease;
+
+}
+
+/* =========================================================
+LINK HOVER
+========================================================= */
+
+.footer-links a:hover{
+
+color:#fff;
+
+transform:
+translateX(6px);
+
+text-shadow:
+
+0 0 10px rgba(255,255,255,.30),
+0 0 20px rgba(255,0,120,.20);
+
+}
+
+/* =========================================================
+SOCIAL ICONS
+========================================================= */
+
+.socials a{
+
+position:relative;
+
+transition:
+all .45s ease;
+
+}
+
+/* =========================================================
+SOCIAL HOVER
+========================================================= */
+
+.socials a:hover{
+
+transform:
+translateY(-8px)
+scale(1.1);
+
+box-shadow:
+
+0 0 15px rgba(255,255,255,.20),
+0 0 35px rgba(255,0,120,.18);
+
+}
+
+/* =========================================================
+FOOTER LINE
+========================================================= */
+
+.footer-line{
+
+height:1px;
+
+width:100%;
+
+margin-bottom:25px;
+
+/* =========================================================
+RGB LINE
+========================================================= */
+
+background:
+linear-gradient(
+90deg,
+
+transparent,
+#ffd700,
+#ff3300,
+#00ff88,
+#0099ff,
+#ff00aa,
+transparent
+
+);
+
+background-size:300% 300%;
+
+animation:
+rgbLine 8s linear infinite;
+
+}
+
+/* =========================================================
+RGB BORDER ANIMATION
+========================================================= */
+
+@keyframes rgbBorder{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+/* =========================================================
+RGB TEXT ANIMATION
+========================================================= */
+
+@keyframes rgbText{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+/* =========================================================
+RGB LINE ANIMATION
+========================================================= */
+
+@keyframes rgbLine{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+/* =========================================================
+FOOTER RGB GLOW
+========================================================= */
+
+@keyframes footerGlow{
+
+0%{
+box-shadow:0 0 25px rgba(255,215,0,.14);
+}
+
+15%{
+box-shadow:0 0 25px rgba(255,80,0,.14);
+}
+
+30%{
+box-shadow:0 0 25px rgba(0,255,120,.14);
+}
+
+45%{
+box-shadow:0 0 25px rgba(0,140,255,.14);
+}
+
+60%{
+box-shadow:0 0 25px rgba(255,0,170,.14);
+}
+
+75%{
+box-shadow:0 0 25px rgba(120,0,255,.14);
+}
+
+90%{
+box-shadow:0 0 25px rgba(57,255,20,.14);
+}
+
+100%{
+box-shadow:0 0 25px rgba(255,23,68,.14);
+}
+
+}
+
+/* =========================================================
+OLED AURA
+========================================================= */
+
+@keyframes footerAura{
+
+0%,100%{
+
+transform:
+translateX(-50%)
+scale(1);
+
+opacity:.5;
+
+}
+
+50%{
+
+transform:
+translateX(-50%)
+scale(1.08);
+
+opacity:1;
+
+}
+
+}
