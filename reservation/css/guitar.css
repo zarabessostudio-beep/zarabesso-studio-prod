@@ -1,7 +1,7 @@
 /* =========================================================
 ZARABESSO STUDIO
-PREMIUM GUITAR 3D
-SAFE VERSION
+ULTRA PREMIUM GUITAR CSS
+FINAL CINEMATIC VERSION
 ========================================================= */
 
 .booking-right{
@@ -14,7 +14,9 @@ display:flex;
 align-items:center;
 justify-content:center;
 
-min-height:760px;
+min-height:780px;
+
+isolation:isolate;
 
 }
 
@@ -26,15 +28,15 @@ WEBGL
 
 position:absolute;
 
-/* POSITION PREMIUM */
+/* PREMIUM POSITION */
 
-top:-120px;
-right:-180px;
+top:-170px;
+right:-240px;
 
-/* SIZE */
+/* HUGE SIZE */
 
-width:950px !important;
-height:950px !important;
+width:1150px !important;
+height:1150px !important;
 
 /* SAFE */
 
@@ -48,22 +50,34 @@ pointer-events:auto;
 
 touch-action:auto;
 
-/* PERFORMANCE */
+/* GPU */
 
 transform:translateZ(0);
 
-will-change:transform;
+will-change:
+transform,
+opacity;
 
-/* PREMIUM SHADOW */
+/* PREMIUM CINEMATIC SHADOW */
 
 filter:
-drop-shadow(0 0 40px rgba(255,180,0,.25))
-drop-shadow(0 0 90px rgba(255,120,0,.18));
+
+drop-shadow(
+0 0 60px rgba(255,180,0,.22)
+)
+
+drop-shadow(
+0 0 120px rgba(255,120,0,.18)
+)
+
+drop-shadow(
+0 0 180px rgba(255,0,120,.12)
+);
 
 }
 
 /* =========================================================
-AURAS
+CINEMATIC AURA
 ========================================================= */
 
 .booking-right::before{
@@ -72,44 +86,96 @@ content:"";
 
 position:absolute;
 
+width:700px;
+height:700px;
+
+top:-80px;
+right:-80px;
+
+border-radius:50%;
+
+background:
+
+radial-gradient(
+circle,
+rgba(255,180,0,.22),
+transparent 40%
+),
+
+radial-gradient(
+circle,
+rgba(255,0,120,.12),
+transparent 65%
+);
+
+filter:blur(120px);
+
+pointer-events:none;
+
+z-index:1;
+
+animation:
+premiumAura 10s ease-in-out infinite;
+
+}
+
+/* =========================================================
+SECOND LIGHT
+========================================================= */
+
+.booking-right::after{
+
+content:"";
+
+position:absolute;
+
 width:500px;
 height:500px;
 
-top:0;
-right:0;
+bottom:0;
+right:10%;
 
 border-radius:50%;
 
 background:
 radial-gradient(
 circle,
-rgba(255,180,0,.18),
+rgba(59,130,246,.18),
 transparent 70%
 );
 
-filter:blur(80px);
-
-z-index:1;
+filter:blur(100px);
 
 pointer-events:none;
 
-animation:guitarAura 8s ease-in-out infinite;
+z-index:1;
+
+animation:
+premiumAura2 12s ease-in-out infinite;
 
 }
 
-@keyframes guitarAura{
+/* =========================================================
+ANIMATIONS
+========================================================= */
+
+@keyframes premiumAura{
 
 0%,100%{
 
-transform:scale(1);
+transform:
+scale(1)
+translateY(0px);
 
-opacity:.6;
+opacity:.7;
 
 }
 
 50%{
 
-transform:scale(1.1);
+transform:
+scale(1.08)
+translateY(-20px);
 
 opacity:1;
 
@@ -117,8 +183,30 @@ opacity:1;
 
 }
 
+@keyframes premiumAura2{
+
+0%,100%{
+
+transform:
+scale(1);
+
+opacity:.5;
+
+}
+
+50%{
+
+transform:
+scale(1.12);
+
+opacity:.9;
+
+}
+
+}
+
 /* =========================================================
-CARDS ABOVE GUITAR
+CARDS
 ========================================================= */
 
 .floating-card,
@@ -128,6 +216,8 @@ CARDS ABOVE GUITAR
 position:relative;
 
 z-index:20;
+
+backdrop-filter:blur(20px);
 
 }
 
@@ -139,11 +229,11 @@ RESPONSIVE
 
 #webgl{
 
-width:820px !important;
-height:820px !important;
+width:950px !important;
+height:950px !important;
 
-right:-140px;
-top:-80px;
+top:-120px;
+right:-180px;
 
 }
 
@@ -153,11 +243,11 @@ top:-80px;
 
 #webgl{
 
-width:720px !important;
-height:720px !important;
+width:760px !important;
+height:760px !important;
 
+top:-80px;
 right:-120px;
-top:-60px;
 
 }
 
@@ -173,13 +263,14 @@ min-height:620px;
 
 #webgl{
 
-width:520px !important;
-height:520px !important;
+width:560px !important;
+height:560px !important;
 
 left:50%;
 right:auto;
 
-transform:translateX(-50%);
+transform:
+translateX(-50%);
 
 top:-20px;
 
@@ -191,16 +282,16 @@ top:-20px;
 
 .booking-right{
 
-min-height:460px;
+min-height:480px;
 
 }
 
 #webgl{
 
-width:340px !important;
-height:340px !important;
+width:360px !important;
+height:360px !important;
 
-top:20px;
+top:40px;
 
 }
 
