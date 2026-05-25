@@ -1,7 +1,8 @@
 /* =========================================================
 ZARABESSO STUDIO
-FREE GLB ELECTRIC GUITAR
-NO FRAME VERSION
+SHOWROOM ELECTRIC GUITAR
+VERTICAL GLB VERSION
+SMOOTH ROTATION • NO FLOAT
 ========================================================= */
 
 const electricCanvas =
@@ -39,10 +40,16 @@ electricCanvas.clientHeight,
 CAMERA POSITION
 ========================================================= */
 
+/*
+CAMÉRA PLUS LOIN
+POUR VOIR
+TOUTE LA GUITARE
+*/
+
 electricCamera.position.set(
 0,
 0,
-7
+8
 );
 
 /* =========================================================
@@ -72,30 +79,55 @@ electricRenderer.outputEncoding =
 THREE.sRGBEncoding;
 
 /* =========================================================
-PAS DE TONE MAPPING
-POUR UN LOOK GLB NATUREL
-========================================================= */
-
-electricRenderer.toneMappingExposure =
-1;
-
-/* =========================================================
-LIGHTS MINIMALES
+LIGHTS
 ========================================================= */
 
 /*
-ON GARDE JUSTE
-UNE LUMIÈRE SIMPLE
-POUR VOIR LE GLB
+LUMIÈRES DOUCES
+STYLE VITRINE
 */
 
-const ambient =
+const ambientLight =
 new THREE.AmbientLight(
 0xffffff,
-2
+2.4
 );
 
-electricScene.add(ambient);
+electricScene.add(
+ambientLight
+);
+
+const frontLight =
+new THREE.DirectionalLight(
+0xffffff,
+1.8
+);
+
+frontLight.position.set(
+0,
+2,
+6
+);
+
+electricScene.add(
+frontLight
+);
+
+const topLight =
+new THREE.DirectionalLight(
+0xffffff,
+1.2
+);
+
+topLight.position.set(
+0,
+8,
+0
+);
+
+electricScene.add(
+topLight
+);
 
 /* =========================================================
 LOADER
@@ -107,7 +139,7 @@ new THREE.GLTFLoader();
 let electricGuitar = null;
 
 /* =========================================================
-LOAD GLB
+LOAD MODEL
 ========================================================= */
 
 loader.load(
@@ -120,26 +152,29 @@ electricGuitar =
 gltf.scene;
 
 /* =========================================================
-GARDE LE LOOK ORIGINAL
+MATERIALS
 ========================================================= */
 
 electricGuitar.traverse((child)=>{
 
 if(child.isMesh){
 
-child.castShadow = false;
+child.castShadow = true;
 
-child.receiveShadow = false;
+child.receiveShadow = true;
 
 if(child.material){
 
-child.material.metalness = 0.2;
+/*
+GARDE LE LOOK
+ORIGINAL DU GLB
+*/
 
-child.material.roughness = 0.6;
+child.material.metalness = 0.25;
 
-child.material.envMapIntensity = 1;
+child.material.roughness = 0.45;
 
-child.material.needsUpdate = true;
+child.material.envMapIntensity = 1.1;
 
 }
 
@@ -148,13 +183,12 @@ child.material.needsUpdate = true;
 });
 
 /* =========================================================
-TAILLE DU GLB
+SIZE
 ========================================================= */
 
 /*
-ICI :
-TAILLE RÉELLEMENT RÉDUITE
-DU MODÈLE 3D
+TAILLE RÉDUITE
+À 50%
 */
 
 electricGuitar.scale.set(
@@ -167,9 +201,14 @@ electricGuitar.scale.set(
 POSITION
 ========================================================= */
 
+/*
+POSITION CENTRALE
+STYLE VITRINE
+*/
+
 electricGuitar.position.set(
-0.2,
--0.1,
+0,
+-1.2,
 0
 );
 
@@ -177,10 +216,16 @@ electricGuitar.position.set(
 ROTATION
 ========================================================= */
 
+/*
+POSITION VERTICALE
+MANCHE VERS LE HAUT
+FACE AVANT VISIBLE
+*/
+
 electricGuitar.rotation.set(
-0.12,
--0.8,
-0.03
+0,
+0,
+0
 );
 
 electricScene.add(
@@ -203,25 +248,24 @@ error
 );
 
 /* =========================================================
-MOUSE
+MOUSE ROTATION
 ========================================================= */
 
-let mouseX = 0;
-let mouseY = 0;
+let targetRotationY = 0;
 
 window.addEventListener(
+
 "mousemove",
+
 (event)=>{
 
-mouseX =
+targetRotationY =
 (event.clientX /
-window.innerWidth - 0.5);
-
-mouseY =
-(event.clientY /
-window.innerHeight - 0.5);
+window.innerWidth - 0.5)
+* 1.4;
 
 }
+
 );
 
 /* =========================================================
@@ -241,46 +285,37 @@ requestAnimationFrame(
 animate
 );
 
-const time =
-clock.getElapsedTime();
+/* =========================================================
+GUITAR
+========================================================= */
 
 if(electricGuitar){
 
-/* =========================================================
-FLOATING
-========================================================= */
-
-electricGuitar.position.y =
--0.1 +
-Math.sin(time * 1.4) * 0.05;
-
-/* =========================================================
+/*
 ROTATION LENTE
-========================================================= */
+STYLE VITRINE
+*/
 
 electricGuitar.rotation.y +=
-0.0012;
+0.002;
 
-/* =========================================================
-PARALLAX DOUX
-========================================================= */
+/*
+ROTATION FLUIDE
+AVEC LA SOURIS
+*/
 
-electricGuitar.rotation.x =
-mouseY * 0.05;
-
-electricGuitar.rotation.z =
-mouseX * 0.04;
+electricGuitar.rotation.y +=
+(
+targetRotationY -
+electricGuitar.rotation.y
+)
+* 0.015;
 
 }
 
 /* =========================================================
-CAMERA SMOOTH
+RENDER
 ========================================================= */
-
-electricCamera.position.x +=
-(mouseX * 0.12
-- electricCamera.position.x)
-* 0.02;
 
 electricRenderer.render(
 electricScene,
@@ -296,7 +331,9 @@ RESIZE
 ========================================================= */
 
 window.addEventListener(
+
 "resize",
+
 ()=>{
 
 electricCamera.aspect =
@@ -311,6 +348,7 @@ electricCanvas.clientHeight
 );
 
 }
+
 );
 
 }

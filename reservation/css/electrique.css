@@ -1,26 +1,27 @@
 /* =========================================================
 ZARABESSO STUDIO
-FREE GLB ELECTRIC GUITAR
-NO FRAME VERSION
-MINIMAL PREMIUM
+SHOWROOM ELECTRIC GUITAR
+VERTICAL DISPLAY VERSION
+NO FRAME • NO CUT • PREMIUM
 ========================================================= */
 
 /* =========================================================
 IMPORTANT
-AUCUNE DÉCOUPE
+SUPPRIME TOUTE DÉCOUPE
 ========================================================= */
 
 .reservation-container,
 .reservation-hero,
 .booking-left,
+.booking-right,
 .hero-electric-guitar{
 
-overflow:visible;
+overflow:visible !important;
 
 }
 
 /* =========================================================
-FREE ELECTRIC GUITAR
+SHOWROOM ELECTRIC GUITAR
 ========================================================= */
 
 .hero-electric-guitar{
@@ -28,56 +29,61 @@ FREE ELECTRIC GUITAR
 position:absolute;
 
 /* =========================================================
-POSITION LIBRE
+POSITION
 ========================================================= */
 
 /*
-LA GUITARE PEUT PASSER
-SUR LE H1
-SANS ÊTRE COUPÉE
+POSITION STYLE VITRINE
+À CÔTÉ DU H1
 */
 
-top:-120px;
+top:-140px;
 
-right:-2%;
+right:-5%;
 
 /* =========================================================
 ZONE LIBRE
 ========================================================= */
 
 /*
-GRANDE ZONE
-POUR ÉVITER
-LES DÉCOUPES
+ZONE LARGE
+POUR QUE LE GLB
+NE SOIT JAMAIS COUPÉ
 */
 
-width:520px;
-height:520px;
+width:700px;
+height:700px;
 
 /* =========================================================
 IMPORTANT
 ========================================================= */
 
-z-index:200;
+z-index:250;
 
 pointer-events:auto;
 
-background:none;
-border:none;
-box-shadow:none;
+/*
+SUPPRIME LES LIMITES
+VISUELLES
+*/
 
-/* =========================================================
-PAS DE LIMITE VISUELLE
-========================================================= */
+background:none !important;
+border:none !important;
+outline:none !important;
+box-shadow:none !important;
 
-contain:none;
+/*
+PERFORMANCE
+*/
 
-isolation:auto;
+transform:translate3d(0,0,0);
+
+will-change:transform;
 
 }
 
 /* =========================================================
-WEBGL
+WEBGL CANVAS
 ========================================================= */
 
 #webgl-electric{
@@ -91,30 +97,110 @@ height:100% !important;
 
 display:block;
 
-background:transparent;
+background:transparent !important;
 
 /* =========================================================
 AUCUN CADRE
 ========================================================= */
 
-border:none;
-outline:none;
-box-shadow:none;
+border:none !important;
+outline:none !important;
+box-shadow:none !important;
+
+/*
+SUPPRIME LES
+LUMIÈRES CSS
+*/
+
+filter:none !important;
+
+/*
+RENDU PLUS FLUIDE
+*/
+
+transform:translateZ(0);
+
+}
 
 /* =========================================================
-SUPPRESSION DES LUMIÈRES CSS
+RESPONSIVE LAPTOP
 ========================================================= */
 
-filter:none;
+@media(max-width:1400px){
+
+.hero-electric-guitar{
+
+width:560px;
+height:560px;
+
+top:-110px;
+
+right:-8%;
+
+}
+
+}
 
 /* =========================================================
-GPU SAFE
+TABLET
 ========================================================= */
 
-transform:
-translate3d(0,0,0);
+@media(max-width:1100px){
 
-will-change:
-transform;
+.hero-electric-guitar{
+
+width:480px;
+height:480px;
+
+top:-70px;
+
+right:-10%;
+
+}
+
+}
+
+/* =========================================================
+MOBILE
+========================================================= */
+
+@media(max-width:900px){
+
+.hero-electric-guitar{
+
+width:360px;
+height:360px;
+
+top:-40px;
+
+left:50%;
+right:auto;
+
+transform:translateX(-50%);
+
+opacity:.98;
+
+}
+
+}
+
+/* =========================================================
+SMALL MOBILE
+========================================================= */
+
+@media(max-width:600px){
+
+.hero-electric-guitar{
+
+width:290px;
+height:290px;
+
+top:-10px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+}
 
 }
