@@ -1,32 +1,46 @@
 /* =========================================================
 ZARABESSO STUDIO
 ULTRA PREMIUM ELECTRIC GUITAR
-CINEMATIC RESPONSIVE ADDON
-IOS + TABLET + MOBILE SAFE
+FINAL SAFE RESPONSIVE VERSION
+IOS + MOBILE + TABLET SAFE
 ========================================================= */
 
 /* =========================================================
-SECOND ELECTRIC GUITAR CONTAINER
+SAFE CONTAINER
+========================================================= */
+
+.reservation-container{
+
+position:relative;
+
+overflow:visible;
+
+}
+
+/* =========================================================
+SECOND ELECTRIC GUITAR
 ========================================================= */
 
 .hero-electric-guitar{
 
 position:absolute;
 
-/* POSITION PREMIUM */
+/* POSITION */
 
-top:-30px;
+top:-10px;
 
-right:6%;
+right:4%;
 
 /* PERFECT SIZE */
 
-width:380px;
-height:380px;
+width:340px;
+height:340px;
+
+/* LAYER */
+
+z-index:80;
 
 /* SAFE */
-
-z-index:60;
 
 overflow:visible;
 
@@ -34,11 +48,15 @@ pointer-events:none;
 
 /* GPU */
 
-transform:translateZ(0);
+transform:translate3d(0,0,0);
 
 will-change:
 transform,
 opacity;
+
+backface-visibility:hidden;
+
+-webkit-backface-visibility:hidden;
 
 }
 
@@ -48,6 +66,8 @@ SECOND WEBGL
 
 #webgl-electric{
 
+position:relative;
+
 width:100% !important;
 height:100% !important;
 
@@ -55,29 +75,48 @@ display:block;
 
 background:transparent;
 
-/* PREMIUM CINEMATIC SHADOW */
+/* SAFE */
 
-filter:
+outline:none;
 
-drop-shadow(
-0 0 40px rgba(255,180,0,.20)
-)
-
-drop-shadow(
-0 0 90px rgba(255,0,120,.14)
-)
-
-drop-shadow(
-0 0 140px rgba(59,130,246,.12)
-);
+border:none;
 
 /* GPU */
 
-transform:translateZ(0);
+transform:translate3d(0,0,0);
 
 will-change:
 transform,
 opacity;
+
+/* CINEMATIC SHADOW */
+
+filter:
+
+drop-shadow(
+0 0 35px rgba(255,180,0,.18)
+)
+
+drop-shadow(
+0 0 80px rgba(255,0,120,.12)
+)
+
+drop-shadow(
+0 0 120px rgba(59,130,246,.10)
+);
+
+}
+
+/* =========================================================
+CANVAS FIX
+========================================================= */
+
+.hero-electric-guitar canvas{
+
+width:100% !important;
+height:100% !important;
+
+display:block;
 
 }
 
@@ -99,23 +138,23 @@ background:
 
 radial-gradient(
 circle at center,
-rgba(255,180,0,.18),
-transparent 38%
+rgba(255,180,0,.14),
+transparent 42%
 ),
 
 radial-gradient(
 circle at top,
-rgba(255,0,120,.10),
-transparent 55%
+rgba(255,0,120,.08),
+transparent 58%
 ),
 
 radial-gradient(
 circle at bottom,
-rgba(59,130,246,.12),
-transparent 65%
+rgba(59,130,246,.10),
+transparent 68%
 );
 
-filter:blur(90px);
+filter:blur(80px);
 
 pointer-events:none;
 
@@ -127,7 +166,7 @@ electricAura 8s ease-in-out infinite;
 }
 
 /* =========================================================
-SECOND RGB LIGHT
+SECOND LIGHT
 ========================================================= */
 
 .hero-electric-guitar::after{
@@ -136,19 +175,19 @@ content:"";
 
 position:absolute;
 
-width:240px;
-height:240px;
+width:220px;
+height:220px;
 
+top:18%;
 right:10%;
-top:20%;
 
 border-radius:50%;
 
 background:
 radial-gradient(
 circle,
-rgba(255,255,255,.08),
-transparent 70%
+rgba(255,255,255,.07),
+transparent 72%
 );
 
 filter:blur(60px);
@@ -227,7 +266,7 @@ pointer-events:none;
 }
 
 /* =========================================================
-FOOTER TITLES RGB
+RGB TITLES
 ========================================================= */
 
 .footer-brand h2,
@@ -293,12 +332,14 @@ rgbText 10s linear infinite;
 }
 
 /* =========================================================
-SOCIAL PREMIUM HOVER
+SOCIALS
 ========================================================= */
 
 .socials a{
 
-transition:.45s;
+transition:
+transform .45s ease,
+box-shadow .45s ease;
 
 }
 
@@ -309,7 +350,7 @@ translateY(-6px)
 scale(1.08);
 
 box-shadow:
-0 0 25px rgba(255,255,255,.22);
+0 0 25px rgba(255,255,255,.18);
 
 }
 
@@ -325,15 +366,15 @@ transform:
 scale(1)
 translateY(0px);
 
-opacity:.7;
+opacity:.68;
 
 }
 
 50%{
 
 transform:
-scale(1.08)
-translateY(-14px);
+scale(1.06)
+translateY(-10px);
 
 opacity:1;
 
@@ -345,19 +386,17 @@ opacity:1;
 
 0%,100%{
 
-transform:
-scale(1);
+transform:scale(1);
 
-opacity:.45;
+opacity:.4;
 
 }
 
 50%{
 
-transform:
-scale(1.15);
+transform:scale(1.12);
 
-opacity:.8;
+opacity:.78;
 
 }
 
@@ -398,52 +437,52 @@ background-position:0% 50%;
 @keyframes footerGlow{
 
 0%{
-box-shadow:0 0 25px rgba(255,215,0,.18);
+box-shadow:0 0 25px rgba(255,215,0,.16);
 }
 
 15%{
-box-shadow:0 0 25px rgba(255,80,0,.18);
+box-shadow:0 0 25px rgba(255,80,0,.16);
 }
 
 30%{
-box-shadow:0 0 25px rgba(0,255,120,.18);
+box-shadow:0 0 25px rgba(0,255,120,.16);
 }
 
 45%{
-box-shadow:0 0 25px rgba(0,140,255,.18);
+box-shadow:0 0 25px rgba(0,140,255,.16);
 }
 
 60%{
-box-shadow:0 0 25px rgba(255,0,170,.18);
+box-shadow:0 0 25px rgba(255,0,170,.16);
 }
 
 75%{
-box-shadow:0 0 25px rgba(120,0,255,.18);
+box-shadow:0 0 25px rgba(120,0,255,.16);
 }
 
 90%{
-box-shadow:0 0 25px rgba(57,255,20,.18);
+box-shadow:0 0 25px rgba(57,255,20,.16);
 }
 
 100%{
-box-shadow:0 0 25px rgba(255,23,68,.18);
+box-shadow:0 0 25px rgba(255,23,68,.16);
 }
 
 }
 
 /* =========================================================
-LAPTOP
+LARGE LAPTOP
 ========================================================= */
 
 @media(max-width:1400px){
 
 .hero-electric-guitar{
 
-width:330px;
-height:330px;
+width:300px;
+height:300px;
 
-top:-10px;
-right:4%;
+top:10px;
+right:3%;
 
 }
 
@@ -457,11 +496,11 @@ TABLET
 
 .hero-electric-guitar{
 
-width:270px;
-height:270px;
+width:240px;
+height:240px;
 
-top:10px;
-right:3%;
+top:20px;
+right:2%;
 
 }
 
@@ -475,13 +514,13 @@ MOBILE
 
 .hero-electric-guitar{
 
-width:220px;
-height:220px;
-
-top:-10px;
+width:210px;
+height:210px;
 
 left:50%;
 right:auto;
+
+top:-10px;
 
 transform:
 translateX(-50%);
@@ -493,17 +532,17 @@ opacity:.96;
 }
 
 /* =========================================================
-SMALL MOBILE IOS
+SMALL MOBILE
 ========================================================= */
 
 @media(max-width:600px){
 
 .hero-electric-guitar{
 
-width:170px;
-height:170px;
+width:160px;
+height:160px;
 
-top:20px;
+top:15px;
 
 left:50%;
 
@@ -520,18 +559,11 @@ IOS SAFE
 
 @supports (-webkit-touch-callout: none){
 
+.hero-electric-guitar,
 #webgl-electric{
 
 transform:
-translateZ(0);
-
-}
-
-.hero-electric-guitar{
-
-backface-visibility:hidden;
-
--webkit-backface-visibility:hidden;
+translate3d(0,0,0);
 
 }
 
