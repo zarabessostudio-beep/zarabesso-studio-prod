@@ -1,7 +1,7 @@
 /* =========================================================
 ZARABESSO STUDIO
 FREE FLOATING ELECTRIC GUITAR
-ULTRA CINEMATIC PREMIUM
+HALF SIZE PREMIUM VERSION
 ========================================================= */
 
 /* =========================================================
@@ -26,34 +26,34 @@ FREE ELECTRIC GUITAR CONTAINER
 position:absolute;
 
 /* =========================================================
-POSITION LIBRE
+POSITION
 ========================================================= */
 
 /*
 PLACEMENT :
-À DROITE DU TITRE
-SANS TOUCHER LE H1
+À DROITE DU H1
+SANS TOUCHER LE TEXTE
 */
 
-top:-140px;
+top:-90px;
 
-right:-4%;
+right:1%;
 
 /* =========================================================
-ZONE DE RENDU
+CONTAINER SIZE
 ========================================================= */
 
 /*
-ZONE PLUS GRANDE
-POUR LAISSER RESPIRER
-LE GLB
+CONTAINER PLUS PETIT
+POUR UNE VERSION
+PLUS ÉLÉGANTE
 */
 
-width:680px;
-height:680px;
+width:360px;
+height:360px;
 
 /* =========================================================
-IMPORTANT
+SAFE
 ========================================================= */
 
 z-index:150;
@@ -90,9 +90,9 @@ inset:0;
 width:100% !important;
 height:100% !important;
 
-background:transparent;
-
 display:block;
+
+background:transparent;
 
 /* =========================================================
 PREMIUM OLED SHADOW
@@ -101,24 +101,16 @@ PREMIUM OLED SHADOW
 filter:
 
 drop-shadow(
-0 0 40px rgba(255,180,0,.18)
+0 0 25px rgba(255,180,0,.16)
 )
 
 drop-shadow(
-0 0 90px rgba(255,0,120,.14)
+0 0 60px rgba(255,0,120,.10)
 )
 
 drop-shadow(
-0 0 150px rgba(59,130,246,.12)
-)
-
-drop-shadow(
-0 0 220px rgba(255,180,0,.10)
+0 0 90px rgba(59,130,246,.10)
 );
-
-/* =========================================================
-GPU
-========================================================= */
 
 transform:
 translateZ(0);
@@ -129,7 +121,7 @@ transform;
 }
 
 /* =========================================================
-MEGA CINEMATIC AURA
+AURA
 ========================================================= */
 
 .hero-electric-guitar::before{
@@ -138,59 +130,47 @@ content:"";
 
 position:absolute;
 
-/* =========================================================
-AURA QUI DÉBORDE
-========================================================= */
+top:-25%;
+left:-25%;
 
-top:-20%;
-left:-20%;
-
-width:140%;
-height:140%;
+width:150%;
+height:150%;
 
 border-radius:50%;
-
-/* =========================================================
-MULTI RGB LIGHT
-========================================================= */
 
 background:
 
 radial-gradient(
 circle,
-rgba(255,180,0,.18),
-transparent 35%
+rgba(255,180,0,.12),
+transparent 38%
 ),
 
 radial-gradient(
 circle,
-rgba(255,0,120,.10),
-transparent 55%
+rgba(255,0,120,.08),
+transparent 60%
 ),
 
 radial-gradient(
 circle,
-rgba(59,130,246,.12),
+rgba(59,130,246,.08),
 transparent 75%
 );
 
-filter:blur(100px);
+filter:blur(80px);
 
 pointer-events:none;
 
-z-index:-2;
-
-/* =========================================================
-ANIMATION
-========================================================= */
+z-index:-1;
 
 animation:
-electricAuraFloat 9s ease-in-out infinite;
+electricAuraFloat 8s ease-in-out infinite;
 
 }
 
 /* =========================================================
-SECONDARY LIGHT
+SECOND LIGHT
 ========================================================= */
 
 .hero-electric-guitar::after{
@@ -199,11 +179,11 @@ content:"";
 
 position:absolute;
 
-width:260px;
-height:260px;
+width:140px;
+height:140px;
 
 top:20%;
-right:10%;
+right:15%;
 
 border-radius:50%;
 
@@ -214,14 +194,14 @@ rgba(255,255,255,.08),
 transparent 70%
 );
 
-filter:blur(60px);
+filter:blur(40px);
 
 pointer-events:none;
 
 z-index:-1;
 
 animation:
-electricLightMove 11s ease-in-out infinite;
+electricLightMove 10s ease-in-out infinite;
 
 }
 
@@ -237,17 +217,17 @@ transform:
 translateY(0px)
 scale(1);
 
-opacity:.65;
+opacity:.55;
 
 }
 
 50%{
 
 transform:
-translateY(-20px)
-scale(1.08);
+translateY(-10px)
+scale(1.05);
 
-opacity:1;
+opacity:.9;
 
 }
 
@@ -258,8 +238,6 @@ opacity:1;
 0%,100%{
 
 transform:
-translateX(0px)
-translateY(0px)
 scale(1);
 
 opacity:.4;
@@ -269,11 +247,9 @@ opacity:.4;
 50%{
 
 transform:
-translateX(-10px)
-translateY(-12px)
-scale(1.15);
+scale(1.1);
 
-opacity:.8;
+opacity:.75;
 
 }
 
@@ -287,12 +263,12 @@ LAPTOP
 
 .hero-electric-guitar{
 
-width:560px;
-height:560px;
+width:300px;
+height:300px;
 
-top:-90px;
+top:-50px;
 
-right:-6%;
+right:0;
 
 }
 
@@ -306,12 +282,12 @@ TABLET
 
 .hero-electric-guitar{
 
-width:420px;
-height:420px;
+width:240px;
+height:240px;
 
-top:-30px;
+top:-10px;
 
-right:-8%;
+right:0;
 
 }
 
@@ -325,10 +301,10 @@ MOBILE
 
 .hero-electric-guitar{
 
-width:300px;
-height:300px;
+width:190px;
+height:190px;
 
-top:-40px;
+top:-20px;
 
 left:50%;
 right:auto;
@@ -336,24 +312,22 @@ right:auto;
 transform:
 translateX(-50%);
 
-opacity:.96;
-
 }
 
 }
 
 /* =========================================================
-SMALL MOBILE IOS
+SMALL MOBILE
 ========================================================= */
 
 @media(max-width:600px){
 
 .hero-electric-guitar{
 
-width:240px;
-height:240px;
+width:150px;
+height:150px;
 
-top:-10px;
+top:0;
 
 left:50%;
 

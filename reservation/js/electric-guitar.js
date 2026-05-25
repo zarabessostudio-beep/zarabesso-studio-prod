@@ -1,7 +1,7 @@
 /* =========================================================
 ZARABESSO STUDIO
-FREE FLOATING ELECTRIC GUITAR
-ULTRA PREMIUM ENGINE
+HALF SIZE ELECTRIC GUITAR
+ULTRA PREMIUM VERSION
 ========================================================= */
 
 const electricCanvas =
@@ -78,7 +78,7 @@ electricRenderer.toneMapping =
 THREE.ACESFilmicToneMapping;
 
 electricRenderer.toneMappingExposure =
-1.4;
+1.35;
 
 /* =========================================================
 LIGHTS
@@ -87,57 +87,57 @@ LIGHTS
 const ambient =
 new THREE.AmbientLight(
 0xffffff,
-2.8
+2.6
 );
 
 electricScene.add(ambient);
 
-/* GOLD */
+/* GOLD LIGHT */
 
 const gold =
 new THREE.PointLight(
 0xffcc66,
-5,
-30
+4,
+25
 );
 
 gold.position.set(
-5,
-5,
-6
+4,
+4,
+5
 );
 
 electricScene.add(gold);
 
-/* BLUE */
+/* BLUE LIGHT */
 
 const blue =
 new THREE.PointLight(
 0x3b82f6,
-2.5,
-25
-);
-
-blue.position.set(
--5,
--2,
-5
-);
-
-electricScene.add(blue);
-
-/* PINK */
-
-const pink =
-new THREE.PointLight(
-0xff0088,
 2,
 20
 );
 
+blue.position.set(
+-4,
+-2,
+4
+);
+
+electricScene.add(blue);
+
+/* PINK LIGHT */
+
+const pink =
+new THREE.PointLight(
+0xff0088,
+1.5,
+18
+);
+
 pink.position.set(
 0,
-4,
+3,
 -2
 );
 
@@ -153,7 +153,7 @@ new THREE.GLTFLoader();
 let electricGuitar = null;
 
 /* =========================================================
-LOAD GLB
+LOAD MODEL
 ========================================================= */
 
 loader.load(
@@ -166,7 +166,7 @@ electricGuitar =
 gltf.scene;
 
 /* =========================================================
-KEEP ORIGINAL GLB LOOK
+MATERIALS
 ========================================================= */
 
 electricGuitar.traverse((child)=>{
@@ -179,11 +179,11 @@ child.receiveShadow = true;
 
 if(child.material){
 
-child.material.metalness = 0.42;
+child.material.metalness = 0.4;
 
-child.material.roughness = 0.35;
+child.material.roughness = 0.38;
 
-child.material.envMapIntensity = 1.8;
+child.material.envMapIntensity = 1.5;
 
 child.material.needsUpdate = true;
 
@@ -194,19 +194,19 @@ child.material.needsUpdate = true;
 });
 
 /* =========================================================
-ORIGINAL GLB SIZE
+SIZE
 ========================================================= */
 
 /*
 ICI :
-ON GARDE UNE TAILLE
-PROCHE DU GLB ORIGINAL
+TAILLE RÉDUITE À 50%
+DE LA VERSION PRÉCÉDENTE
 */
 
 electricGuitar.scale.set(
-2.8,
-2.8,
-2.8
+1.4,
+1.4,
+1.4
 );
 
 /* =========================================================
@@ -214,8 +214,8 @@ POSITION
 ========================================================= */
 
 electricGuitar.position.set(
-0.8,
--0.2,
+0.4,
+-0.15,
 0
 );
 
@@ -224,9 +224,9 @@ ROTATION
 ========================================================= */
 
 electricGuitar.rotation.set(
-0.18,
+0.15,
 -0.9,
-0.06
+0.04
 );
 
 electricScene.add(
@@ -293,61 +293,48 @@ clock.getElapsedTime();
 if(electricGuitar){
 
 /* =========================================================
-FREE FLOAT
+FLOATING
 ========================================================= */
 
 electricGuitar.position.y =
--0.2 +
-Math.sin(time * 1.4) * 0.16;
+-0.15 +
+Math.sin(time * 1.5) * 0.08;
 
 /* =========================================================
-FREE SPACE MOVEMENT
+FREE MOVEMENT
 ========================================================= */
 
 electricGuitar.position.x =
-0.8 +
-Math.sin(time * 0.7) * 0.18;
+0.4 +
+Math.sin(time * 0.8) * 0.08;
 
 /* =========================================================
 AUTO ROTATION
 ========================================================= */
 
 electricGuitar.rotation.y +=
-0.0018;
+0.0015;
 
 /* =========================================================
 PARALLAX
 ========================================================= */
 
 electricGuitar.rotation.x =
-mouseY * 0.16;
+mouseY * 0.08;
 
 electricGuitar.rotation.z =
-mouseX * 0.08;
+mouseX * 0.05;
+
+}
 
 /* =========================================================
 SMOOTH CAMERA
 ========================================================= */
 
 electricCamera.position.x +=
-(mouseX * 0.5
+(mouseX * 0.18
 - electricCamera.position.x)
 * 0.02;
-
-electricCamera.position.y +=
-(-mouseY * 0.2
-- electricCamera.position.y)
-* 0.02;
-
-electricCamera.lookAt(
-electricGuitar.position
-);
-
-}
-
-/* =========================================================
-RENDER
-========================================================= */
 
 electricRenderer.render(
 electricScene,
