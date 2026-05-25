@@ -1,7 +1,7 @@
 /* =========================================================
 ZARABESSO STUDIO
-HALF SIZE ELECTRIC GUITAR
-ULTRA PREMIUM VERSION
+FREE GLB ELECTRIC GUITAR
+NO FRAME VERSION
 ========================================================= */
 
 const electricCanvas =
@@ -71,77 +71,31 @@ electricCanvas.clientHeight
 electricRenderer.outputEncoding =
 THREE.sRGBEncoding;
 
-electricRenderer.physicallyCorrectLights =
-true;
-
-electricRenderer.toneMapping =
-THREE.ACESFilmicToneMapping;
+/* =========================================================
+PAS DE TONE MAPPING
+POUR UN LOOK GLB NATUREL
+========================================================= */
 
 electricRenderer.toneMappingExposure =
-1.35;
+1;
 
 /* =========================================================
-LIGHTS
+LIGHTS MINIMALES
 ========================================================= */
+
+/*
+ON GARDE JUSTE
+UNE LUMIÈRE SIMPLE
+POUR VOIR LE GLB
+*/
 
 const ambient =
 new THREE.AmbientLight(
 0xffffff,
-2.6
+2
 );
 
 electricScene.add(ambient);
-
-/* GOLD LIGHT */
-
-const gold =
-new THREE.PointLight(
-0xffcc66,
-4,
-25
-);
-
-gold.position.set(
-4,
-4,
-5
-);
-
-electricScene.add(gold);
-
-/* BLUE LIGHT */
-
-const blue =
-new THREE.PointLight(
-0x3b82f6,
-2,
-20
-);
-
-blue.position.set(
--4,
--2,
-4
-);
-
-electricScene.add(blue);
-
-/* PINK LIGHT */
-
-const pink =
-new THREE.PointLight(
-0xff0088,
-1.5,
-18
-);
-
-pink.position.set(
-0,
-3,
--2
-);
-
-electricScene.add(pink);
 
 /* =========================================================
 LOADER
@@ -153,7 +107,7 @@ new THREE.GLTFLoader();
 let electricGuitar = null;
 
 /* =========================================================
-LOAD MODEL
+LOAD GLB
 ========================================================= */
 
 loader.load(
@@ -166,24 +120,24 @@ electricGuitar =
 gltf.scene;
 
 /* =========================================================
-MATERIALS
+GARDE LE LOOK ORIGINAL
 ========================================================= */
 
 electricGuitar.traverse((child)=>{
 
 if(child.isMesh){
 
-child.castShadow = true;
+child.castShadow = false;
 
-child.receiveShadow = true;
+child.receiveShadow = false;
 
 if(child.material){
 
-child.material.metalness = 0.4;
+child.material.metalness = 0.2;
 
-child.material.roughness = 0.38;
+child.material.roughness = 0.6;
 
-child.material.envMapIntensity = 1.5;
+child.material.envMapIntensity = 1;
 
 child.material.needsUpdate = true;
 
@@ -194,19 +148,19 @@ child.material.needsUpdate = true;
 });
 
 /* =========================================================
-SIZE
+TAILLE DU GLB
 ========================================================= */
 
 /*
 ICI :
-TAILLE RÉDUITE À 50%
-DE LA VERSION PRÉCÉDENTE
+TAILLE RÉELLEMENT RÉDUITE
+DU MODÈLE 3D
 */
 
 electricGuitar.scale.set(
-1.4,
-1.4,
-1.4
+0.9,
+0.9,
+0.9
 );
 
 /* =========================================================
@@ -214,8 +168,8 @@ POSITION
 ========================================================= */
 
 electricGuitar.position.set(
-0.4,
--0.15,
+0.2,
+-0.1,
 0
 );
 
@@ -224,9 +178,9 @@ ROTATION
 ========================================================= */
 
 electricGuitar.rotation.set(
-0.15,
--0.9,
-0.04
+0.12,
+-0.8,
+0.03
 );
 
 electricScene.add(
@@ -297,42 +251,34 @@ FLOATING
 ========================================================= */
 
 electricGuitar.position.y =
--0.15 +
-Math.sin(time * 1.5) * 0.08;
+-0.1 +
+Math.sin(time * 1.4) * 0.05;
 
 /* =========================================================
-FREE MOVEMENT
-========================================================= */
-
-electricGuitar.position.x =
-0.4 +
-Math.sin(time * 0.8) * 0.08;
-
-/* =========================================================
-AUTO ROTATION
+ROTATION LENTE
 ========================================================= */
 
 electricGuitar.rotation.y +=
-0.0015;
+0.0012;
 
 /* =========================================================
-PARALLAX
+PARALLAX DOUX
 ========================================================= */
 
 electricGuitar.rotation.x =
-mouseY * 0.08;
+mouseY * 0.05;
 
 electricGuitar.rotation.z =
-mouseX * 0.05;
+mouseX * 0.04;
 
 }
 
 /* =========================================================
-SMOOTH CAMERA
+CAMERA SMOOTH
 ========================================================= */
 
 electricCamera.position.x +=
-(mouseX * 0.18
+(mouseX * 0.12
 - electricCamera.position.x)
 * 0.02;
 

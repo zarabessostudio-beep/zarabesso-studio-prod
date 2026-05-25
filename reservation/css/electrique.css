@@ -1,24 +1,26 @@
 /* =========================================================
 ZARABESSO STUDIO
-FREE FLOATING ELECTRIC GUITAR
-HALF SIZE PREMIUM VERSION
+FREE GLB ELECTRIC GUITAR
+NO FRAME VERSION
+MINIMAL PREMIUM
 ========================================================= */
 
 /* =========================================================
 IMPORTANT
-LAISSE LE MODEL SORTIR LIBREMENT
+AUCUNE DÉCOUPE
 ========================================================= */
 
 .reservation-container,
 .reservation-hero,
-.booking-left{
+.booking-left,
+.hero-electric-guitar{
 
 overflow:visible;
 
 }
 
 /* =========================================================
-FREE ELECTRIC GUITAR CONTAINER
+FREE ELECTRIC GUITAR
 ========================================================= */
 
 .hero-electric-guitar{
@@ -26,54 +28,51 @@ FREE ELECTRIC GUITAR CONTAINER
 position:absolute;
 
 /* =========================================================
-POSITION
+POSITION LIBRE
 ========================================================= */
 
 /*
-PLACEMENT :
-À DROITE DU H1
-SANS TOUCHER LE TEXTE
+LA GUITARE PEUT PASSER
+SUR LE H1
+SANS ÊTRE COUPÉE
 */
 
-top:-90px;
+top:-120px;
 
-right:1%;
+right:-2%;
 
 /* =========================================================
-CONTAINER SIZE
+ZONE LIBRE
 ========================================================= */
 
 /*
-CONTAINER PLUS PETIT
-POUR UNE VERSION
-PLUS ÉLÉGANTE
+GRANDE ZONE
+POUR ÉVITER
+LES DÉCOUPES
 */
 
-width:360px;
-height:360px;
+width:520px;
+height:520px;
 
 /* =========================================================
-SAFE
+IMPORTANT
 ========================================================= */
 
-z-index:150;
-
-overflow:visible;
+z-index:200;
 
 pointer-events:auto;
 
+background:none;
+border:none;
+box-shadow:none;
+
 /* =========================================================
-GPU
+PAS DE LIMITE VISUELLE
 ========================================================= */
 
-transform-style:preserve-3d;
+contain:none;
 
-transform:
-translate3d(0,0,0);
-
-will-change:
-transform,
-opacity;
+isolation:auto;
 
 }
 
@@ -95,265 +94,27 @@ display:block;
 background:transparent;
 
 /* =========================================================
-PREMIUM OLED SHADOW
+AUCUN CADRE
 ========================================================= */
 
-filter:
-
-drop-shadow(
-0 0 25px rgba(255,180,0,.16)
-)
-
-drop-shadow(
-0 0 60px rgba(255,0,120,.10)
-)
-
-drop-shadow(
-0 0 90px rgba(59,130,246,.10)
-);
-
-transform:
-translateZ(0);
-
-will-change:
-transform;
-
-}
+border:none;
+outline:none;
+box-shadow:none;
 
 /* =========================================================
-AURA
+SUPPRESSION DES LUMIÈRES CSS
 ========================================================= */
 
-.hero-electric-guitar::before{
-
-content:"";
-
-position:absolute;
-
-top:-25%;
-left:-25%;
-
-width:150%;
-height:150%;
-
-border-radius:50%;
-
-background:
-
-radial-gradient(
-circle,
-rgba(255,180,0,.12),
-transparent 38%
-),
-
-radial-gradient(
-circle,
-rgba(255,0,120,.08),
-transparent 60%
-),
-
-radial-gradient(
-circle,
-rgba(59,130,246,.08),
-transparent 75%
-);
-
-filter:blur(80px);
-
-pointer-events:none;
-
-z-index:-1;
-
-animation:
-electricAuraFloat 8s ease-in-out infinite;
-
-}
+filter:none;
 
 /* =========================================================
-SECOND LIGHT
+GPU SAFE
 ========================================================= */
-
-.hero-electric-guitar::after{
-
-content:"";
-
-position:absolute;
-
-width:140px;
-height:140px;
-
-top:20%;
-right:15%;
-
-border-radius:50%;
-
-background:
-radial-gradient(
-circle,
-rgba(255,255,255,.08),
-transparent 70%
-);
-
-filter:blur(40px);
-
-pointer-events:none;
-
-z-index:-1;
-
-animation:
-electricLightMove 10s ease-in-out infinite;
-
-}
-
-/* =========================================================
-ANIMATIONS
-========================================================= */
-
-@keyframes electricAuraFloat{
-
-0%,100%{
-
-transform:
-translateY(0px)
-scale(1);
-
-opacity:.55;
-
-}
-
-50%{
-
-transform:
-translateY(-10px)
-scale(1.05);
-
-opacity:.9;
-
-}
-
-}
-
-@keyframes electricLightMove{
-
-0%,100%{
-
-transform:
-scale(1);
-
-opacity:.4;
-
-}
-
-50%{
-
-transform:
-scale(1.1);
-
-opacity:.75;
-
-}
-
-}
-
-/* =========================================================
-LAPTOP
-========================================================= */
-
-@media(max-width:1400px){
-
-.hero-electric-guitar{
-
-width:300px;
-height:300px;
-
-top:-50px;
-
-right:0;
-
-}
-
-}
-
-/* =========================================================
-TABLET
-========================================================= */
-
-@media(max-width:1100px){
-
-.hero-electric-guitar{
-
-width:240px;
-height:240px;
-
-top:-10px;
-
-right:0;
-
-}
-
-}
-
-/* =========================================================
-MOBILE
-========================================================= */
-
-@media(max-width:900px){
-
-.hero-electric-guitar{
-
-width:190px;
-height:190px;
-
-top:-20px;
-
-left:50%;
-right:auto;
-
-transform:
-translateX(-50%);
-
-}
-
-}
-
-/* =========================================================
-SMALL MOBILE
-========================================================= */
-
-@media(max-width:600px){
-
-.hero-electric-guitar{
-
-width:150px;
-height:150px;
-
-top:0;
-
-left:50%;
-
-transform:
-translateX(-50%);
-
-}
-
-}
-
-/* =========================================================
-IOS SAFE
-========================================================= */
-
-@supports (-webkit-touch-callout: none){
-
-.hero-electric-guitar,
-#webgl-electric{
 
 transform:
 translate3d(0,0,0);
 
-backface-visibility:hidden;
-
--webkit-backface-visibility:hidden;
-
-}
+will-change:
+transform;
 
 }
