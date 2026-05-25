@@ -1,8 +1,8 @@
 /* ==================================================
 ZARABESSO STUDIO
 MEGA CINEMATIC GUITAR
-50% SCREEN RATIO • ULTRA DETAIL VERSION
-PREMIUM REALISTIC INTERACTIVE EDITION
+UPWARD LEFT HERO POSITION
+ULTRA REALISTIC FRONT STRINGS VIEW
 ================================================== */
 
 /* ==================================================
@@ -20,13 +20,7 @@ canvas.style.position = "absolute";
 canvas.style.inset = "0";
 canvas.style.width = "100%";
 canvas.style.height = "100%";
-
-/* TOP LAYER */
-
 canvas.style.zIndex = "950";
-
-/* INTERACTION */
-
 canvas.style.pointerEvents = "auto";
 canvas.style.touchAction = "none";
 
@@ -43,19 +37,22 @@ CAMERA
 
 const camera =
 new THREE.PerspectiveCamera(
-30,
+28,
 window.innerWidth /
 window.innerHeight,
 0.1,
 1000
 );
 
-/* MORE CINEMATIC */
+/* ==================================================
+CAMERA POSITION
+MORE CINEMATIC
+================================================== */
 
 camera.position.set(
 0,
-0,
-13
+1.2,
+14
 );
 
 /* ==================================================
@@ -91,7 +88,7 @@ renderer.toneMapping =
 THREE.ACESFilmicToneMapping;
 
 renderer.toneMappingExposure =
-1.35;
+1.45;
 
 renderer.setClearColor(
 0x000000,
@@ -102,120 +99,152 @@ renderer.setClearColor(
 LIGHTS
 ================================================== */
 
-/* MAIN AMBIENT */
+/* GLOBAL LIGHT */
 
 const ambient =
 new THREE.AmbientLight(
 0xffffff,
-4.2
+4.8
 );
 
 scene.add(ambient);
 
-/* GOLD CINEMATIC */
+/* MAIN GOLD */
 
 const goldLight =
 new THREE.PointLight(
 0xffcc66,
-40,
-60
+45,
+80
 );
 
 goldLight.position.set(
-5,
 8,
-10
+10,
+12
 );
 
 scene.add(goldLight);
 
-/* PURPLE EDGE */
+/* LEFT PURPLE EDGE */
 
 const purpleLight =
 new THREE.PointLight(
 0x9d00ff,
-45,
+40,
 70
 );
 
 purpleLight.position.set(
--7,
-5,
-8
+-10,
+6,
+10
 );
 
 scene.add(purpleLight);
 
-/* PINK */
+/* FRONT WHITE */
 
-const pinkLight =
-new THREE.PointLight(
-0xff0088,
-35,
-60
+const frontLight =
+new THREE.DirectionalLight(
+0xffffff,
+6
 );
 
-pinkLight.position.set(
-8,
--2,
-7
+frontLight.position.set(
+0,
+6,
+15
 );
 
-scene.add(pinkLight);
+scene.add(frontLight);
 
 /* BLUE REFLECTION */
 
 const blueLight =
 new THREE.PointLight(
 0x00ccff,
-25,
-60
+28,
+70
 );
 
 blueLight.position.set(
 -5,
--4,
-6
+-5,
+8
 );
 
 scene.add(blueLight);
 
-/* FRONT LIGHT */
+/* PINK SIDE */
 
-const frontLight =
-new THREE.DirectionalLight(
-0xffffff,
-5
+const pinkLight =
+new THREE.PointLight(
+0xff0077,
+25,
+70
 );
 
-frontLight.position.set(
+pinkLight.position.set(
+10,
 0,
-4,
-12
+6
 );
 
-scene.add(frontLight);
+scene.add(pinkLight);
 
 /* ==================================================
 RESPONSIVE SCALE
-50% SCREEN RATIO
+BIGGER THAN CURRENT VERSION
 ================================================== */
 
 function getScale(){
 
 if(window.innerWidth < 600){
 
-return 3.2;
+return 4.4;
 
 }
 
 if(window.innerWidth < 1000){
 
-return 4.2;
+return 5.8;
 
 }
 
-return 5.6;
+return 7.2;
+
+}
+
+/* ==================================================
+RESPONSIVE POSITION
+UPPER LEFT HERO POSITION
+================================================== */
+
+function getPosition(){
+
+if(window.innerWidth < 600){
+
+return {
+x:-1.8,
+y:3.8
+};
+
+}
+
+if(window.innerWidth < 1000){
+
+return {
+x:-3,
+y:4.2
+};
+
+}
+
+return {
+x:-4.5,
+y:4.8
+};
 
 }
 
@@ -260,13 +289,13 @@ window.innerHeight
 - 0.5
 );
 
-/* STRONG REAL INTERACTION */
+/* MORE REALISTIC */
 
 targetRotationY =
-mouseX * 2.2;
+mouseX * 0.8;
 
 targetRotationX =
-mouseY * 1.2;
+mouseY * 0.35;
 
 }
 );
@@ -297,10 +326,10 @@ window.innerHeight
 );
 
 targetRotationY =
-mouseX * 2.2;
+mouseX * 0.8;
 
 targetRotationX =
-mouseY * 1.2;
+mouseY * 0.35;
 
 },
 { passive:true }
@@ -319,7 +348,7 @@ loader.load(
 guitar = gltf.scene;
 
 /* ==================================================
-GIANT SCALE
+MEGA SCALE
 ================================================== */
 
 const scale =
@@ -333,25 +362,41 @@ scale
 
 /* ==================================================
 POSITION
-70% SCREEN POSITION
-HIGHER + CENTERED
+UPPER LEFT
 ================================================== */
 
+const pos =
+getPosition();
+
 guitar.position.set(
-1.8,
-3.6,
+pos.x,
+pos.y,
 0
 );
 
 /* ==================================================
 ROTATION
+IMPORTANT:
+FACE FRONT + STRINGS VISIBLE
 ================================================== */
 
+/* LEFT ANGLE */
+
 guitar.rotation.y =
--0.15;
+0.95;
+
+/* UPWARD */
+
+guitar.rotation.x =
+-0.32;
+
+/* SLIGHT CINEMATIC */
+
+guitar.rotation.z =
+0.08;
 
 /* ==================================================
-REALISTIC MATERIAL BOOST
+REALISTIC MATERIALS
 ================================================== */
 
 guitar.traverse((child)=>{
@@ -368,16 +413,16 @@ if(child.material){
 child.material.side =
 THREE.DoubleSide;
 
-/* REALISTIC */
+/* PREMIUM REFLECTIONS */
 
 child.material.metalness =
-0.45;
+0.38;
 
 child.material.roughness =
-0.22;
+0.18;
 
 child.material.envMapIntensity =
-3.5;
+4.5;
 
 child.material.needsUpdate =
 true;
@@ -389,13 +434,13 @@ true;
 });
 
 /* ==================================================
-ADD
+ADD TO SCENE
 ================================================== */
 
 scene.add(guitar);
 
 console.log(
-"MEGA GUITAR READY"
+"GUITAR HERO READY"
 );
 
 },
@@ -449,51 +494,57 @@ const elapsed =
 clock.getElapsedTime();
 
 /* ==================================================
-GUITAR
+GUITAR ANIMATION
 ================================================== */
 
 if(guitar){
 
+const pos =
+getPosition();
+
 /* FLOAT */
 
 guitar.position.y =
-3.6 +
+pos.y +
 Math.sin(
-elapsed * 1.2
-) * 0.22;
+elapsed * 1.3
+) * 0.18;
 
-/* ULTRA SMOOTH ROTATION */
+/* SMOOTH Y ROTATION */
 
 guitar.rotation.y +=
 (
-targetRotationY -
+(0.95 + targetRotationY)
+-
 guitar.rotation.y
-) * 0.045;
+) * 0.035;
 
-/* X AXIS */
+/* SMOOTH X ROTATION */
 
 guitar.rotation.x +=
 (
-targetRotationX -
+(-0.32 + targetRotationX)
+-
 guitar.rotation.x
-) * 0.045;
+) * 0.035;
 
-/* AUTO ROTATION */
-
-guitar.rotation.y +=
-0.0025;
-
-/* CINEMATIC TILT */
+/* CINEMATIC Z */
 
 guitar.rotation.z =
+0.08 +
 Math.sin(
 elapsed * 1.1
-) * 0.04;
+) * 0.03;
+
+/* VERY SLOW AUTO MOTION */
+
+guitar.rotation.y +=
+0.0012;
 
 }
 
 /* ==================================================
-CAMERA
+CAMERA TARGET
 ================================================== */
 
 camera.lookAt(
@@ -544,6 +595,15 @@ scale,
 scale,
 scale
 );
+
+const pos =
+getPosition();
+
+guitar.position.x =
+pos.x;
+
+guitar.position.y =
+pos.y;
 
 }
 
