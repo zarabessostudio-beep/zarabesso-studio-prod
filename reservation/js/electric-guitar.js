@@ -1,6 +1,7 @@
 /* =========================================================
 ZARABESSO STUDIO
 ELECTRIC GUITAR ENGINE
+PREMIUM SMALL VERSION
 ========================================================= */
 
 const electricCanvas =
@@ -8,34 +9,45 @@ document.getElementById(
 "webgl-electric"
 );
 
+/* =========================================================
+SCENE
+========================================================= */
+
 const electricScene =
 new THREE.Scene();
 
-/* CAMERA */
+/* =========================================================
+CAMERA
+========================================================= */
 
 const electricCamera =
 new THREE.PerspectiveCamera(
-30,
+32,
 electricCanvas.clientWidth /
 electricCanvas.clientHeight,
 0.1,
 1000
 );
 
+/* POSITION */
+
 electricCamera.position.set(
 0,
-0.2,
-6
+0.1,
+7
 );
 
-/* RENDERER */
+/* =========================================================
+RENDERER
+========================================================= */
 
 const electricRenderer =
 new THREE.WebGLRenderer({
 
 canvas:electricCanvas,
 alpha:true,
-antialias:true
+antialias:true,
+powerPreference:"high-performance"
 
 });
 
@@ -51,27 +63,34 @@ electricCanvas.clientHeight
 electricRenderer.outputEncoding =
 THREE.sRGBEncoding;
 
-/* LIGHTS */
+electricRenderer.physicallyCorrectLights =
+true;
+
+/* =========================================================
+LIGHTS
+========================================================= */
 
 const electricAmbient =
 new THREE.AmbientLight(
 0xffffff,
-2.5
+2.2
 );
 
 electricScene.add(
 electricAmbient
 );
 
+/* GOLD */
+
 const electricGold =
 new THREE.PointLight(
 0xffcc66,
-5,
-20
+4,
+25
 );
 
 electricGold.position.set(
-3,
+4,
 4,
 5
 );
@@ -79,6 +98,8 @@ electricGold.position.set(
 electricScene.add(
 electricGold
 );
+
+/* BLUE */
 
 const electricBlue =
 new THREE.PointLight(
@@ -88,7 +109,7 @@ new THREE.PointLight(
 );
 
 electricBlue.position.set(
--3,
+-4,
 -2,
 3
 );
@@ -97,12 +118,18 @@ electricScene.add(
 electricBlue
 );
 
-/* LOADER */
+/* =========================================================
+LOADER
+========================================================= */
 
 const electricLoader =
 new THREE.GLTFLoader();
 
 let electricGuitar = null;
+
+/* =========================================================
+LOAD MODEL
+========================================================= */
 
 electricLoader.load(
 
@@ -112,6 +139,8 @@ function(gltf){
 
 electricGuitar =
 gltf.scene;
+
+/* KEEP ORIGINAL GLB MATERIALS */
 
 electricGuitar.traverse(
 (child)=>{
@@ -124,9 +153,9 @@ child.receiveShadow = true;
 
 if(child.material){
 
-child.material.metalness = 0.5;
+child.material.envMapIntensity = 1.4;
 
-child.material.roughness = 0.4;
+child.material.needsUpdate = true;
 
 }
 
@@ -135,42 +164,118 @@ child.material.roughness = 0.4;
 }
 );
 
-/* SIZE */
+/* =========================================================
+SIZE
+========================================================= */
+
+/* SMALLER */
 
 electricGuitar.scale.set(
-3.2,
-3.2,
-3.2
+2.1,
+2.1,
+2.1
 );
 
-/* POSITION */
+/* =========================================================
+POSITION
+========================================================= */
 
 electricGuitar.position.set(
-0,
--1,
+1.4,
+-0.8,
 0
 );
 
-/* ROTATION */
+/* =========================================================
+ROTATION
+========================================================= */
 
 electricGuitar.rotation.set(
-0.2,
+0.15,
 -0.9,
-0.1
+0.05
 );
 
 electricScene.add(
 electricGuitar
 );
 
+},
+
+undefined,
+
+function(error){
+
+console.error(
+"Erreur electric guitar :",
+error
+);
+
 }
 
 );
 
-/* ANIMATION */
+/* =========================================================
+MOUSE
+========================================================= */
+
+let mouseX = 0;
+let mouseY = 0;
+
+window.addEventListener(
+
+"mousemove",
+
+(event)=>{
+
+mouseX =
+(event.clientX / window.innerWidth - 0.5);
+
+mouseY =
+(event.clientY / window.innerHeight - 0.5);
+
+}
+
+);
+
+/* =========================================================
+ZOOM
+========================================================= */
+
+window.addEventListener(
+
+"wheel",
+
+(event)=>{
+
+electricCamera.position.z +=
+event.deltaY * 0.003;
+
+/* LIMIT */
+
+electricCamera.position.z =
+Math.max(
+5,
+Math.min(
+10,
+electricCamera.position.z
+)
+);
+
+}
+
+);
+
+/* =========================================================
+CLOCK
+========================================================= */
 
 const electricClock =
 new THREE.Clock();
+
+/* =========================================================
+ANIMATION
+========================================================= */
 
 function animateElectric(){
 
@@ -183,14 +288,33 @@ electricClock.getElapsedTime();
 
 if(electricGuitar){
 
-electricGuitar.rotation.y +=
-0.0025;
+/* FLOAT */
 
 electricGuitar.position.y =
--1 +
-Math.sin(time*1.8)*0.08;
+-0.8 +
+Math.sin(time*1.6)*0.06;
+
+/* AUTO ROTATION */
+
+electricGuitar.rotation.y +=
+0.0015;
+
+/* MOUSE PARALLAX */
+
+electricGuitar.rotation.x =
+mouseY * 0.12;
+
+electricGuitar.rotation.z =
+mouseX * 0.06;
 
 }
+
+/* CAMERA SMOOTH */
+
+electricCamera.position.x +=
+(mouseX * 0.3
+- electricCamera.position.x)
+* 0.02;
 
 electricRenderer.render(
 electricScene,
@@ -201,10 +325,14 @@ electricCamera
 
 animateElectric();
 
-/* RESIZE */
+/* =========================================================
+RESIZE
+========================================================= */
 
 window.addEventListener(
+
 "resize",
+
 ()=>{
 
 electricCamera.aspect =
@@ -219,4 +347,5 @@ electricCanvas.clientHeight
 );
 
 }
+
 );

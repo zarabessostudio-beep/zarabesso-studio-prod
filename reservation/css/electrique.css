@@ -1,0 +1,306 @@
+/* =========================================================
+ZARABESSO STUDIO
+ELECTRIC GUITAR + RGB FOOTER
+PREMIUM ADDON
+========================================================= */
+
+/* =========================================================
+SECOND ELECTRIC GUITAR
+========================================================= */
+
+.hero-electric-guitar{
+
+position:absolute;
+
+/* POSITION OPPOSÉE AU H1 */
+
+top:-40px;
+
+right:7%;
+
+/* TAILLE MOYENNE */
+
+width:340px;
+height:340px;
+
+z-index:45;
+
+pointer-events:auto;
+
+overflow:visible;
+
+}
+
+/* =========================================================
+SECOND CANVAS
+========================================================= */
+
+#webgl-electric{
+
+width:100% !important;
+height:100% !important;
+
+display:block;
+
+background:transparent;
+
+/* PREMIUM SHADOW */
+
+filter:
+
+drop-shadow(
+0 0 30px rgba(255,180,0,.18)
+)
+
+drop-shadow(
+0 0 70px rgba(255,0,120,.12)
+)
+
+drop-shadow(
+0 0 100px rgba(59,130,246,.10)
+);
+
+}
+
+/* =========================================================
+FOOTER RGB PREMIUM
+========================================================= */
+
+.premium-footer{
+
+position:relative;
+
+overflow:hidden;
+
+border-top:
+2px solid transparent;
+
+animation:
+footerGlow 10s linear infinite;
+
+}
+
+/* RGB BORDER */
+
+.premium-footer::before{
+
+content:"";
+
+position:absolute;
+
+inset:0;
+
+padding:2px;
+
+background:
+linear-gradient(
+90deg,
+#ffd700,
+#ff0000,
+#00ff66,
+#0099ff,
+#ff00aa,
+#7a00ff,
+#8b4513,
+#39ff14,
+#ff1744,
+#ffd700
+);
+
+background-size:400% 400%;
+
+animation:
+rgbBorder 12s linear infinite;
+
+-webkit-mask:
+linear-gradient(#fff 0 0) content-box,
+linear-gradient(#fff 0 0);
+
+-webkit-mask-composite:xor;
+
+mask-composite:exclude;
+
+pointer-events:none;
+
+}
+
+/* =========================================================
+RGB TITLES
+========================================================= */
+
+.footer-brand h2,
+.footer-links h3,
+.footer-contact h3{
+
+background:
+linear-gradient(
+90deg,
+#ffd700,
+#ff0000,
+#00ff66,
+#0099ff,
+#ff00aa,
+#7a00ff,
+#8b4513,
+#39ff14,
+#ff1744
+);
+
+background-size:300% 300%;
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
+
+animation:
+rgbText 8s linear infinite;
+
+}
+
+/* =========================================================
+COPYRIGHT
+========================================================= */
+
+.footer-bottom p{
+
+background:
+linear-gradient(
+90deg,
+#ffd700,
+#ff0000,
+#00ff66,
+#0099ff,
+#ff00aa,
+#7a00ff,
+#8b4513,
+#39ff14,
+#ff1744
+);
+
+background-size:300% 300%;
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
+
+animation:
+rgbText 8s linear infinite;
+
+font-weight:700;
+
+}
+
+/* =========================================================
+ANIMATIONS
+========================================================= */
+
+@keyframes rgbBorder{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+@keyframes rgbText{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+@keyframes footerGlow{
+
+0%{
+box-shadow:0 0 25px rgba(255,215,0,.18);
+}
+
+20%{
+box-shadow:0 0 25px rgba(255,0,0,.18);
+}
+
+40%{
+box-shadow:0 0 25px rgba(0,255,120,.18);
+}
+
+60%{
+box-shadow:0 0 25px rgba(0,140,255,.18);
+}
+
+80%{
+box-shadow:0 0 25px rgba(170,0,255,.18);
+}
+
+100%{
+box-shadow:0 0 25px rgba(255,0,120,.18);
+}
+
+}
+
+/* =========================================================
+RESPONSIVE
+========================================================= */
+
+@media(max-width:1200px){
+
+.hero-electric-guitar{
+
+width:280px;
+height:280px;
+
+right:5%;
+
+top:-10px;
+
+}
+
+}
+
+@media(max-width:900px){
+
+.hero-electric-guitar{
+
+width:240px;
+height:240px;
+
+right:50%;
+
+transform:translateX(50%);
+
+top:-10px;
+
+opacity:.95;
+
+}
+
+}
+
+@media(max-width:600px){
+
+.hero-electric-guitar{
+
+width:180px;
+height:180px;
+
+top:20px;
+
+}
+
+}
