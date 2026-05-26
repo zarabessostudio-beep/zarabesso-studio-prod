@@ -1,16 +1,13 @@
 /* =========================================================
 ZARABESSO STUDIO
-PURE GLB GUITAR ENGINE
-ULTRA STABLE CLEAN VERSION
-NO PARTICLES
-NO FX
-ONLY GLB
-VERTICAL POSITION
-360 ROTATION
-FULL RESPONSIVE
-IOS + MOBILE SAFE
-INDEPENDENT GUITAR
-OLED BACKGROUND READY
+ELECTRIC GUITAR
+FINAL STABLE VERSION
+NO WRAPPER
+NO ERRORS
+========================================================= */
+
+/* =========================================================
+CANVAS
 ========================================================= */
 
 const electricCanvas =
@@ -18,53 +15,29 @@ document.getElementById(
 "webgl-electric"
 );
 
-if(electricCanvas){
+if(!electricCanvas){
 
-/* =========================================================
-SAFE GLOBAL
-========================================================= */
-
-[
-document.body,
-document.documentElement,
-electricCanvas,
-electricCanvas.parentElement
-].forEach(el=>{
-
-if(!el) return;
-
-el.style.overflow = "visible";
-el.style.clipPath = "none";
-
-});
-
-/* =========================================================
-DEVICE
-========================================================= */
-
-const isMobile =
-window.innerWidth < 768;
-
-const isIOS =
-/iPad|iPhone|iPod/.test(
-navigator.userAgent
+console.error(
+"Canvas introuvable"
 );
+
+}
 
 /* =========================================================
 SCENE
 ========================================================= */
 
-const scene =
+const electricScene =
 new THREE.Scene();
 
 /* =========================================================
 CAMERA
 ========================================================= */
 
-const camera =
+const electricCamera =
 new THREE.PerspectiveCamera(
 
-22,
+28,
 
 electricCanvas.clientWidth /
 electricCanvas.clientHeight,
@@ -74,22 +47,17 @@ electricCanvas.clientHeight,
 
 );
 
-/*
-SAFE DISTANCE
-FULL GUITAR VISIBLE
-*/
-
-camera.position.set(
+electricCamera.position.set(
 0,
 0,
-18
+9
 );
 
 /* =========================================================
 RENDERER
 ========================================================= */
 
-const renderer =
+const electricRenderer =
 new THREE.WebGLRenderer({
 
 canvas:electricCanvas,
@@ -103,224 +71,214 @@ powerPreference:
 
 });
 
-renderer.setPixelRatio(
+electricRenderer.setSize(
+
+electricCanvas.clientWidth,
+electricCanvas.clientHeight
+
+);
+
+electricRenderer.setPixelRatio(
 
 Math.min(
 window.devicePixelRatio,
-isMobile ? 1.2 : 1.8
+1.5
 )
 
 );
 
-renderer.setSize(
+electricRenderer.outputEncoding =
+THREE.sRGBEncoding;
 
-electricCanvas.clientWidth,
-electricCanvas.clientHeight,
-false
-
-);
-
-renderer.setClearColor(
+electricRenderer.setClearColor(
 0x000000,
 0
 );
 
-renderer.outputEncoding =
-THREE.sRGBEncoding;
-
-renderer.shadowMap.enabled =
-false;
-
-renderer.physicallyCorrectLights =
-false;
-
 /* =========================================================
 LIGHTS
-CLEAN ONLY
 ========================================================= */
 
-const ambient =
+const electricAmbient =
 new THREE.AmbientLight(
 0xffffff,
-2.4
+2.5
 );
 
-scene.add(ambient);
+electricScene.add(
+electricAmbient
+);
 
-const front =
+const electricFront =
 new THREE.DirectionalLight(
 0xffffff,
 1.2
 );
 
-front.position.set(
+electricFront.position.set(
 0,
 2,
 5
 );
 
-scene.add(front);
+electricScene.add(
+electricFront
+);
 
 /* =========================================================
 LOADER
 ========================================================= */
 
-const loader =
+const electricLoader =
 new THREE.GLTFLoader();
 
-let guitar = null;
+let electricGuitar = null;
 
 /* =========================================================
-RESPONSIVE CONFIG
+RESPONSIVE
 ========================================================= */
 
-function getConfig(){
-
-/* SMALL MOBILE */
+function electricConfig(){
 
 if(window.innerWidth <= 480){
 
 return{
 
-scale:1.9,
-x:0,
-y:-1.15,
-rotationSpeed:0.006
+scale:1.2,
+y:-1.1,
+speed:0.008
 
 };
 
 }
-
-/* MOBILE */
 
 if(window.innerWidth <= 768){
 
 return{
 
-scale:2.4,
-x:0,
-y:-1.1,
-rotationSpeed:0.0065
-
-};
-
-}
-
-/* TABLET */
-
-if(window.innerWidth <= 1100){
-
-return{
-
-scale:3.0,
-x:0.2,
-y:-1.05,
-rotationSpeed:0.007
-
-};
-
-}
-
-/* DESKTOP */
-
-return{
-
-scale:3.5,
-x:0.8,
+scale:1.6,
 y:-1,
-rotationSpeed:0.0075
+speed:0.007
 
 };
 
 }
 
+if(window.innerWidth <= 1200){
+
+return{
+
+scale:2,
+y:-0.9,
+speed:0.006
+
+};
+
 }
 
-let config =
-getConfig();
+return{
+
+scale:2.4,
+y:-0.8,
+speed:0.005
+
+};
+
+}
+
+let electricSettings =
+electricConfig();
 
 /* =========================================================
 LOAD MODEL
 ========================================================= */
 
-loader.load(
+electricLoader.load(
 
 "/reservation/assets/models/guitar.glb",
 
-(gltf)=>{
+function(gltf){
 
-guitar =
+electricGuitar =
 gltf.scene;
 
 /* =========================================================
 OPTIMIZATION
 ========================================================= */
 
-guitar.traverse((child)=>{
+electricGuitar.traverse(
+
+function(child){
 
 if(child.isMesh){
 
-child.castShadow = false;
-child.receiveShadow = false;
-child.frustumCulled = false;
+child.castShadow =
+false;
 
-if(child.material){
+child.receiveShadow =
+false;
 
-child.material.needsUpdate =
-true;
-
-}
+child.frustumCulled =
+false;
 
 }
 
-});
+}
+
+);
 
 /* =========================================================
 SCALE
 ========================================================= */
 
-guitar.scale.set(
-config.scale,
-config.scale,
-config.scale
+electricGuitar.scale.set(
+
+electricSettings.scale,
+electricSettings.scale,
+electricSettings.scale
+
 );
 
 /* =========================================================
 POSITION
 ========================================================= */
 
-guitar.position.set(
-config.x,
-config.y,
+electricGuitar.position.set(
+0,
+electricSettings.y,
 0
 );
 
 /* =========================================================
-VERTICAL POSITION
+ROTATION
 ========================================================= */
 
-guitar.rotation.set(
-
+electricGuitar.rotation.set(
 0,
-Math.PI / 2,
+0,
 0
-
 );
 
 /* =========================================================
 ADD
 ========================================================= */
 
-scene.add(guitar);
+electricScene.add(
+electricGuitar
+);
+
+console.log(
+"Guitar loaded"
+);
 
 },
 
 undefined,
 
-(error)=>{
+function(error){
 
 console.error(
-"Erreur GLB:",
+"GLB ERROR",
 error
 );
 
@@ -332,56 +290,44 @@ error
 CLOCK
 ========================================================= */
 
-const clock =
+const electricClock =
 new THREE.Clock();
 
 /* =========================================================
 ANIMATION
 ========================================================= */
 
-function animate(){
+function electricAnimate(){
 
 requestAnimationFrame(
-animate
+electricAnimate
 );
 
 const elapsed =
-clock.getElapsedTime();
+electricClock.getElapsedTime();
 
-if(guitar){
+if(electricGuitar){
 
-/* =========================================================
-SMOOTH 360 ROTATION
-========================================================= */
+electricGuitar.rotation.y +=
+electricSettings.speed;
 
-guitar.rotation.y +=
-config.rotationSpeed;
+electricGuitar.position.y =
 
-/* =========================================================
-VERY LIGHT FLOAT
-========================================================= */
-
-guitar.position.y =
-
-config.y +
+electricSettings.y +
 
 Math.sin(elapsed * 1.5)
 * 0.03;
 
 }
 
-/* =========================================================
-RENDER
-========================================================= */
-
-renderer.render(
-scene,
-camera
+electricRenderer.render(
+electricScene,
+electricCamera
 );
 
 }
 
-animate();
+electricAnimate();
 
 /* =========================================================
 RESIZE
@@ -391,10 +337,10 @@ window.addEventListener(
 
 "resize",
 
-()=>{
+function(){
 
-config =
-getConfig();
+electricSettings =
+electricConfig();
 
 const width =
 electricCanvas.clientWidth;
@@ -402,67 +348,34 @@ electricCanvas.clientWidth;
 const height =
 electricCanvas.clientHeight;
 
-camera.aspect =
+electricCamera.aspect =
 width / height;
 
-camera.updateProjectionMatrix();
+electricCamera.updateProjectionMatrix();
 
-renderer.setSize(
+electricRenderer.setSize(
 width,
-height,
-false
+height
 );
 
-if(guitar){
+if(electricGuitar){
 
-guitar.scale.set(
-config.scale,
-config.scale,
-config.scale
+electricGuitar.scale.set(
+
+electricSettings.scale,
+electricSettings.scale,
+electricSettings.scale
+
 );
 
-guitar.position.set(
-config.x,
-config.y,
+electricGuitar.position.set(
+0,
+electricSettings.y,
 0
 );
 
 }
 
-},
-
-{ passive:true }
-
-);
-
-/* =========================================================
-IOS SAFE
-========================================================= */
-
-if(isIOS){
-
-window.addEventListener(
-"touchstart",
-()=>{},
-{ passive:true }
-);
-
-}
-
-/* =========================================================
-MEMORY CLEAN
-========================================================= */
-
-window.addEventListener(
-
-"pagehide",
-
-()=>{
-
-renderer.dispose();
-
 }
 
 );
-
-}
