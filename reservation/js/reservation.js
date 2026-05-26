@@ -1,84 +1,309 @@
-// ===============================
-// RESERVATION SYSTEM
-// ZARABESSO STUDIO
-// ===============================
+/* =========================================================
+ZARABESSO STUDIO
+PREMIUM RESERVATION SYSTEM
+FINAL PRODUCTION VERSION
+SECURE + WHATSAPP + MOBILE SAFE
+========================================================= */
+
+/* =========================================================
+ELEMENTS
+========================================================= */
 
 const form =
-document.getElementById("reservationForm");
+document.getElementById(
+"reservationForm"
+);
 
 const burger =
-document.getElementById("burger");
+document.getElementById(
+"burger"
+);
 
 const navLinks =
-document.getElementById("navLinks");
+document.getElementById(
+"navLinks"
+);
 
-// ===============================
-// BURGER
-// ===============================
+const loaderScreen =
+document.getElementById(
+"loaderScreen"
+);
 
-burger.addEventListener("click",()=>{
+/* =========================================================
+SAFE BURGER MENU
+========================================================= */
 
-navLinks.classList.toggle("active");
+if(
+burger &&
+navLinks
+){
+
+burger.addEventListener(
+
+"click",
+
+()=>{
+
+navLinks.classList.toggle(
+"active"
+);
+
+}
+
+);
+
+}
+
+/* =========================================================
+AUTO CLOSE MENU MOBILE
+========================================================= */
+
+document.querySelectorAll(
+"#navLinks a"
+).forEach((link)=>{
+
+link.addEventListener(
+
+"click",
+
+()=>{
+
+if(navLinks){
+
+navLinks.classList.remove(
+"active"
+);
+
+}
+
+}
+
+);
 
 });
 
-// ===============================
-// LOADER
-// ===============================
+/* =========================================================
+PREMIUM LOADER
+========================================================= */
 
-window.addEventListener("load",()=>{
+window.addEventListener(
+
+"load",
+
+()=>{
+
+if(loaderScreen){
 
 setTimeout(()=>{
 
-const loader =
-document.getElementById("loaderScreen");
+loaderScreen.style.opacity =
+"0";
 
-loader.style.opacity = "0";
+loaderScreen.style.pointerEvents =
+"none";
 
 setTimeout(()=>{
 
-loader.style.display = "none";
+loaderScreen.style.display =
+"none";
 
 },1200);
 
 },1800);
 
-});
+}
 
-// ===============================
-// FORM
-// ===============================
+}
 
-form.addEventListener("submit",async(e)=>{
+/* =========================================================
+SMOOTH SCROLL
+========================================================= */
+
+document.querySelectorAll(
+'a[href^="#"]'
+).forEach((anchor)=>{
+
+anchor.addEventListener(
+
+"click",
+
+function(e){
 
 e.preventDefault();
+
+const target =
+document.querySelector(
+this.getAttribute("href")
+);
+
+if(target){
+
+target.scrollIntoView({
+
+behavior:"smooth",
+block:"start"
+
+});
+
+}
+
+}
+
+);
+
+});
+
+/* =========================================================
+SAFE FORM
+========================================================= */
+
+if(form){
+
+/* =========================================================
+SUBMIT
+========================================================= */
+
+form.addEventListener(
+
+"submit",
+
+async(e)=>{
+
+e.preventDefault();
+
+/* =========================================================
+BUTTON LOCK
+========================================================= */
+
+const submitButton =
+form.querySelector(
+'button[type="submit"]'
+);
+
+if(submitButton){
+
+submitButton.disabled =
+true;
+
+submitButton.innerHTML =
+"Envoi en cours...";
+
+}
+
+/* =========================================================
+DATA
+========================================================= */
 
 const data = {
 
 name:
-document.getElementById("name").value,
+document.getElementById("name")
+?.value
+?.trim(),
 
 phone:
-document.getElementById("phone").value,
+document.getElementById("phone")
+?.value
+?.trim(),
 
 service:
-document.getElementById("service").value,
+document.getElementById("service")
+?.value
+?.trim(),
 
 date:
-document.getElementById("date").value,
+document.getElementById("date")
+?.value
+?.trim(),
 
-time:selectedTime,
+time:
+typeof selectedTime !== "undefined"
+? selectedTime
+: "",
 
 message:
-document.getElementById("message").value
+document.getElementById("message")
+?.value
+?.trim()
 
 };
 
-// SAVE API
+/* =========================================================
+VALIDATION
+========================================================= */
+
+if(
+
+!data.name ||
+!data.phone ||
+!data.date ||
+!data.time
+
+){
+
+alert(
+"Veuillez remplir tous les champs obligatoires."
+);
+
+/* =========================================================
+UNLOCK BUTTON
+========================================================= */
+
+if(submitButton){
+
+submitButton.disabled =
+false;
+
+submitButton.innerHTML =
+"Réserver";
+
+}
+
+return;
+
+}
+
+/* =========================================================
+PHONE VALIDATION
+========================================================= */
+
+const phoneRegex =
+/^[0-9+\s()-]{6,20}$/;
+
+if(
+!phoneRegex.test(data.phone)
+){
+
+alert(
+"Numéro téléphone invalide."
+);
+
+if(submitButton){
+
+submitButton.disabled =
+false;
+
+submitButton.innerHTML =
+"Réserver";
+
+}
+
+return;
+
+}
+
+/* =========================================================
+API REQUEST
+========================================================= */
 
 try{
 
-await fetch("/api/reservation",{
+const response =
+await fetch(
+
+"/api/reservation",
+
+{
 
 method:"POST",
 
@@ -88,35 +313,200 @@ headers:{
 
 body:JSON.stringify(data)
 
-});
-
-}catch(err){
-
-console.log(err);
-
 }
 
-// WHATSAPP
+);
 
-const whatsappMessage = `
+/* =========================================================
+JSON
+========================================================= */
 
-🎵 ZARABESSO STUDIO
+const result =
+await response.json();
 
-👤 Nom: ${data.name}
-📞 Téléphone: ${data.phone}
-🎧 Service: ${data.service}
-📅 Date: ${data.date}
-⏰ Heure: ${data.time}
-📝 Projet: ${data.message}
+/* =========================================================
+SUCCESS
+========================================================= */
 
-`;
+if(result.success){
+
+/* =========================================================
+SUCCESS EFFECT
+========================================================= */
+
+alert(
+"Réservation envoyée avec succès 🎸"
+);
+
+/* =========================================================
+WHATSAPP OPEN
+========================================================= */
+
+if(result.whatsappURL){
 
 window.open(
 
-`https://wa.me/261342110356?text=${encodeURIComponent(whatsappMessage)}`,
+result.whatsappURL,
 
 "_blank"
 
 );
 
+}
+
+/* =========================================================
+RESET FORM
+========================================================= */
+
+form.reset();
+
+/* =========================================================
+RESET TIME
+========================================================= */
+
+if(
+typeof selectedTime !==
+"undefined"
+){
+
+selectedTime = "";
+
+}
+
+/* =========================================================
+OPTIONAL ACTIVE TIME RESET
+========================================================= */
+
+document
+.querySelectorAll(
+".time-slot.active"
+)
+.forEach((slot)=>{
+
+slot.classList.remove(
+"active"
+);
+
 });
+
+}else{
+
+alert(
+
+result.error ||
+
+"Erreur réservation"
+
+);
+
+}
+
+/* =========================================================
+ERROR
+========================================================= */
+
+}catch(err){
+
+console.error(
+"Reservation Error:",
+err
+);
+
+alert(
+"Erreur serveur. Réessayez plus tard."
+);
+
+}
+
+/* =========================================================
+UNLOCK BUTTON
+========================================================= */
+
+if(submitButton){
+
+submitButton.disabled =
+false;
+
+submitButton.innerHTML =
+"Réserver";
+
+}
+
+}
+
+);
+
+}
+
+/* =========================================================
+ANTI LAG MOBILE
+========================================================= */
+
+window.addEventListener(
+
+"pageshow",
+
+()=>{
+
+document.body.style.opacity =
+"1";
+
+}
+
+);
+
+/* =========================================================
+IOS TOUCH OPTIMIZATION
+========================================================= */
+
+document.addEventListener(
+
+"touchstart",
+
+()=>{},
+
+{ passive:true }
+
+);
+
+/* =========================================================
+SAFE ERROR HANDLER
+========================================================= */
+
+window.addEventListener(
+
+"error",
+
+(event)=>{
+
+console.error(
+"Global Error:",
+event.error
+);
+
+}
+
+);
+
+/* =========================================================
+UNHANDLED PROMISE
+========================================================= */
+
+window.addEventListener(
+
+"unhandledrejection",
+
+(event)=>{
+
+console.error(
+"Promise Error:",
+event.reason
+);
+
+}
+
+);
+
+/* =========================================================
+END
+========================================================= */
