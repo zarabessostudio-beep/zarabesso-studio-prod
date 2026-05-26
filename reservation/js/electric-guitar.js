@@ -1,7 +1,7 @@
 /* =========================================================
 ZARABESSO STUDIO
-ELECTRIC GUITAR
-LINUX FIREFOX STABLE
+PREMIUM ELECTRIC GUITAR
+FINAL SHOWROOM VERSION
 ========================================================= */
 
 window.addEventListener(
@@ -22,7 +22,7 @@ document.getElementById(
 if(!electricCanvas){
 
 console.error(
-"Canvas webgl-electric introuvable"
+"Canvas introuvable"
 );
 
 return;
@@ -30,7 +30,7 @@ return;
 }
 
 /* =========================================================
-FORCE SIZE
+SAFE CANVAS
 ========================================================= */
 
 electricCanvas.style.width = "100%";
@@ -50,16 +50,20 @@ CAMERA
 
 const electricCamera =
 new THREE.PerspectiveCamera(
-24,
+26,
 1,
 0.1,
 1000
 );
 
+/* =========================================================
+CAMERA POSITION
+========================================================= */
+
 electricCamera.position.set(
 0,
 0,
-18
+14
 );
 
 /* =========================================================
@@ -75,16 +79,12 @@ alpha:true,
 
 antialias:false,
 
-powerPreference:"default",
-
-premultipliedAlpha:false,
-
-preserveDrawingBuffer:false
+powerPreference:"default"
 
 });
 
 /* =========================================================
-SAFE RENDERER
+RENDERER SETTINGS
 ========================================================= */
 
 electricRenderer.setClearColor(
@@ -93,7 +93,13 @@ electricRenderer.setClearColor(
 );
 
 electricRenderer.setPixelRatio(
-Math.min(window.devicePixelRatio,1.2)
+Math.min(window.devicePixelRatio,1.5)
+);
+
+electricRenderer.setSize(
+electricCanvas.parentElement.offsetWidth,
+electricCanvas.parentElement.offsetHeight,
+false
 );
 
 electricRenderer.outputEncoding =
@@ -113,24 +119,24 @@ electricScene.add(
 ambient
 );
 
-const front =
+const frontLight =
 new THREE.DirectionalLight(
 0xffffff,
-1.5
+1.8
 );
 
-front.position.set(
+frontLight.position.set(
 0,
-2,
+3,
 8
 );
 
 electricScene.add(
-front
+frontLight
 );
 
 /* =========================================================
-SETTINGS
+RESPONSIVE SETTINGS
 ========================================================= */
 
 function getSettings(){
@@ -138,8 +144,10 @@ function getSettings(){
 if(window.innerWidth <= 480){
 
 return{
-scale:2.4,
-y:-4.2
+
+scale:4.2,
+y:-5.4
+
 };
 
 }
@@ -147,8 +155,10 @@ y:-4.2
 if(window.innerWidth <= 768){
 
 return{
-scale:3,
-y:-4
+
+scale:5,
+y:-5.2
+
 };
 
 }
@@ -156,15 +166,19 @@ y:-4
 if(window.innerWidth <= 1200){
 
 return{
-scale:3.6,
-y:-3.8
+
+scale:5.8,
+y:-5
+
 };
 
 }
 
 return{
-scale:4.0,
-y:-3.6
+
+scale:6.3,
+y:-4.8
+
 };
 
 }
@@ -204,11 +218,11 @@ electricGuitar.traverse(
 
 if(child.isMesh){
 
-child.frustumCulled = false;
-
 child.castShadow = false;
 
 child.receiveShadow = false;
+
+child.frustumCulled = false;
 
 }
 
@@ -217,7 +231,7 @@ child.receiveShadow = false;
 );
 
 /* =========================================================
-SCALE
+SIZE
 ========================================================= */
 
 electricGuitar.scale.set(
@@ -231,19 +245,27 @@ POSITION
 ========================================================= */
 
 electricGuitar.position.set(
-0,
+2.4,
 settings.y,
 0
 );
 
 /* =========================================================
-VERTICAL POSITION
+FORCED VERTICAL POSITION
 ========================================================= */
 
+/*
+X = vertical neck up
+Y = showroom angle
+Z = slight premium tilt
+*/
+
 electricGuitar.rotation.set(
-0,
-Math.PI / 2,
-0
+
+-1.55,
+1.3,
+0.12
+
 );
 
 /* =========================================================
@@ -255,7 +277,7 @@ electricGuitar
 );
 
 console.log(
-"Electric guitar loaded successfully"
+"Premium electric guitar loaded"
 );
 
 resizeElectric();
@@ -267,7 +289,7 @@ undefined,
 (error)=>{
 
 console.error(
-"Erreur GLB :",
+"GLB ERROR",
 error
 );
 
@@ -316,7 +338,7 @@ settings.scale
 );
 
 electricGuitar.position.set(
-0,
+2.4,
 settings.y,
 0
 );
@@ -353,6 +375,17 @@ function animate(){
 requestAnimationFrame(
 animate
 );
+
+if(electricGuitar){
+
+/* =========================================================
+VERY SLOW SHOWROOM ROTATION
+========================================================= */
+
+electricGuitar.rotation.y +=
+0.0015;
+
+}
 
 electricRenderer.render(
 electricScene,
