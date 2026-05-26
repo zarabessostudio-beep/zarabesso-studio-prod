@@ -1,14 +1,16 @@
 /* =========================================================
 ZARABESSO STUDIO
 HERO ELECTRIC GUITAR
-RAW GLB VERSION
-NO EFFECT
+FREE PREMIUM VERSION
+NO LIMIT
 ========================================================= */
 
 /* =========================================================
 SAFE OVERFLOW
 ========================================================= */
 
+html,
+body,
 .reservation-hero,
 .reservation-container,
 .hero-guitar-zone,
@@ -30,14 +32,20 @@ position:absolute;
 top:0;
 right:0;
 
-width:50%;
+width:55%;
 height:100%;
 
 pointer-events:none;
 
 z-index:15;
 
+/*
+SUPPRIME LA LIMITATION
+*/
+
 overflow:visible !important;
+
+contain:none !important;
 
 }
 
@@ -49,19 +57,16 @@ GUITAR CONTAINER
 
 position:absolute;
 
-/*
-PARALLELE AU H1
-*/
-
-top:-20px;
-right:4%;
+top:-120px;
+right:-8%;
 
 /*
-TAILLE PLUS PETITE
+ZONE PLUS GRANDE
+POUR EVITER LE CADRE INVISIBLE
 */
 
-width:420px;
-height:420px;
+width:1100px;
+height:1100px;
 
 z-index:20;
 
@@ -74,14 +79,165 @@ outline:none !important;
 box-shadow:none !important;
 
 /*
-SUPPRIME TOUTE LIMITATION
+SUPPRIME TOUT CLIPPING
 */
 
 overflow:visible !important;
 
+clip-path:none !important;
+
+contain:none !important;
+
 transform-style:preserve-3d;
 
 will-change:transform;
+
+isolation:isolate;
+
+}
+
+/* =========================================================
+RGB CIRCLE BACKGROUND
+========================================================= */
+
+.hero-electric-guitar::before{
+
+content:"";
+
+position:absolute;
+
+left:50%;
+top:50%;
+
+width:520px;
+height:520px;
+
+transform:
+translate(-50%,-50%);
+
+border-radius:50%;
+
+/*
+RGB GRADIENT
+*/
+
+background:
+conic-gradient(
+
+#ff0000,
+#00ff66,
+#0080ff,
+#ff8800,
+#8b5cf6,
+#ff0000
+
+);
+
+/*
+EFFET PREMIUM
+*/
+
+filter:
+blur(18px)
+saturate(140%);
+
+opacity:0.7;
+
+animation:
+rgbRotate 8s linear infinite;
+
+z-index:-2;
+
+}
+
+/* =========================================================
+INNER ENERGY CIRCLE
+========================================================= */
+
+.hero-electric-guitar::after{
+
+content:"";
+
+position:absolute;
+
+left:50%;
+top:50%;
+
+width:0%;
+height:0%;
+
+transform:
+translate(-50%,-50%);
+
+border-radius:50%;
+
+background:
+radial-gradient(
+circle,
+rgba(255,255,255,0.14),
+transparent 70%
+);
+
+animation:
+energyPulse 7s ease-in-out infinite;
+
+z-index:-1;
+
+}
+
+/* =========================================================
+RGB ROTATION
+========================================================= */
+
+@keyframes rgbRotate{
+
+0%{
+
+transform:
+translate(-50%,-50%)
+rotate(0deg);
+
+}
+
+100%{
+
+transform:
+translate(-50%,-50%)
+rotate(360deg);
+
+}
+
+}
+
+/* =========================================================
+ENERGY FILL
+========================================================= */
+
+@keyframes energyPulse{
+
+0%{
+
+width:80px;
+height:80px;
+opacity:0.2;
+
+}
+
+50%{
+
+width:340px;
+height:340px;
+opacity:0.55;
+
+}
+
+100%{
+
+width:80px;
+height:80px;
+opacity:0.2;
+
+}
 
 }
 
@@ -107,14 +263,22 @@ outline:none !important;
 box-shadow:none !important;
 
 /*
-PAS D'EFFETS
+AUCUNE LIMITATION
 */
-
-filter:none !important;
 
 overflow:visible !important;
 
 clip-path:none !important;
+
+contain:none !important;
+
+/*
+GLB BRUT
+*/
+
+filter:none !important;
+
+z-index:5;
 
 }
 
@@ -126,12 +290,11 @@ LAPTOP
 
 .hero-electric-guitar{
 
-width:360px;
-height:360px;
+width:900px;
+height:900px;
 
-top:0;
-
-right:2%;
+top:-100px;
+right:-12%;
 
 }
 
@@ -151,13 +314,13 @@ width:100%;
 
 .hero-electric-guitar{
 
-width:300px;
-height:300px;
+width:700px;
+height:700px;
 
 left:50%;
 right:auto;
 
-top:40px;
+top:-20px;
 
 transform:translateX(-50%);
 
@@ -173,14 +336,21 @@ MOBILE
 
 .hero-electric-guitar{
 
-width:220px;
-height:220px;
+width:480px;
+height:480px;
 
-top:80px;
+top:40px;
 
 left:50%;
 
 transform:translateX(-50%);
+
+}
+
+.hero-electric-guitar::before{
+
+width:260px;
+height:260px;
 
 }
 
@@ -194,10 +364,10 @@ SMALL MOBILE
 
 .hero-electric-guitar{
 
-width:170px;
-height:170px;
+width:360px;
+height:360px;
 
-top:95px;
+top:90px;
 
 }
 
