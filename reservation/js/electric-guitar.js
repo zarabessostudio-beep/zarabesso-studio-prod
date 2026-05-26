@@ -171,7 +171,7 @@ LOAD MODEL
 
 electricLoader.load(
 
-"/reservation/assets/models/electrique.glb",
+"/reservation/assets/models/guitar.glb",
 
 (gltf)=>{
 

@@ -24,6 +24,12 @@ document.getElementById(
 );
 
 /* =========================================================
+ADMIN PASSWORD
+========================================================= */
+
+const ADMIN_PASSWORD = "2103";
+
+/* =========================================================
 LOAD SAVED STATE
 ========================================================= */
 
@@ -51,7 +57,7 @@ studioToggle.checked = true;
 }
 
 /* =========================================================
-SWITCH EVENT
+SWITCH EVENT WITH PASSWORD
 ========================================================= */
 
 studioToggle.addEventListener(
@@ -59,6 +65,33 @@ studioToggle.addEventListener(
 "change",
 
 ()=>{
+
+const password = prompt(
+"Code administrateur requis"
+);
+
+/* =========================
+WRONG PASSWORD
+========================= */
+
+if(password !== ADMIN_PASSWORD){
+
+alert(
+"Code incorrect"
+);
+
+/* Retour état précédent */
+
+studioToggle.checked =
+!studioToggle.checked;
+
+return;
+
+}
+
+/* =========================
+CORRECT PASSWORD
+========================= */
 
 if(studioToggle.checked){
 
