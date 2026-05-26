@@ -1,7 +1,8 @@
 /* =========================================================
 ZARABESSO STUDIO
 HERO ELECTRIC GUITAR
-UNLIMITED SHOWROOM VERSION
+RAW GLB VERSION
+NO EFFECT
 ========================================================= */
 
 /* =========================================================
@@ -48,17 +49,19 @@ GUITAR CONTAINER
 
 position:absolute;
 
-/* POSITION HERO */
+/*
+PARALLELE AU H1
+*/
 
-top:-40px;
-right:2%;
+top:-20px;
+right:4%;
 
-/* TAILLE */
+/*
+TAILLE PLUS PETITE
+*/
 
-width:520px;
-height:520px;
-
-/* IMPORTANT */
+width:420px;
+height:420px;
 
 z-index:20;
 
@@ -70,11 +73,11 @@ border:none !important;
 outline:none !important;
 box-shadow:none !important;
 
-/* ENLEVE LE CADRE */
+/*
+SUPPRIME TOUTE LIMITATION
+*/
 
 overflow:visible !important;
-
-/* PERFORMANCE */
 
 transform-style:preserve-3d;
 
@@ -103,86 +106,15 @@ border:none !important;
 outline:none !important;
 box-shadow:none !important;
 
-/* IMPORTANT */
+/*
+PAS D'EFFETS
+*/
+
+filter:none !important;
 
 overflow:visible !important;
 
-/* SUPPRIME LE RECTANGLE */
-
 clip-path:none !important;
-
-filter:
-drop-shadow(
-0 0 18px
-rgba(139,92,246,0.18)
-)
-drop-shadow(
-0 0 35px
-rgba(168,85,247,0.12)
-);
-
-}
-
-/* =========================================================
-PURPLE ATMOSPHERE
-========================================================= */
-
-.hero-electric-guitar::before{
-
-content:"";
-
-position:absolute;
-
-inset:10%;
-
-border-radius:50%;
-
-background:
-radial-gradient(
-circle,
-rgba(168,85,247,0.10) 0%,
-rgba(139,92,246,0.05) 35%,
-transparent 75%
-);
-
-filter:blur(45px);
-
-z-index:-1;
-
-animation:
-purpleAmbient 6s ease-in-out infinite;
-
-}
-
-/* =========================================================
-ANIMATION
-========================================================= */
-
-@keyframes purpleAmbient{
-
-0%{
-
-transform:scale(1);
-
-opacity:0.7;
-
-}
-
-50%{
-
-transform:scale(1.08);
-
-opacity:1;
-
-}
-
-100%{
-
-transform:scale(1);
-
-opacity:0.7;
-
-}
 
 }
 
@@ -194,10 +126,12 @@ LAPTOP
 
 .hero-electric-guitar{
 
-width:430px;
-height:430px;
+width:360px;
+height:360px;
 
-top:-10px;
+top:0;
+
+right:2%;
 
 }
 
@@ -217,8 +151,8 @@ width:100%;
 
 .hero-electric-guitar{
 
-width:320px;
-height:320px;
+width:300px;
+height:300px;
 
 left:50%;
 right:auto;
@@ -239,10 +173,10 @@ MOBILE
 
 .hero-electric-guitar{
 
-width:240px;
-height:240px;
+width:220px;
+height:220px;
 
-top:70px;
+top:80px;
 
 left:50%;
 
@@ -260,10 +194,10 @@ SMALL MOBILE
 
 .hero-electric-guitar{
 
-width:180px;
-height:180px;
+width:170px;
+height:170px;
 
-top:90px;
+top:95px;
 
 }
 
