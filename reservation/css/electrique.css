@@ -1,16 +1,15 @@
 /* =========================================================
 ZARABESSO STUDIO
 HERO ELECTRIC GUITAR
-FREE PREMIUM VERSION
-NO LIMIT
+OPTIMIZED PREMIUM OLED VERSION
+LOW GPU IMPACT
+NO NAVBAR CONFLICT
 ========================================================= */
 
 /* =========================================================
 SAFE OVERFLOW
 ========================================================= */
 
-html,
-body,
 .reservation-hero,
 .reservation-container,
 .hero-guitar-zone,
@@ -40,7 +39,7 @@ pointer-events:none;
 z-index:15;
 
 /*
-SUPPRIME LA LIMITATION
+NO LIMIT
 */
 
 overflow:visible !important;
@@ -57,12 +56,15 @@ GUITAR CONTAINER
 
 position:absolute;
 
+/*
+POSITION GARDEE
+*/
+
 top:-120px;
 right:-8%;
 
 /*
-ZONE PLUS GRANDE
-POUR EVITER LE CADRE INVISIBLE
+MEME ZONE
 */
 
 width:1100px;
@@ -78,10 +80,6 @@ border:none !important;
 outline:none !important;
 box-shadow:none !important;
 
-/*
-SUPPRIME TOUT CLIPPING
-*/
-
 overflow:visible !important;
 
 clip-path:none !important;
@@ -94,10 +92,17 @@ will-change:transform;
 
 isolation:isolate;
 
+/*
+IMPORTANT
+EVITE IMPACT NAVBAR
+*/
+
+backface-visibility:hidden;
+
 }
 
 /* =========================================================
-PREMIUM OLED BACKGROUND LIGHT
+SOFT OLED LIGHT
 ========================================================= */
 
 .hero-electric-guitar::before{
@@ -109,8 +114,8 @@ position:absolute;
 left:50%;
 top:50%;
 
-width:720px;
-height:720px;
+width:620px;
+height:620px;
 
 transform:
 translate(-50%,-50%);
@@ -118,45 +123,53 @@ translate(-50%,-50%);
 border-radius:50%;
 
 /*
-BLUR RGB PREMIUM
-DISCRET
+LIGHT GLASS EFFECT
 */
 
 background:
 radial-gradient(
+
 circle,
-rgba(255,0,80,0.10) 0%,
-rgba(0,140,255,0.08) 25%,
-rgba(120,0,255,0.08) 50%,
-rgba(0,255,180,0.06) 75%,
+
+rgba(255,255,255,0.045) 0%,
+rgba(120,140,255,0.05) 25%,
+rgba(255,120,180,0.04) 50%,
+rgba(120,255,220,0.03) 75%,
 transparent 100%
+
 );
 
 /*
-GROS BLUR OLED
+OPTIMIZED BLUR
 */
 
-filter:
-blur(90px)
-saturate(130%);
+filter:blur(55px);
 
 opacity:0.55;
 
 /*
-ANIMATION LENTE
+SLOW PREMIUM ANIMATION
 */
 
 animation:
-oledAmbient 18s ease-in-out infinite;
+glassAmbient 14s ease-in-out infinite;
 
 z-index:-3;
 
 pointer-events:none;
 
+/*
+GPU SAFE
+*/
+
+will-change:
+transform,
+opacity;
+
 }
 
 /* =========================================================
-SECONDARY AMBIENT LIGHT
+SECOND LIGHT
 ========================================================= */
 
 .hero-electric-guitar::after{
@@ -168,8 +181,8 @@ position:absolute;
 left:50%;
 top:50%;
 
-width:520px;
-height:520px;
+width:420px;
+height:420px;
 
 transform:
 translate(-50%,-50%);
@@ -178,30 +191,36 @@ border-radius:50%;
 
 background:
 radial-gradient(
+
 circle,
-rgba(255,255,255,0.06),
-rgba(0,0,0,0) 70%
+
+rgba(255,255,255,0.03),
+transparent 70%
+
 );
 
-filter:
-blur(70px);
+filter:blur(40px);
 
-opacity:0.35;
+opacity:0.22;
 
 animation:
-oledPulse 12s ease-in-out infinite;
+softPulse 10s ease-in-out infinite;
 
 z-index:-2;
 
 pointer-events:none;
 
+will-change:
+transform,
+opacity;
+
 }
 
 /* =========================================================
-OLED COLOR SHIFT
+OLED GLASS ANIMATION
 ========================================================= */
 
-@keyframes oledAmbient{
+@keyframes glassAmbient{
 
 0%{
 
@@ -209,25 +228,7 @@ transform:
 translate(-50%,-50%)
 scale(1);
 
-filter:
-blur(90px)
-hue-rotate(0deg);
-
-opacity:0.45;
-
-}
-
-25%{
-
-transform:
-translate(-50%,-50%)
-scale(1.08);
-
-filter:
-blur(100px)
-hue-rotate(90deg);
-
-opacity:0.55;
+opacity:0.42;
 
 }
 
@@ -235,27 +236,9 @@ opacity:0.55;
 
 transform:
 translate(-50%,-50%)
-scale(1.12);
+scale(1.06);
 
-filter:
-blur(110px)
-hue-rotate(180deg);
-
-opacity:0.65;
-
-}
-
-75%{
-
-transform:
-translate(-50%,-50%)
-scale(1.05);
-
-filter:
-blur(100px)
-hue-rotate(270deg);
-
-opacity:0.55;
+opacity:0.58;
 
 }
 
@@ -265,11 +248,7 @@ transform:
 translate(-50%,-50%)
 scale(1);
 
-filter:
-blur(90px)
-hue-rotate(360deg);
-
-opacity:0.45;
+opacity:0.42;
 
 }
 
@@ -279,7 +258,7 @@ opacity:0.45;
 SOFT PULSE
 ========================================================= */
 
-@keyframes oledPulse{
+@keyframes softPulse{
 
 0%{
 
@@ -295,9 +274,9 @@ opacity:0.18;
 
 transform:
 translate(-50%,-50%)
-scale(1.15);
+scale(1.08);
 
-opacity:0.38;
+opacity:0.28;
 
 }
 
@@ -334,23 +313,23 @@ border:none !important;
 outline:none !important;
 box-shadow:none !important;
 
-/*
-AUCUNE LIMITATION
-*/
-
 overflow:visible !important;
 
 clip-path:none !important;
 
 contain:none !important;
 
-/*
-GLB BRUT
-*/
-
 filter:none !important;
 
 z-index:5;
+
+/*
+PERFORMANCE
+*/
+
+transform:translateZ(0);
+
+backface-visibility:hidden;
 
 }
 
@@ -421,8 +400,8 @@ transform:translateX(-50%);
 
 .hero-electric-guitar::before{
 
-width:260px;
-height:260px;
+width:240px;
+height:240px;
 
 }
 
