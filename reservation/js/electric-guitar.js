@@ -1,8 +1,8 @@
 /* =========================================================
 ZARABESSO STUDIO
 HERO ELECTRIC GUITAR ENGINE
-NO CONFLICT VERSION
-SHOWROOM CINEMATIC
+VERTICAL SHOWROOM VERSION
+NO CONFLICT
 ========================================================= */
 
 /* =========================================================
@@ -33,7 +33,7 @@ CAMERA
 
 const electricCamera =
 new THREE.PerspectiveCamera(
-30,
+28,
 electricCanvas.clientWidth /
 electricCanvas.clientHeight,
 0.1,
@@ -47,7 +47,7 @@ CAMERA POSITION
 electricCamera.position.set(
 0,
 0,
-8.5
+8.8
 );
 
 /* =========================================================
@@ -63,8 +63,6 @@ antialias:true,
 powerPreference:"high-performance"
 
 });
-
-/* IMPORTANT */
 
 electricRenderer.setClearColor(
 0x000000,
@@ -90,7 +88,7 @@ electricRenderer.toneMapping =
 THREE.ACESFilmicToneMapping;
 
 electricRenderer.toneMappingExposure =
-1.2;
+1.15;
 
 /* =========================================================
 LIGHTS
@@ -99,7 +97,7 @@ LIGHTS
 const ambientLight =
 new THREE.AmbientLight(
 0xffffff,
-2.8
+2.5
 );
 
 electricScene.add(
@@ -122,27 +120,27 @@ electricScene.add(
 frontLight
 );
 
-const goldLight =
+const warmLight =
 new THREE.PointLight(
 0xffd27a,
-3,
+2.5,
 20
 );
 
-goldLight.position.set(
+warmLight.position.set(
 3,
 2,
 4
 );
 
 electricScene.add(
-goldLight
+warmLight
 );
 
 const blueLight =
 new THREE.PointLight(
 0x3b82f6,
-2,
+1.8,
 20
 );
 
@@ -171,7 +169,7 @@ LOAD MODEL
 
 electricLoader.load(
 
-"/reservation/assets/models/guitar.glb",
+"/reservation/assets/models/electrique.glb",
 
 (gltf)=>{
 
@@ -192,11 +190,11 @@ child.receiveShadow = true;
 
 if(child.material){
 
-child.material.metalness = 0.35;
+child.material.metalness = 0.38;
 
-child.material.roughness = 0.42;
+child.material.roughness = 0.38;
 
-child.material.envMapIntensity = 1.3;
+child.material.envMapIntensity = 1.5;
 
 }
 
@@ -208,19 +206,27 @@ child.material.envMapIntensity = 1.3;
 SIZE
 ========================================================= */
 
+/*
+40% PLUS PETIT
+*/
+
 electricGuitar.scale.set(
-1.35,
-1.35,
-1.35
+0.82,
+0.82,
+0.82
 );
 
 /* =========================================================
 POSITION
 ========================================================= */
 
+/*
+POSITION HERO HAUTE
+*/
+
 electricGuitar.position.set(
-0.5,
--1,
+0.9,
+0.2,
 0
 );
 
@@ -229,15 +235,15 @@ ROTATION
 ========================================================= */
 
 /*
-STYLE SKETCHFAB
-DIAGONALE SHOWROOM
+VERTICAL
+MANCHE EN HAUT
 */
 
 electricGuitar.rotation.set(
 
--0.35,
-0.9,
-0.15
+0,
+0,
+0
 
 );
 
@@ -261,25 +267,11 @@ error
 );
 
 /* =========================================================
-MOUSE INTERACTION
+CLOCK
 ========================================================= */
 
-let targetRotationY = 0;
-
-window.addEventListener(
-
-"mousemove",
-
-(event)=>{
-
-targetRotationY =
-(event.clientX /
-window.innerWidth - 0.5)
-* 0.45;
-
-}
-
-);
+const electricClock =
+new THREE.Clock();
 
 /* =========================================================
 ANIMATION
@@ -291,30 +283,38 @@ requestAnimationFrame(
 animate
 );
 
+const elapsed =
+electricClock.getElapsedTime();
+
 /* =========================================================
-GUITAR
+GUITAR ANIMATION
 ========================================================= */
 
 if(electricGuitar){
 
 /*
-ROTATION LENTE
-SHOWROOM
+ROTATION 360 LENTE
 */
 
 electricGuitar.rotation.y +=
-0.0018;
+0.0035;
 
 /*
-INTERACTION SOURIS
+FLOATING SHOWROOM
 */
 
-electricGuitar.rotation.y +=
-(
-targetRotationY -
-electricGuitar.rotation.y + 0.9
-)
-* 0.01;
+electricGuitar.position.y =
+0.2 +
+Math.sin(elapsed * 1.2)
+* 0.08;
+
+/*
+LEGERE INCLINAISON
+*/
+
+electricGuitar.rotation.z =
+Math.sin(elapsed * 0.7)
+* 0.015;
 
 }
 

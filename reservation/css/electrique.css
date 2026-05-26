@@ -1,7 +1,7 @@
 /* =========================================================
 ZARABESSO STUDIO
 HERO ELECTRIC GUITAR
-SHOWROOM CINEMATIC VERSION
+VERTICAL SHOWROOM VERSION
 ========================================================= */
 
 /* =========================================================
@@ -28,7 +28,7 @@ position:absolute;
 top:0;
 right:0;
 
-width:48%;
+width:45%;
 height:100%;
 
 pointer-events:none;
@@ -45,21 +45,24 @@ ELECTRIC GUITAR CONTAINER
 
 position:absolute;
 
-/* POSITION PREMIUM */
+/*
+PLUS HAUT
+A COTE DU H1
+*/
 
-top:120px;
-right:3%;
+top:10px;
+right:6%;
 
-/* TAILLE OPTIMALE */
+/*
+40% PLUS PETIT
+*/
 
-width:720px;
-height:720px;
-
-/* IMPORTANT */
+width:430px;
+height:430px;
 
 z-index:20;
 
-pointer-events:auto;
+pointer-events:none;
 
 background:none !important;
 border:none !important;
@@ -107,12 +110,12 @@ LAPTOP
 
 .hero-electric-guitar{
 
-width:620px;
-height:620px;
+width:380px;
+height:380px;
 
-top:140px;
+top:20px;
 
-right:0;
+right:3%;
 
 }
 
@@ -132,10 +135,10 @@ width:100%;
 
 .hero-electric-guitar{
 
-width:520px;
-height:520px;
+width:320px;
+height:320px;
 
-top:120px;
+top:40px;
 
 left:50%;
 right:auto;
@@ -154,14 +157,16 @@ MOBILE
 
 .hero-electric-guitar{
 
-width:360px;
-height:360px;
+width:240px;
+height:240px;
 
-top:110px;
+top:65px;
 
 left:50%;
 
 transform:translateX(-50%);
+
+opacity:0.95;
 
 }
 
@@ -175,10 +180,10 @@ SMALL MOBILE
 
 .hero-electric-guitar{
 
-width:280px;
-height:280px;
+width:180px;
+height:180px;
 
-top:120px;
+top:85px;
 
 }
 
