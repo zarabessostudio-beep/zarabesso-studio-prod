@@ -1,50 +1,84 @@
 /* =========================================================
 ZARABESSO STUDIO
-HERO ELECTRIC GUITAR
-OPTIMIZED PREMIUM OLED VERSION
-LOW GPU IMPACT
-NO NAVBAR CONFLICT
+FINAL PREMIUM PARTICLE GUITAR
+ULTRA RESPONSIVE VERSION
+GPU + IOS + MOBILE OPTIMIZED
+NO CROPPING
+NO FRAME
+PREMIUM PARTICLE EFFECT
 ========================================================= */
 
 /* =========================================================
-SAFE OVERFLOW
+GLOBAL OVERFLOW FIX
 ========================================================= */
 
+html,
+body,
+main,
+section,
 .reservation-hero,
 .reservation-container,
 .hero-guitar-zone,
 .hero-electric-guitar,
-#webgl-electric{
+#webgl-electric,
+#webgl-electric canvas{
 
 overflow:visible !important;
+
+clip-path:none !important;
+
+mask-image:none !important;
+-webkit-mask-image:none !important;
+
+contain:none !important;
 
 }
 
 /* =========================================================
-ZONE HERO
+HERO SECTION
+========================================================= */
+
+.reservation-hero{
+
+position:relative;
+
+overflow:visible !important;
+
+z-index:1;
+
+}
+
+/* =========================================================
+HERO GUITAR ZONE
 ========================================================= */
 
 .hero-guitar-zone{
 
 position:absolute;
 
-top:0;
+top:-240px;
 right:0;
 
 width:55%;
-height:100%;
+
+/*
+VERY LARGE HEIGHT
+NO HEAD CUT
+*/
+
+height:180vh;
+
+min-height:1400px;
 
 pointer-events:none;
 
-z-index:15;
-
-/*
-NO LIMIT
-*/
-
 overflow:visible !important;
 
-contain:none !important;
+z-index:20;
+
+display:flex;
+justify-content:center;
+align-items:flex-start;
 
 }
 
@@ -57,20 +91,21 @@ GUITAR CONTAINER
 position:absolute;
 
 /*
-POSITION GARDEE
+HIGH POSITION
 */
 
-top:-120px;
-right:-8%;
+top:-220px;
+right:-5%;
 
 /*
-MEME ZONE
+ULTRA LARGE
 */
 
-width:1100px;
-height:1100px;
+width:min(90vw,1450px);
+height:min(90vw,1450px);
 
-z-index:20;
+max-width:none !important;
+max-height:none !important;
 
 pointer-events:none;
 
@@ -86,23 +121,33 @@ clip-path:none !important;
 
 contain:none !important;
 
+/*
+GPU
+*/
+
+transform:
+translate3d(0,0,0);
+
+-webkit-transform:
+translate3d(0,0,0);
+
 transform-style:preserve-3d;
 
-will-change:transform;
+backface-visibility:hidden;
+
+-webkit-backface-visibility:hidden;
+
+will-change:
+transform;
 
 isolation:isolate;
 
-/*
-IMPORTANT
-EVITE IMPACT NAVBAR
-*/
-
-backface-visibility:hidden;
+z-index:40;
 
 }
 
 /* =========================================================
-SOFT OLED LIGHT
+PREMIUM PARTICLES
 ========================================================= */
 
 .hero-electric-guitar::before{
@@ -114,62 +159,73 @@ position:absolute;
 left:50%;
 top:50%;
 
-width:620px;
-height:620px;
+width:850px;
+height:850px;
 
 transform:
 translate(-50%,-50%);
 
-border-radius:50%;
+pointer-events:none;
+
+z-index:-2;
+
+opacity:0.9;
 
 /*
-LIGHT GLASS EFFECT
+MULTI PARTICLE LAYER
 */
 
 background:
+
 radial-gradient(
+circle at 20% 30%,
+rgba(255,60,120,0.9) 0px,
+rgba(255,60,120,0) 8px
+),
 
-circle,
+radial-gradient(
+circle at 70% 20%,
+rgba(0,220,255,0.9) 0px,
+rgba(0,220,255,0) 10px
+),
 
-rgba(203, 47, 47, 0.04) 0%,
-rgba(120,140,255,0.05) 25%,
-rgba(115, 15, 60, 0.04) 50%,
-rgba(29, 156, 122, 0.18) 75%,
-transparent 75%
+radial-gradient(
+circle at 80% 70%,
+rgba(140,255,120,0.9) 0px,
+rgba(140,255,120,0) 9px
+),
 
+radial-gradient(
+circle at 40% 80%,
+rgba(255,180,0,0.9) 0px,
+rgba(255,180,0,0) 7px
+),
+
+radial-gradient(
+circle at 55% 55%,
+rgba(255,255,255,0.8) 0px,
+rgba(255,255,255,0) 6px
+),
+
+radial-gradient(
+circle at 30% 60%,
+rgba(180,80,255,0.8) 0px,
+rgba(180,80,255,0) 10px
 );
 
 /*
-OPTIMIZED BLUR
+SOFT GLOW
 */
 
-filter:blur(55px);
-
-opacity:0.55;
-
-/*
-SLOW PREMIUM ANIMATION
-*/
+filter:blur(1px);
 
 animation:
-glassAmbient 5s ease-in-out infinite;
-
-z-index:-3;
-
-pointer-events:none;
-
-/*
-GPU SAFE
-*/
-
-will-change:
-transform,
-opacity;
+premiumParticles 14s linear infinite;
 
 }
 
 /* =========================================================
-SECOND LIGHT
+SECOND PARTICLE LAYER
 ========================================================= */
 
 .hero-electric-guitar::after{
@@ -181,92 +237,63 @@ position:absolute;
 left:50%;
 top:50%;
 
-width:420px;
-height:420px;
+width:650px;
+height:650px;
 
 transform:
 translate(-50%,-50%);
 
-border-radius:50%;
-
-background:
-radial-gradient(
-
-circle,
-
-rgba(66, 157, 222, 0.03),
-transparent 40%
-
-);
-
-filter:blur(40px);
-
-opacity:0.22;
-
-animation:
-softPulse 10s ease-in-out infinite;
-
-z-index:-2;
-
 pointer-events:none;
 
-will-change:
-transform,
-opacity;
+z-index:-1;
+
+opacity:0.55;
+
+background:
+
+radial-gradient(
+circle at 25% 25%,
+rgba(255,255,255,0.9) 0px,
+rgba(255,255,255,0) 5px
+),
+
+radial-gradient(
+circle at 75% 40%,
+rgba(0,180,255,0.8) 0px,
+rgba(0,180,255,0) 6px
+),
+
+radial-gradient(
+circle at 60% 75%,
+rgba(255,60,120,0.8) 0px,
+rgba(255,60,120,0) 6px
+),
+
+radial-gradient(
+circle at 40% 50%,
+rgba(0,255,180,0.7) 0px,
+rgba(0,255,180,0) 4px
+);
+
+filter:blur(0.5px);
+
+animation:
+floatingParticles 18s linear infinite reverse;
 
 }
 
 /* =========================================================
-OLED GLASS ANIMATION
+PARTICLE ANIMATION
 ========================================================= */
 
-@keyframes glassAmbient{
-
-0%{
-
-transform:
-translate(-40%,-40%)
-scale(1);
-
-opacity:0.25;
-
-}
-
-40%{
-
-transform:
-translate(-40%,-40%)
-scale(1.06);
-
-opacity:0.5;
-
-}
-
-100%{
-
-transform:
-translate(-50%,-50%)
-scale(1);
-
-opacity:0.42;
-
-}
-
-}
-
-/* =========================================================
-SOFT PULSE
-========================================================= */
-
-@keyframes softPulse{
+@keyframes premiumParticles{
 
 0%{
 
 transform:
 translate(-50%,-50%)
+rotate(0deg)
 scale(1);
-
-opacity:0.20;
 
 }
 
@@ -274,9 +301,8 @@ opacity:0.20;
 
 transform:
 translate(-50%,-50%)
+rotate(180deg)
 scale(1.08);
-
-opacity:0.30;
 
 }
 
@@ -284,9 +310,46 @@ opacity:0.30;
 
 transform:
 translate(-50%,-50%)
+rotate(360deg)
 scale(1);
 
-opacity:0.18;
+}
+
+}
+
+/* =========================================================
+FLOATING PARTICLES
+========================================================= */
+
+@keyframes floatingParticles{
+
+0%{
+
+transform:
+translate(-50%,-50%)
+translateY(0px);
+
+opacity:0.4;
+
+}
+
+50%{
+
+transform:
+translate(-50%,-50%)
+translateY(-12px);
+
+opacity:0.75;
+
+}
+
+100%{
+
+transform:
+translate(-50%,-50%)
+translateY(0px);
+
+opacity:0.4;
 
 }
 
@@ -300,10 +363,15 @@ CANVAS
 
 position:absolute;
 
-inset:0;
+top:-10%;
+left:-10%;
 
-width:100% !important;
-height:100% !important;
+/*
+LARGER THAN CONTAINER
+*/
+
+width:120% !important;
+height:120% !important;
 
 display:block;
 
@@ -324,12 +392,30 @@ filter:none !important;
 z-index:5;
 
 /*
-PERFORMANCE
+GPU SAFE
 */
 
-transform:translateZ(0);
+transform:
+translate3d(0,0,0);
 
 backface-visibility:hidden;
+
+transform-style:preserve-3d;
+
+}
+
+/* =========================================================
+CANVAS FIX
+========================================================= */
+
+#webgl-electric canvas{
+
+overflow:visible !important;
+
+clip-path:none !important;
+
+transform:
+translate3d(0,0,0);
 
 }
 
@@ -341,11 +427,11 @@ LAPTOP
 
 .hero-electric-guitar{
 
-width:900px;
-height:900px;
+width:1200px;
+height:1200px;
 
-top:-100px;
-right:-12%;
+top:-180px;
+right:-8%;
 
 }
 
@@ -361,19 +447,25 @@ TABLET
 
 width:100%;
 
+height:150vh;
+
+top:-160px;
+
 }
 
 .hero-electric-guitar{
 
-width:700px;
-height:700px;
-
 left:50%;
 right:auto;
 
-top:-20px;
+transform:
+translateX(-50%)
+translateZ(0);
 
-transform:translateX(-50%);
+width:900px;
+height:900px;
+
+top:-120px;
 
 }
 
@@ -383,254 +475,49 @@ transform:translateX(-50%);
 MOBILE
 ========================================================= */
 
-@media(max-width:900px){
+@media(max-width:768px){
 
-.hero-electric-guitar{
+.hero-guitar-zone{
 
-width:480px;
-height:480px;
+width:100%;
 
-top:40px;
+height:135vh;
 
-left:50%;
-
-transform:translateX(-50%);
+top:-120px;
 
 }
-
-.hero-electric-guitar::before{
-
-width:240px;
-height:240px;
-
-}
-
-}
-
-/* =========================================================
-SMALL MOBILE
-========================================================= */
-
-@media(max-width:600px){
-
-.hero-electric-guitar{
-
-width:360px;
-height:360px;
-
-top:90px;
-
-}
-
-}
-/* =========================================================
-GPU + MOBILE + IOS OPTIMIZATION LAYER
-ADD ONLY
-NO CONFLICT
-========================================================= */
-
-/* =========================================================
-GPU ACCELERATION
-========================================================= */
-
-.hero-electric-guitar,
-#webgl-electric,
-#webgl-electric canvas{
-
-transform:
-translate3d(0,0,0);
-
--webkit-transform:
-translate3d(0,0,0);
-
-will-change:
-transform;
-
-backface-visibility:hidden;
-
--webkit-backface-visibility:hidden;
-
-perspective:1200px;
-
--webkit-perspective:1200px;
-
-transform-style:preserve-3d;
-
--webkit-font-smoothing:antialiased;
-
-}
-
-/* =========================================================
-TOUCH DEVICE OPTIMIZATION
-========================================================= */
-
-@media (hover:none){
-
-.hero-electric-guitar{
-
-pointer-events:none;
-
-}
-
-}
-
-/* =========================================================
-IOS SAFARI FIX
-========================================================= */
-
-@supports (-webkit-touch-callout: none){
-
-.hero-electric-guitar{
-
-transform:
-translateZ(0);
-
-}
-
-#webgl-electric{
-
-transform:
-translateZ(0);
-
-}
-
-}
-
-/* =========================================================
-AUTO RESPONSIVE SIZE SYSTEM
-========================================================= */
-
-.hero-electric-guitar{
-
-/*
-AUTO SCALE
-*/
-
-width:min(75vw,1100px);
-
-height:min(75vw,1100px);
-
-/*
-SAFE LIMIT
-*/
-
-max-width:1100px;
-max-height:1100px;
-
-min-width:260px;
-min-height:260px;
-
-}
-
-/* =========================================================
-AUTO POSITIONING
-========================================================= */
-
-@media(max-width:1200px){
 
 .hero-electric-guitar{
 
 left:50%;
-
 right:auto;
 
 transform:
 translateX(-50%)
 translateZ(0);
 
-top:0;
+width:min(135vw,760px);
+height:min(135vw,760px);
+
+top:-70px;
 
 }
-
-}
-
-/* =========================================================
-TABLET OPTIMIZATION
-========================================================= */
-
-@media(max-width:900px){
-
-.hero-guitar-zone{
-
-display:flex;
-justify-content:center;
-align-items:center;
-
-}
-
-.hero-electric-guitar{
-
-width:min(90vw,650px);
-height:min(90vw,650px);
-
-top:20px;
-
-}
-
-/*
-LIGHT REDUCTION
-*/
 
 .hero-electric-guitar::before{
 
-filter:blur(35px);
+width:500px;
+height:500px;
 
-opacity:0.30;
+opacity:0.6;
 
 }
 
 .hero-electric-guitar::after{
 
-opacity:0.15;
+width:380px;
+height:380px;
 
-}
-
-}
-
-/* =========================================================
-MOBILE SMART POSITION
-========================================================= */
-
-@media(max-width:600px){
-
-.hero-electric-guitar{
-
-width:min(95vw,430px);
-height:min(95vw,430px);
-
-top:60px;
-
-/*
-AUTO CENTER
-*/
-
-left:50%;
-
-transform:
-translateX(-50%)
-translateZ(0);
-
-}
-
-/*
-GPU SAFE LIGHT
-*/
-
-.hero-electric-guitar::before{
-
-width:180px;
-height:180px;
-
-filter:blur(25px);
-
-}
-
-.hero-electric-guitar::after{
-
-width:140px;
-height:140px;
-
-filter:blur(20px);
+opacity:0.35;
 
 }
 
@@ -640,30 +527,28 @@ filter:blur(20px);
 SMALL MOBILE
 ========================================================= */
 
-@media(max-width:420px){
+@media(max-width:480px){
 
 .hero-electric-guitar{
 
-width:min(98vw,340px);
-height:min(98vw,340px);
+width:min(150vw,560px);
+height:min(150vw,560px);
 
-top:90px;
-
-}
+top:-30px;
 
 }
 
-/* =======================================================
-LOW HEIGHT DEVICE
-========================================================= */
+.hero-electric-guitar::before{
 
-@media(max-height:700px){
+width:360px;
+height:360px;
 
-.hero-electric-guitar{
+}
 
-top:20px;
+.hero-electric-guitar::after{
 
-scale:0.88;
+width:240px;
+height:240px;
 
 }
 
@@ -677,9 +562,31 @@ VERY SMALL DEVICE
 
 .hero-electric-guitar{
 
-scale:0.78;
+scale:0.85;
 
-top:70px;
+top:-10px;
+
+}
+
+}
+
+/* =========================================================
+LOW HEIGHT DEVICE
+========================================================= */
+
+@media(max-height:700px){
+
+.hero-guitar-zone{
+
+height:190vh;
+
+}
+
+.hero-electric-guitar{
+
+top:-240px;
+
+scale:0.92;
 
 }
 
@@ -691,10 +598,15 @@ PERFORMANCE MODE
 
 @media(max-width:768px){
 
-.hero-electric-guitar::before,
+.hero-electric-guitar::before{
+
+animation-duration:22s;
+
+}
+
 .hero-electric-guitar::after{
 
-animation:none !important;
+animation-duration:28s;
 
 }
 
