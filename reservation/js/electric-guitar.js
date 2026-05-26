@@ -1,12 +1,13 @@
 /* =========================================================
 ZARABESSO STUDIO
-HERO ELECTRIC GUITAR ENGINE
-FINAL CLEAN UNLIMITED VERSION
+ULTIMATE ELECTRIC GUITAR ENGINE
+FINAL PREMIUM CLEAN VERSION
 NO FRAME
-NO BACKGROUND LIGHT
 NO CROPPING
 FULL HEADSTOCK VISIBLE
+PREMIUM FAST ANIMATION
 GPU + IOS + MOBILE OPTIMIZED
+FINAL RELEASE
 ========================================================= */
 
 /* =========================================================
@@ -106,7 +107,7 @@ CAMERA
 const electricCamera =
 new THREE.PerspectiveCamera(
 
-24,
+22,
 
 electricCanvas.clientWidth /
 electricCanvas.clientHeight,
@@ -117,18 +118,14 @@ electricCanvas.clientHeight,
 );
 
 /* =========================================================
-CAMERA POSITION
+FINAL CAMERA POSITION
+NO HEAD CUT
 ========================================================= */
-
-/*
-MORE DISTANCE
-PREVENT HEAD CUT
-*/
 
 electricCamera.position.set(
 0,
 0,
-12.5
+14.5
 );
 
 /* =========================================================
@@ -260,29 +257,20 @@ electricRenderer.domElement.style.transform =
 LIGHTS
 ========================================================= */
 
-/*
-CLEAN LIGHT
-NO BACKGROUND GLOW
-*/
-
 const ambientLight =
 new THREE.AmbientLight(
 0xffffff,
-2
+2.2
 );
 
 electricScene.add(
 ambientLight
 );
 
-/*
-FRONT LIGHT
-*/
-
 const frontLight =
 new THREE.DirectionalLight(
 0xffffff,
-1.6
+1.8
 );
 
 frontLight.position.set(
@@ -295,18 +283,14 @@ electricScene.add(
 frontLight
 );
 
-/*
-SIDE LIGHT
-*/
-
 const sideLight =
 new THREE.DirectionalLight(
 0xffffff,
-0.9
+1
 );
 
 sideLight.position.set(
-4,
+5,
 2,
 5
 );
@@ -338,17 +322,13 @@ if(window.innerWidth < 480){
 
 return{
 
-scale:2.1,
+scale:2.4,
 
 x:0,
 
-/*
-HIGHER
-*/
+y:1.2,
 
-y:1.9,
-
-rotationSpeed:0.0015,
+rotationSpeed:0.0055,
 
 floatIntensity:0.03,
 
@@ -366,17 +346,13 @@ if(window.innerWidth < 768){
 
 return{
 
-scale:2.8,
+scale:3,
 
 x:0,
 
-/*
-HIGHER
-*/
+y:1.3,
 
-y:2.1,
-
-rotationSpeed:0.0018,
+rotationSpeed:0.0058,
 
 floatIntensity:0.04,
 
@@ -394,17 +370,13 @@ if(window.innerWidth < 1200){
 
 return{
 
-scale:3.8,
+scale:4,
 
-x:0.8,
+x:0.7,
 
-/*
-HIGHER
-*/
+y:1.4,
 
-y:2.2,
-
-rotationSpeed:0.0025,
+rotationSpeed:0.0062,
 
 floatIntensity:0.06,
 
@@ -420,23 +392,21 @@ DESKTOP
 
 return{
 
-scale:4.7,
+scale:4.3,
 
-x:1.8,
+x:1.4,
 
-/*
-HIGHER
-*/
+y:1.4,
 
-y:2.5,
+rotationSpeed:0.0068,
 
-rotationSpeed:0.0035,
+floatIntensity:0.08,
 
-floatIntensity:0.10,
-
-moveIntensity:0.05
+moveIntensity:0.04
 
 };
+
+}
 
 }
 
@@ -464,10 +434,6 @@ electricGuitar.traverse((child)=>{
 
 if(child.isMesh){
 
-/*
-NEVER HIDE MODEL
-*/
-
 child.frustumCulled =
 false;
 
@@ -476,10 +442,6 @@ false;
 
 child.receiveShadow =
 false;
-
-/*
-MATERIAL SAFE
-*/
 
 if(child.material){
 
@@ -514,11 +476,6 @@ config.scale
 POSITION
 ========================================================= */
 
-/*
-HIGH POSITION
-NO CARD TOUCH
-*/
-
 electricGuitar.position.set(
 
 config.x,
@@ -535,7 +492,7 @@ electricGuitar.rotation.set(
 
 0,
 Math.PI / 2,
--1.12
+-1.1
 
 );
 
@@ -627,7 +584,7 @@ GUITAR
 if(electricGuitar){
 
 /*
-ROTATION
+FAST PREMIUM ROTATION
 */
 
 electricGuitar.rotation.y +=
@@ -641,21 +598,21 @@ electricGuitar.position.y =
 
 config.y +
 
-Math.sin(elapsed)
+Math.sin(elapsed * 1.8)
 
 *
 
 config.floatIntensity;
 
 /*
-MOVE
+SIDE MOVE
 */
 
 electricGuitar.position.x =
 
 config.x +
 
-Math.cos(elapsed * 0.5)
+Math.cos(elapsed * 0.8)
 
 *
 
@@ -784,4 +741,3 @@ electricRenderer.dispose();
 
 );
 
-}
