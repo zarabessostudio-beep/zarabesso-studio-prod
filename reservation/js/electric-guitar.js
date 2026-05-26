@@ -1,12 +1,12 @@
 /* =========================================================
 ZARABESSO STUDIO
-ULTIMATE GUITAR ENGINE
-FINAL STABLE RELEASE
-NO CROPPING
+PURE GLB GUITAR ENGINE
+FINAL CLEAN STABLE VERSION
+NO PARTICLES
+NO EFFECTS
+ONLY GLB
 FULL GUITAR VISIBLE
-FAST PREMIUM ANIMATION
-PARTICLE READY
-GPU OPTIMIZED
+-5% SMALLER
 ========================================================= */
 
 const electricCanvas =
@@ -31,8 +31,6 @@ if(!el) return;
 
 el.style.overflow = "visible";
 el.style.clipPath = "none";
-el.style.maskImage = "none";
-el.style.webkitMaskImage = "none";
 
 });
 
@@ -42,10 +40,6 @@ DEVICE
 
 const isMobile =
 window.innerWidth < 768;
-
-const isTablet =
-window.innerWidth >= 768 &&
-window.innerWidth < 1200;
 
 /* =========================================================
 SCENE
@@ -61,7 +55,7 @@ CAMERA
 const camera =
 new THREE.PerspectiveCamera(
 
-18,
+20,
 
 electricCanvas.clientWidth /
 electricCanvas.clientHeight,
@@ -72,15 +66,14 @@ electricCanvas.clientHeight,
 );
 
 /*
-IMPORTANT
-CAMERA MORE FAR
-PREVENT CROPPING
+MORE FAR
+NO CROPPING
 */
 
 camera.position.set(
 0,
 0,
-18
+19
 );
 
 /* =========================================================
@@ -113,7 +106,7 @@ renderer.setPixelRatio(
 
 Math.min(
 window.devicePixelRatio,
-isMobile ? 1.3 : 2
+isMobile ? 1.2 : 2
 )
 
 );
@@ -132,19 +125,6 @@ false;
 renderer.physicallyCorrectLights =
 false;
 
-renderer.toneMapping =
-THREE.NoToneMapping;
-
-/* =========================================================
-GPU BOOST
-========================================================= */
-
-renderer.domElement.style.transform =
-"translate3d(0,0,0)";
-
-renderer.domElement.style.backfaceVisibility =
-"hidden";
-
 /* =========================================================
 LIGHTS
 ========================================================= */
@@ -152,7 +132,7 @@ LIGHTS
 const ambient =
 new THREE.AmbientLight(
 0xffffff,
-2.5
+2.6
 );
 
 scene.add(ambient);
@@ -204,17 +184,13 @@ if(window.innerWidth < 480){
 
 return{
 
-scale:2.2,
+scale:2.0,
 
 x:0,
 
-y:-0.2,
+y:-0.8,
 
-rotationSpeed:0.008,
-
-floatIntensity:0.04,
-
-moveIntensity:0.02
+rotationSpeed:0.006
 
 };
 
@@ -224,17 +200,13 @@ if(window.innerWidth < 768){
 
 return{
 
-scale:2.8,
+scale:2.6,
 
 x:0,
 
-y:-0.3,
+y:-0.9,
 
-rotationSpeed:0.009,
-
-floatIntensity:0.05,
-
-moveIntensity:0.03
+rotationSpeed:0.007
 
 };
 
@@ -244,17 +216,13 @@ if(window.innerWidth < 1200){
 
 return{
 
-scale:3.6,
+scale:3.4,
 
-x:1,
+x:0.8,
 
-y:-0.4,
+y:-1,
 
-rotationSpeed:0.010,
-
-floatIntensity:0.06,
-
-moveIntensity:0.04
+rotationSpeed:0.008
 
 };
 
@@ -262,17 +230,13 @@ moveIntensity:0.04
 
 return{
 
-scale:4.2,
+scale:4.0,
 
-x:1.6,
+x:1.3,
 
-y:-0.5,
+y:-1.1,
 
-rotationSpeed:0.011,
-
-floatIntensity:0.08,
-
-moveIntensity:0.05
+rotationSpeed:0.009
 
 };
 
@@ -316,9 +280,6 @@ false;
 if(child.material){
 
 child.material.needsUpdate =
-true;
-
-child.material.depthWrite =
 true;
 
 }
@@ -403,39 +364,23 @@ clock.getElapsedTime();
 if(guitar){
 
 /*
-PREMIUM FAST ROTATION
+SMOOTH ROTATION
 */
 
 guitar.rotation.y +=
 config.rotationSpeed;
 
 /*
-FLOATING
+SMOOTH FLOAT
 */
 
 guitar.position.y =
 
 config.y +
 
-Math.sin(elapsed * 2)
+Math.sin(elapsed * 1.6)
 
-*
-
-config.floatIntensity;
-
-/*
-SIDE MOVEMENT
-*/
-
-guitar.position.x =
-
-config.x +
-
-Math.cos(elapsed * 0.8)
-
-*
-
-config.moveIntensity;
+* 0.05;
 
 }
 
@@ -505,7 +450,7 @@ config.y,
 );
 
 /* =========================================================
-MEMORY CLEAN
+CLEAN MEMORY
 ========================================================= */
 
 window.addEventListener(
@@ -520,4 +465,3 @@ renderer.dispose();
 
 );
 
-}

@@ -1,8 +1,17 @@
 /* =========================================================
 ZARABESSO STUDIO
-FINAL GUITAR SYSTEM
-NO CROPPING VERSION
-FINAL PREMIUM RELEASE
+PURE GLB GUITAR SYSTEM
+FINAL CLEAN VERSION
+NO PARTICLES
+NO LIGHT FX
+ONLY GLB
+FULL VISIBLE
+-5% SMALLER
+GPU + IOS + MOBILE SAFE
+========================================================= */
+
+/* =========================================================
+GLOBAL SAFE
 ========================================================= */
 
 html,
@@ -34,7 +43,7 @@ BODY
 body{
 
 overflow-x:hidden;
-background:#000;
+background:transparent;
 
 }
 
@@ -60,7 +69,7 @@ ZONE
 
 position:absolute;
 
-top:-40px;
+top:0;
 right:0;
 
 width:55%;
@@ -75,113 +84,45 @@ z-index:20;
 }
 
 /* =========================================================
-CONTAINER
+GUITAR CONTAINER
 ========================================================= */
 
 .hero-electric-guitar{
 
 position:absolute;
 
-top:120px;
+/*
+LOWER POSITION
+*/
+
+top:150px;
 right:-2%;
 
-width:min(90vw,1200px);
-height:min(90vw,1200px);
+/*
+-5% SMALLER
+*/
+
+width:min(85vw,1140px);
+height:min(85vw,1140px);
 
 overflow:visible !important;
 
 pointer-events:none;
 
-background:transparent;
+background:transparent !important;
 
-border:none;
-outline:none;
-box-shadow:none;
+border:none !important;
+outline:none !important;
+box-shadow:none !important;
 
 transform:
 translate3d(0,0,0);
 
 z-index:40;
 
-}
+will-change:transform;
 
-/* =========================================================
-PREMIUM PARTICLES
-========================================================= */
-
-.hero-electric-guitar::before{
-
-content:"";
-
-position:absolute;
-
-left:50%;
-top:50%;
-
-width:700px;
-height:700px;
-
-transform:
-translate(-50%,-50%);
-
-background:
-
-radial-gradient(
-circle at 20% 20%,
-rgba(255,80,120,.9) 0,
-transparent 10px
-),
-
-radial-gradient(
-circle at 80% 30%,
-rgba(0,220,255,.9) 0,
-transparent 12px
-),
-
-radial-gradient(
-circle at 50% 80%,
-rgba(255,200,0,.9) 0,
-transparent 10px
-),
-
-radial-gradient(
-circle at 30% 60%,
-rgba(180,80,255,.9) 0,
-transparent 12px
-);
-
-opacity:.9;
-
-animation:
-particlesSpin 10s linear infinite;
-
-pointer-events:none;
-
-z-index:-1;
-
-}
-
-/* =========================================================
-PARTICLE ANIMATION
-========================================================= */
-
-@keyframes particlesSpin{
-
-0%{
-
-transform:
-translate(-50%,-50%)
-rotate(0deg);
-
-}
-
-100%{
-
-transform:
-translate(-50%,-50%)
-rotate(360deg);
-
-}
+backface-visibility:hidden;
 
 }
 
@@ -193,11 +134,11 @@ CANVAS
 
 position:absolute;
 
-top:-5%;
-left:-5%;
+top:0;
+left:0;
 
-width:110% !important;
-height:110% !important;
+width:100% !important;
+height:100% !important;
 
 display:block;
 
@@ -205,7 +146,14 @@ background:transparent !important;
 
 overflow:visible !important;
 
+border:none !important;
+outline:none !important;
+box-shadow:none !important;
+
 z-index:5;
+
+transform:
+translate3d(0,0,0);
 
 }
 
@@ -229,7 +177,7 @@ right:auto;
 transform:
 translateX(-50%);
 
-top:100px;
+top:120px;
 
 width:900px;
 height:900px;
@@ -254,8 +202,8 @@ translateX(-50%);
 
 top:140px;
 
-width:min(150vw,700px);
-height:min(150vw,700px);
+width:min(135vw,650px);
+height:min(135vw,650px);
 
 }
 
@@ -271,8 +219,8 @@ SMALL MOBILE
 
 top:170px;
 
-width:min(170vw,580px);
-height:min(170vw,580px);
+width:min(155vw,520px);
+height:min(155vw,520px);
 
 }
 
