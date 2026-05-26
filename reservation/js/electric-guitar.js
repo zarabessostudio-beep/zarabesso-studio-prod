@@ -1,9 +1,14 @@
 /* =========================================================
 ZARABESSO STUDIO
-VERTICAL ELECTRIC GUITAR
-ISOLATED ENGINE
-NO CONFLICT
+ELECTRIC GUITAR
+LINUX FIREFOX STABLE
 ========================================================= */
+
+window.addEventListener(
+
+"load",
+
+()=>{
 
 /* =========================================================
 CANVAS
@@ -17,10 +22,20 @@ document.getElementById(
 if(!electricCanvas){
 
 console.error(
-"Electric canvas missing"
+"Canvas webgl-electric introuvable"
 );
 
-}else{
+return;
+
+}
+
+/* =========================================================
+FORCE SIZE
+========================================================= */
+
+electricCanvas.style.width = "100%";
+electricCanvas.style.height = "100%";
+electricCanvas.style.display = "block";
 
 /* =========================================================
 SCENE
@@ -35,7 +50,7 @@ CAMERA
 
 const electricCamera =
 new THREE.PerspectiveCamera(
-22,
+24,
 1,
 0.1,
 1000
@@ -58,31 +73,31 @@ canvas:electricCanvas,
 
 alpha:true,
 
-antialias:true,
+antialias:false,
 
-powerPreference:
-"high-performance"
+powerPreference:"default",
+
+premultipliedAlpha:false,
+
+preserveDrawingBuffer:false
 
 });
 
 /* =========================================================
-SAFE RENDER
+SAFE RENDERER
 ========================================================= */
-
-electricRenderer.setPixelRatio(
-Math.min(window.devicePixelRatio,1.5)
-);
 
 electricRenderer.setClearColor(
 0x000000,
 0
 );
 
+electricRenderer.setPixelRatio(
+Math.min(window.devicePixelRatio,1.2)
+);
+
 electricRenderer.outputEncoding =
 THREE.sRGBEncoding;
-
-electricRenderer.physicallyCorrectLights =
-false;
 
 /* =========================================================
 LIGHTS
@@ -91,51 +106,40 @@ LIGHTS
 const ambient =
 new THREE.AmbientLight(
 0xffffff,
-2.8
+3
 );
 
 electricScene.add(
 ambient
 );
 
-const frontLight =
+const front =
 new THREE.DirectionalLight(
 0xffffff,
-1.8
+1.5
 );
 
-frontLight.position.set(
+front.position.set(
 0,
 2,
-10
+8
 );
 
 electricScene.add(
-frontLight
+front
 );
 
 /* =========================================================
-LOADER
+SETTINGS
 ========================================================= */
 
-const electricLoader =
-new THREE.GLTFLoader();
-
-let electricGuitar = null;
-
-/* =========================================================
-RESPONSIVE
-========================================================= */
-
-function getElectricSettings(){
+function getSettings(){
 
 if(window.innerWidth <= 480){
 
 return{
-
-scale:2.6,
-y:-4.4
-
+scale:2.4,
+y:-4.2
 };
 
 }
@@ -143,10 +147,8 @@ y:-4.4
 if(window.innerWidth <= 768){
 
 return{
-
-scale:3.1,
-y:-4.2
-
+scale:3,
+y:-4
 };
 
 }
@@ -154,37 +156,36 @@ y:-4.2
 if(window.innerWidth <= 1200){
 
 return{
-
 scale:3.6,
-y:-4
-
+y:-3.8
 };
 
 }
 
 return{
-
 scale:4.0,
-y:-3.8
-
+y:-3.6
 };
 
 }
 
+let settings =
+getSettings();
+
 /* =========================================================
-SIZE
+LOADER
 ========================================================= */
 
-}
+const loader =
+new THREE.GLTFLoader();
 
-let electricSettings =
-getElectricSettings();
+let electricGuitar = null;
 
 /* =========================================================
 LOAD MODEL
 ========================================================= */
 
-electricLoader.load(
+loader.load(
 
 "/reservation/assets/models/guitar.glb",
 
@@ -203,19 +204,11 @@ electricGuitar.traverse(
 
 if(child.isMesh){
 
+child.frustumCulled = false;
+
 child.castShadow = false;
 
 child.receiveShadow = false;
-
-child.frustumCulled = false;
-
-if(child.material){
-
-child.material.metalness = 0.25;
-
-child.material.roughness = 0.55;
-
-}
 
 }
 
@@ -228,31 +221,29 @@ SCALE
 ========================================================= */
 
 electricGuitar.scale.set(
-electricSettings.scale,
-electricSettings.scale,
-electricSettings.scale
+settings.scale,
+settings.scale,
+settings.scale
+);
+
+/* =========================================================
+POSITION
+========================================================= */
+
+electricGuitar.position.set(
+0,
+settings.y,
+0
 );
 
 /* =========================================================
 VERTICAL POSITION
 ========================================================= */
 
-electricGuitar.position.set(
-0,
-electricSettings.y,
-0
-);
-
-/* =========================================================
-REAL VERTICAL ROTATION
-========================================================= */
-
 electricGuitar.rotation.set(
-
 0,
 Math.PI / 2,
 0
-
 );
 
 /* =========================================================
@@ -264,8 +255,10 @@ electricGuitar
 );
 
 console.log(
-"Electric guitar loaded"
+"Electric guitar loaded successfully"
 );
+
+resizeElectric();
 
 },
 
@@ -274,7 +267,7 @@ undefined,
 (error)=>{
 
 console.error(
-"Electric GLB error",
+"Erreur GLB :",
 error
 );
 
@@ -289,13 +282,15 @@ RESIZE
 function resizeElectric(){
 
 const width =
-electricCanvas.offsetWidth;
+electricCanvas.parentElement.offsetWidth;
 
 const height =
-electricCanvas.offsetHeight;
+electricCanvas.parentElement.offsetHeight;
 
-if(width === 0 || height === 0){
+if(width < 10 || height < 10){
+
 return;
+
 }
 
 electricCamera.aspect =
@@ -309,20 +304,20 @@ height,
 false
 );
 
-electricSettings =
-getElectricSettings();
+settings =
+getSettings();
 
 if(electricGuitar){
 
 electricGuitar.scale.set(
-electricSettings.scale,
-electricSettings.scale,
-electricSettings.scale
+settings.scale,
+settings.scale,
+settings.scale
 );
 
 electricGuitar.position.set(
 0,
-electricSettings.y,
+settings.y,
 0
 );
 
@@ -330,28 +325,34 @@ electricSettings.y,
 
 }
 
-resizeElectric();
+/* =========================================================
+RESIZE EVENTS
+========================================================= */
 
 window.addEventListener(
 "resize",
 resizeElectric
 );
 
+setTimeout(
+resizeElectric,
+300
+);
+
+setTimeout(
+resizeElectric,
+1000
+);
+
 /* =========================================================
 ANIMATION
 ========================================================= */
 
-function electricAnimate(){
+function animate(){
 
 requestAnimationFrame(
-electricAnimate
+animate
 );
-
-/* =========================================================
-NO ROTATION
-NO FLOAT
-PURE SHOWROOM GUITAR
-========================================================= */
 
 electricRenderer.render(
 electricScene,
@@ -360,5 +361,7 @@ electricCamera
 
 }
 
-electricAnimate();
+animate();
 
+}
+);
