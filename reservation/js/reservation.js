@@ -1,305 +1,85 @@
-/* =========================================================
-ZARABESSO STUDIO
-PREMIUM RESERVATION SYSTEM
-FINAL PRODUCTION VERSION
-SECURE + WHATSAPP + MOBILE SAFE
-========================================================= */
-
-/* =========================================================
-ELEMENTS
-========================================================= */
+// ===============================
+// RESERVATION SYSTEM
+// ZARABESSO STUDIO
+// ===============================
 
 const form =
-document.getElementById(
-"reservationForm"
-);
+document.getElementById("reservationForm");
 
 const burger =
-document.getElementById(
-"burger"
-);
+document.getElementById("burger");
 
 const navLinks =
-document.getElementById(
-"navLinks"
-);
+document.getElementById("navLinks");
 
-const loaderScreen =
-document.getElementById(
-"loaderScreen"
-);
+// ===============================
+// BURGER
+// ===============================
 
-/* =========================================================
-SAFE BURGER MENU
-========================================================= */
+burger.addEventListener("click",()=>{
 
-if(
-burger &&
-navLinks
-){
-
-burger.addEventListener(
-
-"click",
-
-()=>{
-
-navLinks.classList.toggle(
-"active"
-);
-
-}
-
-);
-
-}
-
-/* =========================================================
-AUTO CLOSE MENU MOBILE
-========================================================= */
-
-document.querySelectorAll(
-"#navLinks a"
-).forEach((link)=>{
-
-link.addEventListener(
-
-"click",
-
-()=>{
-
-if(navLinks){
-
-navLinks.classList.remove(
-"active"
-);
-
-}
-
-}
-
-);
+navLinks.classList.toggle("active");
 
 });
 
-/* =========================================================
-PREMIUM LOADER
-========================================================= */
+// ===============================
+// LOADER
+// ===============================
 
-window.addEventListener(
-
-"load",
-
-()=>{
-
-if(loaderScreen){
+window.addEventListener("load",()=>{
 
 setTimeout(()=>{
 
-loaderScreen.style.opacity =
-"0";
+const loader =
+document.getElementById("loaderScreen");
 
-loaderScreen.style.pointerEvents =
-"none";
+loader.style.opacity = "0";
 
 setTimeout(()=>{
 
-loaderScreen.style.display =
-"none";
+loader.style.display = "none";
 
 },1200);
 
 },1800);
 
-}
+});
+/* ===============================
+FORM
+=============================== */
 
-}
-
-/* =========================================================
-SMOOTH SCROLL
-========================================================= */
-
-document.querySelectorAll(
-'a[href^="#"]'
-).forEach((anchor)=>{
-
-anchor.addEventListener(
-
-"click",
-
-function(e){
+form.addEventListener("submit",async(e)=>{
 
 e.preventDefault();
-
-const target =
-document.querySelector(
-this.getAttribute("href")
-);
-
-if(target){
-
-target.scrollIntoView({
-
-behavior:"smooth",
-block:"start"
-
-});
-
-}
-
-}
-
-);
-
-});
-
-/* =========================================================
-SAFE FORM
-========================================================= */
-
-if(form){
-
-/* =========================================================
-SUBMIT
-========================================================= */
-
-form.addEventListener(
-
-"submit",
-
-async(e)=>{
-
-e.preventDefault();
-
-/* =========================================================
-BUTTON LOCK
-========================================================= */
-
-const submitButton =
-form.querySelector(
-'button[type="submit"]'
-);
-
-if(submitButton){
-
-submitButton.disabled =
-true;
-
-submitButton.innerHTML =
-"Envoi en cours...";
-
-}
-
-/* =========================================================
-DATA
-========================================================= */
 
 const data = {
 
 name:
-document.getElementById("name")
-?.value
-?.trim(),
+document.getElementById("name").value,
 
 phone:
-document.getElementById("phone")
-?.value
-?.trim(),
+document.getElementById("phone").value,
 
 service:
-document.getElementById("service")
-?.value
-?.trim(),
+document.getElementById("service").value,
 
 date:
-document.getElementById("date")
-?.value
-?.trim(),
+document.getElementById("date").value,
 
-time:
-typeof selectedTime !== "undefined"
-? selectedTime
-: "",
+time:selectedTime,
 
 message:
-document.getElementById("message")
-?.value
-?.trim()
+document.getElementById("message").value
 
 };
 
-/* =========================================================
-VALIDATION
-========================================================= */
-
-if(
-
-!data.name ||
-!data.phone ||
-!data.date ||
-!data.time
-
-){
-
-alert(
-"Veuillez remplir tous les champs obligatoires."
-);
-
-/* =========================================================
-UNLOCK BUTTON
-========================================================= */
-
-if(submitButton){
-
-submitButton.disabled =
-false;
-
-submitButton.innerHTML =
-"Réserver";
-
-}
-
-return;
-
-}
-
-/* =========================================================
-PHONE VALIDATION
-========================================================= */
-
-const phoneRegex =
-/^[0-9+\s()-]{6,20}$/;
-
-if(
-!phoneRegex.test(data.phone)
-){
-
-alert(
-"Numéro téléphone invalide."
-);
-
-if(submitButton){
-
-submitButton.disabled =
-false;
-
-submitButton.innerHTML =
-"Réserver";
-
-}
-
-return;
-
-}
-
-/* =========================================================
-API REQUEST
-========================================================= */
+/* ===============================
+SAVE API + WHATSAPP
+=============================== */
 
 try{
 
-const response =
-await fetch(
+const response = await fetch(
 
 "/api/reservation",
 
@@ -317,32 +97,10 @@ body:JSON.stringify(data)
 
 );
 
-/* =========================================================
-JSON
-========================================================= */
-
 const result =
 await response.json();
 
-/* =========================================================
-SUCCESS
-========================================================= */
-
 if(result.success){
-
-/* =========================================================
-SUCCESS EFFECT
-========================================================= */
-
-alert(
-"Réservation envoyée avec succès 🎸"
-);
-
-/* =========================================================
-WHATSAPP OPEN
-========================================================= */
-
-if(result.whatsappURL){
 
 window.open(
 
@@ -352,161 +110,26 @@ result.whatsappURL,
 
 );
 
-}
-
-/* =========================================================
-RESET FORM
-========================================================= */
-
-form.reset();
-
-/* =========================================================
-RESET TIME
-========================================================= */
-
-if(
-typeof selectedTime !==
-"undefined"
-){
-
-selectedTime = "";
-
-}
-
-/* =========================================================
-OPTIONAL ACTIVE TIME RESET
-========================================================= */
-
-document
-.querySelectorAll(
-".time-slot.active"
-)
-.forEach((slot)=>{
-
-slot.classList.remove(
-"active"
+alert(
+"Réservation envoyée avec succès 🎸"
 );
-
-});
 
 }else{
 
 alert(
-
-result.error ||
-
 "Erreur réservation"
-
 );
 
 }
-
-/* =========================================================
-ERROR
-========================================================= */
 
 }catch(err){
 
-console.error(
-"Reservation Error:",
-err
-);
+console.log(err);
 
 alert(
-"Erreur serveur. Réessayez plus tard."
+"Erreur serveur"
 );
 
 }
 
-/* =========================================================
-UNLOCK BUTTON
-========================================================= */
-
-if(submitButton){
-
-submitButton.disabled =
-false;
-
-submitButton.innerHTML =
-"Réserver";
-
-}
-
-}
-
-);
-
-}
-
-/* =========================================================
-ANTI LAG MOBILE
-========================================================= */
-
-window.addEventListener(
-
-"pageshow",
-
-()=>{
-
-document.body.style.opacity =
-"1";
-
-}
-
-);
-
-/* =========================================================
-IOS TOUCH OPTIMIZATION
-========================================================= */
-
-document.addEventListener(
-
-"touchstart",
-
-()=>{},
-
-{ passive:true }
-
-);
-
-/* =========================================================
-SAFE ERROR HANDLER
-========================================================= */
-
-window.addEventListener(
-
-"error",
-
-(event)=>{
-
-console.error(
-"Global Error:",
-event.error
-);
-
-}
-
-);
-
-/* =========================================================
-UNHANDLED PROMISE
-========================================================= */
-
-window.addEventListener(
-
-"unhandledrejection",
-
-(event)=>{
-
-console.error(
-"Promise Error:",
-event.reason
-);
-
-}
-
-);
-
-/* =========================================================
-END
-========================================================= */
+});
