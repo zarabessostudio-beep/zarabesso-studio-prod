@@ -1,11 +1,11 @@
 /* =========================================================
 ZARABESSO STUDIO
 HERO ELECTRIC GUITAR ENGINE
-FINAL ULTRA OPTIMIZED VERSION
-GPU + IOS + MOBILE + TABLET
-NO NAVBAR CONFLICT
-LOW GPU IMPACT
-PREMIUM SMOOTH
+FINAL CINEMATIC UNLIMITED VERSION
+NO CROPPING
+HIGHER POSITION
+VISIBLE BACKGROUND LIGHT
+GPU + IOS + MOBILE OPTIMIZED
 ========================================================= */
 
 /* =========================================================
@@ -24,6 +24,28 @@ SAFE START
 if(electricCanvas){
 
 /* =========================================================
+UNLIMITED VISIBILITY
+========================================================= */
+
+electricCanvas.style.overflow =
+"visible";
+
+electricCanvas.style.transform =
+"translate3d(0,0,0)";
+
+electricCanvas.style.zIndex =
+"20";
+
+if(
+electricCanvas.parentElement
+){
+
+electricCanvas.parentElement.style.overflow =
+"visible";
+
+}
+
+/* =========================================================
 DEVICE DETECTION
 ========================================================= */
 
@@ -33,11 +55,6 @@ window.innerWidth < 768;
 const isTablet =
 window.innerWidth >= 768 &&
 window.innerWidth < 1200;
-
-const isIOS =
-/iPad|iPhone|iPod/.test(
-navigator.userAgent
-);
 
 const isSmallMobile =
 window.innerWidth < 480;
@@ -56,13 +73,13 @@ CAMERA
 const electricCamera =
 new THREE.PerspectiveCamera(
 
-30,
+28,
 
 electricCanvas.clientWidth /
 electricCanvas.clientHeight,
 
 0.1,
-2000
+3000
 
 );
 
@@ -73,7 +90,7 @@ CAMERA POSITION
 electricCamera.position.set(
 0,
 0,
-9
+10.5
 );
 
 /* =========================================================
@@ -109,7 +126,7 @@ electricRenderer.setClearColor(
 );
 
 /* =========================================================
-SMART PIXEL RATIO
+PIXEL RATIO
 ========================================================= */
 
 let pixelRatio = 2;
@@ -161,7 +178,7 @@ electricRenderer.outputEncoding =
 THREE.sRGBEncoding;
 
 /* =========================================================
-GPU OPTIMIZATION
+GPU SAFE
 ========================================================= */
 
 electricRenderer.physicallyCorrectLights =
@@ -177,49 +194,181 @@ electricRenderer.sortObjects =
 false;
 
 /* =========================================================
-CANVAS STYLE
+UNLIMITED RENDER
 ========================================================= */
-
-electricRenderer.domElement.style.transform =
-"translate3d(0,0,0)";
-
-electricRenderer.domElement.style.backfaceVisibility =
-"hidden";
-
-electricRenderer.domElement.style.webkitBackfaceVisibility =
-"hidden";
 
 electricRenderer.domElement.style.overflow =
 "visible";
+
+electricRenderer.domElement.style.position =
+"absolute";
+
+electricRenderer.domElement.style.inset =
+"0";
+
+electricRenderer.domElement.style.transform =
+"translateZ(0)";
+
+electricRenderer.domElement.style.backfaceVisibility =
+"hidden";
 
 /* =========================================================
 LIGHTS
 ========================================================= */
 
+/*
+STRONGER GLOBAL LIGHT
+*/
+
 const ambientLight =
 new THREE.AmbientLight(
 0xffffff,
-1.7
+2.2
 );
 
 electricScene.add(
 ambientLight
 );
 
+/*
+FRONT LIGHT
+*/
+
 const frontLight =
 new THREE.DirectionalLight(
 0xffffff,
-1.15
+1.8
 );
 
 frontLight.position.set(
 0,
-2,
-6
+3,
+8
 );
 
 electricScene.add(
 frontLight
+);
+
+/*
+SIDE LIGHT
+*/
+
+const sideLight =
+new THREE.DirectionalLight(
+0x88ccff,
+1.2
+);
+
+sideLight.position.set(
+5,
+2,
+4
+);
+
+electricScene.add(
+sideLight
+);
+
+/*
+TOP LIGHT
+*/
+
+const topLight =
+new THREE.PointLight(
+0xff3355,
+2.5,
+30
+);
+
+topLight.position.set(
+0,
+6,
+4
+);
+
+electricScene.add(
+topLight
+);
+
+/* =========================================================
+BACKGROUND GLOW
+========================================================= */
+
+const glowGeometry =
+new THREE.SphereGeometry(
+3.8,
+32,
+32
+);
+
+const glowMaterial =
+new THREE.MeshBasicMaterial({
+
+color:0xff3355,
+
+transparent:true,
+
+opacity:0.18,
+
+depthWrite:false
+
+});
+
+const glowSphere =
+new THREE.Mesh(
+glowGeometry,
+glowMaterial
+);
+
+glowSphere.position.set(
+0,
+1.8,
+-4
+);
+
+electricScene.add(
+glowSphere
+);
+
+/* =========================================================
+SECOND GLOW
+========================================================= */
+
+const blueGlowGeometry =
+new THREE.SphereGeometry(
+2.8,
+32,
+32
+);
+
+const blueGlowMaterial =
+new THREE.MeshBasicMaterial({
+
+color:0x44ccff,
+
+transparent:true,
+
+opacity:0.12,
+
+depthWrite:false
+
+});
+
+const blueGlow =
+new THREE.Mesh(
+blueGlowGeometry,
+blueGlowMaterial
+);
+
+blueGlow.position.set(
+2,
+0,
+-3
+);
+
+electricScene.add(
+blueGlow
 );
 
 /* =========================================================
@@ -232,7 +381,7 @@ new THREE.GLTFLoader();
 let electricGuitar = null;
 
 /* =========================================================
-RESPONSIVE VALUES
+RESPONSIVE CONFIG
 ========================================================= */
 
 function getResponsiveConfig(){
@@ -241,9 +390,9 @@ if(window.innerWidth < 480){
 
 return{
 
-scale:2,
+scale:2.35,
 x:0,
-y:-0.35,
+y:1.1,
 rotationSpeed:0.0015,
 floatIntensity:0.03,
 moveIntensity:0.015
@@ -256,9 +405,9 @@ if(window.innerWidth < 768){
 
 return{
 
-scale:2.5,
+scale:2.9,
 x:0,
-y:-0.2,
+y:1.4,
 rotationSpeed:0.0018,
 floatIntensity:0.04,
 moveIntensity:0.02
@@ -271,9 +420,9 @@ if(window.innerWidth < 1200){
 
 return{
 
-scale:3.5,
-x:0.5,
-y:0,
+scale:3.9,
+x:0.7,
+y:1.6,
 rotationSpeed:0.0025,
 floatIntensity:0.06,
 moveIntensity:0.03
@@ -284,9 +433,9 @@ moveIntensity:0.03
 
 return{
 
-scale:4.18,
-x:1.4,
-y:0.3,
+scale:4.8,
+x:1.8,
+y:1.9,
 rotationSpeed:0.0035,
 floatIntensity:0.10,
 moveIntensity:0.05
@@ -319,19 +468,19 @@ electricGuitar.traverse((child)=>{
 
 if(child.isMesh){
 
+/*
+NO CROPPING
+*/
+
+child.frustumCulled = false;
+
 child.castShadow = false;
 
 child.receiveShadow = false;
 
-/* =========================================================
-FRUSTUM SAFE
-========================================================= */
-
-child.frustumCulled = false;
-
-/* =========================================================
-MATERIAL OPTIMIZATION
-========================================================= */
+/*
+SHARPER MATERIAL
+*/
 
 if(child.material){
 
@@ -342,7 +491,7 @@ child.material.depthWrite =
 true;
 
 child.material.needsUpdate =
-false;
+true;
 
 }
 
@@ -366,6 +515,11 @@ config.scale
 POSITION
 ========================================================= */
 
+/*
+HIGHER POSITION
+NO CARD COLLISION
+*/
+
 electricGuitar.position.set(
 
 config.x,
@@ -382,16 +536,9 @@ electricGuitar.rotation.set(
 
 0,
 Math.PI / 2,
--1.22
+-1.15
 
 );
-
-/* =========================================================
-GPU SAFE
-========================================================= */
-
-electricGuitar.matrixAutoUpdate =
-true;
 
 /* =========================================================
 ADD
@@ -424,7 +571,7 @@ const electricClock =
 new THREE.Clock();
 
 /* =========================================================
-FPS LIMITER
+FPS
 ========================================================= */
 
 let targetFPS = 60;
@@ -438,12 +585,6 @@ targetFPS = 45;
 if(isMobile){
 
 targetFPS = 35;
-
-}
-
-if(isSmallMobile){
-
-targetFPS = 30;
 
 }
 
@@ -462,10 +603,6 @@ requestAnimationFrame(
 animate
 );
 
-/* =========================================================
-FPS CONTROL
-========================================================= */
-
 if(time - lastFrameTime < frameInterval){
 
 return;
@@ -474,43 +611,39 @@ return;
 
 lastFrameTime = time;
 
-/* =========================================================
-TIME
-========================================================= */
-
 const elapsed =
 electricClock.getElapsedTime();
 
 /* =========================================================
-GUITAR ANIMATION
+ANIMATION
 ========================================================= */
 
 if(electricGuitar){
 
-/* =========================================================
+/*
 ROTATION
-========================================================= */
+*/
 
 electricGuitar.rotation.y +=
 config.rotationSpeed;
 
-/* =========================================================
+/*
 FLOAT
-========================================================= */
+*/
 
 electricGuitar.position.y =
 
 config.y +
 
-Math.sin(elapsed * 1)
+Math.sin(elapsed)
 
 *
 
 config.floatIntensity;
 
-/* =========================================================
-LATERAL MOVE
-========================================================= */
+/*
+MOVE
+*/
 
 electricGuitar.position.x =
 
@@ -525,14 +658,34 @@ config.moveIntensity;
 }
 
 /* =========================================================
+BACKGROUND GLOW ANIMATION
+========================================================= */
+
+glowSphere.scale.setScalar(
+
+1 +
+
+Math.sin(elapsed * 1.2)
+* 0.08
+
+);
+
+blueGlow.scale.setScalar(
+
+1 +
+
+Math.cos(elapsed * 0.8)
+* 0.06
+
+);
+
+/* =========================================================
 RENDER
 ========================================================= */
 
 electricRenderer.render(
-
 electricScene,
 electricCamera
-
 );
 
 }
@@ -553,16 +706,8 @@ window.addEventListener(
 
 ()=>{
 
-/* =========================================================
-NEW CONFIG
-========================================================= */
-
 config =
 getResponsiveConfig();
-
-/* =========================================================
-SIZE
-========================================================= */
 
 const width =
 electricCanvas.clientWidth;
@@ -580,40 +725,7 @@ width / height;
 electricCamera.updateProjectionMatrix();
 
 /* =========================================================
-PIXEL RATIO
-========================================================= */
-
-let resizePixelRatio = 2;
-
-if(window.innerWidth < 1200){
-
-resizePixelRatio = 1.5;
-
-}
-
-if(window.innerWidth < 768){
-
-resizePixelRatio = 1.2;
-
-}
-
-if(window.innerWidth < 480){
-
-resizePixelRatio = 1;
-
-}
-
-electricRenderer.setPixelRatio(
-
-Math.min(
-window.devicePixelRatio,
-resizePixelRatio
-)
-
-);
-
-/* =========================================================
-SIZE
+RENDERER
 ========================================================= */
 
 electricRenderer.setSize(
@@ -623,7 +735,7 @@ false
 );
 
 /* =========================================================
-UPDATE MODEL
+MODEL UPDATE
 ========================================================= */
 
 if(electricGuitar){
@@ -653,7 +765,7 @@ config.y,
 );
 
 /* =========================================================
-VISIBILITY OPTIMIZATION
+VISIBILITY
 ========================================================= */
 
 document.addEventListener(
@@ -662,24 +774,16 @@ document.addEventListener(
 
 ()=>{
 
-if(document.hidden){
-
-targetFPS = 20;
-
-}else{
-
-targetFPS = isMobile
-? 35
-: 60;
-
-}
+targetFPS = document.hidden
+? 20
+: (isMobile ? 35 : 60);
 
 }
 
 );
 
 /* =========================================================
-IOS MEMORY CLEANER
+MEMORY CLEAN
 ========================================================= */
 
 window.addEventListener(
