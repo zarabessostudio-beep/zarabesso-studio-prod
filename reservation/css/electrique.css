@@ -131,11 +131,11 @@ radial-gradient(
 
 circle,
 
-rgba(255,255,255,0.045) 0%,
+rgba(203, 47, 47, 0.04) 0%,
 rgba(120,140,255,0.05) 25%,
-rgba(255,120,180,0.04) 50%,
-rgba(120,255,220,0.03) 75%,
-transparent 100%
+rgba(115, 15, 60, 0.04) 50%,
+rgba(29, 156, 122, 0.18) 75%,
+transparent 75%
 
 );
 
@@ -152,7 +152,7 @@ SLOW PREMIUM ANIMATION
 */
 
 animation:
-glassAmbient 14s ease-in-out infinite;
+glassAmbient 5s ease-in-out infinite;
 
 z-index:-3;
 
@@ -194,8 +194,8 @@ radial-gradient(
 
 circle,
 
-rgba(255,255,255,0.03),
-transparent 70%
+rgba(66, 157, 222, 0.03),
+transparent 40%
 
 );
 
@@ -225,20 +225,20 @@ OLED GLASS ANIMATION
 0%{
 
 transform:
-translate(-50%,-50%)
+translate(-40%,-40%)
 scale(1);
 
-opacity:0.42;
+opacity:0.25;
 
 }
 
-50%{
+40%{
 
 transform:
-translate(-50%,-50%)
+translate(-40%,-40%)
 scale(1.06);
 
-opacity:0.58;
+opacity:0.5;
 
 }
 
@@ -266,7 +266,7 @@ transform:
 translate(-50%,-50%)
 scale(1);
 
-opacity:0.18;
+opacity:0.20;
 
 }
 
@@ -276,7 +276,7 @@ transform:
 translate(-50%,-50%)
 scale(1.08);
 
-opacity:0.28;
+opacity:0.30;
 
 }
 
