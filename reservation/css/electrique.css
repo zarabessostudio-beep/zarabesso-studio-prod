@@ -423,3 +423,279 @@ top:90px;
 }
 
 }
+/* =========================================================
+GPU + MOBILE + IOS OPTIMIZATION LAYER
+ADD ONLY
+NO CONFLICT
+========================================================= */
+
+/* =========================================================
+GPU ACCELERATION
+========================================================= */
+
+.hero-electric-guitar,
+#webgl-electric,
+#webgl-electric canvas{
+
+transform:
+translate3d(0,0,0);
+
+-webkit-transform:
+translate3d(0,0,0);
+
+will-change:
+transform;
+
+backface-visibility:hidden;
+
+-webkit-backface-visibility:hidden;
+
+perspective:1200px;
+
+-webkit-perspective:1200px;
+
+transform-style:preserve-3d;
+
+-webkit-font-smoothing:antialiased;
+
+}
+
+/* =========================================================
+TOUCH DEVICE OPTIMIZATION
+========================================================= */
+
+@media (hover:none){
+
+.hero-electric-guitar{
+
+pointer-events:none;
+
+}
+
+}
+
+/* =========================================================
+IOS SAFARI FIX
+========================================================= */
+
+@supports (-webkit-touch-callout: none){
+
+.hero-electric-guitar{
+
+transform:
+translateZ(0);
+
+}
+
+#webgl-electric{
+
+transform:
+translateZ(0);
+
+}
+
+}
+
+/* =========================================================
+AUTO RESPONSIVE SIZE SYSTEM
+========================================================= */
+
+.hero-electric-guitar{
+
+/*
+AUTO SCALE
+*/
+
+width:min(75vw,1100px);
+
+height:min(75vw,1100px);
+
+/*
+SAFE LIMIT
+*/
+
+max-width:1100px;
+max-height:1100px;
+
+min-width:260px;
+min-height:260px;
+
+}
+
+/* =========================================================
+AUTO POSITIONING
+========================================================= */
+
+@media(max-width:1200px){
+
+.hero-electric-guitar{
+
+left:50%;
+
+right:auto;
+
+transform:
+translateX(-50%)
+translateZ(0);
+
+top:0;
+
+}
+
+}
+
+/* =========================================================
+TABLET OPTIMIZATION
+========================================================= */
+
+@media(max-width:900px){
+
+.hero-guitar-zone{
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+}
+
+.hero-electric-guitar{
+
+width:min(90vw,650px);
+height:min(90vw,650px);
+
+top:20px;
+
+}
+
+/*
+LIGHT REDUCTION
+*/
+
+.hero-electric-guitar::before{
+
+filter:blur(35px);
+
+opacity:0.30;
+
+}
+
+.hero-electric-guitar::after{
+
+opacity:0.15;
+
+}
+
+}
+
+/* =========================================================
+MOBILE SMART POSITION
+========================================================= */
+
+@media(max-width:600px){
+
+.hero-electric-guitar{
+
+width:min(95vw,430px);
+height:min(95vw,430px);
+
+top:60px;
+
+/*
+AUTO CENTER
+*/
+
+left:50%;
+
+transform:
+translateX(-50%)
+translateZ(0);
+
+}
+
+/*
+GPU SAFE LIGHT
+*/
+
+.hero-electric-guitar::before{
+
+width:180px;
+height:180px;
+
+filter:blur(25px);
+
+}
+
+.hero-electric-guitar::after{
+
+width:140px;
+height:140px;
+
+filter:blur(20px);
+
+}
+
+}
+
+/* =========================================================
+SMALL MOBILE
+========================================================= */
+
+@media(max-width:420px){
+
+.hero-electric-guitar{
+
+width:min(98vw,340px);
+height:min(98vw,340px);
+
+top:90px;
+
+}
+
+}
+
+/* =========================================================
+LOW HEIGHT DEVICE
+========================================================= */
+
+@media(max-height:700px){
+
+.hero-electric-guitar{
+
+top:20px;
+
+scale:0.88;
+
+}
+
+}
+
+/* =========================================================
+VERY SMALL DEVICE
+========================================================= */
+
+@media(max-width:360px){
+
+.hero-electric-guitar{
+
+scale:0.78;
+
+top:70px;
+
+}
+
+}
+
+/* =========================================================
+PERFORMANCE MODE
+========================================================= */
+
+@media(max-width:768px){
+
+.hero-electric-guitar::before,
+.hero-electric-guitar::after{
+
+animation:none !important;
+
+}
+
+}
