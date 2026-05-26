@@ -97,10 +97,69 @@ isolation:isolate;
 }
 
 /* =========================================================
-RGB CIRCLE BACKGROUND
+PREMIUM OLED BACKGROUND LIGHT
 ========================================================= */
 
 .hero-electric-guitar::before{
+
+content:"";
+
+position:absolute;
+
+left:50%;
+top:50%;
+
+width:720px;
+height:720px;
+
+transform:
+translate(-50%,-50%);
+
+border-radius:50%;
+
+/*
+BLUR RGB PREMIUM
+DISCRET
+*/
+
+background:
+radial-gradient(
+circle,
+rgba(255,0,80,0.10) 0%,
+rgba(0,140,255,0.08) 25%,
+rgba(120,0,255,0.08) 50%,
+rgba(0,255,180,0.06) 75%,
+transparent 100%
+);
+
+/*
+GROS BLUR OLED
+*/
+
+filter:
+blur(90px)
+saturate(130%);
+
+opacity:0.55;
+
+/*
+ANIMATION LENTE
+*/
+
+animation:
+oledAmbient 18s ease-in-out infinite;
+
+z-index:-3;
+
+pointer-events:none;
+
+}
+
+/* =========================================================
+SECONDARY AMBIENT LIGHT
+========================================================= */
+
+.hero-electric-guitar::after{
 
 content:"";
 
@@ -117,125 +176,138 @@ translate(-50%,-50%);
 
 border-radius:50%;
 
-/*
-RGB GRADIENT
-*/
-
-background:
-conic-gradient(
-
-#ff0000,
-#00ff66,
-#0080ff,
-#ff8800,
-#8b5cf6,
-#ff0000
-
-);
-
-/*
-EFFET PREMIUM
-*/
-
-filter:
-blur(18px)
-saturate(140%);
-
-opacity:0.7;
-
-animation:
-rgbRotate 8s linear infinite;
-
-z-index:-2;
-
-}
-
-/* =========================================================
-INNER ENERGY CIRCLE
-========================================================= */
-
-.hero-electric-guitar::after{
-
-content:"";
-
-position:absolute;
-
-left:50%;
-top:50%;
-
-width:0%;
-height:0%;
-
-transform:
-translate(-50%,-50%);
-
-border-radius:50%;
-
 background:
 radial-gradient(
 circle,
-rgba(255,255,255,0.14),
-transparent 70%
+rgba(255,255,255,0.06),
+rgba(0,0,0,0) 70%
 );
 
+filter:
+blur(70px);
+
+opacity:0.35;
+
 animation:
-energyPulse 7s ease-in-out infinite;
+oledPulse 12s ease-in-out infinite;
 
-z-index:-1;
+z-index:-2;
+
+pointer-events:none;
 
 }
 
 /* =========================================================
-RGB ROTATION
+OLED COLOR SHIFT
 ========================================================= */
 
-@keyframes rgbRotate{
+@keyframes oledAmbient{
 
 0%{
 
 transform:
 translate(-50%,-50%)
-rotate(0deg);
+scale(1);
+
+filter:
+blur(90px)
+hue-rotate(0deg);
+
+opacity:0.45;
 
 }
 
-100%{
+25%{
 
 transform:
 translate(-50%,-50%)
-rotate(360deg);
+scale(1.08);
 
-}
+filter:
+blur(100px)
+hue-rotate(90deg);
 
-}
-
-/* =========================================================
-ENERGY FILL
-========================================================= */
-
-@keyframes energyPulse{
-
-0%{
-
-width:80px;
-height:80px;
-opacity:0.2;
+opacity:0.55;
 
 }
 
 50%{
 
-width:340px;
-height:340px;
+transform:
+translate(-50%,-50%)
+scale(1.12);
+
+filter:
+blur(110px)
+hue-rotate(180deg);
+
+opacity:0.65;
+
+}
+
+75%{
+
+transform:
+translate(-50%,-50%)
+scale(1.05);
+
+filter:
+blur(100px)
+hue-rotate(270deg);
+
 opacity:0.55;
 
 }
 
 100%{
 
-width:80px;
-height:80px;
-opacity:0.2;
+transform:
+translate(-50%,-50%)
+scale(1);
+
+filter:
+blur(90px)
+hue-rotate(360deg);
+
+opacity:0.45;
+
+}
+
+}
+
+/* =========================================================
+SOFT PULSE
+========================================================= */
+
+@keyframes oledPulse{
+
+0%{
+
+transform:
+translate(-50%,-50%)
+scale(1);
+
+opacity:0.18;
+
+}
+
+50%{
+
+transform:
+translate(-50%,-50%)
+scale(1.15);
+
+opacity:0.38;
+
+}
+
+100%{
+
+transform:
+translate(-50%,-50%)
+scale(1);
+
+opacity:0.18;
 
 }
 
