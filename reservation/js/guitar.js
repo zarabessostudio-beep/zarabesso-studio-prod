@@ -1,7 +1,7 @@
 /* =========================================================
 ZARABESSO STUDIO
-ULTRA PREMIUM CINEMATIC GUITAR ENGINE
-THREE.JS FINAL VERSION
+ULTRA PREMIUM CINEMATIC GUITAR
+NO CONFLICT VERSION
 ========================================================= */
 
 /* =========================================================
@@ -9,7 +9,15 @@ CANVAS
 ========================================================= */
 
 const canvas =
-document.getElementById("webgl");
+document.getElementById(
+"webgl"
+);
+
+/* =========================================================
+SAFE START
+========================================================= */
+
+if(canvas){
 
 /* =========================================================
 SCENE
@@ -21,7 +29,7 @@ new THREE.Scene();
 scene.fog =
 new THREE.FogExp2(
 0x050505,
-0.045
+0.03
 );
 
 /* =========================================================
@@ -31,16 +39,19 @@ CAMERA
 const camera =
 new THREE.PerspectiveCamera(
 28,
-canvas.clientWidth / canvas.clientHeight,
+canvas.clientWidth /
+canvas.clientHeight,
 0.1,
 1000
 );
 
-/* PREMIUM POSITION */
+/* =========================================================
+CAMERA POSITION
+========================================================= */
 
 camera.position.set(
 0,
-0.4,
+0.3,
 7
 );
 
@@ -58,6 +69,13 @@ powerPreference:"high-performance"
 
 });
 
+/* IMPORTANT */
+
+renderer.setClearColor(
+0x000000,
+0
+);
+
 renderer.setPixelRatio(
 Math.min(window.devicePixelRatio,2)
 );
@@ -70,50 +88,50 @@ canvas.clientHeight
 renderer.outputEncoding =
 THREE.sRGBEncoding;
 
-renderer.physicallyCorrectLights = true;
+renderer.physicallyCorrectLights =
+true;
 
 renderer.toneMapping =
 THREE.ACESFilmicToneMapping;
 
-renderer.toneMappingExposure = 1.45;
+renderer.toneMappingExposure =
+1.4;
 
 /* =========================================================
-LIGHTING SYSTEM
+LIGHTS
 ========================================================= */
-
-/* AMBIENT */
 
 const ambientLight =
 new THREE.AmbientLight(
 0xffffff,
-2.6
+2.5
 );
 
-scene.add(ambientLight);
+scene.add(
+ambientLight
+);
 
-/* MAIN GOLD */
-
-const mainGoldLight =
+const goldLight =
 new THREE.DirectionalLight(
 0xffd27a,
-5
+4
 );
 
-mainGoldLight.position.set(
-6,
-8,
+goldLight.position.set(
+5,
+7,
 8
 );
 
-scene.add(mainGoldLight);
-
-/* ORANGE SIDE */
+scene.add(
+goldLight
+);
 
 const orangeLight =
 new THREE.PointLight(
 0xff8800,
-7,
-30
+5,
+25
 );
 
 orangeLight.position.set(
@@ -122,50 +140,35 @@ orangeLight.position.set(
 5
 );
 
-scene.add(orangeLight);
-
-/* BLUE CONTRAST */
+scene.add(
+orangeLight
+);
 
 const blueLight =
 new THREE.PointLight(
 0x3b82f6,
-3,
-25
-);
-
-blueLight.position.set(
--5,
--2,
-4
-);
-
-scene.add(blueLight);
-
-/* PINK CINEMATIC */
-
-const pinkLight =
-new THREE.PointLight(
-0xff0088,
 2,
 20
 );
 
-pinkLight.position.set(
-0,
-4,
--3
+blueLight.position.set(
+-4,
+-2,
+4
 );
 
-scene.add(pinkLight);
+scene.add(
+blueLight
+);
 
 /* =========================================================
-BACKGROUND PARTICLES
+PARTICLES
 ========================================================= */
 
 const particlesGeometry =
 new THREE.BufferGeometry();
 
-const particlesCount = 120;
+const particlesCount = 100;
 
 const posArray =
 new Float32Array(
@@ -181,16 +184,19 @@ posArray[i] =
 
 particlesGeometry.setAttribute(
 "position",
-new THREE.BufferAttribute(posArray,3)
+new THREE.BufferAttribute(
+posArray,
+3
+)
 );
 
 const particlesMaterial =
 new THREE.PointsMaterial({
 
-size:0.035,
+size:0.03,
 color:0xffd27a,
 transparent:true,
-opacity:0.7
+opacity:0.6
 
 });
 
@@ -200,10 +206,12 @@ particlesGeometry,
 particlesMaterial
 );
 
-scene.add(particlesMesh);
+scene.add(
+particlesMesh
+);
 
 /* =========================================================
-GLTF LOADER
+LOADER
 ========================================================= */
 
 const loader =
@@ -219,12 +227,13 @@ loader.load(
 
 "/reservation/assets/models/guitar.glb",
 
-function(gltf){
+(gltf)=>{
 
-guitar = gltf.scene;
+guitar =
+gltf.scene;
 
 /* =========================================================
-MODEL SETTINGS
+MATERIALS
 ========================================================= */
 
 guitar.traverse((child)=>{
@@ -235,15 +244,13 @@ child.castShadow = true;
 
 child.receiveShadow = true;
 
-/* MATERIAL */
-
 if(child.material){
 
-child.material.metalness = 0.55;
+child.material.metalness = 0.5;
 
-child.material.roughness = 0.38;
+child.material.roughness = 0.4;
 
-child.material.envMapIntensity = 1.7;
+child.material.envMapIntensity = 1.6;
 
 }
 
@@ -256,9 +263,9 @@ SIZE
 ========================================================= */
 
 guitar.scale.set(
-5.2,
-5.2,
-5.2
+4.6,
+4.6,
+4.6
 );
 
 /* =========================================================
@@ -266,8 +273,8 @@ POSITION
 ========================================================= */
 
 guitar.position.set(
-2.3,
--1.7,
+2.1,
+-1.5,
 0
 );
 
@@ -281,17 +288,15 @@ guitar.rotation.set(
 0.08
 );
 
-/* =========================================================
-ADD TO SCENE
-========================================================= */
-
-scene.add(guitar);
+scene.add(
+guitar
+);
 
 },
 
 undefined,
 
-function(error){
+(error)=>{
 
 console.error(
 "Erreur GLB :",
@@ -303,7 +308,7 @@ error
 );
 
 /* =========================================================
-MOUSE INTERACTION
+MOUSE
 ========================================================= */
 
 let mouseX = 0;
@@ -316,10 +321,12 @@ window.addEventListener(
 (event)=>{
 
 mouseX =
-(event.clientX / window.innerWidth - 0.5);
+(event.clientX /
+window.innerWidth - 0.5);
 
 mouseY =
-(event.clientY / window.innerHeight - 0.5);
+(event.clientY /
+window.innerHeight - 0.5);
 
 }
 
@@ -333,12 +340,14 @@ const clock =
 new THREE.Clock();
 
 /* =========================================================
-ANIMATION LOOP
+ANIMATION
 ========================================================= */
 
 function animate(){
 
-requestAnimationFrame(animate);
+requestAnimationFrame(
+animate
+);
 
 const elapsedTime =
 clock.getElapsedTime();
@@ -347,7 +356,8 @@ clock.getElapsedTime();
 PARTICLES
 ========================================================= */
 
-particlesMesh.rotation.y += 0.0008;
+particlesMesh.rotation.y +=
+0.0005;
 
 /* =========================================================
 GUITAR
@@ -355,32 +365,40 @@ GUITAR
 
 if(guitar){
 
-/* FLOATING */
+/*
+FLOAT CINEMA
+*/
 
 guitar.position.y =
--1.7 +
-Math.sin(elapsedTime*1.6)*0.12;
+-1.5 +
+Math.sin(elapsedTime*1.4)
+* 0.08;
 
-/* CINEMATIC ROTATION */
+/*
+ROTATION LENTE
+*/
 
-guitar.rotation.y += 0.0015;
+guitar.rotation.y +=
+0.0013;
 
-/* MOUSE PARALLAX */
+/*
+PARALLAX
+*/
 
 guitar.rotation.x =
-(mouseY * 0.18);
+(mouseY * 0.12);
 
 guitar.rotation.z =
-(mouseX * 0.08);
-
-/* SMOOTH CAMERA */
+(mouseX * 0.06);
 
 camera.position.x +=
-(mouseX * 0.9 - camera.position.x)
+(mouseX * 0.6 -
+camera.position.x)
 * 0.02;
 
 camera.position.y +=
-(-mouseY * 0.3 + 0.4 - camera.position.y)
+(-mouseY * 0.2 + 0.3 -
+camera.position.y)
 * 0.02;
 
 camera.lookAt(
@@ -430,3 +448,5 @@ Math.min(window.devicePixelRatio,2)
 }
 
 );
+
+}

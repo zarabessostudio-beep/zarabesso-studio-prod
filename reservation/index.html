@@ -174,11 +174,17 @@ HERO SECTION
 
 <div class="reservation-container">
 
-   <!-- ELECTRIC GUITAR -->
+<!-- ===================================== -->
+<!-- HERO SHOWROOM GUITAR -->
+<!-- ===================================== -->
+
+<div class="hero-guitar-zone">
 
 <div class="hero-electric-guitar">
 
 <canvas id="webgl-electric"></canvas>
+
+</div>
 
 </div>
 
@@ -331,8 +337,6 @@ Investissement Musical
 
 <option>Mastering Premium</option>
 
-<option>Clip Vidéo Artistique</option>
-
 <option>Production Gold Music</option>
 
 </select>
@@ -468,15 +472,62 @@ Production • Créativité • Excellence
 
 </div>
 
-<!-- STATUS -->
+<!-- ===================================== -->
+<!-- STUDIO STATUS -->
+<!-- ===================================== -->
 
-<div class="status-card">
+<div
+class="status-card available"
+id="studioStatus"
+>
 
-<div class="status-dot"></div>
+<div
+class="status-dot"
+id="statusDot"
+></div>
 
-<span>
+<div class="status-content">
+
+<h4 id="statusTitle">
 Studio Disponible
-</span>
+</h4>
+
+<p id="statusText">
+Réservations ouvertes aujourd’hui
+</p>
+
+</div>
+
+</div>
+
+<!-- ===================================== -->
+<!-- OWNER SWITCH -->
+<!-- ===================================== -->
+
+<div class="studio-switch-panel">
+
+<label class="switch">
+
+<input
+type="checkbox"
+id="studioToggle"
+/>
+
+<span class="slider"></span>
+
+</label>
+
+<div class="switch-text">
+
+<h4>
+Mode Studio
+</h4>
+
+<p>
+Disponible / Fermé
+</p>
+
+</div>
 
 </div>
 
@@ -775,6 +826,8 @@ JS FILES
 <script src="/reservation/js/electric-guitar.js"></script>
 
 <script src="/reservation/js/reservation.js"></script>
+
+<script src="/reservation/js/studio-status.js"></script>
 
 </body>
 </html>

@@ -1,8 +1,12 @@
 /* =========================================================
 ZARABESSO STUDIO
-SHOWROOM ELECTRIC GUITAR
-VERTICAL GLB VERSION
-SMOOTH ROTATION • NO FLOAT
+HERO ELECTRIC GUITAR ENGINE
+NO CONFLICT VERSION
+SHOWROOM CINEMATIC
+========================================================= */
+
+/* =========================================================
+CANVAS
 ========================================================= */
 
 const electricCanvas =
@@ -29,7 +33,7 @@ CAMERA
 
 const electricCamera =
 new THREE.PerspectiveCamera(
-28,
+30,
 electricCanvas.clientWidth /
 electricCanvas.clientHeight,
 0.1,
@@ -40,16 +44,10 @@ electricCanvas.clientHeight,
 CAMERA POSITION
 ========================================================= */
 
-/*
-CAMÉRA PLUS LOIN
-POUR VOIR
-TOUTE LA GUITARE
-*/
-
 electricCamera.position.set(
 0,
 0,
-8
+8.5
 );
 
 /* =========================================================
@@ -66,6 +64,13 @@ powerPreference:"high-performance"
 
 });
 
+/* IMPORTANT */
+
+electricRenderer.setClearColor(
+0x000000,
+0
+);
+
 electricRenderer.setPixelRatio(
 Math.min(window.devicePixelRatio,2)
 );
@@ -78,19 +83,23 @@ electricCanvas.clientHeight
 electricRenderer.outputEncoding =
 THREE.sRGBEncoding;
 
+electricRenderer.physicallyCorrectLights =
+true;
+
+electricRenderer.toneMapping =
+THREE.ACESFilmicToneMapping;
+
+electricRenderer.toneMappingExposure =
+1.2;
+
 /* =========================================================
 LIGHTS
 ========================================================= */
 
-/*
-LUMIÈRES DOUCES
-STYLE VITRINE
-*/
-
 const ambientLight =
 new THREE.AmbientLight(
 0xffffff,
-2.4
+2.8
 );
 
 electricScene.add(
@@ -100,7 +109,7 @@ ambientLight
 const frontLight =
 new THREE.DirectionalLight(
 0xffffff,
-1.8
+2
 );
 
 frontLight.position.set(
@@ -113,27 +122,45 @@ electricScene.add(
 frontLight
 );
 
-const topLight =
-new THREE.DirectionalLight(
-0xffffff,
-1.2
+const goldLight =
+new THREE.PointLight(
+0xffd27a,
+3,
+20
 );
 
-topLight.position.set(
-0,
-8,
-0
+goldLight.position.set(
+3,
+2,
+4
 );
 
 electricScene.add(
-topLight
+goldLight
+);
+
+const blueLight =
+new THREE.PointLight(
+0x3b82f6,
+2,
+20
+);
+
+blueLight.position.set(
+-4,
+-2,
+2
+);
+
+electricScene.add(
+blueLight
 );
 
 /* =========================================================
 LOADER
 ========================================================= */
 
-const loader =
+const electricLoader =
 new THREE.GLTFLoader();
 
 let electricGuitar = null;
@@ -142,7 +169,7 @@ let electricGuitar = null;
 LOAD MODEL
 ========================================================= */
 
-loader.load(
+electricLoader.load(
 
 "/reservation/assets/models/electrique.glb",
 
@@ -165,16 +192,11 @@ child.receiveShadow = true;
 
 if(child.material){
 
-/*
-GARDE LE LOOK
-ORIGINAL DU GLB
-*/
+child.material.metalness = 0.35;
 
-child.material.metalness = 0.25;
+child.material.roughness = 0.42;
 
-child.material.roughness = 0.45;
-
-child.material.envMapIntensity = 1.1;
+child.material.envMapIntensity = 1.3;
 
 }
 
@@ -186,29 +208,19 @@ child.material.envMapIntensity = 1.1;
 SIZE
 ========================================================= */
 
-/*
-TAILLE RÉDUITE
-À 50%
-*/
-
 electricGuitar.scale.set(
-0.9,
-0.9,
-0.9
+1.35,
+1.35,
+1.35
 );
 
 /* =========================================================
 POSITION
 ========================================================= */
 
-/*
-POSITION CENTRALE
-STYLE VITRINE
-*/
-
 electricGuitar.position.set(
-0,
--1.2,
+0.5,
+-1,
 0
 );
 
@@ -217,15 +229,16 @@ ROTATION
 ========================================================= */
 
 /*
-POSITION VERTICALE
-MANCHE VERS LE HAUT
-FACE AVANT VISIBLE
+STYLE SKETCHFAB
+DIAGONALE SHOWROOM
 */
 
 electricGuitar.rotation.set(
-0,
-0,
-0
+
+-0.35,
+0.9,
+0.15
+
 );
 
 electricScene.add(
@@ -248,7 +261,7 @@ error
 );
 
 /* =========================================================
-MOUSE ROTATION
+MOUSE INTERACTION
 ========================================================= */
 
 let targetRotationY = 0;
@@ -262,18 +275,11 @@ window.addEventListener(
 targetRotationY =
 (event.clientX /
 window.innerWidth - 0.5)
-* 1.4;
+* 0.45;
 
 }
 
 );
-
-/* =========================================================
-CLOCK
-========================================================= */
-
-const clock =
-new THREE.Clock();
 
 /* =========================================================
 ANIMATION
@@ -293,23 +299,22 @@ if(electricGuitar){
 
 /*
 ROTATION LENTE
-STYLE VITRINE
+SHOWROOM
 */
 
 electricGuitar.rotation.y +=
-0.002;
+0.0018;
 
 /*
-ROTATION FLUIDE
-AVEC LA SOURIS
+INTERACTION SOURIS
 */
 
 electricGuitar.rotation.y +=
 (
 targetRotationY -
-electricGuitar.rotation.y
+electricGuitar.rotation.y + 0.9
 )
-* 0.015;
+* 0.01;
 
 }
 

@@ -1,19 +1,16 @@
 /* =========================================================
 ZARABESSO STUDIO
-SHOWROOM ELECTRIC GUITAR
-VERTICAL DISPLAY VERSION
-NO FRAME • NO CUT • PREMIUM
+HERO ELECTRIC GUITAR
+SHOWROOM CINEMATIC VERSION
 ========================================================= */
 
 /* =========================================================
-IMPORTANT
-SUPPRIME TOUTE DÉCOUPE
+SAFE OVERFLOW
 ========================================================= */
 
-.reservation-container,
 .reservation-hero,
-.booking-left,
-.booking-right,
+.reservation-container,
+.hero-guitar-zone,
 .hero-electric-guitar{
 
 overflow:visible !important;
@@ -21,60 +18,53 @@ overflow:visible !important;
 }
 
 /* =========================================================
-SHOWROOM ELECTRIC GUITAR
+ZONE HERO
+========================================================= */
+
+.hero-guitar-zone{
+
+position:absolute;
+
+top:0;
+right:0;
+
+width:48%;
+height:100%;
+
+pointer-events:none;
+
+z-index:15;
+
+}
+
+/* =========================================================
+ELECTRIC GUITAR CONTAINER
 ========================================================= */
 
 .hero-electric-guitar{
 
 position:absolute;
 
-/* =========================================================
-POSITION
-========================================================= */
+/* POSITION PREMIUM */
 
-/*
-POSITION STYLE VITRINE
-À CÔTÉ DU H1
-*/
+top:120px;
+right:3%;
 
-top:-140px;
+/* TAILLE OPTIMALE */
 
-right:-5%;
+width:720px;
+height:720px;
 
-/* =========================================================
-ZONE LIBRE
-========================================================= */
+/* IMPORTANT */
 
-/*
-ZONE LARGE
-POUR QUE LE GLB
-NE SOIT JAMAIS COUPÉ
-*/
-
-width:700px;
-height:700px;
-
-/* =========================================================
-IMPORTANT
-========================================================= */
-
-z-index:250;
+z-index:20;
 
 pointer-events:auto;
-
-/*
-SUPPRIME LES LIMITES
-VISUELLES
-*/
 
 background:none !important;
 border:none !important;
 outline:none !important;
 box-shadow:none !important;
-
-/*
-PERFORMANCE
-*/
 
 transform:translate3d(0,0,0);
 
@@ -83,7 +73,7 @@ will-change:transform;
 }
 
 /* =========================================================
-WEBGL CANVAS
+CANVAS
 ========================================================= */
 
 #webgl-electric{
@@ -99,43 +89,30 @@ display:block;
 
 background:transparent !important;
 
-/* =========================================================
-AUCUN CADRE
-========================================================= */
-
 border:none !important;
 outline:none !important;
 box-shadow:none !important;
 
-/*
-SUPPRIME LES
-LUMIÈRES CSS
-*/
-
 filter:none !important;
-
-/*
-RENDU PLUS FLUIDE
-*/
 
 transform:translateZ(0);
 
 }
 
 /* =========================================================
-RESPONSIVE LAPTOP
+LAPTOP
 ========================================================= */
 
 @media(max-width:1400px){
 
 .hero-electric-guitar{
 
-width:560px;
-height:560px;
+width:620px;
+height:620px;
 
-top:-110px;
+top:140px;
 
-right:-8%;
+right:0;
 
 }
 
@@ -147,14 +124,23 @@ TABLET
 
 @media(max-width:1100px){
 
+.hero-guitar-zone{
+
+width:100%;
+
+}
+
 .hero-electric-guitar{
 
-width:480px;
-height:480px;
+width:520px;
+height:520px;
 
-top:-70px;
+top:120px;
 
-right:-10%;
+left:50%;
+right:auto;
+
+transform:translateX(-50%);
 
 }
 
@@ -171,14 +157,11 @@ MOBILE
 width:360px;
 height:360px;
 
-top:-40px;
+top:110px;
 
 left:50%;
-right:auto;
 
 transform:translateX(-50%);
-
-opacity:.98;
 
 }
 
@@ -192,14 +175,10 @@ SMALL MOBILE
 
 .hero-electric-guitar{
 
-width:290px;
-height:290px;
+width:280px;
+height:280px;
 
-top:-10px;
-
-left:50%;
-
-transform:translateX(-50%);
+top:120px;
 
 }
 

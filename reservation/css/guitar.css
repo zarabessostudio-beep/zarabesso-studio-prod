@@ -1,12 +1,23 @@
 /* =========================================================
 ZARABESSO STUDIO
 ULTRA PREMIUM GUITAR CSS
-FINAL CINEMATIC VERSION
+NO CONFLICT VERSION
+CINEMATIC SHOWROOM
+========================================================= */
+
+/* =========================================================
+BOOKING RIGHT
 ========================================================= */
 
 .booking-right{
 
 position:relative;
+
+/*
+IMPORTANT
+LAISSE LE CANVAS SORTIR
+SANS COUPURE
+*/
 
 overflow:visible;
 
@@ -18,39 +29,71 @@ min-height:780px;
 
 isolation:isolate;
 
+/*
+IMPORTANT
+ZONE INDÉPENDANTE
+*/
+
+z-index:5;
+
 }
 
 /* =========================================================
-WEBGL
+SECOND GUITAR WEBGL
 ========================================================= */
 
 #webgl{
 
 position:absolute;
 
-/* PREMIUM POSITION */
+/* =========================================================
+POSITION IDENTIQUE
+À TON ANCIENNE VERSION
+========================================================= */
 
 top:-170px;
 right:-240px;
 
-/* HUGE SIZE */
+/* =========================================================
+TAILLE
+========================================================= */
 
-width:1150px !important;
-height:1150px !important;
+/*
+PLUS PETIT
+POUR ÉVITER
+LE CONFLIT
+AVEC LA GUITARE ÉLECTRIQUE
+*/
 
-/* SAFE */
+width:980px !important;
+height:980px !important;
+
+/* =========================================================
+SAFE
+========================================================= */
 
 display:block;
 
-background:transparent;
-
-z-index:5;
+background:transparent !important;
 
 pointer-events:auto;
 
 touch-action:auto;
 
-/* GPU */
+/* =========================================================
+IMPORTANT
+========================================================= */
+
+/*
+RESTE EN DESSOUS
+DE LA GUITARE HERO
+*/
+
+z-index:2;
+
+/*
+PERFORMANCE GPU
+*/
 
 transform:translateZ(0);
 
@@ -58,26 +101,28 @@ will-change:
 transform,
 opacity;
 
-/* PREMIUM CINEMATIC SHADOW */
+/* =========================================================
+CINEMATIC SHADOW
+========================================================= */
 
 filter:
 
 drop-shadow(
-0 0 60px rgba(255,180,0,.22)
+0 0 60px rgba(255,180,0,.20)
 )
 
 drop-shadow(
-0 0 120px rgba(255,120,0,.18)
+0 0 120px rgba(255,120,0,.15)
 )
 
 drop-shadow(
-0 0 180px rgba(255,0,120,.12)
+0 0 180px rgba(255,0,120,.10)
 );
 
 }
 
 /* =========================================================
-CINEMATIC AURA
+PREMIUM AURA
 ========================================================= */
 
 .booking-right::before{
@@ -98,13 +143,13 @@ background:
 
 radial-gradient(
 circle,
-rgba(255,180,0,.22),
+rgba(255,180,0,.20),
 transparent 40%
 ),
 
 radial-gradient(
 circle,
-rgba(255,0,120,.12),
+rgba(255,0,120,.10),
 transparent 65%
 );
 
@@ -140,7 +185,7 @@ border-radius:50%;
 background:
 radial-gradient(
 circle,
-rgba(59,130,246,.18),
+rgba(59,130,246,.16),
 transparent 70%
 );
 
@@ -225,33 +270,59 @@ backdrop-filter:blur(20px);
 RESPONSIVE
 ========================================================= */
 
+@media(max-width:1600px){
+
+#webgl{
+
+width:900px !important;
+height:900px !important;
+
+top:-140px;
+right:-190px;
+
+}
+
+}
+
+/* =========================================================
+LAPTOP
+========================================================= */
+
 @media(max-width:1400px){
 
 #webgl{
 
-width:950px !important;
-height:950px !important;
+width:780px !important;
+height:780px !important;
 
-top:-120px;
-right:-180px;
+top:-100px;
+right:-140px;
+
+}
 
 }
 
-}
+/* =========================================================
+TABLET
+========================================================= */
 
 @media(max-width:1200px){
 
 #webgl{
 
-width:760px !important;
-height:760px !important;
+width:650px !important;
+height:650px !important;
 
-top:-80px;
-right:-120px;
+top:-40px;
+right:-90px;
+
+}
 
 }
 
-}
+/* =========================================================
+MOBILE
+========================================================= */
 
 @media(max-width:900px){
 
@@ -263,20 +334,24 @@ min-height:620px;
 
 #webgl{
 
-width:560px !important;
-height:560px !important;
+width:500px !important;
+height:500px !important;
 
 left:50%;
 right:auto;
 
+top:20px;
+
 transform:
 translateX(-50%);
 
-top:-20px;
-
 }
 
 }
+
+/* =========================================================
+SMALL MOBILE
+========================================================= */
 
 @media(max-width:600px){
 
@@ -288,10 +363,15 @@ min-height:480px;
 
 #webgl{
 
-width:360px !important;
-height:360px !important;
+width:340px !important;
+height:340px !important;
 
-top:40px;
+top:70px;
+
+left:50%;
+
+transform:
+translateX(-50%);
 
 }
 
