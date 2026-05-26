@@ -1,7 +1,7 @@
 /* =========================================================
 ZARABESSO STUDIO
 HERO ELECTRIC GUITAR
-VERTICAL SHOWROOM VERSION
+UNLIMITED SHOWROOM VERSION
 ========================================================= */
 
 /* =========================================================
@@ -11,7 +11,8 @@ SAFE OVERFLOW
 .reservation-hero,
 .reservation-container,
 .hero-guitar-zone,
-.hero-electric-guitar{
+.hero-electric-guitar,
+#webgl-electric{
 
 overflow:visible !important;
 
@@ -28,48 +29,54 @@ position:absolute;
 top:0;
 right:0;
 
-width:45%;
+width:50%;
 height:100%;
 
 pointer-events:none;
 
 z-index:15;
 
+overflow:visible !important;
+
 }
 
 /* =========================================================
-ELECTRIC GUITAR CONTAINER
+GUITAR CONTAINER
 ========================================================= */
 
 .hero-electric-guitar{
 
 position:absolute;
 
-/*
-PLUS HAUT
-A COTE DU H1
-*/
+/* POSITION HERO */
 
-top:10px;
-right:6%;
+top:-40px;
+right:2%;
 
-/*
-40% PLUS PETIT
-*/
+/* TAILLE */
 
-width:430px;
-height:430px;
+width:520px;
+height:520px;
+
+/* IMPORTANT */
 
 z-index:20;
 
 pointer-events:none;
 
-background:none !important;
+background:transparent !important;
+
 border:none !important;
 outline:none !important;
 box-shadow:none !important;
 
-transform:translate3d(0,0,0);
+/* ENLEVE LE CADRE */
+
+overflow:visible !important;
+
+/* PERFORMANCE */
+
+transform-style:preserve-3d;
 
 will-change:transform;
 
@@ -96,9 +103,86 @@ border:none !important;
 outline:none !important;
 box-shadow:none !important;
 
-filter:none !important;
+/* IMPORTANT */
 
-transform:translateZ(0);
+overflow:visible !important;
+
+/* SUPPRIME LE RECTANGLE */
+
+clip-path:none !important;
+
+filter:
+drop-shadow(
+0 0 18px
+rgba(139,92,246,0.18)
+)
+drop-shadow(
+0 0 35px
+rgba(168,85,247,0.12)
+);
+
+}
+
+/* =========================================================
+PURPLE ATMOSPHERE
+========================================================= */
+
+.hero-electric-guitar::before{
+
+content:"";
+
+position:absolute;
+
+inset:10%;
+
+border-radius:50%;
+
+background:
+radial-gradient(
+circle,
+rgba(168,85,247,0.10) 0%,
+rgba(139,92,246,0.05) 35%,
+transparent 75%
+);
+
+filter:blur(45px);
+
+z-index:-1;
+
+animation:
+purpleAmbient 6s ease-in-out infinite;
+
+}
+
+/* =========================================================
+ANIMATION
+========================================================= */
+
+@keyframes purpleAmbient{
+
+0%{
+
+transform:scale(1);
+
+opacity:0.7;
+
+}
+
+50%{
+
+transform:scale(1.08);
+
+opacity:1;
+
+}
+
+100%{
+
+transform:scale(1);
+
+opacity:0.7;
+
+}
 
 }
 
@@ -110,12 +194,10 @@ LAPTOP
 
 .hero-electric-guitar{
 
-width:380px;
-height:380px;
+width:430px;
+height:430px;
 
-top:20px;
-
-right:3%;
+top:-10px;
 
 }
 
@@ -138,10 +220,10 @@ width:100%;
 width:320px;
 height:320px;
 
-top:40px;
-
 left:50%;
 right:auto;
+
+top:40px;
 
 transform:translateX(-50%);
 
@@ -160,13 +242,11 @@ MOBILE
 width:240px;
 height:240px;
 
-top:65px;
+top:70px;
 
 left:50%;
 
 transform:translateX(-50%);
-
-opacity:0.95;
 
 }
 
@@ -183,7 +263,7 @@ SMALL MOBILE
 width:180px;
 height:180px;
 
-top:85px;
+top:90px;
 
 }
 

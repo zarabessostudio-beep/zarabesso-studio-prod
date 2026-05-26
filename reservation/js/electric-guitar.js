@@ -1,8 +1,8 @@
 /* =========================================================
 ZARABESSO STUDIO
 HERO ELECTRIC GUITAR ENGINE
-VERTICAL SHOWROOM VERSION
-NO CONFLICT
+90 DEG SHOWROOM VERSION
+UNLIMITED FLOAT
 ========================================================= */
 
 /* =========================================================
@@ -33,11 +33,11 @@ CAMERA
 
 const electricCamera =
 new THREE.PerspectiveCamera(
-28,
+30,
 electricCanvas.clientWidth /
 electricCanvas.clientHeight,
 0.1,
-1000
+2000
 );
 
 /* =========================================================
@@ -47,7 +47,7 @@ CAMERA POSITION
 electricCamera.position.set(
 0,
 0,
-8.8
+9
 );
 
 /* =========================================================
@@ -63,6 +63,10 @@ antialias:true,
 powerPreference:"high-performance"
 
 });
+
+/* =========================================================
+RENDER SETTINGS
+========================================================= */
 
 electricRenderer.setClearColor(
 0x000000,
@@ -88,26 +92,35 @@ electricRenderer.toneMapping =
 THREE.ACESFilmicToneMapping;
 
 electricRenderer.toneMappingExposure =
-1.15;
+1.2;
+
+/* IMPORTANT */
+
+electricRenderer.domElement.style.overflow =
+"visible";
 
 /* =========================================================
 LIGHTS
 ========================================================= */
 
+/* AMBIENT */
+
 const ambientLight =
 new THREE.AmbientLight(
 0xffffff,
-2.5
+2.2
 );
 
 electricScene.add(
 ambientLight
 );
 
+/* FRONT */
+
 const frontLight =
 new THREE.DirectionalLight(
 0xffffff,
-2
+1.8
 );
 
 frontLight.position.set(
@@ -120,38 +133,61 @@ electricScene.add(
 frontLight
 );
 
-const warmLight =
+/* VIOLET PREMIUM */
+
+const purpleLight =
 new THREE.PointLight(
-0xffd27a,
-2.5,
-20
+0x8b5cf6,
+2.8,
+25
 );
 
-warmLight.position.set(
+purpleLight.position.set(
 3,
-2,
-4
+1,
+5
 );
 
 electricScene.add(
-warmLight
+purpleLight
 );
+
+/* SOFT BLUE */
 
 const blueLight =
 new THREE.PointLight(
-0x3b82f6,
-1.8,
+0x60a5fa,
+1.5,
 20
 );
 
 blueLight.position.set(
--4,
+-3,
 -2,
-2
+3
 );
 
 electricScene.add(
 blueLight
+);
+
+/* BACK LIGHT */
+
+const backLight =
+new THREE.PointLight(
+0xffffff,
+1.2,
+20
+);
+
+backLight.position.set(
+0,
+0,
+-5
+);
+
+electricScene.add(
+backLight
 );
 
 /* =========================================================
@@ -190,11 +226,16 @@ child.receiveShadow = true;
 
 if(child.material){
 
-child.material.metalness = 0.38;
+/*
+NE CHANGE PAS LE STYLE GLB
+JUSTE LE RENDU
+*/
 
-child.material.roughness = 0.38;
+child.material.metalness = 0.35;
 
-child.material.envMapIntensity = 1.5;
+child.material.roughness = 0.4;
+
+child.material.envMapIntensity = 1.4;
 
 }
 
@@ -206,10 +247,6 @@ child.material.envMapIntensity = 1.5;
 SIZE
 ========================================================= */
 
-/*
-40% PLUS PETIT
-*/
-
 electricGuitar.scale.set(
 0.82,
 0.82,
@@ -220,13 +257,9 @@ electricGuitar.scale.set(
 POSITION
 ========================================================= */
 
-/*
-POSITION HERO HAUTE
-*/
-
 electricGuitar.position.set(
-0.9,
-0.2,
+1,
+0.4,
 0
 );
 
@@ -235,14 +268,14 @@ ROTATION
 ========================================================= */
 
 /*
-VERTICAL
-MANCHE EN HAUT
+90°
+GUITARE DEBOUT
 */
 
 electricGuitar.rotation.set(
 
 0,
-0,
+Math.PI / 2,
 0
 
 );
@@ -287,34 +320,43 @@ const elapsed =
 electricClock.getElapsedTime();
 
 /* =========================================================
-GUITAR ANIMATION
+GUITAR
 ========================================================= */
 
 if(electricGuitar){
 
-/*
-ROTATION 360 LENTE
-*/
+/* =========================================================
+ROTATION 360°
+========================================================= */
 
 electricGuitar.rotation.y +=
-0.0035;
+0.004;
 
-/*
-FLOATING SHOWROOM
-*/
+/* =========================================================
+UNLIMITED FLOAT
+========================================================= */
 
 electricGuitar.position.y =
-0.2 +
-Math.sin(elapsed * 1.2)
+0.4 +
+Math.sin(elapsed * 1.1)
+* 0.12;
+
+/* =========================================================
+SIDE FLOAT
+========================================================= */
+
+electricGuitar.position.x =
+1 +
+Math.cos(elapsed * 0.6)
 * 0.08;
 
-/*
-LEGERE INCLINAISON
-*/
+/* =========================================================
+LIGHT TILT
+========================================================= */
 
 electricGuitar.rotation.z =
-Math.sin(elapsed * 0.7)
-* 0.015;
+Math.sin(elapsed * 0.8)
+* 0.02;
 
 }
 
