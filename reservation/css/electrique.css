@@ -1,13 +1,9 @@
 /* =========================================================
 ZARABESSO STUDIO
-PURE GLB GUITAR SYSTEM
-FINAL CLEAN VERSION
-NO PARTICLES
-NO LIGHT FX
-ONLY GLB
-FULL VISIBLE
--5% SMALLER
-GPU + IOS + MOBILE SAFE
+PURE GLB GUITAR CSS
+ULTRA CLEAN VERSION
+OLED BACKGROUND
+FULL RESPONSIVE
 ========================================================= */
 
 /* =========================================================
@@ -43,7 +39,10 @@ BODY
 body{
 
 overflow-x:hidden;
-background:transparent;
+
+/* OLED BLACK */
+
+background:#000;
 
 }
 
@@ -55,9 +54,11 @@ HERO
 
 position:relative;
 
-min-height:105vh;
+min-height:100vh;
 
-overflow:visible !important;
+background:#000;
+
+overflow:hidden;
 
 }
 
@@ -73,13 +74,13 @@ top:0;
 right:0;
 
 width:55%;
-height:140vh;
+height:100vh;
 
 overflow:visible !important;
 
 pointer-events:none;
 
-z-index:20;
+z-index:10;
 
 }
 
@@ -91,19 +92,14 @@ GUITAR CONTAINER
 
 position:absolute;
 
-/*
-LOWER POSITION
-*/
+top:50%;
+right:0;
 
-top:150px;
-right:-2%;
+transform:
+translateY(-50%);
 
-/*
--5% SMALLER
-*/
-
-width:min(85vw,1140px);
-height:min(85vw,1140px);
+width:min(80vw,1000px);
+height:min(80vw,1000px);
 
 overflow:visible !important;
 
@@ -115,10 +111,7 @@ border:none !important;
 outline:none !important;
 box-shadow:none !important;
 
-transform:
-translate3d(0,0,0);
-
-z-index:40;
+z-index:20;
 
 will-change:transform;
 
@@ -144,13 +137,11 @@ display:block;
 
 background:transparent !important;
 
-overflow:visible !important;
-
 border:none !important;
 outline:none !important;
 box-shadow:none !important;
 
-z-index:5;
+overflow:visible !important;
 
 transform:
 translate3d(0,0,0);
@@ -175,12 +166,12 @@ left:50%;
 right:auto;
 
 transform:
-translateX(-50%);
+translate(-50%,-50%);
 
-top:120px;
+width:850px;
+height:850px;
 
-width:900px;
-height:900px;
+top:52%;
 
 }
 
@@ -198,12 +189,12 @@ left:50%;
 right:auto;
 
 transform:
-translateX(-50%);
+translate(-50%,-50%);
 
-top:140px;
+top:55%;
 
-width:min(135vw,650px);
-height:min(135vw,650px);
+width:min(130vw,650px);
+height:min(130vw,650px);
 
 }
 
@@ -217,11 +208,25 @@ SMALL MOBILE
 
 .hero-electric-guitar{
 
-top:170px;
+top:58%;
 
-width:min(155vw,520px);
-height:min(155vw,520px);
+width:min(145vw,520px);
+height:min(145vw,520px);
 
 }
+
+}
+
+/* =========================================================
+IOS GPU FIX
+========================================================= */
+
+canvas{
+
+-webkit-transform:
+translateZ(0);
+
+transform:
+translateZ(0);
 
 }

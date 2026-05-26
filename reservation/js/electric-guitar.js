@@ -1,12 +1,16 @@
 /* =========================================================
 ZARABESSO STUDIO
 PURE GLB GUITAR ENGINE
-FINAL CLEAN STABLE VERSION
+ULTRA STABLE CLEAN VERSION
 NO PARTICLES
-NO EFFECTS
+NO FX
 ONLY GLB
-FULL GUITAR VISIBLE
--5% SMALLER
+VERTICAL POSITION
+360 ROTATION
+FULL RESPONSIVE
+IOS + MOBILE SAFE
+INDEPENDENT GUITAR
+OLED BACKGROUND READY
 ========================================================= */
 
 const electricCanvas =
@@ -17,7 +21,7 @@ document.getElementById(
 if(electricCanvas){
 
 /* =========================================================
-SAFE OVERFLOW
+SAFE GLOBAL
 ========================================================= */
 
 [
@@ -41,6 +45,11 @@ DEVICE
 const isMobile =
 window.innerWidth < 768;
 
+const isIOS =
+/iPad|iPhone|iPod/.test(
+navigator.userAgent
+);
+
 /* =========================================================
 SCENE
 ========================================================= */
@@ -55,25 +64,25 @@ CAMERA
 const camera =
 new THREE.PerspectiveCamera(
 
-20,
+22,
 
 electricCanvas.clientWidth /
 electricCanvas.clientHeight,
 
 0.1,
-5000
+1000
 
 );
 
 /*
-MORE FAR
-NO CROPPING
+SAFE DISTANCE
+FULL GUITAR VISIBLE
 */
 
 camera.position.set(
 0,
 0,
-19
+18
 );
 
 /* =========================================================
@@ -94,19 +103,11 @@ powerPreference:
 
 });
 
-renderer.setClearColor(
-0x000000,
-0
-);
-
-renderer.outputEncoding =
-THREE.sRGBEncoding;
-
 renderer.setPixelRatio(
 
 Math.min(
 window.devicePixelRatio,
-isMobile ? 1.2 : 2
+isMobile ? 1.2 : 1.8
 )
 
 );
@@ -119,6 +120,14 @@ false
 
 );
 
+renderer.setClearColor(
+0x000000,
+0
+);
+
+renderer.outputEncoding =
+THREE.sRGBEncoding;
+
 renderer.shadowMap.enabled =
 false;
 
@@ -127,12 +136,13 @@ false;
 
 /* =========================================================
 LIGHTS
+CLEAN ONLY
 ========================================================= */
 
 const ambient =
 new THREE.AmbientLight(
 0xffffff,
-2.6
+2.4
 );
 
 scene.add(ambient);
@@ -140,30 +150,16 @@ scene.add(ambient);
 const front =
 new THREE.DirectionalLight(
 0xffffff,
-1.8
+1.2
 );
 
 front.position.set(
 0,
-3,
-10
-);
-
-scene.add(front);
-
-const rim =
-new THREE.DirectionalLight(
-0xffffff,
-1
-);
-
-rim.position.set(
-5,
 2,
 5
 );
 
-scene.add(rim);
+scene.add(front);
 
 /* =========================================================
 LOADER
@@ -180,63 +176,59 @@ RESPONSIVE CONFIG
 
 function getConfig(){
 
-if(window.innerWidth < 480){
+/* SMALL MOBILE */
+
+if(window.innerWidth <= 480){
 
 return{
 
-scale:2.0,
-
+scale:1.9,
 x:0,
-
-y:-0.8,
-
+y:-1.15,
 rotationSpeed:0.006
 
 };
 
 }
 
-if(window.innerWidth < 768){
+/* MOBILE */
+
+if(window.innerWidth <= 768){
 
 return{
 
-scale:2.6,
-
+scale:2.4,
 x:0,
+y:-1.1,
+rotationSpeed:0.0065
 
-y:-0.9,
+};
 
+}
+
+/* TABLET */
+
+if(window.innerWidth <= 1100){
+
+return{
+
+scale:3.0,
+x:0.2,
+y:-1.05,
 rotationSpeed:0.007
 
 };
 
 }
 
-if(window.innerWidth < 1200){
+/* DESKTOP */
 
 return{
 
-scale:3.4,
-
+scale:3.5,
 x:0.8,
-
 y:-1,
-
-rotationSpeed:0.008
-
-};
-
-}
-
-return{
-
-scale:4.0,
-
-x:1.3,
-
-y:-1.1,
-
-rotationSpeed:0.009
+rotationSpeed:0.0075
 
 };
 
@@ -268,14 +260,9 @@ guitar.traverse((child)=>{
 
 if(child.isMesh){
 
-child.frustumCulled =
-false;
-
-child.castShadow =
-false;
-
-child.receiveShadow =
-false;
+child.castShadow = false;
+child.receiveShadow = false;
+child.frustumCulled = false;
 
 if(child.material){
 
@@ -309,14 +296,14 @@ config.y,
 );
 
 /* =========================================================
-ROTATION
+VERTICAL POSITION
 ========================================================= */
 
 guitar.rotation.set(
 
 0,
 Math.PI / 2,
--1.05
+0
 
 );
 
@@ -363,24 +350,23 @@ clock.getElapsedTime();
 
 if(guitar){
 
-/*
-SMOOTH ROTATION
-*/
+/* =========================================================
+SMOOTH 360 ROTATION
+========================================================= */
 
 guitar.rotation.y +=
 config.rotationSpeed;
 
-/*
-SMOOTH FLOAT
-*/
+/* =========================================================
+VERY LIGHT FLOAT
+========================================================= */
 
 guitar.position.y =
 
 config.y +
 
-Math.sin(elapsed * 1.6)
-
-* 0.05;
+Math.sin(elapsed * 1.5)
+* 0.03;
 
 }
 
@@ -450,7 +436,21 @@ config.y,
 );
 
 /* =========================================================
-CLEAN MEMORY
+IOS SAFE
+========================================================= */
+
+if(isIOS){
+
+window.addEventListener(
+"touchstart",
+()=>{},
+{ passive:true }
+);
+
+}
+
+/* =========================================================
+MEMORY CLEAN
 ========================================================= */
 
 window.addEventListener(
@@ -465,3 +465,4 @@ renderer.dispose();
 
 );
 
+}
