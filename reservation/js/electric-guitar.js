@@ -1,10 +1,11 @@
 /* =========================================================
 ZARABESSO STUDIO
 HERO ELECTRIC GUITAR ENGINE
-FINAL CINEMATIC UNLIMITED VERSION
+FINAL CLEAN UNLIMITED VERSION
+NO FRAME
+NO BACKGROUND LIGHT
 NO CROPPING
-HIGHER POSITION
-VISIBLE BACKGROUND LIGHT
+FULL HEADSTOCK VISIBLE
 GPU + IOS + MOBILE OPTIMIZED
 ========================================================= */
 
@@ -24,24 +25,56 @@ SAFE START
 if(electricCanvas){
 
 /* =========================================================
-UNLIMITED VISIBILITY
+REMOVE ALL CROPPING
 ========================================================= */
 
 electricCanvas.style.overflow =
 "visible";
 
-electricCanvas.style.transform =
-"translate3d(0,0,0)";
+electricCanvas.style.position =
+"absolute";
+
+electricCanvas.style.inset =
+"0";
 
 electricCanvas.style.zIndex =
 "20";
 
-if(
-electricCanvas.parentElement
-){
+electricCanvas.style.background =
+"transparent";
 
-electricCanvas.parentElement.style.overflow =
+electricCanvas.style.transform =
+"translate3d(0,0,0)";
+
+electricCanvas.style.backfaceVisibility =
+"hidden";
+
+electricCanvas.style.webkitBackfaceVisibility =
+"hidden";
+
+/* =========================================================
+REMOVE FRAME CLIPPING
+========================================================= */
+
+const canvasParent =
+electricCanvas.parentElement;
+
+if(canvasParent){
+
+canvasParent.style.overflow =
 "visible";
+
+canvasParent.style.clipPath =
+"none";
+
+canvasParent.style.maskImage =
+"none";
+
+canvasParent.style.webkitMaskImage =
+"none";
+
+canvasParent.style.contain =
+"none";
 
 }
 
@@ -73,13 +106,13 @@ CAMERA
 const electricCamera =
 new THREE.PerspectiveCamera(
 
-28,
+24,
 
 electricCanvas.clientWidth /
 electricCanvas.clientHeight,
 
-0.1,
-3000
+0.01,
+5000
 
 );
 
@@ -87,10 +120,15 @@ electricCanvas.clientHeight,
 CAMERA POSITION
 ========================================================= */
 
+/*
+MORE DISTANCE
+PREVENT HEAD CUT
+*/
+
 electricCamera.position.set(
 0,
 0,
-10.5
+12.5
 );
 
 /* =========================================================
@@ -126,7 +164,7 @@ electricRenderer.setClearColor(
 );
 
 /* =========================================================
-PIXEL RATIO
+SMART PIXEL RATIO
 ========================================================= */
 
 let pixelRatio = 2;
@@ -171,7 +209,7 @@ false
 );
 
 /* =========================================================
-COLOR
+OUTPUT
 ========================================================= */
 
 electricRenderer.outputEncoding =
@@ -206,24 +244,31 @@ electricRenderer.domElement.style.position =
 electricRenderer.domElement.style.inset =
 "0";
 
+electricRenderer.domElement.style.clipPath =
+"none";
+
+electricRenderer.domElement.style.maskImage =
+"none";
+
+electricRenderer.domElement.style.webkitMaskImage =
+"none";
+
 electricRenderer.domElement.style.transform =
 "translateZ(0)";
-
-electricRenderer.domElement.style.backfaceVisibility =
-"hidden";
 
 /* =========================================================
 LIGHTS
 ========================================================= */
 
 /*
-STRONGER GLOBAL LIGHT
+CLEAN LIGHT
+NO BACKGROUND GLOW
 */
 
 const ambientLight =
 new THREE.AmbientLight(
 0xffffff,
-2.2
+2
 );
 
 electricScene.add(
@@ -237,7 +282,7 @@ FRONT LIGHT
 const frontLight =
 new THREE.DirectionalLight(
 0xffffff,
-1.8
+1.6
 );
 
 frontLight.position.set(
@@ -256,119 +301,18 @@ SIDE LIGHT
 
 const sideLight =
 new THREE.DirectionalLight(
-0x88ccff,
-1.2
+0xffffff,
+0.9
 );
 
 sideLight.position.set(
-5,
+4,
 2,
-4
+5
 );
 
 electricScene.add(
 sideLight
-);
-
-/*
-TOP LIGHT
-*/
-
-const topLight =
-new THREE.PointLight(
-0xff3355,
-2.5,
-30
-);
-
-topLight.position.set(
-0,
-6,
-4
-);
-
-electricScene.add(
-topLight
-);
-
-/* =========================================================
-BACKGROUND GLOW
-========================================================= */
-
-const glowGeometry =
-new THREE.SphereGeometry(
-3.8,
-32,
-32
-);
-
-const glowMaterial =
-new THREE.MeshBasicMaterial({
-
-color:0xff3355,
-
-transparent:true,
-
-opacity:0.18,
-
-depthWrite:false
-
-});
-
-const glowSphere =
-new THREE.Mesh(
-glowGeometry,
-glowMaterial
-);
-
-glowSphere.position.set(
-0,
-1.8,
--4
-);
-
-electricScene.add(
-glowSphere
-);
-
-/* =========================================================
-SECOND GLOW
-========================================================= */
-
-const blueGlowGeometry =
-new THREE.SphereGeometry(
-2.8,
-32,
-32
-);
-
-const blueGlowMaterial =
-new THREE.MeshBasicMaterial({
-
-color:0x44ccff,
-
-transparent:true,
-
-opacity:0.12,
-
-depthWrite:false
-
-});
-
-const blueGlow =
-new THREE.Mesh(
-blueGlowGeometry,
-blueGlowMaterial
-);
-
-blueGlow.position.set(
-2,
-0,
--3
-);
-
-electricScene.add(
-blueGlow
 );
 
 /* =========================================================
@@ -386,58 +330,110 @@ RESPONSIVE CONFIG
 
 function getResponsiveConfig(){
 
+/* =========================================================
+SMALL MOBILE
+========================================================= */
+
 if(window.innerWidth < 480){
 
 return{
 
-scale:2.35,
+scale:2.1,
+
 x:0,
-y:1.1,
+
+/*
+HIGHER
+*/
+
+y:1.9,
+
 rotationSpeed:0.0015,
+
 floatIntensity:0.03,
+
 moveIntensity:0.015
 
 };
 
 }
 
+/* =========================================================
+MOBILE
+========================================================= */
+
 if(window.innerWidth < 768){
 
 return{
 
-scale:2.9,
+scale:2.8,
+
 x:0,
-y:1.4,
+
+/*
+HIGHER
+*/
+
+y:2.1,
+
 rotationSpeed:0.0018,
+
 floatIntensity:0.04,
+
 moveIntensity:0.02
 
 };
 
 }
 
+/* =========================================================
+TABLET
+========================================================= */
+
 if(window.innerWidth < 1200){
 
 return{
 
-scale:3.9,
-x:0.7,
-y:1.6,
+scale:3.8,
+
+x:0.8,
+
+/*
+HIGHER
+*/
+
+y:2.2,
+
 rotationSpeed:0.0025,
+
 floatIntensity:0.06,
+
 moveIntensity:0.03
 
 };
 
 }
 
+/* =========================================================
+DESKTOP
+========================================================= */
+
 return{
 
-scale:4.8,
+scale:4.7,
+
 x:1.8,
-y:1.9,
+
+/*
+HIGHER
+*/
+
+y:2.5,
+
 rotationSpeed:0.0035,
+
 floatIntensity:0.10,
+
 moveIntensity:0.05
 
 };
@@ -469,17 +465,20 @@ electricGuitar.traverse((child)=>{
 if(child.isMesh){
 
 /*
-NO CROPPING
+NEVER HIDE MODEL
 */
 
-child.frustumCulled = false;
+child.frustumCulled =
+false;
 
-child.castShadow = false;
+child.castShadow =
+false;
 
-child.receiveShadow = false;
+child.receiveShadow =
+false;
 
 /*
-SHARPER MATERIAL
+MATERIAL SAFE
 */
 
 if(child.material){
@@ -516,8 +515,8 @@ POSITION
 ========================================================= */
 
 /*
-HIGHER POSITION
-NO CARD COLLISION
+HIGH POSITION
+NO CARD TOUCH
 */
 
 electricGuitar.position.set(
@@ -536,9 +535,16 @@ electricGuitar.rotation.set(
 
 0,
 Math.PI / 2,
--1.15
+-1.12
 
 );
+
+/* =========================================================
+SAFE MATRIX
+========================================================= */
+
+electricGuitar.matrixAutoUpdate =
+true;
 
 /* =========================================================
 ADD
@@ -615,7 +621,7 @@ const elapsed =
 electricClock.getElapsedTime();
 
 /* =========================================================
-ANIMATION
+GUITAR
 ========================================================= */
 
 if(electricGuitar){
@@ -658,34 +664,14 @@ config.moveIntensity;
 }
 
 /* =========================================================
-BACKGROUND GLOW ANIMATION
-========================================================= */
-
-glowSphere.scale.setScalar(
-
-1 +
-
-Math.sin(elapsed * 1.2)
-* 0.08
-
-);
-
-blueGlow.scale.setScalar(
-
-1 +
-
-Math.cos(elapsed * 0.8)
-* 0.06
-
-);
-
-/* =========================================================
 RENDER
 ========================================================= */
 
 electricRenderer.render(
+
 electricScene,
 electricCamera
+
 );
 
 }
