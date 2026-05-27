@@ -315,17 +315,6 @@ electricGuitar.rotation.y =
 Math.sin(elapsed * 0.45)
 * 0.03;
 
-/* =========================================================
-REAL 85° VERTICAL POSITION
-NOT UPSIDE DOWN
-========================================================= */
-
-electricGuitar.rotation.z =
-
--1.48 +
-
-Math.sin(elapsed * 0.4)
-* 0.01;
 
 /* =========================================================
 SMALL DEPTH TILT
