@@ -291,42 +291,62 @@ window.addEventListener("load", () => {
 
         if(electricGuitar){
 
-            /* FLOAT */
+        /* =========================================================
+FLOAT
+PREMIUM STABLE FLOAT
+========================================================= */
 
-            electricGuitar.position.y =
+electricGuitar.position.y =
 
-            settings.y +
+settings.y +
 
-            Math.sin(elapsed * 1.2)
-            * 0.08;
+Math.sin(elapsed * 1.1)
+* 0.06;
 
-            /* ROTATION */
+/* =========================================================
+FRONT SHOWROOM ROTATION
+KEEP GUITAR FACING FRONT
+========================================================= */
 
-            electricGuitar.rotation.y =
+electricGuitar.rotation.y =
 
-            0.18 +
+3.14 +
 
-            Math.sin(elapsed * 0.6)
-            * 0.06;
+Math.sin(elapsed * 0.45)
+* 0.03;
 
-            /* PREMIUM TILT */
+/* =========================================================
+REAL 85° VERTICAL POSITION
+NOT UPSIDE DOWN
+========================================================= */
 
-            electricGuitar.rotation.z =
+electricGuitar.rotation.z =
 
-            -0.12 +
+-1.48 +
 
-            Math.sin(elapsed * 0.8)
-            * 0.015;
+Math.sin(elapsed * 0.4)
+* 0.01;
 
-        }
+/* =========================================================
+SMALL DEPTH TILT
+========================================================= */
 
-        electricRenderer.render(
-            electricScene,
-            electricCamera
-        );
+electricGuitar.rotation.x =
 
-    }
+0.08 +
 
-    animate();
+Math.sin(elapsed * 0.6)
+* 0.008;
+
+}
+
+electricRenderer.render(
+    electricScene,
+    electricCamera
+);
+
+}
+
+animate();
 
 });
