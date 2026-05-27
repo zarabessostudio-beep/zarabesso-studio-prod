@@ -1,7 +1,9 @@
 /* =========================================================
 ELECTRIC GUITAR
-ISOLATED STABLE SYSTEM
-NO CONFLICT VERSION
+ULTIMATE COMBINED STABLE VERSION
+VERTICAL 75°
+NO CONFLICT
+PREMIUM SPACE
 ========================================================= */
 
 /* =========================================================
@@ -15,7 +17,7 @@ position:absolute;
 top:0;
 right:0;
 
-width:45%;
+width:52%;
 height:100vh;
 
 overflow:visible;
@@ -25,6 +27,14 @@ pointer-events:none;
 z-index:2;
 
 contain:layout style paint;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+isolation:isolate;
 
 }
 
@@ -36,13 +46,13 @@ CONTAINER
 
 position:absolute;
 
-top:52%;
-right:-2%;
+top:48%;
+right:-4%;
 
 transform:translateY(-50%);
 
-width:min(42vw,700px);
-height:min(90vh,900px);
+width:min(52vw,950px);
+height:min(110vh,1200px);
 
 overflow:visible;
 
@@ -51,6 +61,14 @@ pointer-events:none;
 background:transparent;
 
 z-index:3;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+isolation:isolate;
 
 }
 
@@ -62,16 +80,21 @@ CANVAS
 
 position:absolute;
 
-inset:0;
+top:-5%;
+right:-5%;
 
-width:100% !important;
-height:100% !important;
+width:115% !important;
+height:115% !important;
 
 display:block;
 
 background:transparent !important;
 
 outline:none;
+
+overflow:visible;
+
+pointer-events:none;
 
 }
 
@@ -93,6 +116,17 @@ will-change:transform;
 }
 
 /* =========================================================
+MOVE ONLY THE FLOATING CARD LOWER
+WITHOUT TOUCHING CARD SYSTEM
+========================================================= */
+
+.floating-card{
+
+bottom:4% !important;
+
+}
+
+/* =========================================================
 TABLET
 ========================================================= */
 
@@ -102,9 +136,9 @@ TABLET
 
 width:100%;
 
-height:65vh;
+height:70vh;
 
-top:-60px;
+top:-40px;
 
 }
 
@@ -116,10 +150,20 @@ right:auto;
 transform:
 translate(-50%,-50%);
 
-width:520px;
-height:720px;
+width:650px;
+height:850px;
 
-top:45%;
+top:46%;
+
+}
+
+#webgl-electric{
+
+width:118% !important;
+height:118% !important;
+
+top:-6%;
+right:-6%;
 
 }
 
@@ -133,18 +177,42 @@ MOBILE
 
 .hero-guitar-zone{
 
-height:55vh;
+height:60vh;
 
-top:-40px;
+top:-20px;
+
+width:100%;
 
 }
 
 .hero-electric-guitar{
 
-width:380px;
-height:560px;
+width:430px;
+height:650px;
 
-top:42%;
+top:44%;
+
+left:50%;
+right:auto;
+
+transform:
+translate(-50%,-50%);
+
+}
+
+#webgl-electric{
+
+width:110% !important;
+height:110% !important;
+
+top:-5%;
+right:-2%;
+
+}
+
+.floating-card{
+
+bottom:2% !important;
 
 }
 
@@ -156,12 +224,27 @@ SMALL MOBILE
 
 @media(max-width:480px){
 
+.hero-guitar-zone{
+
+height:52vh;
+
+top:0;
+
+}
+
 .hero-electric-guitar{
 
-width:300px;
-height:460px;
+width:340px;
+height:520px;
 
-top:40%;
+top:42%;
+
+}
+
+#webgl-electric{
+
+width:108% !important;
+height:108% !important;
 
 }
 
