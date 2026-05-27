@@ -226,7 +226,7 @@ window.addEventListener("load", () => {
 
         return{
 
-            scale:5.0,
+            scale:4.5,
 
             x:0.6,
 
