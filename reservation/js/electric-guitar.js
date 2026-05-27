@@ -1,9 +1,9 @@
 /* =========================================================
 ZARABESSO STUDIO
-ULTIMATE VERTICAL GUITAR
-PREMIUM GOLD PARTICLES
-FINAL CINEMATIC VERSION
-78° ANGLE + FRONT FACE
+ULTRA PREMIUM ISOLATED GUITAR
+360° SHOWROOM VERSION
+GOLD PARTICLES SEPARATED
+FINAL CINEMATIC RELEASE
 ========================================================= */
 
 window.addEventListener("load", () => {
@@ -25,6 +25,24 @@ window.addEventListener("load", () => {
 
     const electricScene =
     new THREE.Scene();
+
+    /* =========================================================
+    ISOLATED GROUPS
+    ========================================================= */
+
+    const guitarGroup =
+    new THREE.Group();
+
+    const particlesGroup =
+    new THREE.Group();
+
+    electricScene.add(
+        guitarGroup
+    );
+
+    electricScene.add(
+        particlesGroup
+    );
 
     /* =========================================================
     CAMERA
@@ -145,7 +163,7 @@ window.addEventListener("load", () => {
     new THREE.PointLight(
 
         0xffd700,
-        1.8,
+        1.7,
         40
 
     );
@@ -172,15 +190,17 @@ window.addEventListener("load", () => {
 
             return{
 
-                scale:3.8,
+                /* -10% */
 
-                /* PLUS PROCHE DU TITRE */
+                scale:3.4,
 
-                x:-0.1,
+                /* PROCHE DU TITRE */
+
+                x:-0.15,
 
                 /* PLUS BAS */
 
-                y:0.4
+                y:0.3
 
             };
 
@@ -192,11 +212,11 @@ window.addEventListener("load", () => {
 
             return{
 
-                scale:4.8,
+                scale:4.3,
 
-                x:0.5,
+                x:0.35,
 
-                y:1
+                y:0.9
 
             };
 
@@ -206,15 +226,11 @@ window.addEventListener("load", () => {
 
         return{
 
-            scale:5.5,
+            scale:5.0,
 
-            /* RAPPROCHÉ DU H1 */
+            x:0.6,
 
-            x:0.8,
-
-            /* DESCENDU */
-
-            y:1.5
+            y:1.4
 
         };
 
@@ -224,10 +240,11 @@ window.addEventListener("load", () => {
     getSettings();
 
     /* =========================================================
-    GOLD PARTICLES
+    PREMIUM GOLD PARTICLES
+    ISOLATED FROM GUITAR
     ========================================================= */
 
-    const particlesCount = 180;
+    const particlesCount = 120;
 
     const particlesGeometry =
     new THREE.BufferGeometry();
@@ -242,8 +259,7 @@ window.addEventListener("load", () => {
         particlesPositions[i] =
 
         (Math.random() - 0.5)
-
-        * 12;
+        * 14;
 
     }
 
@@ -263,13 +279,16 @@ window.addEventListener("load", () => {
 
         color:0xffd700,
 
-        size:0.03,
+        size:0.025,
 
         transparent:true,
 
-        opacity:0.7,
+        opacity:0.45,
 
-        depthWrite:false
+        depthWrite:false,
+
+        blending:
+        THREE.AdditiveBlending
 
     });
 
@@ -281,7 +300,15 @@ window.addEventListener("load", () => {
 
     );
 
-    electricScene.add(
+    /* =========================================================
+    PARTICLES DISTANCE
+    ========================================================= */
+
+    particles.position.z =
+
+    -4;
+
+    particlesGroup.add(
         particles
     );
 
@@ -317,12 +344,24 @@ window.addEventListener("load", () => {
 
                     child.receiveShadow = false;
 
+                    /* =========================================================
+                    KEEP NATURAL MATERIAL
+                    ========================================================= */
+
+                    if(child.material){
+
+                        child.material.transparent =
+                        false;
+
+                    }
+
                 }
 
             });
 
             /* =========================================================
             SCALE
+            -10%
             ========================================================= */
 
             electricGuitar.scale.set(
@@ -342,14 +381,13 @@ window.addEventListener("load", () => {
             );
 
             /* =========================================================
-            BASE POSITION
-            78° VERTICAL
-            FACE AVANT VISIBLE
+            BASE ROTATION
+            78°
             ========================================================= */
 
             electricGuitar.rotation.set(
 
-                0.08,
+                0.06,
 
                 3.14,
 
@@ -357,7 +395,11 @@ window.addEventListener("load", () => {
 
             );
 
-            electricScene.add(
+            /* =========================================================
+            ADD TO ISOLATED GROUP
+            ========================================================= */
+
+            guitarGroup.add(
                 electricGuitar
             );
 
@@ -409,55 +451,53 @@ window.addEventListener("load", () => {
             settings.y +
 
             Math.sin(elapsed * 1.2)
-            * 0.05;
+            * 0.04;
 
             /* =========================================================
-            LÉGÈRE ROTATION 180°
-            ELLE TOURNE ET REVIENT
+            FULL 360° SHOWROOM ROTATION
             ========================================================= */
 
             electricGuitar.rotation.y =
 
             3.14 +
 
-            Math.sin(elapsed * 0.25)
-            * 0.35;
+            elapsed * 0.35;
 
             /* =========================================================
-            ANGLE VERTICAL 78°
+            KEEP 78° VERTICAL POSITION
             ========================================================= */
 
             electricGuitar.rotation.z =
 
             -1.36 +
 
-            Math.sin(elapsed * 0.45)
-            * 0.012;
+            Math.sin(elapsed * 0.5)
+            * 0.01;
 
             /* =========================================================
-            PETITE PROFONDEUR
+            SMALL DEPTH
             ========================================================= */
 
             electricGuitar.rotation.x =
 
-            0.08 +
+            0.06 +
 
-            Math.sin(elapsed * 0.6)
-            * 0.01;
+            Math.sin(elapsed * 0.7)
+            * 0.008;
 
         }
 
         /* =========================================================
-        PARTICLES ANIMATION
+        PARTICLES SLOW MOVEMENT
         ========================================================= */
 
-        particles.rotation.y +=
-        0.0008;
+        particlesGroup.rotation.y +=
+        0.0005;
 
-        particles.rotation.x =
+        particlesGroup.rotation.x =
 
-        Math.sin(elapsed * 0.2)
-        * 0.05;
+        Math.sin(elapsed * 0.15)
+        * 0.03;
 
         /* =========================================================
         RENDER
