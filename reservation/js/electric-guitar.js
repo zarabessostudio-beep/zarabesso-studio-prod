@@ -190,7 +190,7 @@ window.addEventListener("load", () => {
 
             return{
 
-                scale:3.1,
+                scale:2.8,
 
                 x:-0.10,
 
@@ -208,7 +208,7 @@ window.addEventListener("load", () => {
 
             return{
 
-                scale:3.9,
+                scale:3.6,
 
                 x:0.35,
 
@@ -222,7 +222,7 @@ window.addEventListener("load", () => {
 
         return{
 
-            scale:4.0,
+            scale:3.8,
 
             x:0.6,
 
@@ -243,7 +243,7 @@ window.addEventListener("load", () => {
     DOES NOT IMPACT GLB
     ========================================================= */
 
-    const particlesCount = 60;
+    const particlesCount = 55;
 
     const particlesGeometry =
     new THREE.BufferGeometry();
@@ -268,7 +268,7 @@ window.addEventListener("load", () => {
 
         new THREE.BufferAttribute(
             particlesPositions,
-            3
+            5
         )
 
     );
@@ -282,13 +282,13 @@ window.addEventListener("load", () => {
 
         /* PLUS GROS */
 
-        size:0.045,
+        size:0.042,
 
         transparent:true,
 
         /* PLUS DISCRET */
 
-        opacity:0.22,
+        opacity:0.20,
 
         depthWrite:false,
 
