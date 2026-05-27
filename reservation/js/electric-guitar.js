@@ -1,8 +1,8 @@
 /* =========================================================
 ZARABESSO STUDIO
 ELECTRIC GUITAR
-FINAL CLEAN VERSION
-NO SYNTAX ERRORS
+FINAL PREMIUM CLEAN VERSION
+NO SYNTAX ERROR
 ========================================================= */
 
 window.addEventListener("load", () => {
@@ -38,7 +38,7 @@ window.addEventListener("load", () => {
 
     const electricCamera =
     new THREE.PerspectiveCamera(
-        22,
+        24,
         1,
         0.1,
         1000
@@ -47,7 +47,7 @@ window.addEventListener("load", () => {
     electricCamera.position.set(
         0,
         0,
-        14
+        12
     );
 
     /* =========================================================
@@ -80,7 +80,7 @@ window.addEventListener("load", () => {
     THREE.sRGBEncoding;
 
     /* =========================================================
-    RENDER SIZE
+    SIZE
     ========================================================= */
 
     function rendererSize() {
@@ -116,7 +116,7 @@ window.addEventListener("load", () => {
     const ambient =
     new THREE.AmbientLight(
         0xffffff,
-        3
+        2.8
     );
 
     electricScene.add(
@@ -126,34 +126,17 @@ window.addEventListener("load", () => {
     const frontLight =
     new THREE.DirectionalLight(
         0xffffff,
-        2.2
+        2
     );
 
     frontLight.position.set(
         0,
-        5,
-        10
+        4,
+        8
     );
 
     electricScene.add(
         frontLight
-    );
-
-    const goldLight =
-    new THREE.PointLight(
-        0xffd27a,
-        2,
-        25
-    );
-
-    goldLight.position.set(
-        3,
-        2,
-        6
-    );
-
-    electricScene.add(
-        goldLight
     );
 
     /* =========================================================
@@ -166,9 +149,9 @@ window.addEventListener("load", () => {
 
             return {
 
-                scale: 4.1,
-                x: 1,
-                y: 2.2
+                scale: 3.6,
+                x: 0.7,
+                y: -1.4
 
             };
         }
@@ -177,9 +160,9 @@ window.addEventListener("load", () => {
 
             return {
 
-                scale: 4.6,
-                x: 1.2,
-                y: 2.4
+                scale: 4,
+                x: 1,
+                y: -1.2
 
             };
         }
@@ -188,18 +171,18 @@ window.addEventListener("load", () => {
 
             return {
 
-                scale: 5.2,
-                x: 1.6,
-                y: 2.7
+                scale: 4.6,
+                x: 1.2,
+                y: -1
 
             };
         }
 
         return {
 
-            scale: 5.5,
-            x: 1.9,
-            y: 3
+            scale: 5,
+            x: 1.5,
+            y: -0.8
 
         };
     }
@@ -269,13 +252,13 @@ window.addEventListener("load", () => {
             );
 
             /* =========================================================
-            VERTICAL ROTATION
+            VERTICAL POSITION
             ========================================================= */
 
             electricGuitar.rotation.set(
-                0,
-                -1.55,
-                0.12
+                1.55,
+                0.15,
+                0.08
             );
 
             /* =========================================================
@@ -287,7 +270,7 @@ window.addEventListener("load", () => {
             );
 
             console.log(
-                "Vertical guitar loaded"
+                "Premium guitar loaded"
             );
 
             resizeElectric();
@@ -331,23 +314,9 @@ window.addEventListener("load", () => {
         }
     }
 
-    /* =========================================================
-    EVENTS
-    ========================================================= */
-
     window.addEventListener(
         "resize",
         resizeElectric
-    );
-
-    setTimeout(
-        resizeElectric,
-        300
-    );
-
-    setTimeout(
-        resizeElectric,
-        1000
     );
 
     /* =========================================================
@@ -378,23 +347,23 @@ window.addEventListener("load", () => {
 
             settings.y +
 
-            Math.sin(elapsed * 1.1)
-            * 0.05;
+            Math.sin(elapsed * 1.4)
+            * 0.04;
 
             /* ROTATION */
 
             electricGuitar.rotation.y =
 
-            -1.55 +
+            0.15 +
 
             Math.sin(elapsed * 0.5)
-            * 0.06;
+            * 0.08;
 
-            /* PREMIUM TILT */
+            /* TILT */
 
             electricGuitar.rotation.z =
 
-            0.12 +
+            0.08 +
 
             Math.sin(elapsed * 0.8)
             * 0.01;

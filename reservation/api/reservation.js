@@ -1,12 +1,12 @@
 /* =========================================================
 ZARABESSO STUDIO
 PREMIUM RESERVATION API
-ULTRA SECURE VERSION
+FINAL WHATSAPP VERSION
 VERCEL READY
-WHATSAPP READY
+ULTRA SECURE
 ========================================================= */
 
-export default async function handler(req,res){
+export default async function handler(req, res) {
 
 /* =========================================================
 SECURITY HEADERS
@@ -24,30 +24,39 @@ res.setHeader(
 
 res.setHeader(
 "Referrer-Policy",
-"no-referrer"
+"strict-origin-when-cross-origin"
+);
+
+res.setHeader(
+"Permissions-Policy",
+"camera=(), microphone=(), geolocation=()"
 );
 
 /* =========================================================
-METHOD PROTECTION
+ONLY POST
 ========================================================= */
 
-if(req.method !== "POST"){
+if (req.method !== "POST") {
 
 return res.status(405).json({
 
-success:false,
+success: false,
 
-error:"Method not allowed"
+error: "Method not allowed"
 
 });
 
 }
 
 /* =========================================================
-BODY LIMIT
+TRY
 ========================================================= */
 
-try{
+try {
+
+/* =========================================================
+BODY
+========================================================= */
 
 const body = req.body || {};
 
@@ -67,37 +76,75 @@ message
 } = body;
 
 /* =========================================================
-VALIDATION
+REQUIRED VALIDATION
 ========================================================= */
 
-if(
+if (
 !name ||
 !phone ||
 !date ||
 !time
-){
+) {
 
 return res.status(400).json({
 
-success:false,
+success: false,
 
-error:"Missing required fields"
+error: "Missing required fields"
 
 });
 
 }
 
 /* =========================================================
+SAFE STRINGS
+========================================================= */
+
+const safeName =
+String(name)
+.trim()
+.slice(0, 80);
+
+const safePhone =
+String(phone)
+.trim()
+.slice(0, 30);
+
+const safeDate =
+String(date)
+.trim()
+.slice(0, 30);
+
+const safeTime =
+String(time)
+.trim()
+.slice(0, 30);
+
+const safeService =
+service
+? String(service)
+.trim()
+.slice(0, 100)
+: "Studio Session";
+
+const safeMessage =
+message
+? String(message)
+.trim()
+.slice(0, 500)
+: "No message";
+
+/* =========================================================
 NAME VALIDATION
 ========================================================= */
 
-if(name.length < 2){
+if (safeName.length < 2) {
 
 return res.status(400).json({
 
-success:false,
+success: false,
 
-error:"Invalid name"
+error: "Invalid name"
 
 });
 
@@ -110,29 +157,13 @@ PHONE VALIDATION
 const phoneRegex =
 /^[0-9+\s()-]{6,20}$/;
 
-if(!phoneRegex.test(phone)){
+if (!phoneRegex.test(safePhone)) {
 
 return res.status(400).json({
 
-success:false,
+success: false,
 
-error:"Invalid phone number"
-
-});
-
-}
-
-/* =========================================================
-MESSAGE LIMIT
-========================================================= */
-
-if(message && message.length > 500){
-
-return res.status(400).json({
-
-success:false,
-
-error:"Message too long"
+error: "Invalid phone number"
 
 });
 
@@ -145,63 +176,64 @@ ANTI SPAM
 const forbiddenWords = [
 
 "<script",
-"SELECT *",
+"</script>",
 "DROP TABLE",
+"SELECT *",
 "INSERT INTO",
-"<?php"
+"<?php",
+"UNION SELECT"
 
 ];
 
-const rawText = JSON.stringify(body)
+const rawText =
+JSON.stringify(body)
 .toLowerCase();
 
 const suspicious =
-forbiddenWords.some(word =>
-rawText.includes(word.toLowerCase())
+forbiddenWords.some((word) =>
+rawText.includes(
+word.toLowerCase()
+)
 );
 
-if(suspicious){
+if (suspicious) {
 
 return res.status(403).json({
 
-success:false,
+success: false,
 
-error:"Suspicious activity detected"
+error: "Suspicious activity detected"
 
 });
 
 }
 
 /* =========================================================
-SAFE DATA
+RESERVATION OBJECT
 ========================================================= */
 
 const reservation = {
 
 id:
-Date.now().toString(),
+`ZARA-${Date.now()}`,
 
 name:
-String(name).trim(),
+safeName,
 
 phone:
-String(phone).trim(),
+safePhone,
 
 date:
-String(date).trim(),
+safeDate,
 
 time:
-String(time).trim(),
+safeTime,
 
 service:
-service
-? String(service).trim()
-: "Studio Session",
+safeService,
 
 message:
-message
-? String(message).trim()
-: "",
+safeMessage,
 
 createdAt:
 new Date().toISOString(),
@@ -218,7 +250,7 @@ SERVER LOG
 ========================================================= */
 
 console.log(
-"NEW ZARABESSO RESERVATION:",
+"NEW RESERVATION:",
 reservation
 );
 
@@ -228,23 +260,32 @@ WHATSAPP MESSAGE
 
 const whatsappMessage =
 
-`🎸 ZARABESSO STUDIO RESERVATION
+`🎸 ZARABESSO STUDIO
 
-👤 Name: ${reservation.name}
+✨ Nouvelle Réservation Premium
 
-📞 Phone: ${reservation.phone}
+👤 Nom :
+${reservation.name}
 
-📅 Date: ${reservation.date}
+📞 Contact :
+${reservation.phone}
 
-⏰ Time: ${reservation.time}
+📅 Date :
+${reservation.date}
 
-🎵 Service: ${reservation.service}
+⏰ Heure :
+${reservation.time}
 
-📝 Message:
+🎵 Service :
+${reservation.service}
+
+📝 Projet :
 ${reservation.message}
 
-🆔 ID:
-${reservation.id}`;
+🆔 Référence :
+${reservation.id}
+
+🔥 Zarabesso Studio Premium Experience`;
 
 /* =========================================================
 WHATSAPP URL
@@ -262,9 +303,10 @@ SUCCESS RESPONSE
 
 return res.status(200).json({
 
-success:true,
+success: true,
 
-message:"Reservation saved successfully",
+message:
+"Reservation created successfully",
 
 reservationId:
 reservation.id,
@@ -273,22 +315,25 @@ whatsappURL
 
 });
 
-}catch(err){
-
-console.error(
-"RESERVATION ERROR:",
-err
-);
+}
 
 /* =========================================================
-ERROR RESPONSE
+ERROR
 ========================================================= */
+
+catch (error) {
+
+console.error(
+"API ERROR:",
+error
+);
 
 return res.status(500).json({
 
-success:false,
+success: false,
 
-error:"Internal server error"
+error:
+"Internal server error"
 
 });
 
