@@ -208,7 +208,7 @@ window.addEventListener("load", () => {
 
             return{
 
-                scale:3.6,
+                scale:3.4,
 
                 x:0.35,
 
@@ -222,7 +222,7 @@ window.addEventListener("load", () => {
 
         return{
 
-            scale:3.8,
+            scale:3.6,
 
             x:0.6,
 
@@ -243,7 +243,7 @@ window.addEventListener("load", () => {
     DOES NOT IMPACT GLB
     ========================================================= */
 
-    const particlesCount = 55;
+    const particlesCount = 70;
 
     const particlesGeometry =
     new THREE.BufferGeometry();
@@ -268,7 +268,7 @@ window.addEventListener("load", () => {
 
         new THREE.BufferAttribute(
             particlesPositions,
-            5
+            2.5
         )
 
     );
@@ -282,13 +282,13 @@ window.addEventListener("load", () => {
 
         /* PLUS GROS */
 
-        size:0.042,
+        size:0.048,
 
         transparent:true,
 
         /* PLUS DISCRET */
 
-        opacity:0.20,
+        opacity:0.25,
 
         depthWrite:false,
 
@@ -316,6 +316,7 @@ window.addEventListener("load", () => {
     particlesGroup.add(
         particles
     );
+    /*=========eto le manova anle particule ===========*/
 
     /* =========================================================
     LOADER
