@@ -192,7 +192,7 @@ window.addEventListener("load", () => {
 
                 /* -10% */
 
-                scale:3.4,
+                scale:3.1,
 
                 /* PROCHE DU TITRE */
 
@@ -212,7 +212,7 @@ window.addEventListener("load", () => {
 
             return{
 
-                scale:4.3,
+                scale:3.9,
 
                 x:0.35,
 
@@ -226,7 +226,7 @@ window.addEventListener("load", () => {
 
         return{
 
-            scale:4.5,
+            scale:4.0,
 
             x:0.6,
 
@@ -244,7 +244,7 @@ window.addEventListener("load", () => {
     ISOLATED FROM GUITAR
     ========================================================= */
 
-    const particlesCount = 120;
+    const particlesCount = 45;
 
     const particlesGeometry =
     new THREE.BufferGeometry();
@@ -279,11 +279,11 @@ window.addEventListener("load", () => {
 
         color:0xffd700,
 
-        size:0.025,
+        size:0.015,
 
         transparent:true,
 
-        opacity:0.45,
+        opacity:0.15,
 
         depthWrite:false,
 
