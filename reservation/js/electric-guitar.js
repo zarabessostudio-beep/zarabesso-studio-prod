@@ -1,8 +1,8 @@
 /* =========================================================
 ZARABESSO STUDIO
-VERTICAL ELECTRIC GUITAR
-PREMIUM FINAL VERSION
-FRONT FACE FIXED
+TRUE VERTICAL ELECTRIC GUITAR
+PARALLEL TO H1
+GOLD PARTICLES VERSION
 ========================================================= */
 
 window.addEventListener("load", () => {
@@ -86,18 +86,19 @@ window.addEventListener("load", () => {
         width / height;
 
         electricCamera.updateProjectionMatrix();
+
     }
 
     rendererSize();
 
     /* =========================================================
-    LIGHT
+    LIGHTS
     ========================================================= */
 
     const ambient =
     new THREE.AmbientLight(
         0xffffff,
-        2.6
+        2.8
     );
 
     electricScene.add(
@@ -107,17 +108,38 @@ window.addEventListener("load", () => {
     const frontLight =
     new THREE.DirectionalLight(
         0xffffff,
-        2
+        2.2
     );
 
     frontLight.position.set(
         0,
-        5,
+        6,
         10
     );
 
     electricScene.add(
         frontLight
+    );
+
+    /* =========================================================
+    GOLD LIGHT
+    ========================================================= */
+
+    const goldLight =
+    new THREE.PointLight(
+        0xffd700,
+        1.4,
+        30
+    );
+
+    goldLight.position.set(
+        0,
+        2,
+        6
+    );
+
+    electricScene.add(
+        goldLight
     );
 
     /* =========================================================
@@ -130,9 +152,9 @@ window.addEventListener("load", () => {
 
             return{
 
-                scale:4.0,
-                x:0.3,
-                y:0.8
+                scale:3.9,
+                x:0.1,
+                y:1.1
 
             };
 
@@ -142,9 +164,9 @@ window.addEventListener("load", () => {
 
             return{
 
-                scale:5.0,
-                x:1.2,
-                y:1.4
+                scale:4.8,
+                x:1,
+                y:1.8
 
             };
 
@@ -152,9 +174,9 @@ window.addEventListener("load", () => {
 
         return{
 
-            scale:5.7,
+            scale:5.5,
             x:1.8,
-            y:2
+            y:2.5
 
         };
 
@@ -162,6 +184,65 @@ window.addEventListener("load", () => {
 
     let settings =
     getSettings();
+
+    /* =========================================================
+    GOLD PARTICLES
+    ========================================================= */
+
+    const particlesGeometry =
+    new THREE.BufferGeometry();
+
+    const particlesCount = 120;
+
+    const positions =
+    new Float32Array(
+        particlesCount * 3
+    );
+
+    for(let i = 0; i < particlesCount * 3; i++){
+
+        positions[i] =
+        (Math.random() - 0.5) * 12;
+
+    }
+
+    particlesGeometry.setAttribute(
+
+        "position",
+
+        new THREE.BufferAttribute(
+            positions,
+            3
+        )
+
+    );
+
+    const particlesMaterial =
+    new THREE.PointsMaterial({
+
+        color:0xffd700,
+
+        size:0.035,
+
+        transparent:true,
+
+        opacity:0.7,
+
+        depthWrite:false
+
+    });
+
+    const particles =
+    new THREE.Points(
+
+        particlesGeometry,
+        particlesMaterial
+
+    );
+
+    electricScene.add(
+        particles
+    );
 
     /* =========================================================
     LOADER
@@ -180,7 +261,7 @@ window.addEventListener("load", () => {
 
         "/reservation/assets/models/guitar.glb",
 
-        (gltf) => {
+        (gltf)=>{
 
             electricGuitar =
             gltf.scene;
@@ -190,6 +271,10 @@ window.addEventListener("load", () => {
                 if(child.isMesh){
 
                     child.frustumCulled = false;
+
+                    child.castShadow = false;
+
+                    child.receiveShadow = false;
 
                 }
 
@@ -216,31 +301,24 @@ window.addEventListener("load", () => {
             );
 
             /* =========================================================
-            INITIAL FRONT FACE POSITION
+            TRUE VERTICAL POSITION
+            PARALLEL TO H1
             ========================================================= */
 
-            electricGuitar.rotation.set(
-                0.08,
-                0,
-                -1.57
-            );
+            electricGuitar.rotation.x =
+            0.05;
+
+            electricGuitar.rotation.y =
+            0;
+
+            electricGuitar.rotation.z =
+            1.57;
 
             electricScene.add(
                 electricGuitar
             );
 
             resizeElectric();
-
-        },
-
-        undefined,
-
-        (error)=>{
-
-            console.error(
-                "GLB ERROR :",
-                error
-            );
 
         }
 
@@ -310,7 +388,7 @@ window.addEventListener("load", () => {
 
             settings.y +
 
-            Math.sin(elapsed * 1.1)
+            Math.sin(elapsed * 1.2)
             * 0.06;
 
             /* =========================================================
@@ -319,32 +397,42 @@ window.addEventListener("load", () => {
 
             electricGuitar.rotation.y =
 
-            Math.sin(elapsed * 0.4)
+            Math.sin(elapsed * 0.5)
             * 0.04;
 
             /* =========================================================
-            VERTICAL POSITION
+            TRUE VERTICAL POSITION
             ========================================================= */
 
             electricGuitar.rotation.z =
 
-            -1.57 +
+            1.57 +
 
             Math.sin(elapsed * 0.45)
-            * 0.012;
+            * 0.01;
 
             /* =========================================================
-            SMALL DEPTH
+            DEPTH
             ========================================================= */
 
             electricGuitar.rotation.x =
 
-            0.08 +
+            0.05 +
 
             Math.sin(elapsed * 0.6)
-            * 0.008;
+            * 0.006;
 
         }
+
+        /* =========================================================
+        PARTICLES ANIMATION
+        ========================================================= */
+
+        particles.rotation.y += 0.0008;
+
+        particles.rotation.x =
+        Math.sin(elapsed * 0.2)
+        * 0.08;
 
         electricRenderer.render(
             electricScene,
