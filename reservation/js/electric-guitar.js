@@ -1,18 +1,22 @@
 /* =========================================================
 ZARABESSO STUDIO
-TRUE VERTICAL ELECTRIC GUITAR
-PARALLEL TO H1
-GOLD PARTICLES VERSION
+ULTIMATE VERTICAL GUITAR
+PREMIUM GOLD PARTICLES
+FINAL STABLE VERSION
 ========================================================= */
 
 window.addEventListener("load", () => {
+
+    /* =========================================================
+    CANVAS
+    ========================================================= */
 
     const electricCanvas =
     document.getElementById(
         "webgl-electric"
     );
 
-    if (!electricCanvas) return;
+    if(!electricCanvas) return;
 
     /* =========================================================
     SCENE
@@ -27,13 +31,19 @@ window.addEventListener("load", () => {
 
     const electricCamera =
     new THREE.PerspectiveCamera(
+
         22,
         1,
         0.1,
         1000
+
     );
 
-    electricCamera.position.z = 14;
+    electricCamera.position.set(
+        0,
+        0,
+        14
+    );
 
     /* =========================================================
     RENDERER
@@ -56,6 +66,12 @@ window.addEventListener("load", () => {
         Math.min(window.devicePixelRatio,1.5)
     );
 
+    electricRenderer.setSize(
+        electricCanvas.parentElement.offsetWidth,
+        electricCanvas.parentElement.offsetHeight,
+        false
+    );
+
     electricRenderer.setClearColor(
         0x000000,
         0
@@ -68,7 +84,7 @@ window.addEventListener("load", () => {
     RESIZE
     ========================================================= */
 
-    function rendererSize(){
+    function resizeElectric(){
 
         const width =
         electricCanvas.parentElement.offsetWidth;
@@ -89,7 +105,10 @@ window.addEventListener("load", () => {
 
     }
 
-    rendererSize();
+    window.addEventListener(
+        "resize",
+        resizeElectric
+    );
 
     /* =========================================================
     LIGHTS
@@ -108,7 +127,7 @@ window.addEventListener("load", () => {
     const frontLight =
     new THREE.DirectionalLight(
         0xffffff,
-        2.2
+        2.4
     );
 
     frontLight.position.set(
@@ -127,14 +146,16 @@ window.addEventListener("load", () => {
 
     const goldLight =
     new THREE.PointLight(
+
         0xffd700,
-        1.4,
-        30
+        1.6,
+        40
+
     );
 
     goldLight.position.set(
         0,
-        2,
+        3,
         6
     );
 
@@ -148,35 +169,47 @@ window.addEventListener("load", () => {
 
     function getSettings(){
 
+        /* MOBILE */
+
         if(window.innerWidth <= 768){
 
             return{
 
-                scale:3.9,
-                x:0.1,
-                y:1.1
+                scale:3.8,
+
+                x:0.2,
+
+                y:1
 
             };
 
         }
+
+        /* TABLET */
 
         if(window.innerWidth <= 1200){
 
             return{
 
                 scale:4.8,
-                x:1,
-                y:1.8
+
+                x:1.1,
+
+                y:1.7
 
             };
 
         }
 
+        /* DESKTOP */
+
         return{
 
             scale:5.5,
+
             x:1.8,
-            y:2.5
+
+            y:2.4
 
         };
 
@@ -189,20 +222,23 @@ window.addEventListener("load", () => {
     GOLD PARTICLES
     ========================================================= */
 
+    const particlesCount = 160;
+
     const particlesGeometry =
     new THREE.BufferGeometry();
 
-    const particlesCount = 120;
-
-    const positions =
+    const particlesPositions =
     new Float32Array(
         particlesCount * 3
     );
 
     for(let i = 0; i < particlesCount * 3; i++){
 
-        positions[i] =
-        (Math.random() - 0.5) * 12;
+        particlesPositions[i] =
+
+        (Math.random() - 0.5)
+
+        * 12;
 
     }
 
@@ -211,7 +247,7 @@ window.addEventListener("load", () => {
         "position",
 
         new THREE.BufferAttribute(
-            positions,
+            particlesPositions,
             3
         )
 
@@ -226,7 +262,7 @@ window.addEventListener("load", () => {
 
         transparent:true,
 
-        opacity:0.7,
+        opacity:0.75,
 
         depthWrite:false
 
@@ -301,18 +337,19 @@ window.addEventListener("load", () => {
             );
 
             /* =========================================================
-            TRUE VERTICAL POSITION
-            PARALLEL TO H1
+            TRUE 90° VERTICAL POSITION
+            FRONT FACE VISIBLE
             ========================================================= */
 
-            electricGuitar.rotation.x =
-            0.05;
+            electricGuitar.rotation.set(
 
-            electricGuitar.rotation.y =
-            0;
+                0,
 
-            electricGuitar.rotation.z =
-            1.57;
+                3.14,
+
+                -1.57
+
+            );
 
             electricScene.add(
                 electricGuitar
@@ -320,42 +357,19 @@ window.addEventListener("load", () => {
 
             resizeElectric();
 
-        }
+        },
 
-    );
+        undefined,
 
-    /* =========================================================
-    RESIZE
-    ========================================================= */
+        (error)=>{
 
-    function resizeElectric(){
-
-        rendererSize();
-
-        settings =
-        getSettings();
-
-        if(electricGuitar){
-
-            electricGuitar.scale.set(
-                settings.scale,
-                settings.scale,
-                settings.scale
-            );
-
-            electricGuitar.position.set(
-                settings.x,
-                settings.y,
-                0
+            console.error(
+                "GLB ERROR :",
+                error
             );
 
         }
 
-    }
-
-    window.addEventListener(
-        "resize",
-        resizeElectric
     );
 
     /* =========================================================
@@ -381,7 +395,7 @@ window.addEventListener("load", () => {
         if(electricGuitar){
 
             /* =========================================================
-            FLOAT
+            FLOAT EFFECT
             ========================================================= */
 
             electricGuitar.position.y =
@@ -392,47 +406,53 @@ window.addEventListener("load", () => {
             * 0.06;
 
             /* =========================================================
-            KEEP FRONT FACE
+            FRONT SHOWROOM ROTATION
             ========================================================= */
 
             electricGuitar.rotation.y =
 
-            Math.sin(elapsed * 0.5)
-            * 0.04;
+            3.14 +
+
+            Math.sin(elapsed * 0.45)
+            * 0.03;
 
             /* =========================================================
-            TRUE VERTICAL POSITION
+            KEEP 90° VERTICAL
             ========================================================= */
 
             electricGuitar.rotation.z =
 
-            1.57 +
+            -1.57 +
 
-            Math.sin(elapsed * 0.45)
+            Math.sin(elapsed * 0.4)
             * 0.01;
 
             /* =========================================================
-            DEPTH
+            SMALL DEPTH
             ========================================================= */
 
             electricGuitar.rotation.x =
 
-            0.05 +
-
             Math.sin(elapsed * 0.6)
-            * 0.006;
+            * 0.01;
 
         }
 
         /* =========================================================
-        PARTICLES ANIMATION
+        GOLD PARTICLES ANIMATION
         ========================================================= */
 
-        particles.rotation.y += 0.0008;
+        particles.rotation.y +=
+        0.0008;
 
         particles.rotation.x =
+
         Math.sin(elapsed * 0.2)
         * 0.08;
+
+        /* =========================================================
+        RENDER
+        ========================================================= */
 
         electricRenderer.render(
             electricScene,
