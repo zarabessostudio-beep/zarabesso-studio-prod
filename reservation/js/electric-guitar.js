@@ -233,19 +233,27 @@ window.addEventListener("load", () => {
                 settings.y,
                 0
             );
+/* =========================================================
+REAL VERTICAL POSITION
+PARALLEL TO H1
+========================================================= */
 
-            /* =========================================================
-            ULTRA VERTICAL 85°
-            ========================================================= */
+/*
+X = profondeur avant/arrière
+Y = rotation latérale
+Z = verticalité réelle
+*/
 
-            electricGuitar.rotation.x =
-            1.48;
+electricGuitar.rotation.x =
+0.15;
 
-            electricGuitar.rotation.y =
-            0.12;
+electricGuitar.rotation.y =
+0.08;
 
-            electricGuitar.rotation.z =
-            -0.03;
+/* 85° VERTICAL */
+
+electricGuitar.rotation.z =
+1.48;
 
             electricScene.add(
                 electricGuitar
@@ -313,48 +321,61 @@ window.addEventListener("load", () => {
 
         if(electricGuitar){
 
-            /* =========================================================
-            FLOAT
-            ========================================================= */
+           /* =========================================================
+FLOAT
+VERTICAL SHOWROOM FLOAT
+========================================================= */
 
-            electricGuitar.position.y =
+electricGuitar.position.y =
 
-            settings.y +
+settings.y +
 
-            Math.sin(elapsed * 1.1)
-            * 0.06;
+Math.sin(elapsed * 1.15)
+* 0.08;
 
-            /* =========================================================
-            SHOWROOM ROTATION
-            ========================================================= */
+/* =========================================================
+REAL VERTICAL SHOWROOM ROTATION
+========================================================= */
 
-            electricGuitar.rotation.y =
+electricGuitar.rotation.y =
 
-            0.12 +
+0.08 +
 
-            Math.sin(elapsed * 0.5)
-            * 0.04;
+Math.sin(elapsed * 0.55)
+* 0.035;
 
-            /* =========================================================
-            MICRO TILT
-            ========================================================= */
+/* =========================================================
+85° VERTICAL POSITION
+KEEP GUITAR STANDING
+========================================================= */
 
-            electricGuitar.rotation.z =
+electricGuitar.rotation.z =
 
-            -0.03 +
+1.48 +
 
-            Math.sin(elapsed * 0.7)
-            * 0.008;
+Math.sin(elapsed * 0.45)
+* 0.012;
 
-        }
+/* =========================================================
+PREMIUM DEPTH TILT
+========================================================= */
 
-        electricRenderer.render(
-            electricScene,
-            electricCamera
-        );
+electricGuitar.rotation.x =
 
-    }
+0.12 +
 
-    animate();
+Math.sin(elapsed * 0.7)
+* 0.01;
+
+}
+
+electricRenderer.render(
+    electricScene,
+    electricCamera
+);
+
+}
+
+animate();
 
 });
