@@ -1,14 +1,10 @@
 /* =========================================================
 ZARABESSO STUDIO
 PREMIUM ELECTRIC GUITAR
-FINAL SHOWROOM VERSION
+FINAL STABLE VERSION
 ========================================================= */
 
-window.addEventListener(
-
-"load",
-
-()=>{
+window.addEventListener("load", () => {
 
 /* =========================================================
 CANVAS
@@ -30,14 +26,6 @@ return;
 }
 
 /* =========================================================
-SAFE CANVAS
-========================================================= */
-
-electricCanvas.style.width = "100%";
-electricCanvas.style.height = "100%";
-electricCanvas.style.display = "block";
-
-/* =========================================================
 SCENE
 ========================================================= */
 
@@ -50,20 +38,16 @@ CAMERA
 
 const electricCamera =
 new THREE.PerspectiveCamera(
-26,
+24,
 1,
 0.1,
 1000
 );
 
-/* =========================================================
-CAMERA POSITION
-========================================================= */
-
 electricCamera.position.set(
 0,
 0,
-14
+13
 );
 
 /* =========================================================
@@ -77,15 +61,11 @@ canvas:electricCanvas,
 
 alpha:true,
 
-antialias:false,
+antialias:true,
 
 powerPreference:"default"
 
 });
-
-/* =========================================================
-RENDERER SETTINGS
-========================================================= */
 
 electricRenderer.setClearColor(
 0x000000,
@@ -96,14 +76,39 @@ electricRenderer.setPixelRatio(
 Math.min(window.devicePixelRatio,1.5)
 );
 
+electricRenderer.outputEncoding =
+THREE.sRGBEncoding;
+
+/* =========================================================
+RENDER SIZE
+========================================================= */
+
+function rendererSize(){
+
+const width =
+electricCanvas.parentElement.offsetWidth;
+
+const height =
+electricCanvas.parentElement.offsetHeight;
+
+if(width < 10 || height < 10){
+return;
+}
+
 electricRenderer.setSize(
-electricCanvas.parentElement.offsetWidth,
-electricCanvas.parentElement.offsetHeight,
+width,
+height,
 false
 );
 
-electricRenderer.outputEncoding =
-THREE.sRGBEncoding;
+electricCamera.aspect =
+width / height;
+
+electricCamera.updateProjectionMatrix();
+
+}
+
+rendererSize();
 
 /* =========================================================
 LIGHTS
@@ -122,17 +127,34 @@ ambient
 const frontLight =
 new THREE.DirectionalLight(
 0xffffff,
-1.8
+2
 );
 
 frontLight.position.set(
 0,
-3,
+5,
 8
 );
 
 electricScene.add(
 frontLight
+);
+
+const goldLight =
+new THREE.PointLight(
+0xffd27a,
+3,
+20
+);
+
+goldLight.position.set(
+2,
+2,
+6
+);
+
+electricScene.add(
+goldLight
 );
 
 /* =========================================================
@@ -145,8 +167,9 @@ if(window.innerWidth <= 480){
 
 return{
 
-scale:4.2,
-y:-5.4
+scale:4.6,
+x:1.3,
+y:1.2
 
 };
 
@@ -156,8 +179,9 @@ if(window.innerWidth <= 768){
 
 return{
 
-scale:5,
-y:-5.2
+scale:5.3,
+x:1.6,
+y:1.5
 
 };
 
@@ -167,8 +191,9 @@ if(window.innerWidth <= 1200){
 
 return{
 
-scale:5.8,
-y:-5
+scale:6,
+x:2,
+y:1.7
 
 };
 
@@ -176,8 +201,9 @@ y:-5
 
 return{
 
-scale:6.3,
-y:-4.8
+scale:6.8,
+x:2.4,
+y:1.9
 
 };
 
@@ -245,26 +271,20 @@ POSITION
 ========================================================= */
 
 electricGuitar.position.set(
-2.4,
+settings.x,
 settings.y,
 0
 );
 
 /* =========================================================
-FORCED VERTICAL POSITION
+ROTATION
 ========================================================= */
-
-/*
-X = vertical neck up
-Y = showroom angle
-Z = slight premium tilt
-*/
 
 electricGuitar.rotation.set(
 
--1.55,
-1.3,
-0.12
+-1.42,
+0.25,
+-0.18
 
 );
 
@@ -277,7 +297,7 @@ electricGuitar
 );
 
 console.log(
-"Premium electric guitar loaded"
+"Electric guitar loaded"
 );
 
 resizeElectric();
@@ -289,7 +309,7 @@ undefined,
 (error)=>{
 
 console.error(
-"GLB ERROR",
+"GLB ERROR :",
 error
 );
 
@@ -303,28 +323,7 @@ RESIZE
 
 function resizeElectric(){
 
-const width =
-electricCanvas.parentElement.offsetWidth;
-
-const height =
-electricCanvas.parentElement.offsetHeight;
-
-if(width < 10 || height < 10){
-
-return;
-
-}
-
-electricCamera.aspect =
-width / height;
-
-electricCamera.updateProjectionMatrix();
-
-electricRenderer.setSize(
-width,
-height,
-false
-);
+rendererSize();
 
 settings =
 getSettings();
@@ -338,7 +337,7 @@ settings.scale
 );
 
 electricGuitar.position.set(
-2.4,
+settings.x,
 settings.y,
 0
 );
@@ -367,6 +366,13 @@ resizeElectric,
 );
 
 /* =========================================================
+CLOCK
+========================================================= */
+
+const clock =
+new THREE.Clock();
+
+/* =========================================================
 ANIMATION
 ========================================================= */
 
@@ -376,16 +382,41 @@ requestAnimationFrame(
 animate
 );
 
+const elapsed =
+clock.getElapsedTime();
+
 if(electricGuitar){
 
-/* =========================================================
-VERY SLOW SHOWROOM ROTATION
-========================================================= */
+/* FLOAT */
 
-electricGuitar.rotation.y +=
-0.0015;
+electricGuitar.position.y =
+
+settings.y +
+
+Math.sin(elapsed * 1.2)
+* 0.08;
+
+/* ROTATION */
+
+electricGuitar.rotation.y =
+
+0.25 +
+
+Math.sin(elapsed * 0.6)
+* 0.08;
+
+/* TILT */
+
+electricGuitar.rotation.z =
+
+-0.18 +
+
+Math.sin(elapsed * 0.8)
+* 0.015;
 
 }
+
+/* RENDER */
 
 electricRenderer.render(
 electricScene,
@@ -396,5 +427,4 @@ electricCamera
 
 animate();
 
-}
-);
+});
