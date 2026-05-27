@@ -1,7 +1,8 @@
 /* =========================================================
 ZARABESSO STUDIO
-VERTICAL ELECTRIC GUITAR
-PREMIUM FINAL VERSION
+ULTRA VERTICAL ELECTRIC GUITAR
+85° SHOWROOM VERSION
+FINAL PREMIUM
 ========================================================= */
 
 window.addEventListener("load", () => {
@@ -85,6 +86,7 @@ window.addEventListener("load", () => {
         width / height;
 
         electricCamera.updateProjectionMatrix();
+
     }
 
     rendererSize();
@@ -99,7 +101,9 @@ window.addEventListener("load", () => {
         2.6
     );
 
-    electricScene.add(ambient);
+    electricScene.add(
+        ambient
+    );
 
     const frontLight =
     new THREE.DirectionalLight(
@@ -113,7 +117,9 @@ window.addEventListener("load", () => {
         10
     );
 
-    electricScene.add(frontLight);
+    electricScene.add(
+        frontLight
+    );
 
     /* =========================================================
     RESPONSIVE SETTINGS
@@ -121,41 +127,51 @@ window.addEventListener("load", () => {
 
     function getSettings(){
 
+        /* MOBILE */
+
         if(window.innerWidth <= 768){
 
             return{
 
-                scale:4.2,
+                /* -5% SIZE */
 
-                x:0.4,
+                scale:4.0,
 
-                y:-0.4
+                /* MORE VERTICAL SPACE */
+
+                x:0.2,
+
+                y:1.2
 
             };
 
         }
+
+        /* TABLET */
 
         if(window.innerWidth <= 1200){
 
             return{
 
-                scale:5.2,
+                scale:4.9,
 
-                x:1.4,
+                x:1.1,
 
-                y:0.1
+                y:1.5
 
             };
 
         }
 
+        /* DESKTOP */
+
         return{
 
-            scale:6,
+            scale:5.7,
 
-            x:2.2,
+            x:1.8,
 
-            y:0.8
+            y:2.2
 
         };
 
@@ -196,7 +212,10 @@ window.addEventListener("load", () => {
 
             });
 
-            /* SCALE */
+            /* =========================================================
+            SCALE
+            -5%
+            ========================================================= */
 
             electricGuitar.scale.set(
                 settings.scale,
@@ -204,7 +223,10 @@ window.addEventListener("load", () => {
                 settings.scale
             );
 
-            /* POSITION */
+            /* =========================================================
+            POSITION
+            HIGHER POSITION
+            ========================================================= */
 
             electricGuitar.position.set(
                 settings.x,
@@ -213,17 +235,17 @@ window.addEventListener("load", () => {
             );
 
             /* =========================================================
-            PREMIUM 75° VERTICAL POSITION
+            ULTRA VERTICAL 85°
             ========================================================= */
 
             electricGuitar.rotation.x =
-            1.32;
+            1.48;
 
             electricGuitar.rotation.y =
-            0.18;
+            0.12;
 
             electricGuitar.rotation.z =
-            -0.12;
+            -0.03;
 
             electricScene.add(
                 electricGuitar
@@ -291,32 +313,38 @@ window.addEventListener("load", () => {
 
         if(electricGuitar){
 
-            /* FLOAT */
+            /* =========================================================
+            FLOAT
+            ========================================================= */
 
             electricGuitar.position.y =
 
             settings.y +
 
-            Math.sin(elapsed * 1.2)
-            * 0.08;
+            Math.sin(elapsed * 1.1)
+            * 0.06;
 
-            /* ROTATION */
+            /* =========================================================
+            SHOWROOM ROTATION
+            ========================================================= */
 
             electricGuitar.rotation.y =
 
-            0.18 +
+            0.12 +
 
-            Math.sin(elapsed * 0.6)
-            * 0.06;
+            Math.sin(elapsed * 0.5)
+            * 0.04;
 
-            /* PREMIUM TILT */
+            /* =========================================================
+            MICRO TILT
+            ========================================================= */
 
             electricGuitar.rotation.z =
 
-            -0.12 +
+            -0.03 +
 
-            Math.sin(elapsed * 0.8)
-            * 0.015;
+            Math.sin(elapsed * 0.7)
+            * 0.008;
 
         }
 
