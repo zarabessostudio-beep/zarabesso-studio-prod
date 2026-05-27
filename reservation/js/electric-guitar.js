@@ -2,7 +2,8 @@
 ZARABESSO STUDIO
 ULTIMATE VERTICAL GUITAR
 PREMIUM GOLD PARTICLES
-FINAL STABLE VERSION
+FINAL CINEMATIC VERSION
+78° ANGLE + FRONT FACE
 ========================================================= */
 
 window.addEventListener("load", () => {
@@ -66,12 +67,6 @@ window.addEventListener("load", () => {
         Math.min(window.devicePixelRatio,1.5)
     );
 
-    electricRenderer.setSize(
-        electricCanvas.parentElement.offsetWidth,
-        electricCanvas.parentElement.offsetHeight,
-        false
-    );
-
     electricRenderer.setClearColor(
         0x000000,
         0
@@ -104,6 +99,8 @@ window.addEventListener("load", () => {
         electricCamera.updateProjectionMatrix();
 
     }
+
+    resizeElectric();
 
     window.addEventListener(
         "resize",
@@ -148,14 +145,14 @@ window.addEventListener("load", () => {
     new THREE.PointLight(
 
         0xffd700,
-        1.6,
+        1.8,
         40
 
     );
 
     goldLight.position.set(
         0,
-        3,
+        2,
         6
     );
 
@@ -177,9 +174,13 @@ window.addEventListener("load", () => {
 
                 scale:3.8,
 
-                x:0.2,
+                /* PLUS PROCHE DU TITRE */
 
-                y:1
+                x:-0.1,
+
+                /* PLUS BAS */
+
+                y:0.4
 
             };
 
@@ -193,9 +194,9 @@ window.addEventListener("load", () => {
 
                 scale:4.8,
 
-                x:1.1,
+                x:0.5,
 
-                y:1.7
+                y:1
 
             };
 
@@ -207,9 +208,13 @@ window.addEventListener("load", () => {
 
             scale:5.5,
 
-            x:1.8,
+            /* RAPPROCHÉ DU H1 */
 
-            y:2.4
+            x:0.8,
+
+            /* DESCENDU */
+
+            y:1.5
 
         };
 
@@ -222,7 +227,7 @@ window.addEventListener("load", () => {
     GOLD PARTICLES
     ========================================================= */
 
-    const particlesCount = 160;
+    const particlesCount = 180;
 
     const particlesGeometry =
     new THREE.BufferGeometry();
@@ -258,11 +263,11 @@ window.addEventListener("load", () => {
 
         color:0xffd700,
 
-        size:0.035,
+        size:0.03,
 
         transparent:true,
 
-        opacity:0.75,
+        opacity:0.7,
 
         depthWrite:false
 
@@ -337,17 +342,18 @@ window.addEventListener("load", () => {
             );
 
             /* =========================================================
-            TRUE 90° VERTICAL POSITION
-            FRONT FACE VISIBLE
+            BASE POSITION
+            78° VERTICAL
+            FACE AVANT VISIBLE
             ========================================================= */
 
             electricGuitar.rotation.set(
 
-                0,
+                0.08,
 
                 3.14,
 
-                -1.57
+                -1.36
 
             );
 
@@ -403,35 +409,38 @@ window.addEventListener("load", () => {
             settings.y +
 
             Math.sin(elapsed * 1.2)
-            * 0.06;
+            * 0.05;
 
             /* =========================================================
-            FRONT SHOWROOM ROTATION
+            LÉGÈRE ROTATION 180°
+            ELLE TOURNE ET REVIENT
             ========================================================= */
 
             electricGuitar.rotation.y =
 
             3.14 +
 
-            Math.sin(elapsed * 0.45)
-            * 0.03;
+            Math.sin(elapsed * 0.25)
+            * 0.35;
 
             /* =========================================================
-            KEEP 90° VERTICAL
+            ANGLE VERTICAL 78°
             ========================================================= */
 
             electricGuitar.rotation.z =
 
-            -1.57 +
+            -1.36 +
 
-            Math.sin(elapsed * 0.4)
-            * 0.01;
+            Math.sin(elapsed * 0.45)
+            * 0.012;
 
             /* =========================================================
-            SMALL DEPTH
+            PETITE PROFONDEUR
             ========================================================= */
 
             electricGuitar.rotation.x =
+
+            0.08 +
 
             Math.sin(elapsed * 0.6)
             * 0.01;
@@ -439,7 +448,7 @@ window.addEventListener("load", () => {
         }
 
         /* =========================================================
-        GOLD PARTICLES ANIMATION
+        PARTICLES ANIMATION
         ========================================================= */
 
         particles.rotation.y +=
@@ -448,7 +457,7 @@ window.addEventListener("load", () => {
         particles.rotation.x =
 
         Math.sin(elapsed * 0.2)
-        * 0.08;
+        * 0.05;
 
         /* =========================================================
         RENDER
