@@ -1,9 +1,9 @@
 /* =========================================================
 ZARABESSO STUDIO
 ULTRA PREMIUM ISOLATED GUITAR
-360° SHOWROOM VERSION
-GOLD PARTICLES SEPARATED
-FINAL CINEMATIC RELEASE
+SOFT CINEMATIC PARTICLES
+NO TEXTURE CONFLICT VERSION
+FINAL STABLE RELEASE
 ========================================================= */
 
 window.addEventListener("load", () => {
@@ -132,7 +132,7 @@ window.addEventListener("load", () => {
     const ambient =
     new THREE.AmbientLight(
         0xffffff,
-        2.8
+        2.6
     );
 
     electricScene.add(
@@ -142,7 +142,7 @@ window.addEventListener("load", () => {
     const frontLight =
     new THREE.DirectionalLight(
         0xffffff,
-        2.4
+        2.2
     );
 
     frontLight.position.set(
@@ -156,22 +156,22 @@ window.addEventListener("load", () => {
     );
 
     /* =========================================================
-    GOLD LIGHT
+    SOFT GOLD LIGHT
     ========================================================= */
 
     const goldLight =
     new THREE.PointLight(
 
         0xffd700,
-        1.7,
-        40
+        1.2,
+        28
 
     );
 
     goldLight.position.set(
         0,
         2,
-        6
+        5
     );
 
     electricScene.add(
@@ -190,17 +190,13 @@ window.addEventListener("load", () => {
 
             return{
 
-                /* -10% */
-
                 scale:3.1,
 
-                /* PROCHE DU TITRE */
+                x:-0.10,
 
-                x:-0.15,
+                /* DESCENDU */
 
-                /* PLUS BAS */
-
-                y:0.3
+                y:-0.2
 
             };
 
@@ -216,7 +212,7 @@ window.addEventListener("load", () => {
 
                 x:0.35,
 
-                y:0.9
+                y:0.5
 
             };
 
@@ -230,7 +226,9 @@ window.addEventListener("load", () => {
 
             x:0.6,
 
-            y:1.4
+            /* PLUS BAS POUR LA MANCHE */
+
+            y:1
 
         };
 
@@ -240,11 +238,12 @@ window.addEventListener("load", () => {
     getSettings();
 
     /* =========================================================
-    PREMIUM GOLD PARTICLES
-    ISOLATED FROM GUITAR
+    PREMIUM PARTICLES
+    SOFT GRAY / BROWN
+    DOES NOT IMPACT GLB
     ========================================================= */
 
-    const particlesCount = 45;
+    const particlesCount = 60;
 
     const particlesGeometry =
     new THREE.BufferGeometry();
@@ -259,7 +258,7 @@ window.addEventListener("load", () => {
         particlesPositions[i] =
 
         (Math.random() - 0.5)
-        * 14;
+        * 16;
 
     }
 
@@ -277,18 +276,23 @@ window.addEventListener("load", () => {
     const particlesMaterial =
     new THREE.PointsMaterial({
 
-        color:0xffd700,
+        /* GRIS MARRON CINEMATIC */
 
-        size:0.015,
+        color:0x8b7355,
+
+        /* PLUS GROS */
+
+        size:0.045,
 
         transparent:true,
 
-        opacity:0.15,
+        /* PLUS DISCRET */
+
+        opacity:0.22,
 
         depthWrite:false,
 
-        blending:
-        THREE.AdditiveBlending
+        depthTest:true
 
     });
 
@@ -301,12 +305,13 @@ window.addEventListener("load", () => {
     );
 
     /* =========================================================
-    PARTICLES DISTANCE
+    PARTICLES VERY FAR
+    PREVENTS COLOR POLLUTION
     ========================================================= */
 
     particles.position.z =
 
-    -4;
+    -8;
 
     particlesGroup.add(
         particles
@@ -345,13 +350,19 @@ window.addEventListener("load", () => {
                     child.receiveShadow = false;
 
                     /* =========================================================
-                    KEEP NATURAL MATERIAL
+                    KEEP NATURAL GLB TEXTURE
                     ========================================================= */
 
                     if(child.material){
 
                         child.material.transparent =
                         false;
+
+                        child.material.depthWrite =
+                        true;
+
+                        child.material.toneMapped =
+                        true;
 
                     }
 
@@ -361,7 +372,6 @@ window.addEventListener("load", () => {
 
             /* =========================================================
             SCALE
-            -10%
             ========================================================= */
 
             electricGuitar.scale.set(
@@ -383,21 +393,18 @@ window.addEventListener("load", () => {
             /* =========================================================
             BASE ROTATION
             78°
+            FRONT FACE
             ========================================================= */
 
             electricGuitar.rotation.set(
 
-                0.06,
+                0.05,
 
                 3.14,
 
                 -1.36
 
             );
-
-            /* =========================================================
-            ADD TO ISOLATED GROUP
-            ========================================================= */
 
             guitarGroup.add(
                 electricGuitar
@@ -443,7 +450,7 @@ window.addEventListener("load", () => {
         if(electricGuitar){
 
             /* =========================================================
-            FLOAT EFFECT
+            FLOAT
             ========================================================= */
 
             electricGuitar.position.y =
@@ -454,36 +461,36 @@ window.addEventListener("load", () => {
             * 0.04;
 
             /* =========================================================
-            FULL 360° SHOWROOM ROTATION
+            FULL 360°
             ========================================================= */
 
             electricGuitar.rotation.y =
 
             3.14 +
 
-            elapsed * 0.35;
+            elapsed * 0.25;
 
             /* =========================================================
-            KEEP 78° VERTICAL POSITION
+            KEEP VERTICAL POSITION
             ========================================================= */
 
             electricGuitar.rotation.z =
 
             -1.36 +
 
-            Math.sin(elapsed * 0.5)
-            * 0.01;
+            Math.sin(elapsed * 0.4)
+            * 0.008;
 
             /* =========================================================
-            SMALL DEPTH
+            MICRO DEPTH
             ========================================================= */
 
             electricGuitar.rotation.x =
 
-            0.06 +
+            0.05 +
 
-            Math.sin(elapsed * 0.7)
-            * 0.008;
+            Math.sin(elapsed * 0.6)
+            * 0.006;
 
         }
 
@@ -492,12 +499,12 @@ window.addEventListener("load", () => {
         ========================================================= */
 
         particlesGroup.rotation.y +=
-        0.0005;
+        0.00025;
 
         particlesGroup.rotation.x =
 
         Math.sin(elapsed * 0.15)
-        * 0.03;
+        * 0.02;
 
         /* =========================================================
         RENDER
