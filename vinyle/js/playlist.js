@@ -1,190 +1,172 @@
 /* =========================================================
-   VYNILE PLATFORM V2
-   MIME FIX + CLOUD STABILITY ENGINE
+   ZARABESSO VIDEO PLAYER PRO
+   YOUTUBE STYLE - VIDEO ONLY ENGINE
 ========================================================= */
 
 const tracksContainer = document.getElementById("spotifyTracks");
-const audio = document.getElementById("audio");
+
 const videoPlayer = document.getElementById("videoPlayer");
 
 const title = document.getElementById("title");
 const artist = document.getElementById("artist");
 const cover = document.getElementById("cover");
 
-const playBtn = document.getElementById("play");
-const nextBtn = document.getElementById("next");
-const prevBtn = document.getElementById("prev");
-
-const progress = document.getElementById("progress");
-const vinyl = document.getElementById("vinyl");
-
 let tracks = [];
 let currentIndex = 0;
 let playing = false;
 
-const CACHE_KEY = "vynile_cache_v3";
-
 /* =========================================================
-   LOAD CLOUD MEDIA
+   LOAD MEDIA
 ========================================================= */
 
 async function loadCloudTracks() {
-  try {
-    tracksContainer.innerHTML = `<p>Chargement...</p>`;
 
-    const res = await fetch("/api/media");
+  try {
+
+    const res = await fetch("/api/media", {
+      headers: { "Accept": "application/json" }
+    });
+
     const data = await res.json();
 
-    if (!data.success) throw new Error("API error");
+    if (!data.success || !data.tracks) {
+      throw new Error("Invalid API");
+    }
 
-    tracks = data.tracks;
+    tracks = data.tracks.filter(t => t.video);
 
     renderTracks();
     loadTrack(0);
 
   } catch (err) {
     console.error(err);
-    tracksContainer.innerHTML = `<p>Erreur chargement média</p>`;
+    tracksContainer.innerHTML = "Erreur chargement vidéo";
   }
+
 }
 
 /* =========================================================
-   RENDER
+   RENDER LIST (YOUTUBE STYLE)
 ========================================================= */
 
 function renderTracks() {
+
   tracksContainer.innerHTML = "";
 
-  tracks.forEach((track, index) => {
+  tracks.forEach((track, i) => {
 
     const el = document.createElement("div");
-    el.className = `spotify-track ${index === currentIndex ? "active-track" : ""}`;
+    el.className = "spotify-track";
 
     el.innerHTML = `
-      <div class="track-left">
-        <img src="${track.cover}">
-        <div>
-          <h4>${track.title}</h4>
-          <p>${track.artist}</p>
-        </div>
+      <img src="${track.cover}" />
+      <div>
+        <h4>${track.title}</h4>
+        <p>${track.artist}</p>
       </div>
-      <div class="track-right">
-        <button>▶</button>
-      </div>
+      <button>▶</button>
     `;
 
     el.onclick = () => {
-      loadTrack(index);
-      playMusic();
+      loadTrack(i);
+      playVideo();
     };
 
     tracksContainer.appendChild(el);
+
   });
+
 }
 
 /* =========================================================
-   LOAD TRACK (MIME FIX CORE)
+   LOAD VIDEO (MIME SAFE CORE)
 ========================================================= */
 
-function loadTrack(index) {
+function loadTrack(i) {
 
-  currentIndex = index;
-  const track = tracks[index];
+  currentIndex = i;
+
+  const track = tracks[i];
   if (!track) return;
 
-  pauseMusic();
+  pauseVideo();
 
-  /* AUDIO SAFE */
-  audio.pause();
-  audio.src = track.audio;
-  audio.load();
-
-  /* VIDEO SAFE RESET (IMPORTANT MIME FIX) */
   videoPlayer.pause();
   videoPlayer.removeAttribute("src");
   videoPlayer.load();
 
   setTimeout(() => {
 
-    if (track.video) {
+    videoPlayer.src = track.video;
 
-      const safeUrl = track.video;
+    videoPlayer.crossOrigin = "anonymous";
+    videoPlayer.preload = "metadata";
+    videoPlayer.playsInline = true;
+    videoPlayer.disablePictureInPicture = false;
 
-      videoPlayer.src = safeUrl;
+    videoPlayer.muted = true;
+    videoPlayer.load();
 
-      videoPlayer.crossOrigin = "anonymous";
-      videoPlayer.preload = "metadata";
-      videoPlayer.playsInline = true;
-      videoPlayer.muted = true;
-
-      videoPlayer.load();
-    }
-
-  }, 80);
+  }, 100);
 
   title.textContent = track.title;
   artist.textContent = track.artist;
-  cover.src = track.cover;
 
-  renderTracks();
 }
 
 /* =========================================================
-   PLAY / PAUSE SYNC FIX
+   PLAY VIDEO
 ========================================================= */
 
-async function playMusic() {
+async function playVideo() {
+
   try {
 
-    await audio.play();
-
-    if (videoPlayer.src) {
-      videoPlayer.currentTime = audio.currentTime;
-      await videoPlayer.play().catch(() => {});
-    }
-
+    await videoPlayer.play();
     playing = true;
-    playBtn.innerHTML = "⏸";
-    vinyl.classList.add("playing");
 
   } catch (e) {
-    console.log("PLAY ERROR", e);
+    console.log("PLAY BLOCKED", e);
   }
+
 }
 
-function pauseMusic() {
-  audio.pause();
-  videoPlayer.pause();
+/* =========================================================
+   PAUSE
+========================================================= */
 
+function pauseVideo() {
+  videoPlayer.pause();
   playing = false;
-  playBtn.innerHTML = "▶";
-  vinyl.classList.remove("playing");
 }
 
 /* =========================================================
    CONTROLS
 ========================================================= */
 
-playBtn.onclick = () => playing ? pauseMusic() : playMusic();
+document.getElementById("play").onclick = () =>
+  playing ? pauseVideo() : playVideo();
 
-nextBtn.onclick = () => {
+document.getElementById("next").onclick = () => {
   currentIndex = (currentIndex + 1) % tracks.length;
   loadTrack(currentIndex);
-  playMusic();
+  playVideo();
 };
 
-prevBtn.onclick = () => {
+document.getElementById("prev").onclick = () => {
   currentIndex = (currentIndex - 1 + tracks.length) % tracks.length;
   loadTrack(currentIndex);
-  playMusic();
+  playVideo();
 };
 
 /* =========================================================
    AUTO NEXT
 ========================================================= */
 
-audio.addEventListener("ended", () => {
-  nextBtn.click();
+videoPlayer.addEventListener("ended", () => {
+  currentIndex = (currentIndex + 1) % tracks.length;
+  loadTrack(currentIndex);
+  playVideo();
 });
 
 /* =========================================================
