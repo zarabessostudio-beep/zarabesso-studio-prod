@@ -1,6 +1,6 @@
 /* =========================================================
    VYNILE PLATFORM V2
-   ULTRA PREMIUM MEDIA ENGINE
+   ULTRA PREMIUM MEDIA ENGINE FIXED
    YOUTUBE + NETFLIX + SPOTIFY FUSION
 ========================================================= */
 
@@ -20,18 +20,17 @@ const progress = document.getElementById("progress");
 const vinyl = document.getElementById("vinyl");
 
 /* =========================================================
-   STATE ENGINE V2
+   STATE ENGINE
 ========================================================= */
 
 let tracks = [];
 let currentIndex = 0;
 let playing = false;
-let fullscreenMode = false;
 
 const CACHE_KEY = "vynile_platform_v2_cache";
 
 /* =========================================================
-   LOAD MEDIA (CLOUDINARY + MEDIA.JS COMPAT)
+   LOAD MEDIA
 ========================================================= */
 
 async function loadCloudTracks() {
@@ -91,10 +90,11 @@ async function loadCloudTracks() {
 }
 
 /* =========================================================
-   RENDER PLAYLIST (NETFLIX STYLE LIST)
+   RENDER LIST
 ========================================================= */
 
 function renderTracks() {
+
   tracksContainer.innerHTML = "";
 
   tracks.forEach((track, index) => {
@@ -106,32 +106,16 @@ function renderTracks() {
 
     el.innerHTML = `
       <div class="track-left">
-
         <img src="${track.cover}">
-
         <div class="track-info">
-
           <h4>${track.title}</h4>
           <p>${track.artist}</p>
-
-          <small>
-            👁 ${track.views} • ❤️ ${track.likes}
-          </small>
-
         </div>
-
       </div>
 
       <div class="track-right">
-
-        <button class="play-icon">
-          ▶
-        </button>
-
-        <button class="download-btn">
-          ⬇
-        </button>
-
+        <button class="play-icon">▶</button>
+        <button class="download-btn">⬇</button>
       </div>
     `;
 
@@ -142,7 +126,7 @@ function renderTracks() {
 }
 
 /* =========================================================
-   LOAD TRACK (CINEMA ENGINE)
+   LOAD TRACK (ULTRA FIX VIDEO MIME SAFE)
 ========================================================= */
 
 function loadTrack(index) {
@@ -153,13 +137,33 @@ function loadTrack(index) {
 
   pauseMusic();
 
+  /* ================= AUDIO ================= */
   audio.src = track.audio;
+  audio.load();
 
-  videoPlayer.src = track.video;
+  /* ================= VIDEO FIX ULTRA IMPORTANT ================= */
+
+  videoPlayer.pause();
+  videoPlayer.removeAttribute("src");
   videoPlayer.load();
-  videoPlayer.muted = true;
-  videoPlayer.playsInline = true;
-  videoPlayer.loop = false;
+
+  setTimeout(() => {
+
+    videoPlayer.src = track.video;
+
+    videoPlayer.crossOrigin = "anonymous";
+    videoPlayer.preload = "metadata";
+    videoPlayer.playsInline = true;
+    videoPlayer.disablePictureInPicture = false;
+
+    videoPlayer.muted = true;
+    videoPlayer.loop = false;
+
+    videoPlayer.load();
+
+  }, 80);
+
+  /* ================= UI ================= */
 
   title.textContent = track.title;
   artist.textContent = track.artist;
@@ -167,11 +171,10 @@ function loadTrack(index) {
 
   renderTracks();
   renderComments(track);
-
 }
 
 /* =========================================================
-   PLAY ENGINE (SYNC CINEMA MODE)
+   PLAY (SYNC VIDEO + AUDIO FIXED)
 ========================================================= */
 
 async function playMusic() {
@@ -181,8 +184,13 @@ async function playMusic() {
     await audio.play();
 
     if (videoPlayer.src) {
+
       videoPlayer.currentTime = audio.currentTime;
-      await videoPlayer.play().catch(()=>{});
+
+      await videoPlayer.play().catch((e) => {
+        console.log("VIDEO BLOCKED:", e);
+      });
+
     }
 
     playing = true;
@@ -192,7 +200,7 @@ async function playMusic() {
     enterCinemaMode();
 
   } catch (e) {
-    console.log(e);
+    console.log("PLAY ERROR:", e);
   }
 }
 
@@ -201,6 +209,7 @@ async function playMusic() {
 ========================================================= */
 
 function pauseMusic() {
+
   audio.pause();
   videoPlayer.pause();
 
@@ -212,17 +221,17 @@ function pauseMusic() {
 }
 
 /* =========================================================
-   CINEMA MODE (YOUTUBE FULLSCREEN STYLE)
+   CINEMA MODE
 ========================================================= */
 
 function enterCinemaMode() {
-  const player = document.querySelector(".player-card");
-  player.classList.add("cinema-mode");
+  document.querySelector(".player-card")
+  .classList.add("cinema-mode");
 }
 
 function exitCinemaMode() {
-  const player = document.querySelector(".player-card");
-  player.classList.remove("cinema-mode");
+  document.querySelector(".player-card")
+  .classList.remove("cinema-mode");
 }
 
 /* =========================================================
@@ -244,7 +253,7 @@ prevBtn.onclick = () => {
 };
 
 /* =========================================================
-   PROGRESS BAR
+   PROGRESS
 ========================================================= */
 
 audio.addEventListener("timeupdate", () => {
@@ -267,7 +276,7 @@ document.querySelector(".progress-container")
 });
 
 /* =========================================================
-   AUTO NEXT (NETFLIX STYLE)
+   AUTO NEXT
 ========================================================= */
 
 audio.addEventListener("ended", () => {
@@ -277,10 +286,11 @@ audio.addEventListener("ended", () => {
 });
 
 /* =========================================================
-   DOWNLOAD SYSTEM (PREMIUM)
+   DOWNLOAD (CLOUDINARY SAFE)
 ========================================================= */
 
 function downloadTrack() {
+
   const track = tracks[currentIndex];
   if (!track) return;
 
@@ -288,13 +298,14 @@ function downloadTrack() {
   a.href = track.download;
   a.target = "_blank";
   a.download = track.title + ".mp4";
+
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
 }
 
 /* =========================================================
-   MOBILE SWIPE (TIKTOK STYLE)
+   MOBILE SWIPE
 ========================================================= */
 
 let startY = 0;
@@ -304,15 +315,12 @@ document.addEventListener("touchstart", e => {
 });
 
 document.addEventListener("touchend", e => {
+
   let endY = e.changedTouches[0].clientY;
 
-  if (startY - endY > 50) {
-    nextBtn.click();
-  }
+  if (startY - endY > 50) nextBtn.click();
+  if (endY - startY > 50) prevBtn.click();
 
-  if (endY - startY > 50) {
-    prevBtn.click();
-  }
 });
 
 /* =========================================================

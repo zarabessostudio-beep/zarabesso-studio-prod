@@ -115,25 +115,15 @@ async function handler(req, res) {
       =================================================== */
 
       const videoUrl =
-      cloudinary.url(
-
-        track.video,
-
-        {
-
-          resource_type: "video",
-
-          secure: true,
-
-          format: "mp4",
-
-          quality: "auto",
-
-          fetch_format: "mp4"
-
-        }
-
-      );
+cloudinary.url(track.video, {
+  resource_type: "video",
+  secure: true,
+  format: "mp4",
+  transformation: [
+    { quality: "auto" },
+    { fetch_format: "mp4" }
+  ]
+});
 
       /* ===================================================
          AUDIO URL
@@ -165,9 +155,14 @@ async function handler(req, res) {
          AUTO COVER
       =================================================== */
 
-      const coverUrl =
-      `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/video/upload/so_1/${track.video}.jpg`;
-
+    const coverUrl =
+cloudinary.url(track.video, {
+  resource_type: "video",
+  format: "jpg",
+  transformation: [
+    { start_offset: 1 }
+  ]
+});
       /* ===================================================
          RETURN TRACK
       =================================================== */
