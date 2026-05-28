@@ -8,13 +8,13 @@ window.CLOUDINARY = {
 
   folders: {
 
-    audio: "zarabesso/music",
+    audio: "zarabesso-music",
 
-    videos: "zarabesso/videos",
+    videos: "zarabesso-videos",
 
-    covers: "zarabesso/cover",
+    covers: "zarabesso-cover",
 
-    images: "zarabesso/image"
+    images: "zarabesso-image"
 
   }
 

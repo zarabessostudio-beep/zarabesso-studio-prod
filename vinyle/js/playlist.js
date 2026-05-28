@@ -176,6 +176,7 @@ function loadTrack(index) {
 
   if (track.video) {
     videoPlayer.src = track.video;
+    videoPlayer.type = "video/mp4";
     videoPlayer.style.display = "block";
     videoPlayer.muted = true;
   } else {
