@@ -256,57 +256,57 @@ reservation
 
 /* =========================================================
 WHATSAPP MESSAGE
-ULTRA COMPATIBLE VERSION
+FINAL PREMIUM COMPATIBLE VERSION
 ========================================================= */
 
 const whatsappMessage =
 
 `🎸 *ZARABESSO STUDIO*
 
-✨ Nouvelle Réservation Premium
+✨ Nouvelle Réservation
 
---------------------------------
+==============================
 
-👤 *Artiste*
+👤 *ARTISTE*
 ${reservation.name}
 
---------------------------------
+==============================
 
-📞 *Contact*
+📞 *CONTACT*
 ${reservation.phone}
 
---------------------------------
+==============================
 
-📅 *Date Premium*
+📅 *DATE*
 ${reservation.date}
 
---------------------------------
+==============================
 
-⏰ *Heure Réservée*
+⏰ *HEURE*
 ${reservation.time}
 
---------------------------------
+==============================
 
-🎵 *Service Musical*
+🎵 *SERVICE*
 ${reservation.service}
 
---------------------------------
+==============================
 
-📝 *Projet Artistique*
+📝 *PROJET MUSICAL*
 ${reservation.message}
 
---------------------------------
+==============================
 
-🆔 *Référence Studio*
+🆔 *RÉFÉRENCE*
 ${reservation.id}
 
---------------------------------
+==============================
 
-🔥 Gold Music Experience
+🔥 *GOLD MUSIC EXPERIENCE*
 
 🎧 Production • Créativité • Excellence
 
-💎 Merci d’avoir choisi
+Merci d’avoir choisi
 *Zarabesso Studio* 🎸`;
 
 /* =========================================================
