@@ -10,7 +10,8 @@ document.getElementById("timeSlots");
 // HOURS
 
 const hours = [
-
+    
+"08:00",
 "09:00",
 "10:00",
 "11:00",
