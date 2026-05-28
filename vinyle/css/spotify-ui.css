@@ -174,3 +174,17 @@ padding:20px;
     max-height: 300px;
   }
 }
+.player-card.cinema-mode {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  z-index: 9999;
+}
+
+.player-card.cinema-mode video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
