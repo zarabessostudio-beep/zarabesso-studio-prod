@@ -1,412 +1,830 @@
-const tracksContainer = document.getElementById("spotifyTracks");
-const audio = document.getElementById("audio");
-const videoPlayer = document.getElementById("videoPlayer");
-const title = document.getElementById("title");
-const artist = document.getElementById("artist");
-const cover = document.getElementById("cover");
-const playBtn = document.getElementById("play");
-const nextBtn = document.getElementById("next");
-const prevBtn = document.getElementById("prev");
-const progress = document.getElementById("progress");
-const vinyl = document.getElementById("vinyl");
+/* =========================================================
+   VYNILE PLAYER ENGINE
+   CLOUDINARY FULL COMPAT VERSION
+   ULTRA STABLE
+   VIDEO + AUDIO SYNC
+========================================================= */
+
+const tracksContainer =
+document.getElementById("spotifyTracks");
+
+const audio =
+document.getElementById("audio");
+
+const videoPlayer =
+document.getElementById("videoPlayer");
+
+const title =
+document.getElementById("title");
+
+const artist =
+document.getElementById("artist");
+
+const cover =
+document.getElementById("cover");
+
+const playBtn =
+document.getElementById("play");
+
+const nextBtn =
+document.getElementById("next");
+
+const prevBtn =
+document.getElementById("prev");
+
+const progress =
+document.getElementById("progress");
+
+const vinyl =
+document.getElementById("vinyl");
 
 /* =========================================================
-   STATE SAAS
+   STATE
 ========================================================= */
 
 let tracks = [];
+
 let currentIndex = 0;
+
 let playing = false;
 
+let progressRAF = null;
+
 /* =========================================================
-   CACHE SYSTEM (PERF BOOST)
+   CACHE
 ========================================================= */
 
-const CACHE_KEY = "vynile_cloud_cache_v2";
+const CACHE_KEY =
+"vynile_cloud_cache_v5";
 
 /* =========================================================
-   LOAD CLOUD MEDIA (ULTRA VERSION)
+   LOAD TRACKS
 ========================================================= */
 
 async function loadCloudTracks() {
+
   try {
 
     tracksContainer.innerHTML = `
+
       <div class="cloud-loading">
+
         <div class="loader"></div>
+
         <p>Chargement VYNILE Cloud...</p>
+
       </div>
+
     `;
 
-    // 🔥 CACHE FIRST
-    const cache = localStorage.getItem(CACHE_KEY);
-    if (cache) {
-      const parsed = JSON.parse(cache);
-      if (parsed?.tracks?.length) {
+    /* =====================================================
+       CACHE FIRST
+    ===================================================== */
+
+    const cache =
+    localStorage.getItem(CACHE_KEY);
+
+    if(cache){
+
+      const parsed =
+      JSON.parse(cache);
+
+      if(parsed?.tracks?.length){
+
         tracks = parsed.tracks;
+
         renderTracks();
+
         loadTrack(0);
-        return;
+
       }
+
     }
 
-    const res = await fetch("/api/media");
+    /* =====================================================
+       API
+    ===================================================== */
 
-    const data = await res.json();
+    const response =
+    await fetch("/api/media");
 
-    console.log("☁️ CLOUD FULL DATA:", data);
+    const data =
+    await response.json();
 
-    const music = data.music || [];
-    const videos = data.videos || [];
-    const covers = data.covers || [];
+    console.log("☁️ MEDIA:", data);
 
-    tracks = music.map((track, i) => {
+    if(!data.success){
 
-      const video = videos[i]?.secure_url || "";
-      const coverImg = covers[i]?.secure_url || "/vinyle/assets/logo/logo1.png";
+      throw new Error(
+        data.error || "API Error"
+      );
 
-      return {
+    }
 
-        id: track.asset_id || `track-${i}`,
+    tracks =
+    data.tracks || [];
 
-        title: cleanTitle(track.public_id),
-        artist: "Zarabesso Studio",
+    /* =====================================================
+       CACHE SAVE
+    ===================================================== */
 
-        audio: track.secure_url,
-        video: video,
-        cover: coverImg,
+    localStorage.setItem(
 
-        duration: track.duration || 0,
+      CACHE_KEY,
 
-        // 🔥 SAAS METADATA
-        views: 0,
-        likes: 0,
-        comments: [],
+      JSON.stringify({
+        tracks
+      })
 
-        createdAt: track.created_at || null
-      };
-    });
-
-    // 💾 CACHE SAVE
-    localStorage.setItem(CACHE_KEY, JSON.stringify({ tracks }));
+    );
 
     renderTracks();
+
     loadTrack(0);
 
-  } catch (err) {
-    console.error("Cloud error:", err);
+  } catch(err){
+
+    console.log(err);
 
     tracksContainer.innerHTML = `
+
       <div class="empty-cloud">
-        <i class="ri-error-warning-line"></i>
+
         <h3>Erreur Cloud</h3>
+
         <p>Impossible de charger les médias</p>
+
       </div>
+
     `;
+
   }
+
 }
 
 /* =========================================================
-   CLEAN TITLE
+   RENDER TRACKS
 ========================================================= */
 
-function cleanTitle(name) {
-  return name
-    .replace(/_/g, " ")
-    .replace(/-/g, " ")
-    .replace(/\.[^/.]+$/, "");
-}
+function renderTracks(){
 
-/* =========================================================
-   RENDER TRACKS (ULTRA UI)
-========================================================= */
-
-function renderTracks() {
   tracksContainer.innerHTML = "";
 
-  const fragment = document.createDocumentFragment();
+  const fragment =
+  document.createDocumentFragment();
 
-  tracks.forEach((track, index) => {
+  tracks.forEach((track,index)=>{
 
-    const el = document.createElement("div");
-    el.className = `spotify-track ${index === currentIndex ? "active-track" : ""}`;
+    const el =
+    document.createElement("div");
+
+    el.className =
+    `spotify-track ${
+      index === currentIndex
+      ? "active-track"
+      : ""
+    }`;
 
     el.innerHTML = `
+
       <div class="track-left">
 
-        <img src="${track.cover}" loading="lazy">
+        <img
+          src="${track.cover}"
+          loading="lazy"
+        >
 
         <div class="track-info">
+
           <h4>${track.title}</h4>
+
           <p>${track.artist}</p>
 
-          <small>
-            👁 ${track.views} • ❤️ ${track.likes}
-          </small>
         </div>
 
       </div>
 
       <div class="track-right">
+
         <button class="play-icon">
-          <i class="ri-play-fill"></i>
+
+          <i class="
+            ${
+              index === currentIndex &&
+              playing
+              ? "ri-pause-fill"
+              : "ri-play-fill"
+            }
+          "></i>
+
         </button>
+
       </div>
+
     `;
 
-    el.addEventListener("click", () => selectTrack(index));
+    el.addEventListener(
+
+      "click",
+
+      ()=>{
+
+        if(index === currentIndex){
+
+          if(playing){
+
+            pauseMusic();
+
+          }else{
+
+            playMusic();
+
+          }
+
+          return;
+
+        }
+
+        selectTrack(index);
+
+      }
+
+    );
 
     fragment.appendChild(el);
+
   });
 
   tracksContainer.appendChild(fragment);
+
 }
 
 /* =========================================================
    LOAD TRACK
 ========================================================= */
 
-function loadTrack(index) {
+function loadTrack(index){
 
   currentIndex = index;
-  const track = tracks[index];
-  if (!track) return;
 
-  audio.src = track.audio;
+  const track =
+  tracks[index];
 
-  if (track.video) {
-    videoPlayer.src = track.video;
-    videoPlayer.type = "video/mp4";
-    videoPlayer.style.display = "block";
+  if(!track) return;
+
+  /* =====================================================
+     RESET
+  ===================================================== */
+
+  pauseMusic();
+
+  audio.src = "";
+
+  videoPlayer.src = "";
+
+  /* =====================================================
+     AUDIO
+  ===================================================== */
+
+  audio.src =
+  track.audio;
+
+  audio.preload =
+  "metadata";
+
+  /* =====================================================
+     VIDEO
+  ===================================================== */
+
+  if(track.video){
+
+    videoPlayer.src =
+    track.video;
+
+    videoPlayer.load();
+
+    videoPlayer.style.display =
+    "block";
+
+    videoPlayer.playsInline = true;
+
     videoPlayer.muted = true;
-  } else {
-    videoPlayer.style.display = "none";
+
+    videoPlayer.loop = false;
+
+  }else{
+
+    videoPlayer.style.display =
+    "none";
+
   }
 
-  title.textContent = track.title;
-  artist.textContent = track.artist;
-  cover.src = track.cover;
+  /* =====================================================
+     UI
+  ===================================================== */
+
+  title.textContent =
+  track.title;
+
+  artist.textContent =
+  track.artist;
+
+  cover.src =
+  track.cover;
 
   renderTracks();
+
   renderComments(track);
+
 }
-function setVinylState() {
-  if (isPlaying) {
-    vinyl.classList.add("playing");
-  } else {
-    vinyl.classList.remove("playing");
+
+/* =========================================================
+   PLAY
+========================================================= */
+
+async function playMusic(){
+
+  try {
+
+    if(!tracks.length) return;
+
+    await audio.play();
+
+    /* =====================================================
+       VIDEO PLAY
+    ===================================================== */
+
+    if(videoPlayer.src){
+
+      try {
+
+        videoPlayer.currentTime =
+        audio.currentTime;
+
+        await videoPlayer.play();
+
+      } catch(e){
+
+        console.log(
+          "video blocked",
+          e
+        );
+
+      }
+
+    }
+
+    playing = true;
+
+    playBtn.innerHTML = `
+      <i class="ri-pause-fill"></i>
+    `;
+
+    vinyl.classList.add(
+      "playing"
+    );
+
+    renderTracks();
+
+    startProgressLoop();
+
+  } catch(err){
+
+    console.log(
+      "play blocked",
+      err
+    );
+
   }
+
+}
+
+/* =========================================================
+   PAUSE
+========================================================= */
+
+function pauseMusic(){
+
+  audio.pause();
+
+  videoPlayer.pause();
+
+  playing = false;
+
+  playBtn.innerHTML = `
+    <i class="ri-play-fill"></i>
+  `;
+
+  vinyl.classList.remove(
+    "playing"
+  );
+
+  renderTracks();
+
+  cancelAnimationFrame(
+    progressRAF
+  );
+
 }
 
 /* =========================================================
    SELECT TRACK
 ========================================================= */
 
-function selectTrack(index) {
+function selectTrack(index){
+
   loadTrack(index);
+
   playMusic();
 
-  // 🔥 VIEW SYSTEM
-  registerView(tracks[index].id);
+  registerView(
+    tracks[index].id
+  );
+
 }
 
 /* =========================================================
-   PLAY (ANTI BLOCK MOBILE)
+   NEXT / PREV
 ========================================================= */
 
-async function playMusic() {
-  try {
+function nextTrack(){
 
-    const audioPlay = audio.play();
+  currentIndex++;
 
-    if (videoPlayer.src) {
-      videoPlayer.muted = true;
-      await Promise.all([audioPlay, videoPlayer.play()]);
-    } else {
-      await audioPlay;
+  if(currentIndex >= tracks.length){
+
+    currentIndex = 0;
+
+  }
+
+  loadTrack(currentIndex);
+
+  playMusic();
+
+}
+
+function prevTrack(){
+
+  currentIndex--;
+
+  if(currentIndex < 0){
+
+    currentIndex =
+    tracks.length - 1;
+
+  }
+
+  loadTrack(currentIndex);
+
+  playMusic();
+
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+playBtn.addEventListener(
+
+  "click",
+
+  ()=>{
+
+    if(playing){
+
+      pauseMusic();
+
+    }else{
+
+      playMusic();
+
     }
 
-    playing = true;
-    playBtn.innerHTML = '<i class="ri-pause-fill"></i>';
-    vinyl.classList.add("playing");
-
-  } catch (err) {
-    console.log("blocked autoplay", err);
   }
+
+);
+
+nextBtn.addEventListener(
+  "click",
+  nextTrack
+);
+
+prevBtn.addEventListener(
+  "click",
+  prevTrack
+);
+
+/* =========================================================
+   PROGRESS LOOP
+========================================================= */
+
+function startProgressLoop(){
+
+  cancelAnimationFrame(
+    progressRAF
+  );
+
+  function update(){
+
+    if(audio.duration){
+
+      const percent =
+
+      (
+        audio.currentTime /
+        audio.duration
+      ) * 100;
+
+      progress.style.width =
+      percent + "%";
+
+    }
+
+    if(playing){
+
+      progressRAF =
+      requestAnimationFrame(
+        update
+      );
+
+    }
+
+  }
+
+  update();
+
 }
-setVinylState();
 
 /* =========================================================
-   PAUSE
+   SEEK
 ========================================================= */
 
-function pauseMusic() {
-  audio.pause();
-  videoPlayer.pause();
+document
+.querySelector(".progress-container")
+.addEventListener(
 
-  playing = false;
-  playBtn.innerHTML = '<i class="ri-play-fill"></i>';
-  vinyl.classList.remove("playing");
-}
-setVinylState();
+  "click",
+
+  (e)=>{
+
+    if(!audio.duration) return;
+
+    const rect =
+    e.currentTarget
+    .getBoundingClientRect();
+
+    const percent =
+
+    (e.clientX - rect.left)
+    / rect.width;
+
+    const seekTime =
+    percent * audio.duration;
+
+    audio.currentTime =
+    seekTime;
+
+    if(videoPlayer.src){
+
+      videoPlayer.currentTime =
+      seekTime;
+
+    }
+
+  }
+
+);
 
 /* =========================================================
-   CONTROLS
+   AUDIO SYNC VIDEO
 ========================================================= */
 
-playBtn.onclick = () => playing ? pauseMusic() : playMusic();
+audio.addEventListener(
 
-nextBtn.onclick = () => {
-  currentIndex = (currentIndex + 1) % tracks.length;
-  loadTrack(currentIndex);
-  playMusic();
-};
+  "timeupdate",
 
-prevBtn.onclick = () => {
-  currentIndex = (currentIndex - 1 + tracks.length) % tracks.length;
-  loadTrack(currentIndex);
-  playMusic();
-};
+  ()=>{
+
+    if(
+
+      videoPlayer.src &&
+
+      Math.abs(
+
+        videoPlayer.currentTime -
+        audio.currentTime
+
+      ) > 0.3
+
+    ){
+
+      videoPlayer.currentTime =
+      audio.currentTime;
+
+    }
+
+  }
+
+);
 
 /* =========================================================
-   PROGRESS
+   AUTO NEXT
 ========================================================= */
 
-audio.addEventListener("timeupdate", () => {
-  if (!audio.duration) return;
+audio.addEventListener(
 
-  progress.style.width =
-    (audio.currentTime / audio.duration) * 100 + "%";
-});
+  "ended",
 
-document.querySelector(".progress-container")
-.addEventListener("click", (e) => {
-  audio.currentTime =
-    (e.offsetX / e.currentTarget.clientWidth) * audio.duration;
-});
+  ()=>{
+
+    nextTrack();
+
+  }
+
+);
 
 /* =========================================================
-   VIEWS SYSTEM (BACKEND READY)
+   MOBILE FIX
 ========================================================= */
 
-async function registerView(id) {
+document.addEventListener(
+
+  "visibilitychange",
+
+  ()=>{
+
+    if(document.hidden){
+
+      videoPlayer.pause();
+
+    }else if(playing){
+
+      videoPlayer.play()
+      .catch(()=>{});
+
+    }
+
+  }
+
+);
+
+/* =========================================================
+   VIEW SYSTEM
+========================================================= */
+
+async function registerView(id){
+
   try {
-    await fetch("/api/view", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id })
-    });
-  } catch (e) {}
+
+    await fetch(
+
+      "/api/view",
+
+      {
+
+        method:"POST",
+
+        headers:{
+          "Content-Type":
+          "application/json"
+        },
+
+        body:JSON.stringify({
+          id
+        })
+
+      }
+
+    );
+
+  } catch(e){
+
+    console.log(e);
+
+  }
+
 }
 
 /* =========================================================
-   COMMENTS SYSTEM (ULTRA SAAS)
+   COMMENTS UI
 ========================================================= */
 
-/**
- * ADD COMMENT
- */
-async function addComment(trackId, text, user = "Anonyme") {
-  const comment = {
-    id: Date.now(),
-    user,
-    text,
-    createdAt: new Date().toISOString(),
-    likes: 0
-  };
+const commentsBox =
+document.createElement("div");
 
-  const track = tracks.find(t => t.id === trackId);
-  if (!track) return;
+commentsBox.className =
+"comments-box";
 
-  track.comments.push(comment);
+document
+.querySelector(".player-card")
+.appendChild(commentsBox);
 
-  await syncComments(trackId, track.comments);
-}
+/* =========================================================
+   RENDER COMMENTS
+========================================================= */
 
-/**
- * LOAD COMMENTS UI
- */
-function renderComments(trackId) {
-  const track = tracks.find(t => t.id === trackId);
-  if (!track) return;
+function renderComments(track){
 
-  return track.comments.map(c => `
-    <div class="comment">
-      <strong>${c.user}</strong>
-      <p>${c.text}</p>
-      <small>${new Date(c.createdAt).toLocaleString()}</small>
+  commentsBox.innerHTML = `
+
+    <h3>
+      💬 Commentaires artistes
+    </h3>
+
+    <div class="comment-input">
+
+      <input
+
+        id="commentText"
+
+        placeholder="
+        Féliciter cet artiste...
+        "
+
+      >
+
+      <button onclick="addComment()">
+
+        Envoyer
+
+      </button>
+
     </div>
-  `).join("");
+
+    <div id="commentList"></div>
+
+  `;
+
+  const list =
+  document.getElementById(
+    "commentList"
+  );
+
+  (track.comments || [])
+  .forEach((c)=>{
+
+    list.innerHTML += `
+
+      <div class="comment">
+
+        <strong>
+          ${c.user}
+        </strong>
+
+        <p>
+          ${c.text}
+        </p>
+
+      </div>
+
+    `;
+
+  });
+
 }
 
-/**
- * SYNC COMMENTS (BACKEND READY)
- */
-async function syncComments(id, comments) {
-  try {
-    await fetch("/api/comments", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id, comments })
-    });
-  } catch (e) {}
-}
+/* =========================================================
+   ADD COMMENT
+========================================================= */
+
+window.addComment =
+function(){
+
+  const input =
+  document.getElementById(
+    "commentText"
+  );
+
+  if(!input.value) return;
+
+  const track =
+  tracks[currentIndex];
+
+  if(!track.comments){
+
+    track.comments = [];
+
+  }
+
+  track.comments.push({
+
+    user:"Fan",
+
+    text:input.value,
+
+    createdAt:
+    new Date().toISOString()
+
+  });
+
+  input.value = "";
+
+  renderComments(track);
+
+};
 
 /* =========================================================
    INIT
 ========================================================= */
 
 loadCloudTracks();
-/* =========================================================
-   💬 COMMENTS SYSTEM (ULTRA PRO)
-========================================================= */
-
-const commentsBox = document.createElement("div");
-commentsBox.className = "comments-box";
-
-document.querySelector(".player-card").appendChild(commentsBox);
-
-function renderComments(track) {
-
-  commentsBox.innerHTML = `
-    <h3>💬 Commentaires artistes</h3>
-
-    <div class="comment-input">
-      <input id="commentText" placeholder="Féliciter cet artiste..." />
-      <button onclick="addComment()">Envoyer</button>
-    </div>
-
-    <div id="commentList"></div>
-  `;
-
-  const list = document.getElementById("commentList");
-
-  (track.comments || []).forEach(c => {
-    list.innerHTML += `
-      <div class="comment">
-        <strong>${c.user}</strong>
-        <p>${c.text}</p>
-      </div>
-    `;
-  });
-
-}
-
-window.addComment = function() {
-
-  const input = document.getElementById("commentText");
-  if (!input.value) return;
-
-  const track = tracks[currentIndex];
-
-  if (!track.comments) track.comments = [];
-
-  track.comments.push({
-    user: "Fan",
-    text: input.value
-  });
-
-  input.value = "";
-
-  renderComments(track);
-}
