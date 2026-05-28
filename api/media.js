@@ -1,3 +1,4 @@
+
 const cloudinary = require("cloudinary").v2;
 
 /* =========================================================
@@ -12,127 +13,114 @@ cloudinary.config({
 });
 
 /* =========================================================
-   CLEAN TITLE
+   MANUAL TRACKS
 ========================================================= */
 
-function cleanTitle(name) {
+const TRACKS = [
 
-  if (!name) {
-    return "Untitled";
+  {
+    title: "Track 1",
+    video: "zarabesso-videos/Stella_Lyncha_Yvon_Paul_xe2b4y",
+    audio: "zarabesso-music/music1",
+    cover: "zarabesso-cover/cover1"
+  },
+
+  {
+    title: "Track 2",
+    video: "zarabesso-videos/Joe_Fils_x_Jaojoby_Wagnou_moi_djerebou_Clip_officiel_ohqijm",
+    audio: "zarabesso-music/music2",
+    cover: "zarabesso-cover/cover2"
+  },
+
+  {
+    title: "Track 3",
+    video: "zarabesso-videos/Refano_-_Fanambadia_Official_Music_Video_vddrht",
+    audio: "zarabesso-music/music3",
+    cover: "zarabesso-cover/cover3"
+  },
+
+  {
+    title: "Track 4",
+    video: "zarabesso-videos/Salama_zbct0v",
+    audio: "zarabesso-music/music4",
+    cover: "zarabesso-cover/cover4"
+  },
+
+  {
+    title: "Track 5",
+    video: "zarabesso-videos/tsodrano_u6f1r0",
+    audio: "zarabesso-music/music5",
+    cover: "zarabesso-cover/cover5"
+  },
+
+  {
+    title: "Track 6",
+    video: "zarabesso-videos/tompondaka_t18xdz",
+    audio: "zarabesso-music/music6",
+    cover: "zarabesso-cover/cover6"
+  },
+
+  {
+    title: "Track 7",
+    video: "zarabesso-videos/video7",
+    audio: "zarabesso-music/music7",
+    cover: "zarabesso-cover/cover7"
+  },
+
+  {
+    title: "Track 8",
+    video: "zarabesso-videos/video8",
+    audio: "zarabesso-music/music8",
+    cover: "zarabesso-cover/cover8"
+  },
+
+  {
+    title: "Track 8",
+    video: "zarabesso-videos/video8",
+    audio: "zarabesso-music/music8",
+    cover: "zarabesso-cover/cover8"
+  },
+
+  {
+    title: "Track 8",
+    video: "zarabesso-videos/video8",
+    audio: "zarabesso-music/music8",
+    cover: "zarabesso-cover/cover8"
+  },
+
+  {
+    title: "Track 8",
+    video: "zarabesso-videos/video8",
+    audio: "zarabesso-music/music8",
+    cover: "zarabesso-cover/cover8"
+  },
+  {
+    title: "Track 8",
+    video: "zarabesso-videos/video8",
+    audio: "zarabesso-music/music8",
+    cover: "zarabesso-cover/cover8"
+  },
+
+  {
+    title: "Track 8",
+    video: "zarabesso-videos/video8",
+    audio: "zarabesso-music/music8",
+    cover: "zarabesso-cover/cover8"
   }
-
-  return name
-    .split("/")
-    .pop()
-    .replace(/\.[^/.]+$/, "")
-    .replace(/-/g, " ")
-    .replace(/_/g, " ");
-
-}
+];
 
 /* =========================================================
-   API MEDIA
+   API
 ========================================================= */
 
 module.exports = async function handler(req, res) {
 
-  /* =======================================================
-     CORS
-  ======================================================= */
-
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, OPTIONS"
-  );
-
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Content-Type"
-  );
-
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
-
   try {
 
-    /* =====================================================
-       ENV CHECK
-    ===================================================== */
-
-    if (
-      !process.env.CLOUDINARY_CLOUD_NAME ||
-      !process.env.CLOUDINARY_API_KEY ||
-      !process.env.CLOUDINARY_API_SECRET
-    ) {
-
-      return res.status(500).json({
-        success: false,
-        error: "Variables Cloudinary manquantes"
-      });
-
-    }
-
-    /* =====================================================
-       LOAD VIDEOS
-    ===================================================== */
-
-    const videoResult = await cloudinary.search
-      .expression(
-        'resource_type:video AND folder="zarabesso-videos"'
-      )
-      .sort_by("created_at", "desc")
-      .max_results(100)
-      .execute();
-
-    /* =====================================================
-       LOAD MUSIC
-    ===================================================== */
-
-    const musicResult = await cloudinary.search
-      .expression(
-        'resource_type:video AND folder="zarabesso-music"'
-      )
-      .sort_by("created_at", "desc")
-      .max_results(100)
-      .execute();
-
-    /* =====================================================
-       LOAD COVERS
-    ===================================================== */
-
-    const coverResult = await cloudinary.search
-      .expression(
-        'resource_type:image AND folder="zarabesso-cover"'
-      )
-      .sort_by("created_at", "desc")
-      .max_results(100)
-      .execute();
-
-    /* =====================================================
-       SAFE ARRAYS
-    ===================================================== */
-
-    const videos = videoResult.resources || [];
-    const music = musicResult.resources || [];
-    const covers = coverResult.resources || [];
-
-    /* =====================================================
-       BUILD TRACKS
-    ===================================================== */
-
-    const tracks = videos.map((video, index) => {
-
-      const musicFile = music[index] || null;
-      const coverFile = covers[index] || null;
-
-      /* ===================================================
-         VIDEO URL
-      =================================================== */
+    const tracks = TRACKS.map((track, index) => {
 
       const videoUrl = cloudinary.url(
-        video.public_id,
+        track.video,
         {
           resource_type: "video",
           secure: true,
@@ -141,56 +129,31 @@ module.exports = async function handler(req, res) {
         }
       );
 
-      /* ===================================================
-         AUDIO URL
-      =================================================== */
+      const audioUrl = cloudinary.url(
+        track.audio,
+        {
+          resource_type: "video",
+          secure: true,
+          quality: "auto",
+          fetch_format: "auto"
+        }
+      );
 
-      let audioUrl = videoUrl;
-
-      if (musicFile) {
-
-        audioUrl = cloudinary.url(
-          musicFile.public_id,
-          {
-            resource_type: "video",
-            secure: true,
-            quality: "auto",
-            fetch_format: "auto"
-          }
-        );
-
-      }
-
-      /* ===================================================
-         COVER URL
-      =================================================== */
-
-      let coverUrl =
-        `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/video/upload/so_1/${video.public_id}.jpg`;
-
-      if (coverFile) {
-
-        coverUrl = cloudinary.url(
-          coverFile.public_id,
-          {
-            resource_type: "image",
-            secure: true,
-            quality: "auto",
-            fetch_format: "auto"
-          }
-        );
-
-      }
-
-      /* ===================================================
-         RETURN TRACK
-      =================================================== */
+      const coverUrl = cloudinary.url(
+        track.cover,
+        {
+          resource_type: "image",
+          secure: true,
+          quality: "auto",
+          fetch_format: "auto"
+        }
+      );
 
       return {
 
-        id: video.asset_id || `track-${index}`,
+        id: `track-${index}`,
 
-        title: cleanTitle(video.public_id),
+        title: track.title,
 
         artist: "Zarabesso Studio",
 
@@ -198,28 +161,11 @@ module.exports = async function handler(req, res) {
 
         video: videoUrl,
 
-        cover: coverUrl,
-
-        duration: video.duration || 0,
-
-        createdAt: video.created_at || null
+        cover: coverUrl
 
       };
 
     });
-
-    /* =====================================================
-       CACHE
-    ===================================================== */
-
-    res.setHeader(
-      "Cache-Control",
-      "public, max-age=60"
-    );
-
-    /* =====================================================
-       RESPONSE
-    ===================================================== */
 
     return res.status(200).json({
 
@@ -227,22 +173,19 @@ module.exports = async function handler(req, res) {
 
       total: tracks.length,
 
-      tracks: tracks
+      tracks
 
     });
 
   } catch (err) {
 
-    console.log("=================================");
-    console.log("CLOUDINARY ERROR");
-    console.log("=================================");
     console.log(err);
 
     return res.status(500).json({
 
       success: false,
 
-      error: err.message || "Server Error"
+      error: err.message
 
     });
 
