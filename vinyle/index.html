@@ -62,6 +62,8 @@
 
     <a href="#artists">Artistes</a>
 
+    
+
   </nav>
 
   <!-- BURGER MENU (MOBILE) -->
@@ -138,13 +140,23 @@
   </div>
 
 </section>
+
 <video
   id="videoPlayer"
   controls
   playsinline
+  webkit-playsinline
   preload="metadata"
-  poster="assets/images/logo1.png"
-></video>
+  crossorigin="anonymous"
+  poster="/vinyle/assets/images/logo1.png"
+>
+  <source id="videoSource" src="" type="video/mp4">
+</video>
+
+<audio id="audio" preload="metadata">
+  <source id="audioSource" src="" type="audio/mp4">
+</audio>
+
 
 <!-- ================= PLAYER ================= -->
 
