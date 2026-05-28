@@ -19,94 +19,35 @@ cloudinary.config({
 const TRACKS = [
 
   {
-    title: "Track 1",
-    video: "zarabesso-videos/Stella_Lyncha_Yvon_Paul_xe2b4y",
-    audio: "zarabesso-music/music1",
-    cover: "zarabesso-cover/cover1"
+    title: "Stella Lyncha",
+    video: "zarabesso-videos/Stella_Lyncha_Yvon_Paul_xe2b4y"
   },
 
   {
-    title: "Track 2",
-    video: "zarabesso-videos/Joe_Fils_x_Jaojoby_Wagnou_moi_djerebou_Clip_officiel_ohqijm",
-    audio: "zarabesso-music/music2",
-    cover: "zarabesso-cover/cover2"
+    title: "Joe Fils x Jaojoby",
+    video: "zarabesso-videos/Joe_Fils_x_Jaojoby_Wagnou_moi_djerebou_Clip_officiel_ohqijm"
   },
 
   {
-    title: "Track 3",
-    video: "zarabesso-videos/Refano_-_Fanambadia_Official_Music_Video_vddrht",
-    audio: "zarabesso-music/music3",
-    cover: "zarabesso-cover/cover3"
+    title: "Refano",
+    video: "zarabesso-videos/Refano_-_Fanambadia_Official_Music_Video_vddrht"
   },
 
   {
-    title: "Track 4",
-    video: "zarabesso-videos/Salama_zbct0v",
-    audio: "zarabesso-music/music4",
-    cover: "zarabesso-cover/cover4"
+    title: "Salama",
+    video: "zarabesso-videos/Salama_zbct0v"
   },
 
   {
-    title: "Track 5",
-    video: "zarabesso-videos/tsodrano_u6f1r0",
-    audio: "zarabesso-music/music5",
-    cover: "zarabesso-cover/cover5"
+    title: "Tsodrano",
+    video: "zarabesso-videos/tsodrano_u6f1r0"
   },
 
   {
-    title: "Track 6",
-    video: "zarabesso-videos/tompondaka_t18xdz",
-    audio: "zarabesso-music/music6",
-    cover: "zarabesso-cover/cover6"
-  },
-
-  {
-    title: "Track 7",
-    video: "zarabesso-videos/video7",
-    audio: "zarabesso-music/music7",
-    cover: "zarabesso-cover/cover7"
-  },
-
-  {
-    title: "Track 8",
-    video: "zarabesso-videos/video8",
-    audio: "zarabesso-music/music8",
-    cover: "zarabesso-cover/cover8"
-  },
-
-  {
-    title: "Track 8",
-    video: "zarabesso-videos/video8",
-    audio: "zarabesso-music/music8",
-    cover: "zarabesso-cover/cover8"
-  },
-
-  {
-    title: "Track 8",
-    video: "zarabesso-videos/video8",
-    audio: "zarabesso-music/music8",
-    cover: "zarabesso-cover/cover8"
-  },
-
-  {
-    title: "Track 8",
-    video: "zarabesso-videos/video8",
-    audio: "zarabesso-music/music8",
-    cover: "zarabesso-cover/cover8"
-  },
-  {
-    title: "Track 8",
-    video: "zarabesso-videos/video8",
-    audio: "zarabesso-music/music8",
-    cover: "zarabesso-cover/cover8"
-  },
-
-  {
-    title: "Track 8",
-    video: "zarabesso-videos/video8",
-    audio: "zarabesso-music/music8",
-    cover: "zarabesso-cover/cover8"
+    title: "Tompondaka",
+    video: "zarabesso-videos/tompondaka_t18xdz"
   }
+
 ];
 
 /* =========================================================
@@ -119,35 +60,26 @@ module.exports = async function handler(req, res) {
 
     const tracks = TRACKS.map((track, index) => {
 
+      /* ===================================================
+         VIDEO URL
+      =================================================== */
+
       const videoUrl = cloudinary.url(
         track.video,
         {
           resource_type: "video",
           secure: true,
           quality: "auto",
-          fetch_format: "auto"
+          fetch_format: "mp4"
         }
       );
 
-      const audioUrl = cloudinary.url(
-        track.audio,
-        {
-          resource_type: "video",
-          secure: true,
-          quality: "auto",
-          fetch_format: "auto"
-        }
-      );
+      /* ===================================================
+         AUTO COVER
+      =================================================== */
 
-      const coverUrl = cloudinary.url(
-        track.cover,
-        {
-          resource_type: "image",
-          secure: true,
-          quality: "auto",
-          fetch_format: "auto"
-        }
-      );
+      const coverUrl =
+        `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/video/upload/so_1/${track.video}.jpg`;
 
       return {
 
@@ -157,7 +89,8 @@ module.exports = async function handler(req, res) {
 
         artist: "Zarabesso Studio",
 
-        audio: audioUrl,
+        /* IMPORTANT */
+        audio: videoUrl,
 
         video: videoUrl,
 
