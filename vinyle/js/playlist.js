@@ -494,3 +494,27 @@ wrapper.addEventListener(
 "touchstart",
 showControls
 );
+videoPlayer.addEventListener("error",()=>{
+
+  console.error(
+    "VIDEO ERROR",
+    videoPlayer.error
+  );
+
+});
+
+videoPlayer.addEventListener("loadedmetadata",()=>{
+
+  console.log(
+    "VIDEO LOADED"
+  );
+
+});
+
+videoPlayer.addEventListener("canplay",()=>{
+
+  console.log(
+    "VIDEO READY"
+  );
+
+});

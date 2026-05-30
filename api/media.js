@@ -63,25 +63,23 @@ video:
 /* =========================================================
 HELPERS
 ========================================================= */
-
 function getVideoUrl(publicId){
 
-return cloudinary.url(publicId,{
+  return cloudinary.url(publicId,{
 
+    resource_type:"video",
 
-resource_type:"video",
+    secure:true,
 
-secure:true,
+    format:"mp4",
 
-format:"mp4",
+    transformation:[
+      {
+        quality:"auto"
+      }
+    ]
 
-transformation:[
-  {quality:"auto"},
-  {fetch_format:"mp4"}
-]
-
-
-});
+  });
 
 }
 
