@@ -1,8 +1,3 @@
-/* =========================================================
-   ZARABESSO VIDEO PLAYER PRO
-   YOUTUBE STYLE - VIDEO ONLY ENGINE
-========================================================= */
-
 const tracksContainer = document.getElementById("spotifyTracks");
 
 const videoPlayer = document.getElementById("videoPlayer");
@@ -11,166 +6,491 @@ const title = document.getElementById("title");
 const artist = document.getElementById("artist");
 const cover = document.getElementById("cover");
 
+const playBtn = document.getElementById("play");
+const nextBtn = document.getElementById("next");
+const prevBtn = document.getElementById("prev");
+
+const progress = document.getElementById("progress");
+
+const currentTimeEl =
+document.getElementById("currentTime");
+
+const durationTimeEl =
+document.getElementById("durationTime");
+
+const volumeSlider =
+document.getElementById("volume");
+
+const vinyl =
+document.getElementById("vinyl");
+
+const favoriteBtn =
+document.getElementById("favoriteBtn");
+
+const fullscreenBtn =
+document.getElementById("fullscreenBtn");
+
+const loopBtn =
+document.getElementById("loopBtn");
+
+const downloadBtn =
+document.getElementById("downloadBtn");
+
 let tracks = [];
+
 let currentIndex = 0;
+
 let playing = false;
 
-/* =========================================================
-   LOAD MEDIA
-========================================================= */
+let loopMode = false;
 
-async function loadCloudTracks() {
+const FAVORITES_KEY =
+"vynile_favorites";
 
-  try {
+const PLAYLISTS_KEY =
+"vynile_playlists";
 
-    const res = await fetch("/api/media", {
-      headers: { "Accept": "application/json" }
-    });
+async function loadCloudTracks(){
 
-    const data = await res.json();
+try{
 
-    if (!data.success || !data.tracks) {
-      throw new Error("Invalid API");
-    }
+const res =
+await fetch("/api/media");
 
-    tracks = data.tracks.filter(t => t.video);
+const data =
+await res.json();
 
-    renderTracks();
-    loadTrack(0);
+if(!data.success)
+throw new Error();
 
-  } catch (err) {
-    console.error(err);
-    tracksContainer.innerHTML = "Erreur chargement vidéo";
-  }
+tracks =
+data.tracks || [];
 
-}
+renderTracks();
 
-/* =========================================================
-   RENDER LIST (YOUTUBE STYLE)
-========================================================= */
+if(tracks.length){
 
-function renderTracks() {
-
-  tracksContainer.innerHTML = "";
-
-  tracks.forEach((track, i) => {
-
-    const el = document.createElement("div");
-    el.className = "spotify-track";
-
-    el.innerHTML = `
-      <img src="${track.cover}" />
-      <div>
-        <h4>${track.title}</h4>
-        <p>${track.artist}</p>
-      </div>
-      <button>▶</button>
-    `;
-
-    el.onclick = () => {
-      loadTrack(i);
-      playVideo();
-    };
-
-    tracksContainer.appendChild(el);
-
-  });
+loadTrack(0);
 
 }
 
-/* =========================================================
-   LOAD VIDEO (MIME SAFE CORE)
-========================================================= */
+}catch(err){
 
-function loadTrack(i) {
-
-  currentIndex = i;
-
-  const track = tracks[i];
-  if (!track) return;
-
-  pauseVideo();
-
-  videoPlayer.pause();
-  videoPlayer.removeAttribute("src");
-  videoPlayer.load();
-
-  setTimeout(() => {
-
-    videoPlayer.src = track.video;
-
-    videoPlayer.crossOrigin = "anonymous";
-    videoPlayer.preload = "metadata";
-    videoPlayer.playsInline = true;
-    videoPlayer.disablePictureInPicture = false;
-
-    videoPlayer.muted = true;
-    videoPlayer.load();
-
-  }, 100);
-
-  title.textContent = track.title;
-  artist.textContent = track.artist;
+tracksContainer.innerHTML =
+"<p>Erreur Cloudinary</p>";
 
 }
 
-/* =========================================================
-   PLAY VIDEO
-========================================================= */
-
-async function playVideo() {
-
-  try {
-
-    await videoPlayer.play();
-    playing = true;
-
-  } catch (e) {
-    console.log("PLAY BLOCKED", e);
-  }
-
 }
 
-/* =========================================================
-   PAUSE
-========================================================= */
+function renderTracks(){
 
-function pauseVideo() {
-  videoPlayer.pause();
-  playing = false;
-}
+tracksContainer.innerHTML = "";
 
-/* =========================================================
-   CONTROLS
-========================================================= */
+tracks.forEach((track,index)=>{
 
-document.getElementById("play").onclick = () =>
-  playing ? pauseVideo() : playVideo();
+const div =
+document.createElement("div");
 
-document.getElementById("next").onclick = () => {
-  currentIndex = (currentIndex + 1) % tracks.length;
-  loadTrack(currentIndex);
-  playVideo();
+div.className =
+"spotify-track";
+
+div.innerHTML = ` <img src="${track.cover}">
+
+<div>
+<h4>${track.title}</h4>
+<p>${track.artist}</p>
+</div>
+<button>▶</button>
+`;
+
+div.onclick = ()=>{
+
+loadTrack(index);
+
+playMedia();
+
 };
 
-document.getElementById("prev").onclick = () => {
-  currentIndex = (currentIndex - 1 + tracks.length) % tracks.length;
-  loadTrack(currentIndex);
-  playVideo();
-};
+tracksContainer.appendChild(div);
 
-/* =========================================================
-   AUTO NEXT
-========================================================= */
-
-videoPlayer.addEventListener("ended", () => {
-  currentIndex = (currentIndex + 1) % tracks.length;
-  loadTrack(currentIndex);
-  playVideo();
 });
 
-/* =========================================================
-   INIT
-========================================================= */
+}
+
+function loadTrack(index){
+
+currentIndex = index;
+
+const track =
+tracks[index];
+
+if(!track) return;
+
+videoPlayer.pause();
+
+videoPlayer.src =
+track.video;
+
+videoPlayer.load();
+
+title.textContent =
+track.title;
+
+artist.textContent =
+track.artist;
+
+cover.src =
+track.cover;
+
+}
+
+async function playMedia(){
+
+try{
+
+await videoPlayer.play();
+
+playing = true;
+
+playBtn.innerHTML =
+'<i class="ri-pause-fill"></i>';
+
+vinyl.classList.add("playing");
+
+}catch(err){
+
+console.log(err);
+
+}
+
+}
+
+function pauseMedia(){
+
+videoPlayer.pause();
+
+playing = false;
+
+playBtn.innerHTML =
+'<i class="ri-play-fill"></i>';
+
+vinyl.classList.remove("playing");
+
+}
+
+playBtn.onclick = ()=>{
+
+playing
+? pauseMedia()
+: playMedia();
+
+};
+
+nextBtn.onclick = ()=>{
+
+currentIndex =
+(currentIndex+1)
+% tracks.length;
+
+loadTrack(currentIndex);
+
+playMedia();
+
+};
+
+prevBtn.onclick = ()=>{
+
+currentIndex =
+(currentIndex-1+tracks.length)
+% tracks.length;
+
+loadTrack(currentIndex);
+
+playMedia();
+
+};
+
+videoPlayer.addEventListener(
+"timeupdate",
+()=>{
+
+if(!videoPlayer.duration)
+return;
+
+const percent =
+(videoPlayer.currentTime /
+videoPlayer.duration)*100;
+
+progress.style.width =
+percent+"%";
+
+currentTimeEl.textContent =
+formatTime(
+videoPlayer.currentTime
+);
+
+durationTimeEl.textContent =
+formatTime(
+videoPlayer.duration
+);
+
+}
+);
+
+document
+.querySelector(
+".progress-container"
+)
+.addEventListener(
+"click",
+e=>{
+
+const width =
+e.currentTarget.clientWidth;
+
+const percent =
+e.offsetX/width;
+
+videoPlayer.currentTime =
+percent*
+videoPlayer.duration;
+
+}
+);
+
+function formatTime(sec){
+
+const min =
+Math.floor(sec/60);
+
+const s =
+Math.floor(sec%60);
+
+return `${min}:${String(s)
+.padStart(2,"0")}`;
+
+}
+
+volumeSlider.addEventListener(
+"input",
+e=>{
+
+videoPlayer.volume =
+e.target.value;
+
+}
+);
+
+fullscreenBtn.onclick =
+()=>{
+
+if(
+videoPlayer.requestFullscreen
+){
+
+videoPlayer.requestFullscreen();
+
+}
+
+};
+
+loopBtn.onclick = ()=>{
+
+loopMode =
+!loopMode;
+
+videoPlayer.loop =
+loopMode;
+
+loopBtn.classList.toggle(
+"active",
+loopMode
+);
+
+};
+
+videoPlayer.addEventListener(
+"ended",
+()=>{
+
+if(loopMode)
+return;
+
+currentIndex =
+(currentIndex+1)
+% tracks.length;
+
+loadTrack(currentIndex);
+
+playMedia();
+
+}
+);
+
+downloadBtn.onclick = ()=>{
+
+const track =
+tracks[currentIndex];
+
+if(!track) return;
+
+const a =
+document.createElement("a");
+
+a.href =
+track.video;
+
+a.download =
+track.title;
+
+document.body.appendChild(a);
+
+a.click();
+
+a.remove();
+
+};
+
+favoriteBtn.onclick = ()=>{
+
+const track =
+tracks[currentIndex];
+
+let favs =
+JSON.parse(
+localStorage.getItem(
+FAVORITES_KEY
+)||"[]"
+);
+
+const exists =
+favs.find(
+f=>f.id===track.id
+);
+
+if(exists){
+
+favs =
+favs.filter(
+f=>f.id!==track.id
+);
+
+}else{
+
+favs.push(track);
+
+}
+
+localStorage.setItem(
+FAVORITES_KEY,
+JSON.stringify(favs)
+);
+
+};
+
+function createPlaylist(
+name,
+ids
+){
+
+const playlists =
+JSON.parse(
+localStorage.getItem(
+PLAYLISTS_KEY
+)||"{}"
+);
+
+playlists[name] =
+ids;
+
+localStorage.setItem(
+PLAYLISTS_KEY,
+JSON.stringify(playlists)
+);
+
+}
 
 loadCloudTracks();
+
+const video =
+document.getElementById("videoPlayer");
+
+const controls =
+document.getElementById("videoControls");
+
+const wrapper =
+document.getElementById("videoWrapper");
+
+let hideTimer;
+
+/* =========================
+SHOW
+========================= */
+
+function showControls(){
+
+controls.classList.add("show");
+
+clearTimeout(hideTimer);
+
+if(!video.paused){
+
+hideTimer = setTimeout(()=>{
+
+controls.classList.remove("show");
+
+},2000);
+
+}
+
+}
+
+/* =========================
+MOUSE MOVE
+========================= */
+
+wrapper.addEventListener(
+"mousemove",
+showControls
+);
+
+wrapper.addEventListener(
+"mouseenter",
+showControls
+);
+
+/* =========================
+PAUSE
+========================= */
+
+video.addEventListener(
+"pause",
+()=>{
+
+controls.classList.add("show");
+
+}
+);
+
+/* =========================
+PLAY
+========================= */
+
+video.addEventListener(
+"play",
+()=>{
+
+showControls();
+
+}
+);
+
+/* =========================
+MOBILE TOUCH
+========================= */
+
+wrapper.addEventListener(
+"touchstart",
+showControls
+);

@@ -141,23 +141,60 @@
 
 </section>
 
-<video
-  id="videoPlayer"
-  controls
-  muted
-  playsinline
-  preload="metadata"
-  crossorigin="anonymous">
-</video>
 
 
 
 
-<!-- ================= PLAYER ================= -->
+
+  <!-- ================= PLAYER ================= -->
 
 <section class="player-section">
 
+  <div class="video-wrapper" id="videoWrapper">
+
+    <video
+      id="videoPlayer"
+      playsinline
+      webkit-playsinline
+      preload="metadata"
+      crossorigin="anonymous">
+    </video>
+
+    <div class="video-controls" id="videoControls">
+
+      <div class="progress-container">
+
+        <div
+          class="progress"
+          id="videoProgress">
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
   <div class="player-card">
+    <div class="player-extra-controls">
+
+  <button id="favoriteBtn">
+    <i class="ri-heart-line"></i>
+  </button>
+
+  <button id="loopBtn">
+    <i class="ri-repeat-line"></i>
+  </button>
+
+  <button id="fullscreenBtn">
+    <i class="ri-fullscreen-line"></i>
+  </button>
+
+  <button id="downloadBtn">
+    <i class="ri-download-line"></i>
+  </button>
+
+</div>
 
     <div class="player-top">
 
@@ -204,6 +241,17 @@
 
     </div>
     <div class="volume-control">
+      <div class="time-display">
+
+  <span id="currentTime">
+    0:00
+  </span>
+
+  <span id="durationTime">
+    0:00
+  </span>
+
+</div>
 
   <i class="ri-volume-up-line"></i>
 
@@ -219,57 +267,67 @@
 
     <!-- PROGRESS -->
 
-    <div class="progress-container">
+  <div class="progress-container">
 
-      <div class="progress" id="progress"></div>
-
-    </div>
+  <div
+    class="progress"
+    id="audioProgress">
+  </div>
 
   </div>
 
 </section>
-<!-- ================= Zarabesso PLAYLIST UI ================= -->
+
+ <!-- ================= Zarabesso PLAYLIST UI ================= -->
 
 <section class="spotify-layout">
 
   <!-- SIDEBAR -->
+
   <aside class="spotify-sidebar">
 
-    <h3>Playlists</h3>
 
-    <div class="playlist-menu">
+<h3>Playlists</h3>
 
-      <button class="playlist-btn active">
-        <i class="ri-disc-line"></i>
-        Zarabesso Hits
-      </button>
+<div class="playlist-menu">
 
-      <button class="playlist-btn">
-        <i class="ri-music-2-line"></i>
-        Premium Lounge
-      </button>
+  <button class="playlist-btn active">
+    <i class="ri-disc-line"></i>
+    Zarabesso Hits
+  </button>
 
-      <button class="playlist-btn">
-        <i class="ri-vip-crown-line"></i>
-        Luxury Vinyl
-      </button>
+  <button class="playlist-btn">
+    <i class="ri-music-2-line"></i>
+    Premium Lounge
+  </button>
 
-    </div>
+  <button class="playlist-btn">
+    <i class="ri-vip-crown-line"></i>
+    Luxury Vinyl
+  </button>
+
+</div>
+
 
   </aside>
 
   <!-- TRACKS -->
+
   <div class="spotify-content">
 
-    <div class="spotify-header">
+<div class="spotify-header">
 
-      <h2>Lecture Premium</h2>
+  <h2>Lecture Premium</h2>
 
-      <p>Streaming Cloud Ultra Rapide</p>
+  <p>Streaming Cloud Ultra Rapide</p>
 
-    </div>
+</div>
 
-    <div class="spotify-tracks" id="spotifyTracks"></div>
+<div
+  class="spotify-tracks"
+  id="spotifyTracks">
+</div>
+
 
   </div>
 
@@ -277,50 +335,90 @@
 
 <!-- ================= TRACKS ================= -->
 
-<section class="tracks-section" id="discover">
+<section
+class="tracks-section"
+id="discover">
+
+  <!-- PLAYLIST CARDS -->
+
   <section class="game-playlists">
 
-  <div class="playlist-card">
-    <img src="/vinyle/assets/covers/cover1.jpg">
-    <div class="playlist-overlay">
-      <h3>Luxury Night</h3>
-      <p>8 vidéos disponibles</p>
-    </div>
+```
+<div class="playlist-card">
+
+  <img
+  src="/vinyle/assets/covers/cover1.jpg"
+  alt="Luxury Night">
+
+  <div class="playlist-overlay">
+
+    <h3>Luxury Night</h3>
+
+    <p>8 vidéos disponibles</p>
+
   </div>
 
-  <div class="playlist-card">
-    <img src="/vinyle/assets/covers/cover2.jpg">
-    <div class="playlist-overlay">
-      <h3>Cloud Vibes</h3>
-      <p>Streaming Ultra HD</p>
-    </div>
+</div>
+
+<div class="playlist-card">
+
+  <img
+  src="/vinyle/assets/covers/cover2.jpg"
+  alt="Cloud Vibes">
+
+  <div class="playlist-overlay">
+
+    <h3>Cloud Vibes</h3>
+
+    <p>Streaming Ultra HD</p>
+
   </div>
 
-  <div class="playlist-card">
-    <img src="/vinyle/assets/covers/cover3.jpg">
-    <div class="playlist-overlay">
-      <h3>Zarabesso Hits</h3>
-      <p>Premium Audio</p>
-    </div>
+</div>
+
+<div class="playlist-card">
+
+  <img
+  src="/vinyle/assets/covers/cover3.jpg"
+  alt="Zarabesso Hits">
+
+  <div class="playlist-overlay">
+
+    <h3>Zarabesso Hits</h3>
+
+    <p>Premium Audio</p>
+
   </div>
 
-</section>
-</section>
+</div>
+```
+
+  </section>
+
+  <!-- SECTION HEADER -->
 
   <div class="section-header">
 
-    <h2>Dernières Sorties</h2>
+```
+<h2>Dernières Sorties</h2>
 
-    <p>
-      Découvrez les derniers morceaux disponibles
-      sur la plateforme VYNILE.
-    </p>
+<p>
+  Découvrez les derniers morceaux disponibles
+  sur la plateforme VYNILE.
+</p>
+```
 
   </div>
 
-  <div class="tracks-grid" id="tracksContainer"></div>
+  <!-- TRACKS GRID -->
+
+  <div
+    class="tracks-grid"
+    id="tracksContainer">
+  </div>
 
 </section>
+
 
 <!-- ================= ALBUMS ================= -->
 
@@ -375,6 +473,19 @@
       </div>
 
     </div>
+
+  </div>
+
+</section>
+<section id="artists">
+
+  <div class="section-header">
+
+    <h2>Artistes</h2>
+
+    <p>
+      Découvrez les artistes disponibles sur VYNILE.
+    </p>
 
   </div>
 
