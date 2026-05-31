@@ -117,31 +117,45 @@ tracksContainer.appendChild(div);
 });
 
 }
-
 function loadTrack(index){
 
-currentIndex = index;
+  currentIndex = index;
 
-const track =
-tracks[index];
+  const track =
+  tracks[index];
 
-if(!track) return;
+  if(!track){
+    return;
+  }
 
-videoPlayer.pause();
+  videoPlayer.pause();
 
-videoPlayer.src =
-track.video;
+  videoPlayer.removeAttribute("src");
 
-videoPlayer.load();
+  videoPlayer.src =
+  track.video;
 
-title.textContent =
-track.title;
+  videoPlayer.preload =
+  "metadata";
 
-artist.textContent =
-track.artist;
+  videoPlayer.crossOrigin =
+  "anonymous";
 
-cover.src =
-track.cover;
+  videoPlayer.load();
+
+  title.textContent =
+  track.title;
+
+  artist.textContent =
+  track.artist;
+
+  cover.src =
+  track.cover;
+
+  console.log(
+    "VIDEO URL:",
+    track.video
+  );
 
 }
 

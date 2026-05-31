@@ -65,42 +65,38 @@ HELPERS
 ========================================================= */
 function getVideoUrl(publicId){
 
-  return cloudinary.url(publicId,{
-
-    resource_type:"video",
-
-    secure:true,
-
-    format:"mp4",
-
-    transformation:[
-      {
-        quality:"auto"
-      }
-    ]
-
-  });
+  return cloudinary.url(
+    publicId,
+    {
+      resource_type: "video",
+      secure: true,
+      transformation: [
+        {
+          quality: "auto"
+        }
+      ]
+    }
+  );
 
 }
 
 function getCoverUrl(publicId){
 
-return cloudinary.url(publicId,{
-
-
-resource_type:"video",
-
-format:"jpg",
-
-transformation:[
-  {start_offset:"1"}
-]
-
-
-});
+  return cloudinary.url(
+    publicId,
+    {
+      resource_type: "video",
+      secure: true,
+      format: "jpg",
+      transformation: [
+        {
+          start_offset: "1"
+        }
+      ]
+    }
+  );
 
 }
-
 function cleanTitle(publicId){
 
 return publicId
