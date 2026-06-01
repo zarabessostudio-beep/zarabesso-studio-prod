@@ -396,19 +396,3 @@ async function handler(
   }
 
 };
-module.exports = async function handler(req,res){
-
-  return res.status(200).json({
-
-    cloud_name:
-      process.env.CLOUDINARY_CLOUD_NAME || "MISSING",
-
-    api_key:
-      process.env.CLOUDINARY_API_KEY ? "FOUND" : "MISSING",
-
-    api_secret:
-      process.env.CLOUDINARY_API_SECRET ? "FOUND" : "MISSING"
-
-  });
-
-};
