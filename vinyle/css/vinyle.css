@@ -1760,3 +1760,21 @@ transition:.3s;
 height:10px;
 
 }
+#vinyl.playing{
+
+  animation:
+  spin 4s linear infinite;
+
+}
+
+@keyframes spin{
+
+  from{
+    transform:rotate(0deg);
+  }
+
+  to{
+    transform:rotate(360deg);
+  }
+
+}

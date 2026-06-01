@@ -135,11 +135,14 @@ function loadTrack(index){
   videoPlayer.src =
   track.video;
 
-  videoPlayer.preload =
-  "metadata";
-
   videoPlayer.crossOrigin =
   "anonymous";
+
+  videoPlayer.preload =
+  "auto";
+
+  videoPlayer.playsInline =
+  true;
 
   videoPlayer.load();
 
@@ -152,12 +155,39 @@ function loadTrack(index){
   cover.src =
   track.cover;
 
-  console.log(
-    "VIDEO URL:",
-    track.video
-  );
-
 }
+videoPlayer.addEventListener(
+  "play",
+  ()=>{
+
+    vinyl.classList.add(
+      "playing"
+    );
+
+  }
+);
+
+videoPlayer.addEventListener(
+  "pause",
+  ()=>{
+
+    vinyl.classList.remove(
+      "playing"
+    );
+
+  }
+);
+
+videoPlayer.addEventListener(
+  "ended",
+  ()=>{
+
+    vinyl.classList.remove(
+      "playing"
+    );
+
+  }
+);
 
 async function playMedia(){
 
