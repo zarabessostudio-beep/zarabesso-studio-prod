@@ -1,4 +1,4 @@
-const cloudinary = require("cloudinary").v2
+const cloudinary = require("cloudinary").v2;
 
 /* =========================================================
    CLOUDINARY CONFIG
@@ -12,6 +12,26 @@ cloudinary.config({
 });
 
 /* =========================================================
+   CONFIG
+========================================================= */
+
+const CONFIG = {
+
+  VIDEO_FOLDER:
+    "zarabesso-videos",
+
+  DEFAULT_ARTIST:
+    "Zarabesso Studio",
+
+  MAX_RESULTS:
+    500,
+
+  CACHE_SECONDS:
+    60
+
+};
+
+/* =========================================================
    HELPERS
 ========================================================= */
 
@@ -21,7 +41,8 @@ function cleanTitle(str = "") {
     .split("/")
     .pop()
     .replace(/\.[^/.]+$/, "")
-    .replace(/[_-]/g, " ")
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
     .trim();
 
 }
@@ -38,7 +59,7 @@ function createCover(publicId) {
         format: "jpg",
         transformation: [
           {
-            width: 600,
+            width: 800,
             crop: "fill"
           }
         ]
@@ -47,19 +68,21 @@ function createCover(publicId) {
 
   } catch {
 
-    return "/assets/images/background3.png";
+    return "/vinyle/assets/images/logo1.png";
 
   }
 
 }
 
-function uniqueTracks(list) {
+function uniqueTracks(list = []) {
 
   const map = new Map();
 
-  list.forEach(track => {
+  for (const track of list) {
 
-    if (!track.publicId) return;
+    if (!track?.publicId) {
+      continue;
+    }
 
     if (!map.has(track.publicId)) {
 
@@ -70,9 +93,71 @@ function uniqueTracks(list) {
 
     }
 
-  });
+  }
 
   return [...map.values()];
+
+}
+
+function normalizeVideo(item, index) {
+
+  if (!item) return null;
+
+  if (!item.public_id) return null;
+
+  if (!item.secure_url) return null;
+
+  return {
+
+    id:
+      item.asset_id ||
+      `video-${index}`,
+
+    title:
+      cleanTitle(
+        item.public_id
+      ),
+
+    artist:
+      CONFIG.DEFAULT_ARTIST,
+
+    type:
+      "video",
+
+    publicId:
+      item.public_id,
+
+    video:
+      item.secure_url,
+
+    cover:
+      createCover(
+        item.public_id
+      ),
+
+    duration:
+      Number(
+        item.duration || 0
+      ),
+
+    bytes:
+      Number(
+        item.bytes || 0
+      ),
+
+    width:
+      item.width || 0,
+
+    height:
+      item.height || 0,
+
+    createdAt:
+      item.created_at || null,
+
+    source:
+      "cloudinary-video"
+
+  };
 
 }
 
@@ -85,54 +170,44 @@ async function scanVideos() {
   try {
 
     const result =
-    await cloudinary.search
-      .expression("resource_type:video")
-      .sort_by("created_at", "desc")
-      .max_results(500)
-      .execute();
+      await cloudinary.search
+        .expression(
+          `resource_type:video AND folder=${CONFIG.VIDEO_FOLDER}`
+        )
+        .sort_by(
+          "created_at",
+          "desc"
+        )
+        .max_results(
+          CONFIG.MAX_RESULTS
+        )
+        .execute();
 
-    return (
-      result.resources || []
-    ).map((item, index) => ({
+    const resources =
+      result?.resources || [];
 
-      id:
-      item.asset_id ||
-      `video-${index}`,
+    const tracks =
+      resources
+        .map(normalizeVideo)
+        .filter(Boolean)
+        .filter(track => {
 
-      title:
-      cleanTitle(
-        item.public_id
-      ),
+          return (
+            track.video &&
+            track.video.startsWith("https://")
+          );
 
-      artist:
-      "Zarabesso Studio",
+        });
 
-      type:
-      "video",
-
-      publicId:
-      item.public_id,
-
-      video:
-      item.secure_url,
-      
-
-      duration:
-      item.duration || 0,
-
-      bytes:
-      item.bytes || 0,
-
-      source:
-      "cloudinary-video"
-
-    }));
+    return uniqueTracks(
+      tracks
+    );
 
   } catch (err) {
 
     console.error(
       "VIDEO SCAN ERROR",
-      err.message
+      err
     );
 
     return [];
@@ -141,77 +216,11 @@ async function scanVideos() {
 
 }
 
-
-/* =========================================================
-   STATIC FALLBACK
-========================================================= */
-
-const STATIC_TRACKS = [
-
-  {
-    title:
-    "Stella Lyncha",
-
-    publicId:
-    "zarabesso-videos/Stella_Lyncha_Yvon_Paul_xe2b4y"
-  },
-
-  {
-    title:
-    "Joe Fils x Jaojoby",
-
-    publicId:
-    "zarabesso-videos/Joe_Fils_x_Jaojoby_Wagnou_moi_djerebou_Clip_officiel_ohqijm"
-  }
-
-];
-
-function buildStatic() {
-
-  return STATIC_TRACKS.map(
-    (item, index) => ({
-
-      id:
-      `static-${index}`,
-
-      title:
-      item.title,
-
-      artist:
-      "Zarabesso Studio",
-
-      publicId:
-      item.publicId,
-
-      type:
-      "video",
-
-      video:
-      cloudinary.url(
-        item.publicId,
-        {
-          secure: true,
-          resource_type: "video"
-        }
-      ),
-      
-
-      duration: 0,
-
-      source:
-      "static"
-
-    })
-  );
-
-}
-
 /* =========================================================
    API
 ========================================================= */
 
-module.exports =
-async function handler(
+module.exports = async function handler(
   req,
   res
 ) {
@@ -226,6 +235,11 @@ async function handler(
     "GET,OPTIONS"
   );
 
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type"
+  );
+
   if (
     req.method === "OPTIONS"
   ) {
@@ -236,35 +250,49 @@ async function handler(
 
   }
 
+  if (
+    req.method !== "GET"
+  ) {
+
+    return res
+      .status(405)
+      .json({
+
+        success: false,
+
+        error:
+          "Method Not Allowed"
+
+      });
+
+  }
+
   try {
 
-    const videos =
-    await scanVideos();
-
-
-    const staticTracks =
-    buildStatic();
-
     const tracks =
-    uniqueTracks([
-
-      ...videos,
-
-    
-
-      ...staticTracks
-
-    ]);
+      await scanVideos();
 
     tracks.sort(
-      (a, b) =>
-      b.duration -
-      a.duration
+      (a, b) => {
+
+        const dateA =
+          new Date(
+            a.createdAt || 0
+          ).getTime();
+
+        const dateB =
+          new Date(
+            b.createdAt || 0
+          ).getTime();
+
+        return dateB - dateA;
+
+      }
     );
 
     res.setHeader(
       "Cache-Control",
-      "public,max-age=60,s-maxage=60"
+      `public,max-age=${CONFIG.CACHE_SECONDS},s-maxage=${CONFIG.CACHE_SECONDS}`
     );
 
     return res
@@ -274,11 +302,14 @@ async function handler(
         success: true,
 
         total:
-        tracks.length,
+          tracks.length,
 
         generated:
-        new Date()
-        .toISOString(),
+          new Date()
+            .toISOString(),
+
+        folder:
+          CONFIG.VIDEO_FOLDER,
 
         tracks
 
@@ -298,7 +329,8 @@ async function handler(
         success: false,
 
         error:
-        err.message
+          err.message ||
+          "Unknown error"
 
       });
 

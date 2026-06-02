@@ -14,7 +14,6 @@ window.CLOUDINARY = {
 
     covers: "zarabesso-cover",
 
-    images: "zarabesso-image"
 
   }
 
