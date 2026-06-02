@@ -47,7 +47,7 @@ function createCover(publicId) {
 
   } catch {
 
-    return "/vinyle/img/default-cover.jpg";
+    return "/assets/images/background3.png";
 
   }
 
@@ -115,14 +115,7 @@ async function scanVideos() {
 
       video:
       item.secure_url,
-
-      audio:
-      item.secure_url,
-
-      cover:
-      createCover(
-        item.public_id
-      ),
+      
 
       duration:
       item.duration || 0,
@@ -148,75 +141,6 @@ async function scanVideos() {
 
 }
 
-/* =========================================================
-   RAW AUDIO SCAN
-========================================================= */
-
-async function scanRawAudio() {
-
-  try {
-
-    const result =
-    await cloudinary.search
-      .expression("resource_type:raw")
-      .sort_by("created_at", "desc")
-      .max_results(500)
-      .execute();
-
-    return (
-      result.resources || []
-    ).map((item, index) => ({
-
-      id:
-      item.asset_id ||
-      `raw-${index}`,
-
-      title:
-      cleanTitle(
-        item.public_id
-      ),
-
-      artist:
-      "Zarabesso Studio",
-
-      type:
-      "audio",
-
-      publicId:
-      item.public_id,
-
-      audio:
-      item.secure_url,
-
-      video:
-      null,
-
-      cover:
-      "/vinyle/img/default-cover.jpg",
-
-      duration:
-      0,
-
-      bytes:
-      item.bytes || 0,
-
-      source:
-      "cloudinary-raw"
-
-    }));
-
-  } catch (err) {
-
-    console.error(
-      "RAW SCAN ERROR",
-      err.message
-    );
-
-    return [];
-
-  }
-
-}
 
 /* =========================================================
    STATIC FALLBACK
@@ -270,20 +194,7 @@ function buildStatic() {
           resource_type: "video"
         }
       ),
-
-      audio:
-      cloudinary.url(
-        item.publicId,
-        {
-          secure: true,
-          resource_type: "video"
-        }
-      ),
-
-      cover:
-      createCover(
-        item.publicId
-      ),
+      
 
       duration: 0,
 
@@ -330,8 +241,6 @@ async function handler(
     const videos =
     await scanVideos();
 
-    const audios =
-    await scanRawAudio();
 
     const staticTracks =
     buildStatic();
@@ -341,7 +250,7 @@ async function handler(
 
       ...videos,
 
-      ...audios,
+    
 
       ...staticTracks
 

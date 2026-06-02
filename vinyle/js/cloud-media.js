@@ -11,9 +11,6 @@
 const tracksContainer =
 document.getElementById("spotifyTracks");
 
-const audio =
-document.getElementById("audio");
-
 const videoPlayer =
 document.getElementById("videoPlayer");
 
@@ -277,17 +274,9 @@ function loadTrack(index) {
      RESET
   ========================================= */
 
-  audio.pause();
 
   videoPlayer.pause();
 
-  /* =========================================
-     AUDIO
-  ========================================= */
-
-  audio.src = track.audio;
-
-  audio.load();
 
   /* =========================================
      VIDEO
@@ -372,13 +361,6 @@ async function playMusic() {
       return;
     }
 
-    /* =====================================
-       AUDIO
-    ===================================== */
-
-    audio.muted = false;
-
-    await audio.play();
 
     /* =====================================
        VIDEO
@@ -435,7 +417,6 @@ async function playMusic() {
 
 function pauseMusic() {
 
-  audio.pause();
 
   videoPlayer.pause();
 
@@ -508,83 +489,14 @@ playBtn.onclick = () => {
 
 };
 
-/* =========================================================
-   AUTO NEXT
-========================================================= */
 
-audio.addEventListener(
-  "ended",
-  nextTrack
-);
 
-/* =========================================================
-   PROGRESS
-========================================================= */
 
-audio.addEventListener(
-  "timeupdate",
-  () => {
-
-    if (!audio.duration) {
-      return;
-    }
-
-    progress.style.width =
-    (
-      audio.currentTime /
-      audio.duration
-    ) * 100 + "%";
-
-  }
-);
-
-/* =========================================================
-   SEEK
-========================================================= */
-
-document
-.querySelector(".progress-container")
-.addEventListener(
-  "click",
-  (e) => {
-
-    if (!audio.duration) {
-      return;
-    }
-
-    const percent =
-    e.offsetX /
-    e.currentTarget.clientWidth;
-
-    audio.currentTime =
-    percent * audio.duration;
-
-  }
-);
 
 /* =========================================================
    VOLUME
 ========================================================= */
 
-if (volumeSlider) {
-
-  volumeSlider.addEventListener(
-    "input",
-    (e) => {
-
-      const value =
-      parseFloat(e.target.value);
-
-      audio.volume =
-      value;
-
-      videoPlayer.volume =
-      value;
-
-    }
-  );
-
-}
 
 /* =========================================================
    FORMAT TIME
@@ -648,7 +560,7 @@ document.body.addEventListener(
   "click",
   () => {
 
-    audio.load();
+    
 
     videoPlayer.load();
 
