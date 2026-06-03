@@ -1778,3 +1778,93 @@ height:10px;
   }
 
 }
+.player-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+
+  padding: 40px 20px;
+}
+
+/* =========================
+LECTEUR VIDEO PLUS GRAND
+========================= */
+
+.video-wrapper {
+  width: 100%;
+  max-width: 980px;
+  height: 560px;
+
+  border-radius: 20px;
+  overflow: hidden;
+
+  position: relative;
+
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  background: #000;
+}
+
+.video-wrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* =========================
+PLAYER CARD PLUS PRO
+========================= */
+
+.player-card {
+  width: 100%;
+  max-width: 980px;
+
+  background: rgba(20,20,20,0.6);
+  backdrop-filter: blur(20px);
+
+  border-radius: 18px;
+  padding: 20px;
+
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+}
+
+/* =========================
+BOUTONS PLUS MODERNES
+========================= */
+
+.controls button {
+  width: 55px;
+  height: 55px;
+
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.08);
+  border: none;
+
+  color: white;
+
+  transition: 0.2s ease;
+}
+
+.controls button:hover {
+  transform: scale(1.1);
+  background: rgba(255,255,255,0.15);
+}
+
+/* =========================
+PROGRESS BAR PRO
+========================= */
+
+.progress-container {
+  height: 5px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.progress {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg,#ffcc00,#ff6600);
+  border-radius: 10px;
+}
