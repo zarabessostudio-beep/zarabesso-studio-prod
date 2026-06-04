@@ -465,16 +465,18 @@ button {
     grid-template-columns: 1fr;
   }
 }
-.hero::before{
-    content:"";
-    position:absolute;
-    inset:0;
+.hero{
+    position:relative;
+    min-height:100vh;
 
-    background:url("../assets/images/background2.png")
-    center center / cover no-repeat;
+    background-image:url("../assets/images/background4.png");
+    background-position:center center;
+    background-size:cover;
+    background-repeat:no-repeat;
 
-    z-index:-1;
+    overflow:hidden;
 }
+
 .hero,
 .hero::before,
 .vinyl,
