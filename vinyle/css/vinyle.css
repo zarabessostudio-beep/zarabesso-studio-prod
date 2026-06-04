@@ -1810,6 +1810,98 @@ LECTEUR VIDEO PLUS GRAND
   height: 100%;
   object-fit: cover;
 }
+.video-wrapper{
+
+width:100%;
+max-width:1600px;
+
+margin:auto;
+
+overflow:hidden;
+
+border-radius:30px;
+
+}
+.video-wrapper::before{
+
+content:"";
+
+position:absolute;
+
+inset:-15px;
+
+z-index:-1;
+
+border-radius:40px;
+
+filter:blur(35px);
+
+animation:
+rgbPulse 8s linear infinite;
+
+}
+
+@keyframes rgbPulse{
+
+0%{
+
+background:#ff4d00;
+box-shadow:
+0 0 80px #ff4d00;
+
+}
+
+20%{
+
+background:#ff0000;
+box-shadow:
+0 0 80px #ff0000;
+
+}
+
+40%{
+
+background:#00ff80;
+box-shadow:
+0 0 80px #00ff80;
+
+}
+
+60%{
+
+background:#0099ff;
+box-shadow:
+0 0 80px #0099ff;
+
+}
+
+80%{
+
+background:#8b00ff;
+box-shadow:
+0 0 80px #8b00ff;
+
+}
+
+100%{
+
+background:#ff4d00;
+box-shadow:
+0 0 80px #ff4d00;
+
+}
+
+}
+#videoPlayer{
+
+width:100%;
+height:850px;
+
+object-fit:cover;
+
+border-radius:30px;
+
+}
 
 /* =========================
 PLAYER CARD PLUS PRO
@@ -1867,4 +1959,48 @@ PROGRESS BAR PRO
   width: 0%;
   background: linear-gradient(90deg,#ffcc00,#ff6600);
   border-radius: 10px;
+}
+.video-overlay-controls{
+
+position:absolute;
+left:50%;
+top:50%;
+
+transform:
+translate(-50%,-50%);
+
+display:flex;
+gap:20px;
+
+z-index:30;
+
+}
+
+.video-overlay-controls button{
+
+width:70px;
+height:70px;
+
+border:none;
+
+border-radius:50%;
+
+backdrop-filter:blur(20px);
+
+background:rgba(0,0,0,.35);
+
+color:white;
+
+font-size:28px;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.video-overlay-controls button:hover{
+
+transform:scale(1.15);
+
 }

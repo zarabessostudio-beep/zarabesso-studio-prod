@@ -159,6 +159,21 @@
       preload="metadata"
       crossorigin="anonymous"
       controls>
+      <div class="video-overlay-controls">
+
+  <button id="overlayPrev">
+    <i class="ri-skip-back-fill"></i>
+  </button>
+
+  <button id="overlayPlay">
+    <i class="ri-play-fill"></i>
+  </button>
+
+  <button id="overlayNext">
+    <i class="ri-skip-forward-fill"></i>
+  </button>
+
+</div>
     </video>
 
     <div class="video-controls" id="videoControls">
@@ -579,7 +594,7 @@ id="discover">
     <span></span>
 
     <p>
-      Design by Gralwebs Solution
+     Devellopment & Design by Gralwebs Solution
     </p>
 
   </div>
@@ -596,5 +611,25 @@ window.addEventListener("load", () => {
   document.body.classList.add("loaded");
 });
 </script>
+<script>const overlayPrev =
+document.getElementById("overlayPrev");
+
+const overlayNext =
+document.getElementById("overlayNext");
+
+const overlayPlay =
+document.getElementById("overlayPlay");
+
+overlayPrev.onclick = () => prevBtn.click();
+
+overlayNext.onclick = () => nextBtn.click();
+
+overlayPlay.onclick = () => {
+
+  isPlaying
+    ? pauseVideo()
+    : playVideo();
+
+};</script>
 </body>
 </html>

@@ -30,6 +30,7 @@ const downloadBtn = document.getElementById("downloadBtn");
 const wrapper = document.getElementById("videoWrapper");
 const controls = document.getElementById("videoControls");
 
+
 /* =========================
 STATE
 ========================= */
@@ -115,11 +116,60 @@ function loadTrack(index) {
   const track = tracks[index];
   if (!track) return;
 
-  videoPlayer.pause();
+  videoPlayer.controls = true;
+  videoPlayer.setAttribute(
+  "controlsList",
+  "nodownload"
+);
+loopBtn.onclick = () => {
 
-  videoPlayer.src = track.video;
-  videoPlayer.load();
+  loopMode = !loopMode;
 
+  videoPlayer.loop = loopMode;
+
+  loopBtn.classList.toggle(
+    "active",
+    loopMode
+  );
+
+};
+const LOOP_KEY = "vynile_loop";
+
+const savedLoop =
+localStorage.getItem(LOOP_KEY);
+
+if(savedLoop==="true"){
+
+  loopMode = true;
+  videoPlayer.loop = true;
+
+  loopBtn.classList.add("active");
+
+}
+localStorage.setItem(
+  LOOP_KEY,
+  loopMode
+);
+  
+  videoPlayer.autoplay = true;
+  
+  videoPlayer.muted = false;
+
+ videoPlayer.pause();
+
+videoPlayer.src = track.video;
+
+videoPlayer.muted = false;
+
+videoPlayer.load();
+
+videoPlayer.addEventListener(
+  "loadeddata",
+  () => {
+    playVideo();
+  },
+  { once: true }
+);
   title.textContent = track.title;
   artist.textContent = track.artist;
   cover.src = track.cover;
@@ -314,6 +364,8 @@ function showControls() {
 
 wrapper.addEventListener("mousemove", showControls);
 wrapper.addEventListener("touchstart", showControls);
+
+
 
 /* =========================
 INIT
