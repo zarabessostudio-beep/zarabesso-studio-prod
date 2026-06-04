@@ -1787,119 +1787,276 @@ height:10px;
   padding: 40px 20px;
 }
 
-/* =========================
-LECTEUR VIDEO PLUS GRAND
-========================= */
+/* =========================================================
+   VYNILE ULTRA PREMIUM VIDEO PLAYER
+========================================================= */
 
-.video-wrapper {
-  width: 100%;
-  max-width: 980px;
-  height: 560px;
-
-  border-radius: 20px;
-  overflow: hidden;
-
-  position: relative;
-
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-  background: #000;
-}
-
-.video-wrapper video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
 .video-wrapper{
 
-width:100%;
-max-width:1600px;
+  position:relative;
 
-margin:auto;
+  width:100%;
+  max-width:1600px;
 
-overflow:hidden;
+  margin:auto;
 
-border-radius:30px;
+  overflow:hidden;
+
+  border-radius:32px;
+
+  background:#000;
+
+  isolation:isolate;
+
+  border:
+  1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(20px);
+
+  box-shadow:
+
+  0 20px 80px rgba(0,0,0,.65),
+
+  inset 0 0 0 1px rgba(255,255,255,.04),
+
+  inset 0 0 80px rgba(255,255,255,.02);
 
 }
+
+/* =========================
+   OUTER GLOW
+========================= */
+
 .video-wrapper::before{
 
-content:"";
+  content:"";
 
-position:absolute;
+  position:absolute;
 
-inset:-15px;
+  inset:-2px;
 
-z-index:-1;
+  border-radius:34px;
 
-border-radius:40px;
+  z-index:-2;
 
-filter:blur(35px);
+  background:
 
-animation:
-rgbPulse 8s linear infinite;
+  linear-gradient(
+    135deg,
+    rgba(255,80,80,.4),
+    rgba(255,180,0,.3),
+    rgba(0,255,180,.3),
+    rgba(0,150,255,.3),
+    rgba(180,0,255,.3),
+    rgba(255,80,80,.4)
+  );
 
-}
+  background-size:400% 400%;
 
-@keyframes rgbPulse{
+  filter:blur(25px);
 
-0%{
+  opacity:.55;
 
-background:#ff4d00;
-box-shadow:
-0 0 80px #ff4d00;
-
-}
-
-20%{
-
-background:#ff0000;
-box-shadow:
-0 0 80px #ff0000;
+  animation:
+  premiumGlow 12s linear infinite;
 
 }
 
-40%{
+/* =========================
+   GLASS BORDER
+========================= */
 
-background:#00ff80;
-box-shadow:
-0 0 80px #00ff80;
+.video-wrapper::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  border-radius:32px;
+
+  pointer-events:none;
+
+  padding:1px;
+
+  background:
+
+  linear-gradient(
+    130deg,
+    rgba(255,255,255,.20),
+    rgba(255,255,255,.02),
+    rgba(255,255,255,.12),
+    rgba(255,255,255,.02)
+  );
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+
+  -webkit-mask-composite:xor;
+
+  mask-composite:exclude;
 
 }
 
-60%{
+/* =========================
+   VIDEO
+========================= */
 
-background:#0099ff;
-box-shadow:
-0 0 80px #0099ff;
-
-}
-
-80%{
-
-background:#8b00ff;
-box-shadow:
-0 0 80px #8b00ff;
-
-}
-
-100%{
-
-background:#ff4d00;
-box-shadow:
-0 0 80px #ff4d00;
-
-}
-
-}
 #videoPlayer{
 
-width:100%;
-height:850px;
+  display:block;
 
-object-fit:cover;
+  width:100%;
 
-border-radius:30px;
+  height:850px;
+
+  object-fit:cover;
+
+  border-radius:32px;
+
+  background:#000;
+
+  transform:translateZ(0);
+
+  backface-visibility:hidden;
+
+}
+
+/* =========================
+   REFLECTION EFFECT
+========================= */
+
+.video-wrapper .luxury-reflection{
+
+  position:absolute;
+
+  inset:0;
+
+  pointer-events:none;
+
+  z-index:5;
+
+  background:
+
+  linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255,255,255,.03) 30%,
+    rgba(255,255,255,.08) 50%,
+    rgba(255,255,255,.03) 70%,
+    transparent 100%
+  );
+
+  mix-blend-mode:screen;
+
+  animation:
+  reflectionMove 10s ease-in-out infinite;
+
+}
+
+/* =========================
+   AMBIENT LIGHT
+========================= */
+
+.video-wrapper .ambient-light{
+
+  position:absolute;
+
+  inset:0;
+
+  pointer-events:none;
+
+  z-index:4;
+
+  background:
+
+  radial-gradient(
+    circle at top center,
+    rgba(255,255,255,.06),
+    transparent 55%
+  );
+
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes premiumGlow{
+
+  0%{
+    background-position:0% 50%;
+  }
+
+  50%{
+    background-position:100% 50%;
+  }
+
+  100%{
+    background-position:0% 50%;
+  }
+
+}
+
+@keyframes reflectionMove{
+
+  0%{
+    transform:translateX(-30%);
+    opacity:.2;
+  }
+
+  50%{
+    transform:translateX(30%);
+    opacity:.45;
+  }
+
+  100%{
+    transform:translateX(-30%);
+    opacity:.2;
+  }
+
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1400px){
+
+  #videoPlayer{
+    height:720px;
+  }
+
+}
+
+@media(max-width:992px){
+
+  #videoPlayer{
+    height:580px;
+  }
+
+}
+
+@media(max-width:768px){
+
+  .video-wrapper{
+    border-radius:24px;
+  }
+
+  #videoPlayer{
+    height:420px;
+    border-radius:24px;
+  }
+
+}
+
+@media(max-width:480px){
+
+  #videoPlayer{
+    height:280px;
+  }
 
 }
 
@@ -2040,5 +2197,122 @@ color:white;
 
 backdrop-filter:
 blur(20px);
+
+}
+.video-overlay-controls{
+
+position:absolute;
+
+top:50%;
+left:50%;
+
+transform:translate(-50%,-50%);
+
+display:flex;
+gap:25px;
+
+opacity:1;
+
+transition:.4s ease;
+
+z-index:60;
+
+}
+
+.video-overlay-controls button{
+
+width:75px;
+height:75px;
+
+border:none;
+
+border-radius:50%;
+
+background:
+rgba(255,255,255,.08);
+
+backdrop-filter:blur(25px);
+
+color:white;
+
+font-size:28px;
+
+cursor:pointer;
+
+transition:.3s;
+
+border:
+1px solid rgba(255,255,255,.15);
+
+}
+
+.video-overlay-controls button:hover{
+
+transform:scale(1.12);
+
+background:
+rgba(255,255,255,.15);
+
+}
+#fullscreenControls{
+
+position:fixed;
+
+top:50%;
+left:0;
+
+width:100%;
+
+display:none;
+
+justify-content:
+space-between;
+
+padding:0 50px;
+
+transform:
+translateY(-50%);
+
+pointer-events:none;
+
+z-index:999999;
+
+}
+
+#fullscreenControls button{
+
+pointer-events:auto;
+
+width:85px;
+height:85px;
+
+border:none;
+
+border-radius:50%;
+
+background:
+rgba(0,0,0,.35);
+
+backdrop-filter:blur(30px);
+
+color:white;
+
+font-size:32px;
+
+cursor:pointer;
+
+transition:.3s;
+
+border:
+1px solid rgba(255,255,255,.12);
+
+}
+
+#fullscreenControls button:hover{
+
+transform:scale(1.12);
+
+background:
+rgba(255,255,255,.12);
 
 }

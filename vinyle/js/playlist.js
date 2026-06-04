@@ -587,6 +587,77 @@ function createFullscreenOverlay(){
   ()=>nextBtn.click();
 
 }
+/* =========================
+PREMIUM AUTO HIDE OVERLAY
+========================= */
+
+const overlayControls =
+document.querySelector(".video-overlay-controls");
+
+let overlayTimer;
+
+function showOverlayControls(){
+
+  overlayControls.classList.add("show");
+
+  clearTimeout(overlayTimer);
+
+  if(!videoPlayer.paused){
+
+    overlayTimer = setTimeout(() => {
+
+      overlayControls.classList.remove("show");
+
+    }, 1800);
+
+  }
+
+}
+
+videoPlayer.addEventListener("play", () => {
+
+  showOverlayControls();
+
+});
+
+videoPlayer.addEventListener("pause", () => {
+
+  overlayControls.classList.add("show");
+
+});
+
+wrapper.addEventListener("mousemove", showOverlayControls);
+wrapper.addEventListener("touchstart", showOverlayControls);
+document.addEventListener(
+"fullscreenchange",
+() => {
+
+  if(document.fullscreenElement){
+
+    createFullscreenOverlay();
+
+    document
+    .getElementById(
+      "fullscreenControls"
+    )
+    .style.display = "flex";
+
+  }else{
+
+    const fs =
+    document.getElementById(
+      "fullscreenControls"
+    );
+
+    if(fs){
+
+      fs.style.display = "none";
+
+    }
+
+  }
+
+});
 
 /* =========================
 INIT
