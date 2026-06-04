@@ -43,6 +43,45 @@ let loopMode = false;
 const FAVORITES_KEY = "vynile_favorites";
 const VOLUME_KEY = "vynile_volume";
 
+/* ==================== VIDEO INTELLIGENTES ===================== */
+videoPlayer.addEventListener(
+"loadedmetadata",
+() => {
+
+ const ratio =
+
+ videoPlayer.videoWidth /
+ videoPlayer.videoHeight;
+
+ if(ratio > 1.7){
+
+   videoPlayer.style.objectFit =
+   "cover";
+
+ }else{
+
+   videoPlayer.style.objectFit =
+   "contain";
+
+ }
+
+});
+
+/* ===================== OPTIMISATION IOS ======================= */
+
+videoPlayer.setAttribute(
+"playsinline",
+true
+);
+
+videoPlayer.setAttribute(
+"webkit-playsinline",
+true
+);
+
+videoPlayer.disablePictureInPicture =
+false;
+
 /* =========================
 INIT VOLUME MEMORY
 ========================= */
@@ -218,7 +257,94 @@ prevBtn.onclick = () => {
   loadTrack(currentIndex);
   playVideo();
 };
+let touchStartX = 0;
+let touchEndX = 0;
 
+wrapper.addEventListener("touchstart", (e) => {
+
+  touchStartX =
+  e.changedTouches[0].screenX;
+
+});
+
+wrapper.addEventListener("touchend", (e) => {
+
+  touchEndX =
+  e.changedTouches[0].screenX;
+
+  handleSwipe();
+
+});
+
+function handleSwipe(){
+
+  const distance =
+  touchEndX - touchStartX;
+
+  if(distance > 80){
+
+    prevBtn.click();
+
+  }
+
+  if(distance < -80){
+
+    nextBtn.click();
+
+  }
+
+}
+let lastTap = 0;
+
+wrapper.addEventListener("touchend", (e)=>{
+
+  const now = Date.now();
+
+  if(now - lastTap < 300){
+
+    const width = wrapper.clientWidth;
+
+    const x =
+    e.changedTouches[0].clientX;
+
+    if(x < width/2){
+
+      prevBtn.click();
+
+    }else{
+
+      nextBtn.click();
+
+    }
+
+  }
+
+  lastTap = now;
+
+});
+/* ============================= LECTURE AUTOMATIQUE ============================== */
+
+videoPlayer.addEventListener(
+"ended",
+() => {
+
+ if(loopMode) return;
+
+ currentIndex++;
+
+ if(
+  currentIndex >= tracks.length
+ ){
+
+   currentIndex = 0;
+
+ }
+
+ loadTrack(
+   currentIndex
+ );
+
+});
 /* =========================
 PROGRESS BAR
 ========================= */
@@ -252,7 +378,60 @@ function formatTime(sec) {
   const s = Math.floor(sec % 60);
   return `${m}:${String(s).padStart(2, "0")}`;
 }
+function detectDevice(){
 
+  const w = window.innerWidth;
+
+  if(w <= 768){
+
+    wrapper.classList.add("mobile");
+
+  }
+
+  else if(w <= 1200){
+
+    wrapper.classList.add("tablet");
+
+  }
+
+  else{
+
+    wrapper.classList.add("desktop");
+
+  }
+
+}
+
+detectDevice();
+
+window.addEventListener(
+  "resize",
+  detectDevice
+);
+window.addEventListener(
+"orientationchange",
+() => {
+
+  setTimeout(() => {
+
+    if(
+      window.innerWidth >
+      window.innerHeight
+    ){
+
+      if(
+        !document.fullscreenElement
+      ){
+
+        wrapper.requestFullscreen?.();
+
+      }
+
+    }
+
+  },300);
+
+});
 /* =========================
 VOLUME MEMORY
 ========================= */
@@ -365,7 +544,49 @@ function showControls() {
 wrapper.addEventListener("mousemove", showControls);
 wrapper.addEventListener("touchstart", showControls);
 
+/* ========== over lay indépendant ========== */
 
+function createFullscreenOverlay(){
+
+  if(
+    document.getElementById(
+      "fullscreenControls"
+    )
+  ) return;
+
+  const controls =
+  document.createElement("div");
+
+  controls.id =
+  "fullscreenControls";
+
+  controls.innerHTML = `
+
+    <button id="fsPrev">
+      ⏮
+    </button>
+
+    <button id="fsNext">
+      ⏭
+    </button>
+
+  `;
+
+  document.body.appendChild(
+    controls
+  );
+
+  document
+  .getElementById("fsPrev")
+  .onclick =
+  ()=>prevBtn.click();
+
+  document
+  .getElementById("fsNext")
+  .onclick =
+  ()=>nextBtn.click();
+
+}
 
 /* =========================
 INIT
