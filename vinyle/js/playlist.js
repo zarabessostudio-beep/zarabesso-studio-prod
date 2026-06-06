@@ -87,6 +87,14 @@ INIT VOLUME MEMORY
 ========================= */
 
 const savedVolume = localStorage.getItem(VOLUME_KEY);
+document.addEventListener(
+"click",
+()=>{
+
+    videoPlayer.muted = false;
+
+},
+{once:true});
 if (savedVolume !== null) {
   volumeSlider.value = savedVolume;
   videoPlayer.volume = savedVolume;
@@ -190,25 +198,38 @@ localStorage.setItem(
   loopMode
 );
   
-  videoPlayer.autoplay = true;
-  
-  videoPlayer.muted = false;
-
  videoPlayer.pause();
 
 videoPlayer.src = track.video;
 
-videoPlayer.muted = false;
+videoPlayer.preload = "auto";
 
 videoPlayer.load();
 
+videoPlayer.volume =
+localStorage.getItem(VOLUME_KEY) || 1;
+
+videoPlayer.muted = false;
+
 videoPlayer.addEventListener(
-  "loadeddata",
-  () => {
-    playVideo();
-  },
-  { once: true }
-);
+"canplay",
+async ()=>{
+
+    try{
+
+        await videoPlayer.play();
+
+        videoPlayer.muted = false;
+
+    }catch(err){
+
+        console.log(err);
+
+    }
+
+},
+{once:true});
+
   title.textContent = track.title;
   artist.textContent = track.artist;
   cover.src = track.cover;
