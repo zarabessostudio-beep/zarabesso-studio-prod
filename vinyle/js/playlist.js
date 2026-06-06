@@ -78,6 +78,27 @@ videoPlayer.setAttribute(
 "webkit-playsinline",
 true
 );
+videoPlayer.playsInline = true;
+
+videoPlayer.setAttribute(
+"playsinline",
+""
+);
+
+videoPlayer.setAttribute(
+"webkit-playsinline",
+""
+);
+
+document.addEventListener(
+"click",
+() => {
+
+  videoPlayer.muted = false;
+
+},
+{ once:true }
+);
 
 videoPlayer.disablePictureInPicture =
 false;
@@ -343,29 +364,7 @@ wrapper.addEventListener("touchend", (e)=>{
   lastTap = now;
 
 });
-/* ============================= LECTURE AUTOMATIQUE ============================== */
 
-videoPlayer.addEventListener(
-"ended",
-() => {
-
- if(loopMode) return;
-
- currentIndex++;
-
- if(
-  currentIndex >= tracks.length
- ){
-
-   currentIndex = 0;
-
- }
-
- loadTrack(
-   currentIndex
- );
-
-});
 /* =========================
 PROGRESS BAR
 ========================= */
@@ -680,6 +679,17 @@ document.addEventListener(
 
 });
 
+
+window.playVideo = () => playVideo();
+window.pauseVideo = () => pauseVideo();
+window.nextVideo = () => nextBtn.click();
+window.prevVideo = () => prevBtn.click();
+
+Object.defineProperty(window, "isPlaying", {
+  get() {
+    return !videoPlayer.paused;
+  }
+});
 /* =========================
 INIT
 ========================= */
