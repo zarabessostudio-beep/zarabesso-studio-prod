@@ -1786,138 +1786,158 @@ height:10px;
 
   padding: 40px 20px;
 }
-
 /* =========================================================
-   VYNILE ULTRA PREMIUM VIDEO PLAYER
+   VYNILE PREMIUM RGB BORDER
+   GPU FRIENDLY EDITION
 ========================================================= */
 
 .video-wrapper{
 
-  position:relative;
-
-  width:100%;
-  max-width:1600px;
-
-  margin:auto;
-
-  overflow:hidden;
-
-  border-radius:32px;
-
-  background:#000;
-
-  isolation:isolate;
-
-  border:
-  1px solid rgba(255,255,255,.08);
-
-  backdrop-filter:blur(20px);
-
-  box-shadow:
-
-  0 20px 80px rgba(0,0,0,.65),
-
-  inset 0 0 0 1px rgba(255,255,255,.04),
-
-  inset 0 0 80px rgba(255,255,255,.02);
-
-}
-/* BORDURE ANIMATION */
-
-.video-wrapper{
     position:relative;
+
+    width:100%;
+    max-width:1600px;
+
+    margin:auto;
+
     overflow:hidden;
+
+    border-radius:28px;
+
+    background:#000;
+
     isolation:isolate;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+    0 10px 35px rgba(0,0,0,.45);
+
 }
-
-/* Bord lumineux léger */
-
+/* BORDURE RGB */
 .video-wrapper::before{
+
     content:"";
+
     position:absolute;
-    inset:-2px;
-    border-radius:24px;
+
+    inset:0;
+
+    border-radius:28px;
+
+    padding:1.5px;
+
+    pointer-events:none;
 
     background:
     linear-gradient(
-    90deg,
-    #ff0000,
-    #ff8800,
-    #00ff00,
-    #00ffff,
-    #0066ff,
-    #8a2be2,
-    #ff00ff,
-    #ff69b4,
-    #ffffff,
-    #8b4513,
-    #ff0000);
+        90deg,
+        #ff2d2d,
+        #ff8800,
+        #00ff66,
+        #00d9ff,
+        #0066ff,
+        #a855ff,
+        #ff44aa,
+        #ffffff,
+        #ff2d2d
+    );
 
-    background-size:400% 400%;
+    background-size:300% 100%;
 
-    animation:borderFlow 12s linear infinite;
+    animation:borderSpectrum 14s linear infinite;
+
+    opacity:.9;
+
+    z-index:1;
+
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+
+}
+@keyframes borderSpectrum{
+
+    from{
+        background-position:0% 50%;
+    }
+
+    to{
+        background-position:300% 50%;
+    }
+
+}
+/* HALO OPTIMISER */ 
+
+.video-wrapper::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-8px;
+
+    border-radius:34px;
+
+    pointer-events:none;
+
+    background:
+    radial-gradient(
+        circle at center,
+        rgba(255,255,255,.05),
+        transparent 70%
+    );
+
+    opacity:.6;
 
     z-index:-1;
 
-    opacity:.85;
+}
+/* optimisation mobiles */
+#videoPlayer{
+
+    position:relative;
+
+    z-index:2;
+
+    width:100%;
+
+    display:block;
+
+    background:#000;
+
+    border-radius:28px;
+
+    object-fit:cover;
+
+    transform:translate3d(0,0,0);
+
+    backface-visibility:hidden;
+
 }
 
-@keyframes borderFlow{
 
-0%{
-background-position:0% 50%;
-}
+@media(max-width:768px){
 
-100%{
-background-position:400% 50%;
-}
+    .video-wrapper::before{
 
-}
-/* lumiere qui suit le bord */
+        opacity:.55;
 
-.video-wrapper::after{
-    content:"";
-    position:absolute;
-    inset:0;
+        animation-duration:20s;
 
-    border-radius:24px;
+    }
 
-    background:
-    conic-gradient(
-    from 0deg,
+    .video-wrapper::after{
 
-    #ff0000,
-    #00ff00,
-    #0066ff,
-    #ff8800,
-    #ffffff,
-    #ff69b4,
-    #8b4513,
-    #8a2be2,
-    #ff00ff,
-    #ff0000
-    );
+        display:none;
 
-    animation:rotateBorder 20s linear infinite;
-
-    opacity:.25;
-
-    filter:blur(18px);
-
-    z-index:-2;
-}
-
-@keyframes rotateBorder{
-
-from{
-transform:rotate(0deg);
-}
-
-to{
-transform:rotate(360deg);
-}
+    }
 
 }
+
 
 /* =========================
    VIDEO
@@ -1942,99 +1962,51 @@ transform:rotate(360deg);
   backface-visibility:hidden;
 
 }
-
 /* =========================
-   REFLECTION EFFECT
+   LIGHT REFLECTION - GPU FRIENDLY
 ========================= */
 
 .video-wrapper .luxury-reflection{
 
-  position:absolute;
+    position:absolute;
+    inset:0;
 
-  inset:0;
+    pointer-events:none;
 
-  pointer-events:none;
+    z-index:3;
 
-  z-index:5;
+    background:
+    linear-gradient(
+        115deg,
+        transparent 0%,
+        rgba(255,255,255,.015) 35%,
+        rgba(255,255,255,.04) 50%,
+        rgba(255,255,255,.015) 65%,
+        transparent 100%
+    );
 
-  background:
+    opacity:.7;
 
-  linear-gradient(
-    120deg,
-    transparent 0%,
-    rgba(255,255,255,.03) 30%,
-    rgba(49, 21, 21, 0.08) 50%,
-    rgba(65, 5, 5, 0.03) 70%,
-    transparent 100%
-  );
+    animation:reflectionMove 18s linear infinite;
 
-  mix-blend-mode:screen;
+    will-change:transform;
 
-  animation:
-  reflectionMove 10s ease-in-out infinite;
-
-}
-
-/* =========================
-   AMBIENT LIGHT
-========================= */
-
-.video-wrapper .ambient-light{
-
-  position:absolute;
-
-  inset:0;
-
-  pointer-events:none;
-
-  z-index:4;
-
-  background:
-
-  radial-gradient(
-    circle at top center,
-    rgba(255,255,255,.06),
-    transparent 55%
-  );
+    transform:translate3d(0,0,0);
 
 }
-
-/* =========================
-   ANIMATIONS
-========================= */
-
-@keyframes premiumGlow{
-
-  0%{
-    background-position:0% 50%;
-  }
-
-  50%{
-    background-position:100% 50%;
-  }
-
-  100%{
-    background-position:0% 50%;
-  }
-
-}
-
 @keyframes reflectionMove{
 
-  0%{
-    transform:translateX(-30%);
-    opacity:.2;
-  }
+    0%{
+        transform:translateX(-15%);
+    }
 
-  50%{
-    transform:translateX(30%);
-    opacity:.45;
-  }
+    50%{
+        transform:translateX(15%);
+    }
 
-  100%{
-    transform:translateX(-30%);
-    opacity:.2;
-  }
+    100%{
+        transform:translateX(-15%);
+    }
 
 }
 
