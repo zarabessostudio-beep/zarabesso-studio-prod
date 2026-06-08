@@ -514,7 +514,35 @@ body{
 .logo img:hover{
   transform:scale(1.05);
 }
+.hero{
+    position:relative;
+    min-height:100vh;
+    overflow:hidden;
+}
 
+.hero-left{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+}
+
+.hero-bg{
+    position:absolute;
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    opacity:0;
+    transition:opacity 1.5s ease;
+}
+
+.hero-bg.active{
+    opacity:1;
+}
 /* =========================
    ANIMATION FIX
 ========================= */
