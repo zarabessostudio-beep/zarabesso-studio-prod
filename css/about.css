@@ -18,28 +18,30 @@ body{
 ========================================= */
 
 .bg-video{
+
   position:fixed;
+
   inset:0;
 
   width:100%;
   height:100%;
 
   object-fit:cover;
-  object-position:center;
 
-  z-index:-10;
+  z-index:-1;
+
+  opacity:.18;
 
   pointer-events:none;
 
-  opacity:.20;
-
+  /* GPU ACCELERATION */
   transform:translateZ(0);
-
-  will-change:transform;
 
   backface-visibility:hidden;
 
-  filter:brightness(.7) contrast(1.05) saturate(1.05);
+  will-change:transform;
+
+  contain:layout paint size style;
 }
 /* =========================================
    MOBILE VIDEO PERFORMANCE
@@ -764,282 +766,4 @@ p:hover{
     letter-spacing:.3px;
   }
 
-}
-/* =========================================================
-   ZARABESSO PREMIUM VIDEO BACKGROUND V2
-   COMPATIBLE AVEC LE CSS EXISTANT
-========================================================= */
-
-.bg-video{
-
-  position:fixed;
-  inset:0;
-
-  width:100%;
-  height:100%;
-
-  object-fit:cover;
-  object-position:center center;
-
-  z-index:-10;
-
-  pointer-events:none;
-  user-select:none;
-
-  opacity:.22;
-
-  /* GPU */
-  transform:translate3d(0,0,0);
-  backface-visibility:hidden;
-  will-change:transform;
-
-  contain:layout paint style;
-
-  /* rendu plus propre */
-  filter:
-    brightness(.75)
-    contrast(1.05)
-    saturate(1.05);
-
-  animation:
-    videoBreath 18s ease-in-out infinite;
-}
-
-/* =========================================================
-   OVERLAY PREMIUM
-========================================================= */
-
-body::before{
-
-  content:"";
-
-  position:fixed;
-  inset:0;
-
-  z-index:-9;
-
-  pointer-events:none;
-
-  background:
-
-    radial-gradient(
-      circle at top center,
-      rgba(255,215,0,.08),
-      transparent 45%
-    ),
-
-    radial-gradient(
-      circle at bottom center,
-      rgba(255,0,120,.05),
-      transparent 55%
-    ),
-
-    linear-gradient(
-      to bottom,
-      rgba(0,0,0,.25),
-      rgba(0,0,0,.45),
-      rgba(0,0,0,.75)
-    );
-}
-
-/* =========================================================
-   VIGNETTE CINEMA
-========================================================= */
-
-body::after{
-
-  content:"";
-
-  position:fixed;
-  inset:0;
-
-  z-index:-8;
-
-  pointer-events:none;
-
-  background:
-  radial-gradient(
-    circle,
-    transparent 45%,
-    rgba(0,0,0,.45) 100%
-  );
-}
-
-/* =========================================================
-   HERO PREMIUM
-========================================================= */
-
-.hero{
-
-  position:relative;
-  overflow:hidden;
-
-  min-height:100vh;
-
-  isolation:isolate;
-}
-
-/* =========================================================
-   EFFET LUMIÈRE HERO
-========================================================= */
-
-.hero::before{
-
-  content:"";
-
-  position:absolute;
-
-  left:50%;
-  top:50%;
-
-  width:900px;
-  height:900px;
-
-  transform:
-    translate(-50%,-50%);
-
-  background:
-  radial-gradient(
-    circle,
-    rgba(255,215,0,.08),
-    transparent 70%
-  );
-
-  filter:blur(80px);
-
-  pointer-events:none;
-
-  z-index:0;
-
-  animation:
-    heroLight 12s ease-in-out infinite;
-}
-
-/* =========================================================
-   OPTIMISATION CONTENU
-========================================================= */
-
-.hero-right,
-.hero-content,
-.navbar,
-.about-section,
-.footer{
-
-  position:relative;
-  z-index:2;
-}
-
-/* =========================================================
-   PERFORMANCE MOBILE
-========================================================= */
-
-@media(max-width:768px){
-
-  .bg-video{
-
-    opacity:.14;
-
-    filter:
-      brightness(.7)
-      contrast(1);
-
-    animation:none;
-  }
-
-  .hero::before{
-
-    width:450px;
-    height:450px;
-
-    filter:blur(60px);
-  }
-
-}
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media(min-width:769px) and (max-width:1200px){
-
-  .bg-video{
-
-    opacity:.18;
-  }
-
-}
-
-/* =========================================================
-   ANIMATIONS ULTRA LÉGÈRES
-========================================================= */
-
-@keyframes videoBreath{
-
-  0%{
-    transform:translate3d(0,0,0) scale(1);
-  }
-
-  50%{
-    transform:translate3d(0,0,0) scale(1.015);
-  }
-
-  100%{
-    transform:translate3d(0,0,0) scale(1);
-  }
-
-}
-
-@keyframes heroLight{
-
-  0%,100%{
-    opacity:.7;
-    transform:
-      translate(-50%,-50%)
-      scale(1);
-  }
-
-  50%{
-    opacity:1;
-    transform:
-      translate(-50%,-50%)
-      scale(1.08);
-  }
-
-}
-
-/* =========================================================
-   REDUCE MOTION
-========================================================= */
-
-@media (prefers-reduced-motion: reduce){
-
-  .bg-video,
-  .hero::before{
-
-    animation:none !important;
-  }
-
-}
-/* ============================= Vynile en place ============================= */
-
-.hero-right{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  gap:25px; /* IMPORTANT pour espacer titre / vinyle */
-}
-.vinyle-3d{
-  margin-top:10px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-
-  width:220px;
-  height:220px;
-
-  position:relative;
-
-  transform:translateY(10px);
 }

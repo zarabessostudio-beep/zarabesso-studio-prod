@@ -87,22 +87,37 @@
   </div>
 
 </header>
-<!-- =========================================
-     CLOUDINARY VIDEO BACKGROUND
-========================================= -->
+
+<!-- 🎬 VIDEO BACKGROUND OPTIMISÉ -->
 <video
   class="bg-video"
   autoplay
   muted
   loop
   playsinline
-  preload="auto"
+  preload="metadata"
+  poster="assets/images/poster.webp"
 >
+  
+  <!-- MOBILE FIRST -->
   <source
-    src="https://res.cloudinary.com/drywjcs1w/image/upload/q_auto:eco,f_auto,vc_auto/Zarabesso_Studio_xmf4ve.mp4"
+    src="assets/videos/video-mobile.mp4"
     type="video/mp4"
+    media="(max-width: 768px)"
   >
 
+  <!-- TABLET -->
+  <source
+    src="assets/videos/video-tablet.mp4"
+    type="video/mp4"
+    media="(max-width: 1200px)"
+  >
+
+  <!-- DESKTOP -->
+  <source
+    src="assets/videos/video1.mp4"
+    type="video/mp4"
+  >
 
 </video>
 
@@ -258,8 +273,7 @@
 
   <div class="footer-bottom">
     <p>© Zarabesso Studio Prod 2026</p>
-    <p>
-     Devellopment & Design by Gralwebs Solution</p>
+    <p>Design by Gralwebs Solution</p>
   </div>
 
 </footer>
