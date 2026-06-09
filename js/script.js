@@ -208,20 +208,6 @@ document.querySelectorAll("section, .card").forEach(el => {
   observer.observe(el);
 });
 
-/* =========================
-   🖼️ HERO SLIDER SAFE
-========================= */
-
-const images = document.querySelectorAll(".hero-left img");
-let index = 0;
-
-setInterval(() => {
-  if (!images.length) return;
-
-  images[index].style.opacity = 0;
-  index = (index + 1) % images.length;
-  images[index].style.opacity = 1;
-}, 5000);
 
 /* =========================
    🧠 RIPPLE SAFE
@@ -467,92 +453,6 @@ placeholder?.addEventListener("click", () => {
 mainVideo?.addEventListener("play", () => screen?.classList.add("playing"));
 mainVideo?.addEventListener("pause", () => screen?.classList.remove("playing"));
 
-/* =========================
-   POPUP SYSTEM SAFE
-========================= */
-
-window.addEventListener("load", () => {
-  const popupOverlay = document.getElementById("popupOverlay");
-  const popupTitle = document.getElementById("popupTitle");
-  const popupText = document.getElementById("popupText");
-  const popupImage = document.getElementById("popupImage");
-  const closePopupBtn = document.getElementById("closePopup");
-
-  const cards = document.querySelectorAll(".portfolio-card");
-
-  if (!popupOverlay || !popupTitle || !popupText || !popupImage || !closePopupBtn) {
-    console.error("Popup system missing elements");
-    return;
-  }
-
-  const popupData = [
-    {
-      title: "Production Studio Haute Fidélité",
-      image: "assets/images/background3.png",
-      text: `<p>🎚️ Mixage pro<br><br>🎧 Mastering<br><br>🔥 Nettoyage audio<br><br>🌌 Spatialisation</p>`
-    },
-    {
-      title: "Collaboration Artistique",
-      image: "assets/images/dady-love.jpg",
-      text: `<p>🎤 Sessions studio<br><br>🎸 Musiciens<br><br>🎼 Arrangement<br><br>🚀 Industrie musicale</p>`
-    },
-    {
-      title: "Ingénierie Audio",
-      image: "assets/images/audio-engineer.jpg",
-      text: `<p>🧠 Analyse audio<br><br>⚙️ Compression<br><br>🔊 LUFS<br><br>🎛️ Broadcast</p>`
-    }
-  ];
-
-  function openPopup(i) {
-    const item = popupData[i];
-    if (!item) return;
-
-    popupTitle.innerHTML = item.title;
-    popupText.innerHTML = item.text;
-    popupImage.src = item.image;
-
-    popupOverlay.classList.add("active");
-    document.body.style.overflow = "hidden";
-  }
-
-  cards.forEach((card, i) => {
-    card.addEventListener("click", () => openPopup(i));
-  });
-
-  closePopupBtn.addEventListener("click", closePopup);
-
-  function closePopup() {
-    popupOverlay.classList.remove("active");
-    document.body.style.overflow = "auto";
-  }
-
-  popupOverlay.addEventListener("click", e => {
-    if (e.target === popupOverlay) closePopup();
-  });
-
-  document.addEventListener("keydown", e => {
-    if (e.key === "Escape") closePopup();
-  });
-
-  console.log("✅ SYSTEM FULL SAFE READY");
-});
-const overlay = document.getElementById("navOverlay");
-
-burger?.addEventListener("click", () => {
-  overlay?.classList.toggle("active");
-});
-
-overlay?.addEventListener("click", () => {
-
-  burger.classList.remove("active");
-
-  navLinks.classList.remove("active");
-
-  overlay.classList.remove("active");
-
-  document.body.classList.remove("menu-open");
-
-});
 /* =========================================
    DESKTOP NAVBAR FIX SAFE
    COLLER TOUT EN BAS DU JS
@@ -632,16 +532,90 @@ overlay?.addEventListener("click", () => {
   });
 
 })();
-const images = document.querySelectorAll('.hero-bg');
 
-let current = 0;
+/* =========================================================
+   ZARABESSO PREMIUM HERO SLIDER
+   Ultra fluide - faible consommation GPU
+========================================================= */
 
-setInterval(() => {
+(() => {
 
-    images[current].classList.remove('active');
+    const images = document.querySelectorAll(".hero-bg");
 
-    current = (current + 1) % images.length;
+    if (!images.length) return;
 
-    images[current].classList.add('active');
+    let currentImage = 0;
+    let sliderInterval = null;
 
-}, 5000);
+    // sécurité
+    images.forEach((img, index) => {
+
+        img.loading = "eager";
+
+        if(index === 0){
+            img.classList.add("active");
+        }else{
+            img.classList.remove("active");
+        }
+
+    });
+
+    function switchImage(){
+
+        const current =
+        images[currentImage];
+
+        current.classList.remove("active");
+
+        currentImage++;
+
+        if(currentImage >= images.length){
+            currentImage = 0;
+        }
+
+        const next =
+        images[currentImage];
+
+        next.classList.add("active");
+
+    }
+
+    function startSlider(){
+
+        if(sliderInterval) return;
+
+        sliderInterval =
+        setInterval(switchImage, 7000);
+
+    }
+
+    function stopSlider(){
+
+        clearInterval(sliderInterval);
+
+        sliderInterval = null;
+
+    }
+
+    // pause onglet caché
+    document.addEventListener(
+      "visibilitychange",
+      () => {
+
+        if(document.hidden){
+
+            stopSlider();
+
+        }else{
+
+            startSlider();
+
+        }
+
+      }
+    );
+
+    // lancement
+    startSlider();
+
+})();

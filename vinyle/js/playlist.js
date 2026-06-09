@@ -227,6 +227,8 @@ videoPlayer.preload = "auto";
 
 videoPlayer.load();
 
+preloadNextVideo();
+
 videoPlayer.volume =
 localStorage.getItem(VOLUME_KEY) || 1;
 
@@ -477,13 +479,48 @@ loopBtn.onclick = () => {
 END VIDEO
 ========================= */
 
-videoPlayer.addEventListener("ended", () => {
+videoPlayer.addEventListener("ended", async () => {
+
   vinyl.classList.remove("playing");
 
-  if (loopMode) return;
+  if (loopMode){
+    await videoPlayer.play();
+    return;
+  }
 
-  nextBtn.click();
+  currentIndex = (currentIndex + 1) % tracks.length;
+
+  loadTrack(currentIndex);
+
+  setTimeout(async () => {
+
+    try{
+      await videoPlayer.play();
+    }catch(e){
+      console.log(e);
+    }
+
+  },300);
+
 });
+/* ============= PRELOADER VIDEOS ============== */
+
+function preloadNextVideo(){
+
+  if(!tracks.length) return;
+
+  const nextIndex =
+  (currentIndex + 1) % tracks.length;
+
+  const preloadVideo =
+  document.createElement("video");
+
+  preloadVideo.preload = "metadata";
+
+  preloadVideo.src =
+  tracks[nextIndex].video;
+
+}
 
 /* =========================
 FULLSCREEN

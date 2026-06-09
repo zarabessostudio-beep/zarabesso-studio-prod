@@ -476,15 +476,10 @@ button {
 
     overflow:hidden;
 }
+/* ====================================
+   GLOBAL PERFORMANCE
+==================================== */
 
-.hero,
-.hero::before,
-.vinyl,
-.hero-left img{
-    transform:translateZ(0);
-    will-change:transform;
-    backface-visibility:hidden;
-}
 html{
     scroll-behavior:smooth;
 }
@@ -493,39 +488,74 @@ body{
     overflow-x:hidden;
     text-rendering:optimizeSpeed;
 }
-.logo img{
-  width:80px;
-  height:auto;
+
+/* ====================================
+   GPU OPTIMIZATION
+==================================== */
+
+.hero,
+.hero::before,
+.vinyl,
+.hero-bg{
+    transform:translateZ(0);
+    backface-visibility:hidden;
 }
 
-@media(max-width:768px){
-  .logo img{
-    width:80px; /* plus petit sur mobile */
-  }
-}
-.logo img{
-  width:80px;
-  height:auto;
+/* ====================================
+   LOGO
+==================================== */
 
-  filter: drop-shadow(0 0 10px rgba(255,0,100,0.5));
-  transition:0.3s;
+.logo img{
+    width:80px;
+    height:auto;
+
+    filter:drop-shadow(
+        0 0 10px rgba(255,0,100,.5)
+    );
+
+    transition:
+        transform .3s ease,
+        filter .3s ease;
 }
 
 .logo img:hover{
-  transform:scale(1.05);
+    transform:scale(1.05);
 }
+
+@media(max-width:768px){
+
+    .logo img{
+        width:80px;
+    }
+
+}
+
+/* ====================================
+   HERO
+==================================== */
+
 .hero{
     position:relative;
     min-height:100vh;
     overflow:hidden;
 }
 
+/* ====================================
+   HERO BACKGROUND CONTAINER
+==================================== */
+
 .hero-left{
     position:absolute;
     inset:0;
-    width:100%;
-    height:100%;
+
+    overflow:hidden;
+
+    z-index:1;
 }
+
+/* ====================================
+   HERO IMAGES
+==================================== */
 
 .hero-bg{
     position:absolute;
@@ -537,11 +567,101 @@ body{
     object-fit:cover;
 
     opacity:0;
-    transition:opacity 1.5s ease;
+
+    transform:scale(1.08);
+
+    transition:
+        opacity 2s ease,
+        transform 7s linear;
+
+    pointer-events:none;
 }
+
+/* IMAGE ACTIVE */
 
 .hero-bg.active{
     opacity:1;
+    transform:scale(1);
+}
+
+/* ====================================
+   PREMIUM CINEMATIC ZOOM
+==================================== */
+
+.hero-bg.active{
+    animation:
+        heroZoom 7s linear forwards;
+}
+
+@keyframes heroZoom{
+
+    from{
+        transform:scale(1.08);
+    }
+
+    to{
+        transform:scale(1);
+    }
+
+}
+
+/* ====================================
+   DARK OVERLAY
+==================================== */
+
+.hero-left::after{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    z-index:2;
+
+    background:
+    linear-gradient(
+        to bottom,
+        rgba(0,0,0,.20),
+        rgba(0,0,0,.45),
+        rgba(0,0,0,.70)
+    );
+
+    pointer-events:none;
+}
+
+/* ====================================
+   VINYL ABOVE IMAGES
+==================================== */
+
+.vinyl{
+    position:relative;
+    z-index:10;
+}
+
+/* ====================================
+   HERO TEXT
+==================================== */
+
+.hero-right{
+    position:relative;
+    z-index:15;
+}
+
+/* ====================================
+   VINYL
+==================================== */
+
+.vinyl{
+    position:relative;
+    z-index:10;
+}
+
+/* ====================================
+   HERO TEXT
+==================================== */
+
+.hero-right{
+    position:relative;
+    z-index:15;
 }
 /* =========================
    ANIMATION FIX
@@ -2894,4 +3014,94 @@ section, div, main{
 /* option glow léger quand visible */
 .navbar.nav-visible{
   transform: translateY(0);
+}
+/* ================= CENTER POPUP ==================== */
+.popup-overlay{
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+
+    background:rgba(0,0,0,.85);
+
+    z-index:999999;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.35s ease;
+}
+
+.popup-overlay.active{
+    opacity:1;
+    visibility:visible;
+}
+
+.popup-box{
+    width:min(900px,95vw);
+    max-height:90vh;
+
+    overflow-y:auto;
+
+    transform:translateY(30px);
+
+    transition:.35s ease;
+}
+
+.popup-overlay.active .popup-box{
+    transform:translateY(0);
+}
+/* ==================== HERO 3D ===================== */
+.hero-left{
+    z-index:1;
+}
+
+.vinyl{
+    z-index:10;
+}
+
+.hero-right{
+    z-index:15;
+}
+.hero{
+    position:relative;
+}
+
+.hero-left{
+    position:absolute;
+    inset:0;
+}
+/* ====================================
+   HERO CONTENT
+==================================== */
+
+.hero-content{
+    position:relative;
+    z-index:20;
+
+    width:100%;
+    min-height:100vh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* TITRES */
+
+.hero-right{
+    position:relative;
+    z-index:25;
+    text-align:center;
+}
+
+/* VINYL */
+
+.vinyl{
+    position:absolute;
+    z-index:22;
 }
