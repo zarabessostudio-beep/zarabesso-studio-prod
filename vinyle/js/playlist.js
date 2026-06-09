@@ -150,7 +150,7 @@ RENDER TRACKS
 ========================= */
 
 function renderTracks() {
-  tracksContainer.innerHTML = "";
+  tracksContainer.replaceChildren();
 
   tracks.forEach((track, index) => {
     const div = document.createElement("div");
@@ -732,3 +732,59 @@ INIT
 ========================= */
 
 loadCloudTracks();
+/* =========================================================
+   🛡️ FIX PLAYLIST STABILITY (ANTI DISPARITION BUG)
+   À COLLER EN BAS DU JS
+========================================================= */
+
+(function fixPlaylistStability() {
+
+  const container = document.getElementById("spotifyTracks");
+  const sidebar = document.querySelector(".spotify-sidebar");
+
+  if (!container) return;
+
+  /* 🔒 Empêche disparition forcée du DOM */
+  const observer = new MutationObserver(() => {
+
+    if (container.children.length === 0) {
+
+      console.warn("Playlist vide détectée → restauration");
+
+      container.innerHTML = `
+        <p style="opacity:.6; padding:10px;">
+          Chargement des musiques...
+        </p>
+      `;
+
+      setTimeout(() => {
+        if (typeof renderTracks === "function" && tracks?.length) {
+          renderTracks();
+        }
+      }, 400);
+    }
+  });
+
+  observer.observe(container, {
+    childList: true,
+    subtree: true
+  });
+
+  /* 🔒 Empêche disparition sidebar (CSS/JS conflict fix) */
+  if (sidebar) {
+
+    const safeSidebar = () => {
+
+      sidebar.style.display = "block";
+      sidebar.style.visibility = "visible";
+      sidebar.style.opacity = "1";
+      sidebar.style.transform = "none";
+
+    };
+
+    safeSidebar();
+
+    setInterval(safeSidebar, 2000);
+  }
+
+})();
