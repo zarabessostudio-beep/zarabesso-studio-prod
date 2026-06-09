@@ -18,30 +18,28 @@ body{
 ========================================= */
 
 .bg-video{
-
   position:fixed;
-
   inset:0;
 
   width:100%;
   height:100%;
 
   object-fit:cover;
+  object-position:center;
 
-  z-index:-1;
-
-  opacity:.18;
+  z-index:-10;
 
   pointer-events:none;
 
-  /* GPU ACCELERATION */
-  transform:translateZ(0);
+  opacity:.20;
 
-  backface-visibility:hidden;
+  transform:translateZ(0);
 
   will-change:transform;
 
-  contain:layout paint size style;
+  backface-visibility:hidden;
+
+  filter:brightness(.7) contrast(1.05) saturate(1.05);
 }
 /* =========================================
    MOBILE VIDEO PERFORMANCE
@@ -1021,4 +1019,27 @@ body::after{
     animation:none !important;
   }
 
+}
+/* ============================= Vynile en place ============================= */
+
+.hero-right{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  gap:25px; /* IMPORTANT pour espacer titre / vinyle */
+}
+.vinyle-3d{
+  margin-top:10px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  width:220px;
+  height:220px;
+
+  position:relative;
+
+  transform:translateY(10px);
 }
