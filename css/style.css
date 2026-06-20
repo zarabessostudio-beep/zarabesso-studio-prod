@@ -3105,3 +3105,167 @@ section, div, main{
     position:absolute;
     z-index:22;
 }
+
+/* =========================================================
+   ZARABESSO PREMIUM HERO BACKGROUND
+   Version Cinématique Ultra Premium
+========================================================= */
+
+.hero{
+    position:relative;
+    min-height:100vh;
+    overflow:hidden;
+    isolation:isolate;
+}
+
+/* =========================
+   BACKGROUND CONTAINER
+========================= */
+
+.hero-center{
+    position:absolute;
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    overflow:hidden;
+    z-index:1;
+
+    pointer-events:none;
+}
+
+/* =========================
+   CLOUDINARY IMAGES
+========================= */
+
+.hero-bg{
+    position:absolute;
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+    object-position:center center;
+
+    opacity:0;
+    visibility:hidden;
+
+    transform:scale(1.15);
+
+    backface-visibility:hidden;
+    will-change:transform,opacity;
+
+    transition:
+        opacity 2.8s cubic-bezier(.4,0,.2,1),
+        transform 12s linear,
+        filter 2s ease;
+
+    filter:
+        brightness(.85)
+        contrast(1.08)
+        saturate(1.15);
+}
+
+/* IMAGE ACTIVE */
+
+.hero-bg.active{
+    opacity:1;
+    visibility:visible;
+
+    transform:scale(1);
+
+    filter:
+        brightness(1)
+        contrast(1.12)
+        saturate(1.25);
+}
+
+/* =========================
+   PREMIUM OVERLAY
+========================= */
+
+.hero-center::before{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    z-index:2;
+
+    background:
+      radial-gradient(
+        circle at center,
+        rgba(255,255,255,.03) 0%,
+        transparent 60%
+      );
+}
+
+/* =========================
+   CINEMATIC SHADOW
+========================= */
+
+.hero-center::after{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    z-index:3;
+
+    background:
+
+      linear-gradient(
+        to top,
+        rgba(0,0,0,.82) 0%,
+        rgba(0,0,0,.45) 35%,
+        rgba(0,0,0,.20) 60%,
+        rgba(0,0,0,.05) 100%
+      ),
+
+      linear-gradient(
+        to right,
+        rgba(0,0,0,.35) 0%,
+        transparent 30%,
+        transparent 70%,
+        rgba(0,0,0,.35) 100%
+      );
+}
+
+/* =========================
+   SUBTLE AMBIENT LIGHT
+========================= */
+
+.hero-center .hero-bg.active{
+    animation:
+      heroZoom 12s linear forwards;
+}
+
+@keyframes heroZoom{
+
+    from{
+        transform:scale(1);
+    }
+
+    to{
+        transform:scale(1.08);
+    }
+
+}
+
+/* =========================
+   MOBILE OPTIMIZATION
+========================= */
+
+@media (max-width:768px){
+
+    .hero-bg{
+
+        transition:
+          opacity 2s ease,
+          transform 8s linear;
+
+    }
+
+}

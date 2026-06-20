@@ -585,7 +585,7 @@ mainVideo?.addEventListener("pause", () => screen?.classList.remove("playing"));
         if(sliderInterval) return;
 
         sliderInterval =
-        setInterval(switchImage, 7000);
+        setInterval(switchImage, 6000);
 
     }
 
