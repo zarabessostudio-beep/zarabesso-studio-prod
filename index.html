@@ -1251,11 +1251,13 @@ document.addEventListener("fullscreenchange", () => {
 
   const videoList = [
 
-    "https://res.cloudinary.com/drywjcs1w/video/upload/diarynofy_zwdera.mp4",
+    "https://res.cloudinary.com/drywjcs1w/video/upload/DYH_NAT_LOVE_Acoustic_Live_Session_zqt5mw.mp4",
 
     "https://res.cloudinary.com/drywjcs1w/video/upload/tsodrano_u6f1r0.mp4",
 
-    "https://res.cloudinary.com/drywjcs1w/video/upload/tompondaka_t18xdz.mp4"
+    "https://res.cloudinary.com/drywjcs1w/video/upload/tompondaka_t18xdz.mp4",
+
+    "https://res.cloudinary.com/drywjcs1w/video/upload/Stella_Lyncha_Yvon_Paul_xe2b4y.mp4"
 
   ];
 
@@ -1491,6 +1493,30 @@ setInterval(() => {
     navbar.classList.add("nav-visible");
   }
 }, 100);
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const slides =
+    document.querySelectorAll(".hero-bg");
+
+    let current = 0;
+
+    setInterval(() => {
+
+        slides[current].classList.remove("active");
+
+        current++;
+
+        if(current >= slides.length){
+            current = 0;
+        }
+
+        slides[current].classList.add("active");
+
+    }, 5000);
+
+});
 </script>
 
 </body>
