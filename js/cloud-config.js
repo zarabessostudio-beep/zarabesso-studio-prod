@@ -9,7 +9,8 @@ window.CLOUD_CONFIG = {
   uploadPreset: "zarabesso_unsigned",
 
   folders: {
-    images: "zarabesso/image",
+    background: "zarabesso/background",
+    cover: "zarabesso/cover",
     videos: "zarabesso/videos",
     audio: "zarabesso/music"
   }

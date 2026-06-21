@@ -19,7 +19,7 @@ const videos = {
   tompondaka:
     `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/tompondaka_t18xdz.mp4`,
 
-  yvon,stelle:
+  yvon,stella:
     `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/Stella_Lyncha_Yvon_Paul_xe2b4y.mp4`
 
 
