@@ -10,14 +10,18 @@ const CLOUD_NAME = "drywjcs1w";
 
 const videos = {
 
-  diarynofy:
-    `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/diarynofy_zwdera.mp4`,
+  love:
+    `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/DYH_NAT_LOVE_Acoustic_Live_Session_zqt5mw.mp4`,
 
   tsodrano:
     `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/tsodrano_u6f1r0.mp4`,
 
   tompondaka:
-    `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/tompondaka_t18xdz.mp4`
+    `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/tompondaka_t18xdz.mp4`,
+
+  yvon,stelle:
+    `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/Stella_Lyncha_Yvon_Paul_xe2b4y.mp4`
+
 
 };
 
