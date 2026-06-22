@@ -14,13 +14,13 @@ body{
 }
 
 /* =========================================
-   VIDEO BACKGROUND ULTRA OPTIMISÉ
+   VIDEO BACKGROUND UNIVERSAL OPTIMIZED
+   Mobile • Tablet • Desktop • iOS • Mac
 ========================================= */
 
 .bg-video{
 
   position:fixed;
-
   inset:0;
 
   width:100%;
@@ -34,14 +34,54 @@ body{
 
   pointer-events:none;
 
-  /* GPU ACCELERATION */
-  transform:translateZ(0);
-
+  /* Optimisation rendu */
   backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
 
-  will-change:transform;
+  /* évite certains bugs Safari/iOS */
+  -webkit-transform:translate3d(0,0,0);
+  transform:translate3d(0,0,0);
 
-  contain:layout paint size style;
+  /* améliore le rendu vidéo */
+  image-rendering:auto;
+
+  /* évite les recalculs inutiles */
+  overflow:hidden;
+}
+
+/* MOBILE */
+@media (max-width:768px){
+
+  .bg-video{
+
+    opacity:.14;
+
+    /* moins de travail graphique */
+    transform:none;
+    -webkit-transform:none;
+
+  }
+
+}
+
+/* TABLET */
+@media (min-width:769px) and (max-width:1200px){
+
+  .bg-video{
+
+    opacity:.16;
+
+  }
+
+}
+
+/* ACCESSIBILITÉ + ÉCONOMIE BATTERIE */
+@media (prefers-reduced-motion:reduce){
+
+  .bg-video{
+    display:none;
+  }
+
 }
 /* =========================================
    MOBILE VIDEO PERFORMANCE
