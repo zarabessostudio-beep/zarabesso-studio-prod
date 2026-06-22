@@ -10,7 +10,7 @@ const CLOUD_NAME = "drywjcs1w";
 
 const videos = {
 
-  love:
+  Dyh_Nat:
     `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/DYH_NAT_LOVE_Acoustic_Live_Session_zqt5mw.mp4`,
 
   tsodrano:
@@ -19,7 +19,7 @@ const videos = {
   tompondaka:
     `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/tompondaka_t18xdz.mp4`,
 
-  yvon,stella:
+  yvon_stella:
     `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/Stella_Lyncha_Yvon_Paul_xe2b4y.mp4`
 
 
