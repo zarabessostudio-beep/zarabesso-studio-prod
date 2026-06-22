@@ -262,38 +262,48 @@ content="https://zarabesso.vercel.app/assets/images/logo1.png">
 <!-- ================= PORTFOLIO MUSICIENS ================= -->
 <section class="portfolio-artists">
 
-  <h2 class="music-title">Portfolio Artistes & Ingénierie Audio</h2>
+  <h2 class="music-title">Portfolio & Ingénierie Audio</h2>
 
   <p class="italic portfolio-intro">
-    Zarabesso Studio Prod collabore avec des artistes talentueux et des ingénieurs du son spécialisés
-    dans la création d’identités musicales uniques et professionnelles.
+    Zarabesso se concentre sur la musique de qualité premium avec originalité et standardisé internationnale et  
+    dans ce sens la création d’identités musicales uniques et professionnelles.
   </p>
 
   <div class="artists-grid">
 
-    <!-- 🎸 Ancien Guitariste de  DADY LOVE -->
-    <div class="artist-card">
+    <!-- 🎸 Musicien & Ingénieur du Son -->
+<div class="artist-card">
 
-      <!-- 🔴 IMAGE GUITARISTE -->
-      <img src="assets/images/dady-love.jpg" alt="Dady Love Guitariste">
+  <img
+    src="assets/images/zarabesso.png"
+    alt="Musicien et ingénieur du son Zarabesso Studio"
+    loading="lazy"
+    decoding="async"
+  >
 
-      <h3 class="music-title">Ancien Guitariste de Dady Love — </h3>
+  <h3 class="music-title">
+    Musique Pure & Excellence Sonore
+  </h3>
 
-      <p class="italic">
-       Ancien guitariste professionnel de l'artiste. 
-      </p>
+  <p class="italic">
+    Multi-instrumentiste passionné et ingénieur du son expérimenté,
+    il met sa sensibilité artistique et sa maîtrise technique au service
+    de chaque projet. Son approche garantit des productions musicales
+    authentiques, équilibrées et conformes aux standards professionnels
+    de l'industrie audio.
+  </p>
 
-    </div>
+</div>
 
     <!-- 🎸  Guitariste de JAO JAOBY -->
     <div class="artist-card">
 
-      <img src="assets/images/jao-jaoby.jpg" alt="Jao Jaoby">
+      <img src="assets/images/jaojoby portrait.png" alt="Jao Jaoby">
 
       <h3 class="music-title"> Guitariste de JAO JAOBY</h3>
 
       <p class="italic">
-         Guitariste , Bassiste de l' Artiste reconnue Roi du salegy. Polyvalent et abille de ses doigt d'artiste il façonne les mixages et les mastering, prise de song,  pour servir la musique dans son originnalité et votre identité artistique.
+         Il est actuelement Guitariste "Bassiste" de l' Artiste reconnue Roi du salegy à Madagascar. Polyvalent et abille de ses doigt d'artiste il façonne les mixages et les mastering, prise de song,  pour servir la musique dans son originnalité et votre identité artistique.
       </p>
 
     </div>
@@ -315,6 +325,11 @@ content="https://zarabesso.vercel.app/assets/images/logo1.png">
     </div>
 
   </div>
+
+  <div class="experience-showcase">
+    <div class="experience-number" id="expCounter">1</div>
+    <div class="experience-label">ANS D'EXPÉRIENCE</div>
+</div>
 
 </section>
 
@@ -624,7 +639,42 @@ Identité sonore unique & professionnelle.
     playsinline
     preload="metadata"
     poster="assets/images/logo.jpg"
-  ></video>
+
+  >
+      <!-- FULLSCREEN OVERLAY CONTROLS (INTERNAL ONLY) -->
+<div class="fs-overlay-controls" id="fsOverlayControls">
+
+  <button id="fsPrev">
+    <i class="ri-skip-back-fill"></i>
+  </button>
+
+  <button id="fsPlay">
+    <i class="ri-play-fill"></i>
+  </button>
+
+  <button id="fsNext">
+    <i class="ri-skip-forward-fill"></i>
+  </button>
+
+</div> 
+    <!-- DESKTOP HOVER CONTROLS -->
+<div class="hover-controls" id="hoverControls">
+
+  <button id="hPrev">
+    <i class="ri-skip-back-fill"></i>
+  </button>
+
+  <button id="hPlay">
+    <i class="ri-play-fill"></i>
+  </button>
+
+  <button id="hNext">
+    <i class="ri-skip-forward-fill"></i>
+  </button>
+
+</div>
+
+        </video>
 
 </div>
 
@@ -668,6 +718,8 @@ Identité sonore unique & professionnelle.
       </div>
 
     </div>
+
+    
 
    <!-- SIDE VIDEOS -->
 
@@ -1519,6 +1571,205 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 <script src="js/background-loader.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const counter = document.getElementById("expCounter");
+    let started = false;
+
+    const observer = new IntersectionObserver(entries => {
+
+        if(entries[0].isIntersecting && !started){
+
+            started = true;
+
+            let current = 1;
+            const target = 15;
+
+            const timer = setInterval(() => {
+
+                counter.textContent = current + "+";
+
+                if(current >= target){
+                    clearInterval(timer);
+                    counter.textContent = "+15";
+                }
+
+                current++;
+
+            }, 100);
+
+        }
+
+    }, { threshold: 0.4 });
+
+    observer.observe(counter);
+
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const video = document.getElementById("mainVideo");
+
+  const fsPrev = document.getElementById("fsPrev");
+  const fsNext = document.getElementById("fsNext");
+  const fsPlay = document.getElementById("fsPlay");
+
+  const sideVideos = document.querySelectorAll(".side-video");
+
+  let index = 0;
+
+  const videos = Array.from(sideVideos).map(v => v.dataset.video);
+
+  function loadVideo(i){
+    index = i;
+    video.src = videos[index];
+    video.play();
+    updateActive();
+  }
+
+  function updateActive(){
+    sideVideos.forEach((v,i)=>{
+      v.classList.toggle("active-video", i === index);
+    });
+  }
+
+  function togglePlay(){
+    if(video.paused){
+      video.play();
+      fsPlay.innerHTML = '<i class="ri-pause-fill"></i>';
+    } else {
+      video.pause();
+      fsPlay.innerHTML = '<i class="ri-play-fill"></i>';
+    }
+  }
+
+  // ▶ PLAY / PAUSE (FULLSCREEN ONLY CONTROL)
+  fsPlay.addEventListener("click", togglePlay);
+
+  video.addEventListener("click", togglePlay);
+
+  // ⏮ PREV
+  fsPrev.addEventListener("click", ()=>{
+    index = (index - 1 + videos.length) % videos.length;
+    loadVideo(index);
+  });
+
+  // ⏭ NEXT
+  fsNext.addEventListener("click", ()=>{
+    index = (index + 1) % videos.length;
+    loadVideo(index);
+  });
+
+  // SIDE CLICK
+  sideVideos.forEach((el,i)=>{
+    el.addEventListener("click", ()=>{
+      loadVideo(i);
+    });
+  });
+
+  // INIT
+  loadVideo(0);
+
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const video = document.getElementById("mainVideo");
+
+  const hPrev = document.getElementById("hPrev");
+  const hNext = document.getElementById("hNext");
+  const hPlay = document.getElementById("hPlay");
+
+  const screen = document.querySelector(".video-screen");
+  const sideVideos = document.querySelectorAll(".side-video");
+
+  let index = 0;
+  let hideTimer;
+
+  const videos = Array.from(sideVideos).map(v => v.dataset.video);
+
+  function load(i){
+    index = i;
+    video.src = videos[index];
+    video.play();
+    updateActive();
+  }
+
+  function updateActive(){
+    sideVideos.forEach((v,i)=>{
+      v.classList.toggle("active-video", i === index);
+    });
+  }
+
+  function togglePlay(){
+    if(video.paused){
+      video.play();
+      hPlay.innerHTML = '<i class="ri-pause-fill"></i>';
+    } else {
+      video.pause();
+      hPlay.innerHTML = '<i class="ri-play-fill"></i>';
+    }
+  }
+
+  // NEXT
+  hNext.addEventListener("click", ()=>{
+    index = (index + 1) % videos.length;
+    load(index);
+  });
+
+  // PREV
+  hPrev.addEventListener("click", ()=>{
+    index = (index - 1 + videos.length) % videos.length;
+    load(index);
+  });
+
+  // PLAY/PAUSE
+  hPlay.addEventListener("click", togglePlay);
+
+  video.addEventListener("click", togglePlay);
+
+  // SIDE VIDEOS CLICK
+  sideVideos.forEach((el,i)=>{
+    el.addEventListener("click", ()=> load(i));
+  });
+
+  // 🔥 AUTO HIDE ON MOUSE INACTIVITY (DESKTOP)
+  function showControls(){
+    screen.classList.add("show-controls");
+
+    clearTimeout(hideTimer);
+
+    hideTimer = setTimeout(()=>{
+      screen.classList.remove("show-controls");
+    }, 2000);
+  }
+
+  screen.addEventListener("mousemove", showControls);
+
+  screen.addEventListener("mouseleave", ()=>{
+    screen.classList.remove("show-controls");
+  });
+
+  // MOBILE TOUCH fallback
+  screen.addEventListener("touchstart", ()=>{
+    screen.classList.add("active-touch");
+
+    setTimeout(()=>{
+      screen.classList.remove("active-touch");
+    }, 2500);
+  });
+
+  // INIT
+  load(0);
+
+});
+</script>
 
 
 </body>

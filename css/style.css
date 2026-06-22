@@ -3376,3 +3376,312 @@ section, div, main{
     opacity:1;
     transform:scale(1);
 }
+/* =========================================
+   ARTIST CARD PORTRAIT UPGRADE
+   À placer tout en bas du CSS
+========================================= */
+
+/* Carte plus grande */
+.artist-card{
+    min-height:750px;
+    display:flex;
+    flex-direction:column;
+}
+
+/* Photo portrait premium */
+.artist-card img{
+    width:100% !important;
+
+    height:550px !important;
+
+    object-fit:cover;
+    object-position:center top;
+
+    border-radius:18px;
+
+    box-shadow:
+      0 15px 40px rgba(0,0,0,.35),
+      0 0 20px rgba(255,215,0,.08);
+
+    transition:
+      transform .5s ease,
+      box-shadow .5s ease;
+}
+
+/* Hover image */
+.artist-card:hover img{
+    transform:scale(1.02);
+}
+
+/* Titre */
+.artist-card .music-title{
+    margin-top:20px;
+    margin-bottom:15px;
+}
+
+/* Texte */
+.artist-card .italic{
+    margin-top:auto;
+
+    line-height:1.9;
+
+    font-size:1rem;
+
+    color:rgba(255,255,255,.88);
+}
+
+/* Tablette */
+@media(max-width:1024px){
+
+    .artist-card{
+        min-height:680px;
+    }
+
+    .artist-card img{
+        height:480px !important;
+    }
+
+}
+
+/* Mobile */
+@media(max-width:768px){
+
+    .artist-card{
+        min-height:auto;
+    }
+
+    .artist-card img{
+        height:420px !important;
+    }
+
+}
+
+/* Petit mobile */
+@media(max-width:480px){
+
+    .artist-card img{
+        height:360px !important;
+    }
+
+}
+/* ==========================================
+   EXPERIENCE ZARABESSO STUDIO
+========================================== */
+
+.experience-showcase{
+    text-align:center;
+    margin-top:80px;
+    padding:30px 20px;
+}
+
+.experience-number{
+    font-size:clamp(5rem,12vw,10rem);
+    font-weight:900;
+    line-height:1;
+
+    background:linear-gradient(
+        90deg,
+        #ffffff,
+        #ffd700,
+        #ffffff
+    );
+
+    background-size:300% auto;
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+
+    animation:
+        growExp 2.5s cubic-bezier(.16,1,.3,1) forwards,
+        shineExp 5s linear infinite;
+
+    transform:scale(0.1);
+    opacity:0;
+
+    text-shadow:
+        0 0 30px rgba(255,215,0,.25);
+}
+
+.experience-label{
+    margin-top:10px;
+    font-size:clamp(1rem,2vw,1.4rem);
+    letter-spacing:6px;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.8);
+}
+
+@keyframes growExp{
+
+    0%{
+        transform:scale(0.1);
+        opacity:0;
+    }
+
+    40%{
+        transform:scale(1.35);
+        opacity:1;
+    }
+
+    70%{
+        transform:scale(0.92);
+    }
+
+    100%{
+        transform:scale(1);
+        opacity:1;
+    }
+
+}
+
+@keyframes shineExp{
+
+    from{
+        background-position:-300% center;
+    }
+
+    to{
+        background-position:300% center;
+    }
+
+}
+
+/* Mobile */
+
+@media (max-width:768px){
+
+    .experience-showcase{
+        margin-top:50px;
+    }
+
+    .experience-number{
+        font-size:5rem;
+    }
+
+    .experience-label{
+        letter-spacing:3px;
+    }
+
+}
+.experience-showcase{
+    text-align:center;
+    margin-top:80px;
+}
+
+.experience-number{
+    font-size:clamp(5rem,12vw,10rem);
+    font-weight:900;
+    color:#fff;
+    line-height:1;
+}
+
+.experience-label{
+    margin-top:10px;
+    letter-spacing:6px;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.8);
+}
+.fs-overlay-controls{
+  position:absolute;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  gap:18px;
+
+  padding:12px 18px;
+  border-radius:50px;
+
+  background:rgba(0,0,0,.45);
+  backdrop-filter:blur(12px);
+
+  opacity:0;
+  pointer-events:none;
+  transition:.3s ease;
+
+  z-index:10;
+}
+
+.fs-overlay-controls button{
+  background:transparent;
+  border:none;
+  color:#fff;
+  font-size:20px;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.fs-overlay-controls button:hover{
+  transform:scale(1.2);
+  color:#ffd700;
+}
+
+/* 🔥 ONLY WHEN FULLSCREEN IS ACTIVE */
+.video-screen:fullscreen .fs-overlay-controls{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.video-screen:-webkit-full-screen .fs-overlay-controls{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* mobile optimization */
+@media (max-width:768px){
+  .fs-overlay-controls{
+    gap:14px;
+    padding:10px 14px;
+  }
+
+  .fs-overlay-controls button{
+    font-size:22px;
+  }
+}
+.hover-controls{
+  position:absolute;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+
+  display:flex;
+  gap:18px;
+
+  padding:12px 18px;
+  border-radius:50px;
+
+  background:rgba(0,0,0,.4);
+  backdrop-filter:blur(12px);
+
+  opacity:0;
+  pointer-events:none;
+  transition:0.35s ease;
+
+  z-index:10;
+}
+
+.hover-controls button{
+  background:transparent;
+  border:none;
+  color:#fff;
+  font-size:20px;
+  cursor:pointer;
+  transition:0.2s ease;
+}
+
+.hover-controls button:hover{
+  transform:scale(1.2);
+  color:#ffd700;
+}
+
+/* 🔥 SHOW ON HOVER */
+.video-screen:hover .hover-controls{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* fallback mobile (touch always visible briefly) */
+.video-screen.active-touch .hover-controls{
+  opacity:1;
+  pointer-events:auto;
+}
