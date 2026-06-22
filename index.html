@@ -641,7 +641,12 @@ Identité sonore unique & professionnelle.
     poster="assets/images/logo.jpg"
 
   >
-      <!-- FULLSCREEN OVERLAY CONTROLS (INTERNAL ONLY) -->
+     
+
+        </video>
+
+</div>
+ <!-- FULLSCREEN OVERLAY CONTROLS (INTERNAL ONLY) -->
 <div class="fs-overlay-controls" id="fsOverlayControls">
 
   <button id="fsPrev">
@@ -671,10 +676,6 @@ Identité sonore unique & professionnelle.
   <button id="hNext">
     <i class="ri-skip-forward-fill"></i>
   </button>
-
-</div>
-
-        </video>
 
 </div>
 
@@ -1609,88 +1610,26 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
   const video = document.getElementById("mainVideo");
+  const sideVideos = document.querySelectorAll(".side-video");
 
+  const playBtn = document.getElementById("playPause");
+  const prevBtn = document.getElementById("prevVideo");
+  const nextBtn = document.getElementById("nextVideo");
+
+  const fsPlay = document.getElementById("fsPlay");
   const fsPrev = document.getElementById("fsPrev");
   const fsNext = document.getElementById("fsNext");
-  const fsPlay = document.getElementById("fsPlay");
 
-  const sideVideos = document.querySelectorAll(".side-video");
-
-  let index = 0;
-
-  const videos = Array.from(sideVideos).map(v => v.dataset.video);
-
-  function loadVideo(i){
-    index = i;
-    video.src = videos[index];
-    video.play();
-    updateActive();
-  }
-
-  function updateActive(){
-    sideVideos.forEach((v,i)=>{
-      v.classList.toggle("active-video", i === index);
-    });
-  }
-
-  function togglePlay(){
-    if(video.paused){
-      video.play();
-      fsPlay.innerHTML = '<i class="ri-pause-fill"></i>';
-    } else {
-      video.pause();
-      fsPlay.innerHTML = '<i class="ri-play-fill"></i>';
-    }
-  }
-
-  // ▶ PLAY / PAUSE (FULLSCREEN ONLY CONTROL)
-  fsPlay.addEventListener("click", togglePlay);
-
-  video.addEventListener("click", togglePlay);
-
-  // ⏮ PREV
-  fsPrev.addEventListener("click", ()=>{
-    index = (index - 1 + videos.length) % videos.length;
-    loadVideo(index);
-  });
-
-  // ⏭ NEXT
-  fsNext.addEventListener("click", ()=>{
-    index = (index + 1) % videos.length;
-    loadVideo(index);
-  });
-
-  // SIDE CLICK
-  sideVideos.forEach((el,i)=>{
-    el.addEventListener("click", ()=>{
-      loadVideo(i);
-    });
-  });
-
-  // INIT
-  loadVideo(0);
-
-});
-</script>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-
-  const video = document.getElementById("mainVideo");
-
+  const hPlay = document.getElementById("hPlay");
   const hPrev = document.getElementById("hPrev");
   const hNext = document.getElementById("hNext");
-  const hPlay = document.getElementById("hPlay");
-
-  const screen = document.querySelector(".video-screen");
-  const sideVideos = document.querySelectorAll(".side-video");
 
   let index = 0;
-  let hideTimer;
 
   const videos = Array.from(sideVideos).map(v => v.dataset.video);
 
@@ -1698,71 +1637,60 @@ document.addEventListener("DOMContentLoaded", () => {
     index = i;
     video.src = videos[index];
     video.play();
-    updateActive();
+    updateUI();
   }
 
-  function updateActive(){
+  function updateUI(){
     sideVideos.forEach((v,i)=>{
       v.classList.toggle("active-video", i === index);
     });
   }
 
-  function togglePlay(){
+  function toggle(){
     if(video.paused){
       video.play();
-      hPlay.innerHTML = '<i class="ri-pause-fill"></i>';
     } else {
       video.pause();
-      hPlay.innerHTML = '<i class="ri-play-fill"></i>';
     }
   }
 
-  // NEXT
-  hNext.addEventListener("click", ()=>{
-    index = (index + 1) % videos.length;
-    load(index);
+  // CORE CONTROLS
+  playBtn?.addEventListener("click", toggle);
+  video.addEventListener("click", toggle);
+
+  prevBtn?.addEventListener("click", ()=>{
+    load((index - 1 + videos.length) % videos.length);
   });
 
-  // PREV
-  hPrev.addEventListener("click", ()=>{
-    index = (index - 1 + videos.length) % videos.length;
-    load(index);
+  nextBtn?.addEventListener("click", ()=>{
+    load((index + 1) % videos.length);
   });
 
-  // PLAY/PAUSE
-  hPlay.addEventListener("click", togglePlay);
+  // FULLSCREEN CONTROLS
+  fsPlay?.addEventListener("click", toggle);
 
-  video.addEventListener("click", togglePlay);
+  fsPrev?.addEventListener("click", ()=>{
+    load((index - 1 + videos.length) % videos.length);
+  });
 
-  // SIDE VIDEOS CLICK
+  fsNext?.addEventListener("click", ()=>{
+    load((index + 1) % videos.length);
+  });
+
+  // HOVER CONTROLS
+  hPlay?.addEventListener("click", toggle);
+
+  hPrev?.addEventListener("click", ()=>{
+    load((index - 1 + videos.length) % videos.length);
+  });
+
+  hNext?.addEventListener("click", ()=>{
+    load((index + 1) % videos.length);
+  });
+
+  // SIDE VIDEOS
   sideVideos.forEach((el,i)=>{
     el.addEventListener("click", ()=> load(i));
-  });
-
-  // 🔥 AUTO HIDE ON MOUSE INACTIVITY (DESKTOP)
-  function showControls(){
-    screen.classList.add("show-controls");
-
-    clearTimeout(hideTimer);
-
-    hideTimer = setTimeout(()=>{
-      screen.classList.remove("show-controls");
-    }, 2000);
-  }
-
-  screen.addEventListener("mousemove", showControls);
-
-  screen.addEventListener("mouseleave", ()=>{
-    screen.classList.remove("show-controls");
-  });
-
-  // MOBILE TOUCH fallback
-  screen.addEventListener("touchstart", ()=>{
-    screen.classList.add("active-touch");
-
-    setTimeout(()=>{
-      screen.classList.remove("active-touch");
-    }, 2500);
   });
 
   // INIT
@@ -1770,6 +1698,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 </script>
+
 
 
 </body>
