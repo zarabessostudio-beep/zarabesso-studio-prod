@@ -3349,3 +3349,30 @@ section, div, main{
 .hero-right{
     z-index:30;
 }
+.hero-center{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+}
+
+.hero-bg{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+
+    opacity:0;
+    transform:scale(1.08);
+
+    transition:
+    opacity 2s ease,
+    transform 8s ease;
+
+    will-change:opacity,transform;
+}
+
+.hero-bg.active{
+    opacity:1;
+    transform:scale(1);
+}
