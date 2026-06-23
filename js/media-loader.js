@@ -11,7 +11,7 @@ const CLOUD_NAME = "drywjcs1w";
 const videos = {
 
   Dyh_Nat:
-    `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/DYH_NAT_LOVE_Acoustic_Live_Session_zqt5mw.mp4`,
+    `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/Joe_Fils_x_Jaojoby_Wagnou_moi_djerebou_Clip_officiel_ohqijm.mp4`,
 
   tsodrano:
     `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/tsodrano_u6f1r0.mp4`,
