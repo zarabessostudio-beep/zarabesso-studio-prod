@@ -3685,3 +3685,174 @@ section, div, main{
   opacity:1;
   pointer-events:auto;
 }
+/* ==========================================
+   ZARABESSO FULLSCREEN SMART CONTROLS
+========================================== */
+
+.video-screen{
+    position:relative;
+}
+
+/* CONTROLS */
+
+.smart-controls{
+
+    position:absolute;
+
+    left:50%;
+    bottom:25px;
+
+    transform:translateX(-50%) translateY(20px);
+
+    display:flex;
+    align-items:center;
+    gap:18px;
+
+    padding:14px 22px;
+
+    border-radius:999px;
+
+    background:
+    rgba(0,0,0,.45);
+
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+    0 10px 35px rgba(0,0,0,.4);
+
+    z-index:999;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:
+    opacity .35s ease,
+    transform .35s ease,
+    visibility .35s ease;
+}
+
+/* SHOW */
+
+.video-screen.show-controls .smart-controls{
+
+    opacity:1;
+    visibility:visible;
+
+    transform:
+    translateX(-50%)
+    translateY(0);
+}
+
+/* BUTTON */
+
+.smart-controls button{
+
+    width:58px;
+    height:58px;
+
+    border:none;
+    border-radius:50%;
+
+    cursor:pointer;
+
+    color:white;
+
+    background:
+    rgba(255,255,255,.08);
+
+    backdrop-filter:blur(10px);
+
+    transition:.25s ease;
+}
+
+/* PLAY */
+
+.smart-play{
+
+    width:72px !important;
+    height:72px !important;
+
+    background:
+    linear-gradient(
+    135deg,
+    #d4af37,
+    #ffd700
+    ) !important;
+
+    color:black !important;
+}
+
+/* HOVER */
+
+.smart-controls button:hover{
+
+    transform:scale(1.1);
+
+    box-shadow:
+    0 0 20px rgba(255,215,0,.35);
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .smart-controls{
+
+        bottom:18px;
+
+        gap:12px;
+
+        padding:10px 14px;
+    }
+
+    .smart-controls button{
+
+        width:50px;
+        height:50px;
+    }
+
+    .smart-play{
+
+        width:62px !important;
+        height:62px !important;
+    }
+}
+/* Masqué hors fullscreen */
+.smart-controls{
+    display:none;
+}
+
+/* Visible uniquement fullscreen */
+.video-screen:fullscreen .smart-controls,
+.video-screen:-webkit-full-screen .smart-controls{
+    display:flex;
+}
+.fullscreen-controls{
+    display:none;
+}
+
+.video-screen:fullscreen .fullscreen-controls,
+.video-screen:-webkit-full-screen .fullscreen-controls{
+    display:flex;
+    position:absolute;
+    left:50%;
+    bottom:30px;
+    transform:translateX(-50%);
+    gap:15px;
+    z-index:9999;
+}
+
+.fullscreen-controls button{
+    width:60px;
+    height:60px;
+    border:none;
+    border-radius:50%;
+    backdrop-filter:blur(15px);
+    background:rgba(255,255,255,.12);
+    color:#fff;
+    cursor:pointer;
+    font-size:24px;
+}

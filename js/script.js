@@ -368,9 +368,10 @@ const progressBar = document.querySelector(".video-progress-bar");
 const sideVideos = document.querySelectorAll(".side-video");
 
 const playlist = [
-  { src: cloudVideo("diarynofy.mp4"), poster: cloudImage("logo1.png") },
+  { src: cloudVideo("Joe_Fils_x_Jaojoby_Wagnou_moi_djerebou_Clip_officiel.mp4"), poster: cloudImage("logo1.png") },
   { src: cloudVideo("tsodrano.mp4"), poster: cloudImage("logo1.png") },
-  { src: cloudVideo("tompondaka.mp4"), poster: cloudImage("logo1.png") }
+  { src: cloudVideo("tompondaka.mp4"), poster: cloudImage("logo1.png") },
+  { src: cloudVideo("Stella_Lyncha_Yvon_Paul.mp4"), poster: cloudImage("logo1.png") }
 ];
 
 let currentVideo = 0;
@@ -619,3 +620,90 @@ mainVideo?.addEventListener("pause", () => screen?.classList.remove("playing"));
     startSlider();
 
 })();
+
+/* =========================================
+   FULLSCREEN CONTROLS SYNC
+   Compatible avec ton système existant
+========================================= */
+
+const fsPlay = document.getElementById("fsPlay");
+const fsNext = document.getElementById("fsNext");
+const fsPrev = document.getElementById("fsPrev");
+
+/* PLAY / PAUSE */
+
+fsPlay?.addEventListener("click", () => {
+
+    playPause?.click();
+
+});
+
+/* NEXT */
+
+fsNext?.addEventListener("click", async () => {
+
+    nextVideo?.click();
+
+    try{
+
+        await mainVideo?.play();
+
+    }catch(err){
+
+        console.log(err);
+
+    }
+
+});
+
+/* PREV */
+
+fsPrev?.addEventListener("click", async () => {
+
+    prevVideo?.click();
+
+    try{
+
+        await mainVideo?.play();
+
+    }catch(err){
+
+        console.log(err);
+
+    }
+
+});
+
+/* SYNC ICON */
+
+function updateFullscreenIcon(){
+
+    if(!fsPlay || !mainVideo) return;
+
+    const icon = fsPlay.querySelector("i");
+
+    if(!icon) return;
+
+    icon.className =
+        mainVideo.paused
+        ? "ri-play-fill"
+        : "ri-pause-fill";
+
+}
+
+mainVideo?.addEventListener(
+    "play",
+    updateFullscreenIcon
+);
+
+mainVideo?.addEventListener(
+    "pause",
+    updateFullscreenIcon
+);
+
+mainVideo?.addEventListener(
+    "loadeddata",
+    updateFullscreenIcon
+);
+
+updateFullscreenIcon();

@@ -644,6 +644,22 @@ Identité sonore unique & professionnelle.
      
 
         </video>
+        */ =================== intelligent next ======================= */
+        <div class="smart-controls" id="smartControls">
+
+    <button id="smartPrev">
+        <i class="fas fa-backward"></i>
+    </button>
+
+    <button id="smartPlay" class="smart-play">
+        <i class="fas fa-play"></i>
+    </button>
+
+    <button id="smartNext">
+        <i class="fas fa-forward"></i>
+    </button>
+
+</div>
 
  <!-- FULLSCREEN OVERLAY CONTROLS (INTERNAL ONLY) -->
 <div class="fs-overlay-controls" id="fsOverlayControls">
@@ -779,8 +795,6 @@ Identité sonore unique & professionnelle.
     </div>
 
   </div>
-
-</div>
 
 <!-- VIDEO 4 -->
   <div
@@ -1611,93 +1625,6 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-
-  const video = document.getElementById("mainVideo");
-  const sideVideos = document.querySelectorAll(".side-video");
-
-  const playBtn = document.getElementById("playPause");
-  const prevBtn = document.getElementById("prevVideo");
-  const nextBtn = document.getElementById("nextVideo");
-
-  const fsPlay = document.getElementById("fsPlay");
-  const fsPrev = document.getElementById("fsPrev");
-  const fsNext = document.getElementById("fsNext");
-
-  const hPlay = document.getElementById("hPlay");
-  const hPrev = document.getElementById("hPrev");
-  const hNext = document.getElementById("hNext");
-
-  let index = 0;
-
-  const videos = Array.from(sideVideos).map(v => v.dataset.video);
-
-  function load(i){
-    index = i;
-    video.src = videos[index];
-    video.play();
-    updateUI();
-  }
-
-  function updateUI(){
-    sideVideos.forEach((v,i)=>{
-      v.classList.toggle("active-video", i === index);
-    });
-  }
-
-  function toggle(){
-    if(video.paused){
-      video.play();
-    } else {
-      video.pause();
-    }
-  }
-
-  // CORE CONTROLS
-  playBtn?.addEventListener("click", toggle);
-  video.addEventListener("click", toggle);
-
-  prevBtn?.addEventListener("click", ()=>{
-    load((index - 1 + videos.length) % videos.length);
-  });
-
-  nextBtn?.addEventListener("click", ()=>{
-    load((index + 1) % videos.length);
-  });
-
-  // FULLSCREEN CONTROLS
-  fsPlay?.addEventListener("click", toggle);
-
-  fsPrev?.addEventListener("click", ()=>{
-    load((index - 1 + videos.length) % videos.length);
-  });
-
-  fsNext?.addEventListener("click", ()=>{
-    load((index + 1) % videos.length);
-  });
-
-  // HOVER CONTROLS
-  hPlay?.addEventListener("click", toggle);
-
-  hPrev?.addEventListener("click", ()=>{
-    load((index - 1 + videos.length) % videos.length);
-  });
-
-  hNext?.addEventListener("click", ()=>{
-    load((index + 1) % videos.length);
-  });
-
-  // SIDE VIDEOS
-  sideVideos.forEach((el,i)=>{
-    el.addEventListener("click", ()=> load(i));
-  });
-
-  // INIT
-  load(0);
-
-});
-</script>
 
 
 
