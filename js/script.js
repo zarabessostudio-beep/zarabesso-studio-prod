@@ -621,16 +621,19 @@ mainVideo?.addEventListener("pause", () => screen?.classList.remove("playing"));
 
 })();
 
+
 /* =========================================
-   FULLSCREEN CONTROLS SYNC
-   Compatible avec ton système existant
+   FULLSCREEN INTERNAL CONTROLS
 ========================================= */
 
 const fsPlay = document.getElementById("fsPlay");
 const fsNext = document.getElementById("fsNext");
 const fsPrev = document.getElementById("fsPrev");
 
-/* PLAY / PAUSE */
+const fsOverlay =
+document.getElementById("fsOverlayControls");
+
+/* PLAY */
 
 fsPlay?.addEventListener("click", () => {
 
@@ -640,70 +643,64 @@ fsPlay?.addEventListener("click", () => {
 
 /* NEXT */
 
-fsNext?.addEventListener("click", async () => {
+fsNext?.addEventListener("click", () => {
 
-    nextVideo?.click();
-
-    try{
-
-        await mainVideo?.play();
-
-    }catch(err){
-
-        console.log(err);
-
-    }
+    nextBtn?.click();
 
 });
 
 /* PREV */
 
-fsPrev?.addEventListener("click", async () => {
+fsPrev?.addEventListener("click", () => {
 
-    prevVideo?.click();
-
-    try{
-
-        await mainVideo?.play();
-
-    }catch(err){
-
-        console.log(err);
-
-    }
+    prevBtn?.click();
 
 });
 
-/* SYNC ICON */
+/* ICON SYNC */
 
-function updateFullscreenIcon(){
+function syncFsPlay(){
 
-    if(!fsPlay || !mainVideo) return;
+    const icon =
+    fsPlay?.querySelector("i");
 
-    const icon = fsPlay.querySelector("i");
-
-    if(!icon) return;
+    if(!icon || !mainVideo) return;
 
     icon.className =
-        mainVideo.paused
-        ? "ri-play-fill"
-        : "ri-pause-fill";
-
+    mainVideo.paused
+    ? "ri-play-fill"
+    : "ri-pause-fill";
 }
 
 mainVideo?.addEventListener(
     "play",
-    updateFullscreenIcon
+    syncFsPlay
 );
 
 mainVideo?.addEventListener(
     "pause",
-    updateFullscreenIcon
+    syncFsPlay
 );
 
-mainVideo?.addEventListener(
-    "loadeddata",
-    updateFullscreenIcon
+document.addEventListener(
+    "fullscreenchange",
+    () => {
+
+        if(document.fullscreenElement){
+
+            fsOverlay?.classList.add(
+                "active"
+            );
+
+        }else{
+
+            fsOverlay?.classList.remove(
+                "active"
+            );
+
+        }
+
+    }
 );
 
-updateFullscreenIcon();
+syncFsPlay();

@@ -3685,174 +3685,206 @@ section, div, main{
   opacity:1;
   pointer-events:auto;
 }
-/* ==========================================
-   ZARABESSO FULLSCREEN SMART CONTROLS
-========================================== */
 
-.video-screen{
-    position:relative;
-}
+/* =========================================
+   FULLSCREEN PREMIUM CONTROLS
+========================================= */
 
-/* CONTROLS */
-
-.smart-controls{
+.fullscreen-controls{
 
     position:absolute;
-
-    left:50%;
-    bottom:25px;
-
-    transform:translateX(-50%) translateY(20px);
+    inset:0;
 
     display:flex;
+    justify-content:center;
     align-items:center;
-    gap:18px;
+    gap:24px;
 
-    padding:14px 22px;
+    z-index:9999;
 
-    border-radius:999px;
-
-    background:
-    rgba(0,0,0,.45);
-
-    backdrop-filter:blur(20px);
-    -webkit-backdrop-filter:blur(20px);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    box-shadow:
-    0 10px 35px rgba(0,0,0,.4);
-
-    z-index:999;
+    pointer-events:none;
 
     opacity:0;
-    visibility:hidden;
-
-    transition:
-    opacity .35s ease,
-    transform .35s ease,
-    visibility .35s ease;
+    transition:.35s ease;
 }
 
-/* SHOW */
+/* visible */
 
-.video-screen.show-controls .smart-controls{
+.video-player.show-controls .fullscreen-controls{
 
     opacity:1;
-    visibility:visible;
 
-    transform:
-    translateX(-50%)
-    translateY(0);
 }
 
-/* BUTTON */
+/* boutons */
 
-.smart-controls button{
+.fullscreen-controls button{
 
-    width:58px;
-    height:58px;
+    width:68px;
+    height:68px;
 
     border:none;
+    outline:none;
+
     border-radius:50%;
 
-    cursor:pointer;
-
-    color:white;
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
 
     background:
     rgba(255,255,255,.08);
 
-    backdrop-filter:blur(10px);
+    border:
+    1px solid rgba(255,255,255,.15);
 
-    transition:.25s ease;
+    color:white;
+
+    font-size:30px;
+
+    cursor:pointer;
+
+    pointer-events:auto;
+
+    transition:
+    transform .25s,
+    background .25s,
+    box-shadow .25s;
 }
 
-/* PLAY */
+/* hover */
 
-.smart-play{
+.fullscreen-controls button:hover{
 
-    width:72px !important;
-    height:72px !important;
+    transform:scale(1.12);
 
     background:
-    linear-gradient(
-    135deg,
-    #d4af37,
-    #ffd700
-    ) !important;
-
-    color:black !important;
-}
-
-/* HOVER */
-
-.smart-controls button:hover{
-
-    transform:scale(1.1);
+    rgba(255,255,255,.15);
 
     box-shadow:
-    0 0 20px rgba(255,215,0,.35);
+    0 0 30px rgba(255,255,255,.2);
+
 }
 
-/* MOBILE */
+/* click */
+
+.fullscreen-controls button:active{
+
+    transform:scale(.90);
+
+}
+
+/* play central */
+
+#fsPlay{
+
+    width:86px;
+    height:86px;
+
+    font-size:40px;
+
+    background:
+    rgba(255,255,255,.12);
+
+}
+
+/* mobile */
 
 @media(max-width:768px){
 
-    .smart-controls{
+    .fullscreen-controls{
 
-        bottom:18px;
+        gap:14px;
 
-        gap:12px;
-
-        padding:10px 14px;
     }
 
-    .smart-controls button{
+    .fullscreen-controls button{
 
-        width:50px;
-        height:50px;
+        width:56px;
+        height:56px;
+
+        font-size:24px;
+
     }
 
-    .smart-play{
+    #fsPlay{
 
-        width:62px !important;
-        height:62px !important;
+        width:72px;
+        height:72px;
+
+        font-size:34px;
+
     }
-}
-/* Masqué hors fullscreen */
-.smart-controls{
-    display:none;
-}
 
-/* Visible uniquement fullscreen */
-.video-screen:fullscreen .smart-controls,
-.video-screen:-webkit-full-screen .smart-controls{
-    display:flex;
 }
-.fullscreen-controls{
-    display:none;
-}
+/* =========================================
+   FULLSCREEN OVERLAY
+========================================= */
 
-.video-screen:fullscreen .fullscreen-controls,
-.video-screen:-webkit-full-screen .fullscreen-controls{
-    display:flex;
+.fs-overlay-controls{
+
     position:absolute;
-    left:50%;
-    bottom:30px;
-    transform:translateX(-50%);
-    gap:15px;
-    z-index:9999;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    gap:25px;
+
+    z-index:99999;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.3s;
+
+    pointer-events:none;
 }
 
-.fullscreen-controls button{
-    width:60px;
-    height:60px;
+.fs-overlay-controls.active{
+
+    opacity:1;
+
+    visibility:visible;
+}
+
+.fs-overlay-controls button{
+
+    width:72px;
+    height:72px;
+
     border:none;
+
     border-radius:50%;
+
+    background:
+    rgba(0,0,0,.55);
+
     backdrop-filter:blur(15px);
-    background:rgba(255,255,255,.12);
+
     color:#fff;
+
+    font-size:28px;
+
     cursor:pointer;
-    font-size:24px;
+
+    pointer-events:auto;
+
+    transition:.25s;
+}
+
+.fs-overlay-controls button:hover{
+
+    transform:scale(1.1);
+}
+
+#fsPlay{
+
+    width:90px;
+    height:90px;
+
+    font-size:36px;
 }
