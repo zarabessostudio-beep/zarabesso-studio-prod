@@ -24,3 +24,7 @@ sections.forEach(sec=>{
   sec.style.transition = "1s";
   observer.observe(sec);
 });
+
+video.addEventListener("canplay", () => {
+    video.classList.add("loaded");
+});

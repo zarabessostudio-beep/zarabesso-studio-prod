@@ -821,3 +821,15 @@ p:hover{
 
   transform:translate(-50%, -50%);
 }
+.bg-video{
+
+    opacity:0;
+    transition:opacity .8s ease;
+
+}
+
+.bg-video.loaded{
+
+    opacity:1;
+
+}

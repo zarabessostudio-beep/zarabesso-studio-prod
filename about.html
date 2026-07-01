@@ -328,5 +328,89 @@ navOverlay.addEventListener("click", () => {
 });
 
 </script>
+
+<script>
+/* ==========================================================
+   PREMIUM VIDEO LAZY LOADER
+========================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const video = document.querySelector(".bg-video");
+    if (!video) return;
+
+    // Précharge uniquement les métadonnées
+    video.preload = "metadata";
+
+    // Lance le chargement lorsque le navigateur est prêt
+    const startVideo = () => {
+
+        video.load();
+
+        const playPromise = video.play();
+
+        if (playPromise !== undefined) {
+            playPromise.catch(() => {
+
+                // Certains navigateurs bloquent l'autoplay
+                document.addEventListener("click", () => {
+                    video.play().catch(()=>{});
+                }, { once:true });
+
+            });
+        }
+
+    };
+
+    // Si IntersectionObserver est disponible
+    if ("IntersectionObserver" in window) {
+
+        const observer = new IntersectionObserver((entries) => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    startVideo();
+                    observer.disconnect();
+
+                }
+
+            });
+
+        }, {
+            threshold: 0.05
+        });
+
+        observer.observe(video);
+
+    } else {
+
+        // Fallback anciens navigateurs
+        startVideo();
+
+    }
+
+    // Économie batterie : pause si onglet caché
+    document.addEventListener("visibilitychange", () => {
+
+        if (document.hidden) {
+
+            video.pause();
+
+        } else {
+
+            video.play().catch(()=>{});
+
+        }
+
+    });
+
+});
+/* ==========================================================
+   DEVELOPPEMENT WEB BY GRALWEB SOLUTION
+========================================================== */
+</script>
+
 </body>
 </html>
