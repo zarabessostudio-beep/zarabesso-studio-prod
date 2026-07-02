@@ -173,50 +173,52 @@ function initSmoothReveal(){
 });
 
 }
-/* ============================================
-   PREMIUM STICKY PLAYLIST
-============================================ */
 
-function initStickyPlaylist(){
+/* ======================================================
+   STICKY PLAYLIST - VYNILE
+   La liste reste toujours fixe
+====================================================== */
 
-    const playlist =
-    document.getElementById("spotifyTracks");
+function initFixedPlaylist() {
 
-    if(!playlist) return;
+    const playlist = document.getElementById("spotifyTracks");
 
-    let ticking = false;
+    if (!playlist) return;
 
-    window.addEventListener("scroll",()=>{
+    // Sauvegarde de la position de défilement de la playlist
+    let savedScroll = 0;
 
-        if(ticking) return;
+    // Lorsque l'utilisateur fait défiler la playlist
+    playlist.addEventListener("scroll", () => {
+        savedScroll = playlist.scrollTop;
+    });
 
-        requestAnimationFrame(()=>{
+    // Empêche la perte de position lors d'un clic
+    playlist.addEventListener("click", () => {
 
-            if(window.scrollY > 350){
-
-                playlist.classList.add("playlist-fixed");
-
-            }else{
-
-                playlist.classList.remove("playlist-fixed");
-
-            }
-
-            ticking = false;
-
+        requestAnimationFrame(() => {
+            playlist.scrollTop = savedScroll;
         });
 
-        ticking = true;
+    });
 
-    },{passive:true});
+    // Observe les changements dans la playlist
+    const observer = new MutationObserver(() => {
+
+        requestAnimationFrame(() => {
+            playlist.scrollTop = savedScroll;
+        });
+
+    });
+
+    observer.observe(playlist, {
+        childList: true,
+        subtree: true
+    });
 
 }
 
-document.addEventListener("DOMContentLoaded",()=>{
-
-    initStickyPlaylist();
-
-});
+document.addEventListener("DOMContentLoaded", initFixedPlaylist);
 
 /* =======================================================
    END
