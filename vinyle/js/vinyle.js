@@ -173,7 +173,50 @@ function initSmoothReveal(){
 });
 
 }
+/* ============================================
+   PREMIUM STICKY PLAYLIST
+============================================ */
 
+function initStickyPlaylist(){
+
+    const playlist =
+    document.getElementById("spotifyTracks");
+
+    if(!playlist) return;
+
+    let ticking = false;
+
+    window.addEventListener("scroll",()=>{
+
+        if(ticking) return;
+
+        requestAnimationFrame(()=>{
+
+            if(window.scrollY > 350){
+
+                playlist.classList.add("playlist-fixed");
+
+            }else{
+
+                playlist.classList.remove("playlist-fixed");
+
+            }
+
+            ticking = false;
+
+        });
+
+        ticking = true;
+
+    },{passive:true});
+
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    initStickyPlaylist();
+
+});
 
 /* =======================================================
    END
