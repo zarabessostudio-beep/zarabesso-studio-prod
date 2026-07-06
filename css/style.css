@@ -3888,3 +3888,162 @@ section, div, main{
 
     font-size:36px;
 }
+
+/*==========================
+        PREMIUM FAQ
+===========================*/
+
+.seo-faq{
+    width:min(1100px,92%);
+    margin:140px auto;
+    padding:70px 55px;
+    border-radius:35px;
+
+    background:rgba(255,255,255,.03);
+    backdrop-filter:blur(24px);
+    -webkit-backdrop-filter:blur(24px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+    0 0 45px rgba(0,0,0,.35),
+    inset 0 0 30px rgba(255,255,255,.03);
+}
+
+.seo-faq h2{
+
+    text-align:center;
+
+    font-size:3rem;
+
+    margin-bottom:70px;
+
+    color:#ffffff;
+
+    letter-spacing:2px;
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-weight:700;
+}
+
+.faq-item{
+
+    margin-bottom:55px;
+
+    padding-bottom:35px;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.faq-item:last-child{
+
+    border:none;
+    margin-bottom:0;
+}
+
+.seo-faq h3{
+
+    color:#ff2b45;
+
+    font-size:1.7rem;
+
+    margin-bottom:18px;
+
+    font-family:"Cinzel Decorative",serif;
+
+    letter-spacing:1px;
+
+    text-shadow:
+    0 0 10px rgba(255,0,70,.45),
+    0 0 25px rgba(255,0,70,.18);
+}
+
+.seo-faq p{
+
+    color:rgba(255,255,255,.82);
+
+    font-size:1.08rem;
+
+    line-height:1.9;
+
+    font-family:"Cormorant Garamond",serif;
+}
+
+.faq-book-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin-top:22px;
+
+    padding:12px 28px;
+
+    border-radius:40px;
+
+    color:#ffffff;
+
+    text-decoration:none;
+
+    font-size:.95rem;
+
+    letter-spacing:1px;
+
+    background:rgba(255,0,55,.15);
+
+    border:1px solid rgba(255,60,60,.25);
+
+    backdrop-filter:blur(16px);
+
+    transition:.35s;
+}
+
+.faq-book-btn:hover{
+
+    transform:translateY(-3px);
+
+    background:rgba(255,0,55,.28);
+
+    box-shadow:
+    0 0 25px rgba(255,0,70,.35);
+}
+
+@media(max-width:768px){
+
+.seo-faq{
+
+padding:40px 25px;
+
+margin:90px auto;
+
+}
+
+.seo-faq h2{
+
+font-size:2.2rem;
+
+}
+
+.seo-faq h3{
+
+font-size:1.35rem;
+
+}
+
+.seo-faq p{
+
+font-size:1rem;
+
+}
+
+.faq-book-btn{
+
+width:100%;
+
+justify-content:center;
+
+}
+}

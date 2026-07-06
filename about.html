@@ -90,14 +90,16 @@
 
 <!-- 🎬 VIDEO BACKGROUND OPTIMISÉ -->
 <video
-  class="bg-video"
-  autoplay
-  muted
-  loop
-  playsinline
-  preload="metadata"
-  poster="assets/images/poster.webp"
->
+    class="bg-video"
+    autoplay
+    muted
+    loop
+    playsinline
+    webkit-playsinline
+    preload="auto"
+    poster="assets/images/poster.webp"
+    
+    >
   
   <!-- MOBILE FIRST -->
   <source
@@ -331,86 +333,65 @@ navOverlay.addEventListener("click", () => {
 
 <script>
 /* ==========================================================
-   PREMIUM VIDEO LAZY LOADER
+   UNIVERSAL VIDEO ENGINE
 ========================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
     const video = document.querySelector(".bg-video");
+
     if (!video) return;
 
-    // Précharge uniquement les métadonnées
-    video.preload = "metadata";
+    video.preload = "auto";
 
-    // Lance le chargement lorsque le navigateur est prêt
-    const startVideo = () => {
+    video.addEventListener("loadeddata", () => {
 
-        video.load();
+        video.classList.add("loaded");
 
-        const playPromise = video.play();
+    });
 
-        if (playPromise !== undefined) {
-            playPromise.catch(() => {
+    video.addEventListener("canplay", () => {
 
-                // Certains navigateurs bloquent l'autoplay
-                document.addEventListener("click", () => {
-                    video.play().catch(()=>{});
-                }, { once:true });
+        video.classList.add("loaded");
 
-            });
-        }
+        video.play().catch(()=>{});
 
-    };
+    });
 
-    // Si IntersectionObserver est disponible
-    if ("IntersectionObserver" in window) {
+    function playVideo(){
 
-        const observer = new IntersectionObserver((entries) => {
-
-            entries.forEach(entry => {
-
-                if (entry.isIntersecting) {
-
-                    startVideo();
-                    observer.disconnect();
-
-                }
-
-            });
-
-        }, {
-            threshold: 0.05
-        });
-
-        observer.observe(video);
-
-    } else {
-
-        // Fallback anciens navigateurs
-        startVideo();
+        video.play().catch(()=>{});
 
     }
 
-    // Économie batterie : pause si onglet caché
-    document.addEventListener("visibilitychange", () => {
+    playVideo();
 
-        if (document.hidden) {
+    document.addEventListener("touchstart", playVideo,{
+        once:true,
+        passive:true
+    });
+
+    document.addEventListener("click", playVideo,{
+        once:true
+    });
+
+    document.addEventListener("visibilitychange",()=>{
+
+        if(document.hidden){
 
             video.pause();
 
-        } else {
+        }else{
 
-            video.play().catch(()=>{});
+            playVideo();
 
         }
 
     });
 
 });
-/* ==========================================================
-   DEVELOPPEMENT WEB BY GRALWEB SOLUTION
-========================================================== */
 </script>
+
 
 </body>
 </html>
