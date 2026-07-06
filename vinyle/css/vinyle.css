@@ -2230,7 +2230,7 @@ rgba(255,255,255,.12);
 }
 
 /*====================================================
-      PREMIUM GOLD SECTION
+        VYNILE LIQUID GOLD PREMIUM
 ====================================================*/
 
 .vynile-gold{
@@ -2239,81 +2239,87 @@ position:relative;
 overflow:hidden;
 
 display:flex;
-align-items:center;
 justify-content:center;
+align-items:center;
 
-min-height:95vh;
+min-height:100vh;
 
 background:
-radial-gradient(circle at top,#332100 0%,#090909 45%,#000 100%);
+radial-gradient(circle at top,
+#4b3205 0%,
+#161000 25%,
+#050505 65%,
+#000 100%);
+
+isolation:isolate;
 
 }
 
-
-/*=========================
+/*==========================
 BACKGROUND
 ==========================*/
 
 .gold-gradient{
 
 position:absolute;
-width:1200px;
-height:1200px;
+width:1800px;
+height:1800px;
 
 border-radius:50%;
 
 background:
 
 radial-gradient(circle,
-rgba(255,214,110,.18),
+rgba(255,220,90,.28) 0%,
+rgba(255,180,30,.12) 30%,
 transparent 70%);
 
-filter:blur(80px);
+filter:blur(120px);
 
-animation:rotateGlow 25s linear infinite;
+animation:rotateGlow 45s linear infinite;
 
 }
-
 
 .gold-light{
 
 position:absolute;
-
-width:100%;
-height:100%;
+inset:-30%;
 
 background:
 
-linear-gradient(130deg,
-transparent,
-rgba(255,220,150,.08),
-transparent);
+linear-gradient(
+115deg,
+transparent 20%,
+rgba(255,240,180,.12) 45%,
+rgba(255,255,255,.20) 50%,
+rgba(255,220,100,.12) 55%,
+transparent 80%
+);
 
-animation:lightMove 8s linear infinite;
+mix-blend-mode:screen;
+
+animation:lightMove 12s linear infinite;
 
 }
-
 
 .gold-noise{
 
 position:absolute;
-
 inset:0;
 
-opacity:.08;
+opacity:.05;
 
 background-image:
 
-radial-gradient(#ffffff33 1px,transparent 1px);
+radial-gradient(#ffffff 1px,transparent 1px);
 
-background-size:4px 4px;
+background-size:5px 5px;
 
 mix-blend-mode:overlay;
 
 }
 
-
-/*=========================
+/*==========================
 CENTER
 ==========================*/
 
@@ -2321,37 +2327,37 @@ CENTER
 
 position:relative;
 
-z-index:20;
+z-index:50;
 
 text-align:center;
 
+padding:40px;
+
 }
 
-
-/*=========================
+/*==========================
 TITLE
 ==========================*/
 
 .liquid-title{
 
-font-size:clamp(90px,16vw,260px);
-
-font-weight:900;
-
-letter-spacing:.15em;
-
-text-transform:uppercase;
-
 display:flex;
 
 justify-content:center;
 
-gap:.08em;
+gap:.03em;
 
-perspective:1000px;
+font-size:clamp(90px,17vw,260px);
+
+font-weight:900;
+
+letter-spacing:.05em;
+
+text-transform:uppercase;
+
+perspective:1500px;
 
 }
-
 
 .liquid-title span{
 
@@ -2359,40 +2365,75 @@ position:relative;
 
 display:inline-block;
 
-cursor:default;
-
-color:#f9e8b3;
+transform-style:preserve-3d;
 
 background:
 
 linear-gradient(
-180deg,
-#fffdf5,
-#fff2af,
-#ffd863,
-#d8a61d,
-#fff7ca);
 
-background-size:300% 300%;
+180deg,
+
+#ffffff 0%,
+
+#fff8dc 10%,
+
+#ffe58a 22%,
+
+#ffd44d 35%,
+
+#f8b90c 52%,
+
+#fff2b6 65%,
+
+#b87500 80%,
+
+#fff7d2 100%
+
+);
+
+background-size:400% 400%;
 
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 
-animation:
-
-goldFlow 5s linear infinite,
-floatLetter 5s ease-in-out infinite;
-
 filter:
 
-drop-shadow(0 0 8px rgba(255,220,120,.7))
-drop-shadow(0 0 20px rgba(255,196,50,.5))
-drop-shadow(0 0 50px rgba(255,180,0,.35));
+drop-shadow(0 0 6px rgba(255,255,255,.7))
+drop-shadow(0 0 18px rgba(255,210,70,.8))
+drop-shadow(0 0 35px rgba(255,180,0,.6))
+drop-shadow(0 0 90px rgba(255,180,0,.35));
 
-transform-style:preserve-3d;
+animation:
+
+goldFlow 6s linear infinite,
+letterFloat 5s ease-in-out infinite;
+
+cursor:default;
 
 }
 
+.liquid-title span::before{
+
+content:attr(data-letter);
+
+position:absolute;
+left:0;
+top:0;
+
+z-index:-1;
+
+color:#603600;
+
+filter:blur(6px);
+
+transform:
+
+translateZ(-18px)
+scale(1.06);
+
+opacity:.55;
+
+}
 
 .liquid-title span:nth-child(2){animation-delay:.2s;}
 .liquid-title span:nth-child(3){animation-delay:.4s;}
@@ -2400,200 +2441,155 @@ transform-style:preserve-3d;
 .liquid-title span:nth-child(5){animation-delay:.8s;}
 .liquid-title span:nth-child(6){animation-delay:1s;}
 
-
-/*=========================
-LINE
-==========================*/
-
 .gold-line{
 
-margin:40px auto;
+width:340px;
+height:4px;
 
-width:320px;
-height:3px;
+margin:45px auto;
 
 background:
 
 linear-gradient(90deg,
+
 transparent,
-#ffd15c,
+
+#ffcf45,
+
 #fff,
-#ffd15c,
+
+#ffd74d,
+
 transparent);
+
+border-radius:50px;
 
 box-shadow:
 
-0 0 20px gold,
-0 0 40px gold;
+0 0 15px #ffd84f,
+0 0 35px gold,
+0 0 60px rgba(255,200,0,.6);
 
-animation:pulseLine 2s infinite;
+animation:pulseLine 2.2s infinite;
 
 }
-
-
-/*=========================
-TEXT
-==========================*/
 
 .signature{
 
-font-size:18px;
+font-size:19px;
 
-letter-spacing:12px;
+letter-spacing:14px;
 
-color:#d4b15c;
+color:#ddb455;
 
 text-transform:uppercase;
 
-opacity:.9;
+font-weight:500;
+
+text-shadow:
+
+0 0 12px rgba(255,200,50,.45);
 
 }
-
-
-/*=========================
-PARTICLES
+/*==========================
+PARTICULES
 ==========================*/
+
+.floating-particles{
+
+position:absolute;
+inset:0;
+pointer-events:none;
+
+}
 
 .floating-particles span{
 
 position:absolute;
 
-width:6px;
-height:6px;
+bottom:-80px;
 
-background:#ffe17d;
+width:7px;
+height:7px;
 
 border-radius:50%;
 
+background:#ffe58f;
+
 box-shadow:
 
-0 0 20px gold;
+0 0 10px #fff,
+0 0 20px gold,
+0 0 45px gold;
 
 animation:particleFloat linear infinite;
 
 }
 
-.floating-particles span:nth-child(1){
+.floating-particles span:nth-child(odd){
 
-left:5%;
-animation-duration:9s;
-animation-delay:1s;
+width:5px;
+height:5px;
 
-}
-
-.floating-particles span:nth-child(2){
-
-left:15%;
-animation-duration:11s;
+opacity:.7;
 
 }
 
-.floating-particles span:nth-child(3){
+.floating-particles span:nth-child(even){
 
-left:25%;
-animation-duration:13s;
+width:8px;
+height:8px;
 
-}
-
-.floating-particles span:nth-child(4){
-
-left:35%;
-animation-duration:8s;
+opacity:1;
 
 }
 
-.floating-particles span:nth-child(5){
+.floating-particles span:nth-child(1){left:5%;animation-duration:10s;}
+.floating-particles span:nth-child(2){left:14%;animation-duration:12s;}
+.floating-particles span:nth-child(3){left:24%;animation-duration:9s;}
+.floating-particles span:nth-child(4){left:35%;animation-duration:14s;}
+.floating-particles span:nth-child(5){left:46%;animation-duration:11s;}
+.floating-particles span:nth-child(6){left:58%;animation-duration:13s;}
+.floating-particles span:nth-child(7){left:66%;animation-duration:9s;}
+.floating-particles span:nth-child(8){left:77%;animation-duration:15s;}
+.floating-particles span:nth-child(9){left:84%;animation-duration:11s;}
+.floating-particles span:nth-child(10){left:92%;animation-duration:10s;}
+.floating-particles span:nth-child(11){left:62%;animation-duration:16s;}
+.floating-particles span:nth-child(12){left:11%;animation-duration:12s;}
 
-left:45%;
-animation-duration:10s;
-
-}
-
-.floating-particles span:nth-child(6){
-
-left:55%;
-animation-duration:12s;
-
-}
-
-.floating-particles span:nth-child(7){
-
-left:65%;
-animation-duration:9s;
-
-}
-
-.floating-particles span:nth-child(8){
-
-left:75%;
-animation-duration:14s;
-
-}
-
-.floating-particles span:nth-child(9){
-
-left:82%;
-animation-duration:11s;
-
-}
-
-.floating-particles span:nth-child(10){
-
-left:90%;
-animation-duration:8s;
-
-}
-
-.floating-particles span:nth-child(11){
-
-left:60%;
-animation-duration:15s;
-
-}
-
-.floating-particles span:nth-child(12){
-
-left:10%;
-animation-duration:12s;
-
-}
-
-
-/*=========================
+/*==========================
 ANIMATIONS
 ==========================*/
 
 @keyframes goldFlow{
 
 0%{
-
 background-position:0% 50%;
-
 }
 
 100%{
-
-background-position:300% 50%;
-
+background-position:400% 50%;
 }
 
 }
 
-@keyframes floatLetter{
+@keyframes letterFloat{
 
 0%,100%{
 
 transform:
-translateY(0px)
-rotateX(0deg);
+translateY(0)
+rotateX(0deg)
+rotateY(0deg);
 
 }
 
 50%{
 
 transform:
-translateY(-14px)
-rotateX(12deg);
+translateY(-18px)
+rotateX(12deg)
+rotateY(-8deg);
 
 }
 
@@ -2605,7 +2601,7 @@ rotateX(12deg);
 
 transform:
 translateY(120vh)
-scale(0);
+scale(.2);
 
 opacity:0;
 
@@ -2620,8 +2616,8 @@ opacity:1;
 100%{
 
 transform:
-translateY(-20vh)
-scale(1.4);
+translateY(-30vh)
+scale(1.8);
 
 opacity:0;
 
@@ -2634,6 +2630,11 @@ opacity:0;
 50%{
 
 transform:scaleX(1.15);
+
+box-shadow:
+
+0 0 25px gold,
+0 0 70px gold;
 
 }
 
@@ -2653,44 +2654,67 @@ transform:rotate(360deg);
 
 0%{
 
-transform:translateX(-100%);
+transform:translateX(-120%) rotate(-15deg);
 
 }
 
 100%{
 
-transform:translateX(100%);
+transform:translateX(120%) rotate(-15deg);
 
 }
 
 }
 
-
-/*=========================
+/*==========================
 RESPONSIVE
 ==========================*/
 
-@media(max-width:768px){
+@media(max-width:900px){
 
 .liquid-title{
 
-font-size:70px;
-
-letter-spacing:.08em;
+font-size:90px;
 
 }
 
 .gold-line{
 
-width:180px;
+width:200px;
 
 }
 
 .signature{
 
-font-size:12px;
+font-size:13px;
 
-letter-spacing:5px;
+letter-spacing:6px;
+
+}
+
+}
+
+@media(max-width:600px){
+
+.liquid-title{
+
+font-size:60px;
+
+gap:.02em;
+
+}
+
+.gold-line{
+
+width:150px;
+
+}
+
+.signature{
+
+font-size:11px;
+
+letter-spacing:4px;
 
 }
 
