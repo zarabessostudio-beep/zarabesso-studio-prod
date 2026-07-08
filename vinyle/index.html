@@ -674,5 +674,265 @@ overlayPlay.onclick = () => {
     : playVideo();
 
 };</script>
+
+<!-- ==========================================
+     VINYLE - PAGE DE MAINTENANCE
+=========================================== -->
+
+<div id="vinyle-maintenance">
+
+    <div class="maintenance-box">
+
+        <div class="logo">VINYLE</div>
+
+        <h1>Maintenance majeure en cours</h1>
+
+        <p class="date">
+            Le service sera de nouveau disponible le
+            <strong>20 juillet 2026</strong>.
+        </p>
+
+        <p class="message">
+            Nous effectuons actuellement une importante mise à niveau de notre
+            infrastructure afin d'améliorer durablement les performances de
+            Vinyle.
+        </p>
+
+        <p class="message">
+            Cette opération comprend le transfert sécurisé de l'ensemble des
+            vidéos vers la nouvelle infrastructure
+            <strong>Zarabesso Cloud</strong>, basée sur
+            <strong>Cloudflare R2</strong>, afin d'offrir :
+        </p>
+
+        <ul>
+            <li>⚡ Un chargement beaucoup plus rapide</li>
+            <li>☁️ Une meilleure stabilité</li>
+            <li>🔒 Une sécurité renforcée</li>
+            <li>🎬 Une diffusion vidéo plus performante</li>
+        </ul>
+
+        <p class="footer">
+            Merci de votre patience et de votre compréhension.
+            Nous avons hâte de vous retrouver avec une plateforme encore plus performante.
+        </p>
+
+    </div>
+
+</div>
+
+<style>
+
+#vinyle-maintenance{
+
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:999999;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+padding:30px;
+
+background:
+linear-gradient(135deg,#000000,#080808,#111111);
+
+overflow:auto;
+
+font-family:Arial,Helvetica,sans-serif;
+
+}
+
+#vinyle-maintenance::before{
+
+content:"";
+
+position:absolute;
+width:600px;
+height:600px;
+
+background:
+radial-gradient(circle,#d4af37 0%,transparent 70%);
+
+filter:blur(120px);
+
+opacity:.18;
+
+animation:float 10s ease-in-out infinite;
+
+}
+
+@keyframes float{
+
+0%{transform:translateY(-20px);}
+50%{transform:translateY(25px);}
+100%{transform:translateY(-20px);}
+
+}
+
+.maintenance-box{
+
+position:relative;
+
+max-width:900px;
+
+padding:60px;
+
+border-radius:30px;
+
+background:rgba(255,255,255,.05);
+
+border:1px solid rgba(255,255,255,.12);
+
+backdrop-filter:blur(25px);
+
+box-shadow:
+0 0 60px rgba(212,175,55,.18);
+
+text-align:center;
+
+color:white;
+
+}
+
+.logo{
+
+font-size:70px;
+
+font-weight:900;
+
+letter-spacing:10px;
+
+color:#d4af37;
+
+margin-bottom:30px;
+
+text-shadow:
+0 0 25px rgba(212,175,55,.5);
+
+}
+
+h1{
+
+font-size:52px;
+
+margin-bottom:25px;
+
+line-height:1.2;
+
+}
+
+.date{
+
+font-size:32px;
+
+font-weight:bold;
+
+color:#FFD54F;
+
+margin-bottom:30px;
+
+}
+
+.message{
+
+font-size:22px;
+
+line-height:1.8;
+
+opacity:.95;
+
+margin-bottom:20px;
+
+}
+
+ul{
+
+list-style:none;
+
+padding:0;
+
+margin:40px auto;
+
+max-width:600px;
+
+}
+
+ul li{
+
+padding:14px 0;
+
+font-size:22px;
+
+border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+.footer{
+
+margin-top:40px;
+
+font-size:22px;
+
+font-weight:600;
+
+color:#d4af37;
+
+}
+
+@media(max-width:768px){
+
+.logo{
+
+font-size:42px;
+
+letter-spacing:4px;
+
+}
+
+h1{
+
+font-size:32px;
+
+}
+
+.date{
+
+font-size:22px;
+
+}
+
+.message{
+
+font-size:18px;
+
+}
+
+ul li{
+
+font-size:18px;
+
+}
+
+.footer{
+
+font-size:18px;
+
+}
+
+.maintenance-box{
+
+padding:35px 25px;
+
+}
+
+}
+
+</style>
+
 </body>
 </html>
